@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aristotle-virtue-graph.local/schemas/relation.schema.json",
+  "title": "Relation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "source_id",
+    "relation_type",
+    "target_id",
+    "assertion_tier",
+    "evidence",
+    "review_status"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9_-]*(?:--[a-z0-9][a-z0-9_-]*){2}$"
+    },
+    "source_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "relation_type": {
+      "type": "string",
+      "enum": [
+        "is_a",
+        "formed_by",
+        "concerns",
+        "requires",
+        "determined_by",
+        "relative_to",
+        "has_excess",
+        "has_deficiency",
+        "opposed_to",
+        "contrasted_with"
+      ]
+    },
+    "target_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "assertion_tier": {
+      "type": "string",
+      "enum": [
+        "textual",
+        "editorial_normalization",
+        "interpretive"
+      ]
+    },
+    "evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/evidence"
+      }
+    },
+    "review_status": {
+      "type": "string",
+      "enum": [
+        "candidate",
+        "approved"
+      ]
+    },
+    "notes": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 400
+    }
+  },
+  "$defs": {
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "passage_id",
+        "support_type",
+        "note"
+      ],
+      "properties": {
+        "passage_id": {
+          "type": "string",
+          "pattern": "^ne\\.b2\\.s([1-9])\\.p([1-9][0-9]*)$"
+        },
+        "support_type": {
+          "type": "string",
+          "enum": [
+            "direct",
+            "paraphrase",
+            "editorial"
+          ]
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 280
+        },
+        "quote_excerpt": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 280
+        }
+      }
+    }
+  }
+}

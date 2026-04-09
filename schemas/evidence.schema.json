@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aristotle-virtue-graph.local/schemas/evidence.schema.json",
+  "title": "Evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "passage_id",
+    "support_type",
+    "note"
+  ],
+  "properties": {
+    "passage_id": {
+      "type": "string",
+      "pattern": "^ne\\.b2\\.s([1-9])\\.p([1-9][0-9]*)$"
+    },
+    "support_type": {
+      "type": "string",
+      "enum": [
+        "direct",
+        "paraphrase",
+        "editorial"
+      ]
+    },
+    "note": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 280
+    },
+    "quote_excerpt": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 280
+    }
+  }
+}

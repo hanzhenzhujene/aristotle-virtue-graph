@@ -1,0 +1,230 @@
+- id: liberality--has-excess--prodigality
+  source_id: liberality
+  relation_type: has_excess
+  target_id: prodigality
+  assertion_tier: textual
+  evidence:
+    - passage_id: ne.b2.s7.p2
+      support_type: direct
+      note: Section 7 names prodigality as the excess corresponding to liberality.
+  review_status: candidate
+
+- id: liberality--has-deficiency--meanness
+  source_id: liberality
+  relation_type: has_deficiency
+  target_id: meanness
+  assertion_tier: textual
+  evidence:
+    - passage_id: ne.b2.s7.p2
+      support_type: direct
+      note: Section 7 names meanness as the defect corresponding to liberality.
+  review_status: candidate
+
+- id: liberality--concerns--giving-and-taking-money
+  source_id: liberality
+  relation_type: concerns
+  target_id: giving-and-taking-money
+  assertion_tier: textual
+  evidence:
+    - passage_id: ne.b2.s7.p2
+      support_type: direct
+      note: Section 7 says liberality is the mean with regard to giving and taking money.
+  review_status: candidate
+
+- id: magnificence--has-excess--vulgarity
+  source_id: magnificence
+  relation_type: has_excess
+  target_id: vulgarity
+  assertion_tier: textual
+  evidence:
+    - passage_id: ne.b2.s7.p2
+      support_type: direct
+      note: Section 7 names vulgarity as the excess corresponding to magnificence.
+  review_status: candidate
+
+- id: magnificence--has-deficiency--niggardliness
+  source_id: magnificence
+  relation_type: has_deficiency
+  target_id: niggardliness
+  assertion_tier: textual
+  evidence:
+    - passage_id: ne.b2.s7.p2
+      support_type: direct
+      note: Section 7 names niggardliness as the deficiency corresponding to magnificence.
+  review_status: candidate
+
+- id: magnificence--concerns--great-expenditure
+  source_id: magnificence
+  relation_type: concerns
+  target_id: great-expenditure
+  assertion_tier: editorial_normalization
+  evidence:
+    - passage_id: ne.b2.s7.p2
+      support_type: direct
+      note: Ross distinguishes magnificence from liberality by dealing with large sums.
+  review_status: candidate
+
+- id: proper-pride--has-excess--vanity
+  source_id: proper-pride
+  relation_type: has_excess
+  target_id: vanity
+  assertion_tier: editorial_normalization
+  evidence:
+    - passage_id: ne.b2.s7.p2
+      support_type: direct
+      note: Section 7 names empty vanity as the excess corresponding to proper pride.
+  review_status: candidate
+
+- id: proper-pride--has-deficiency--undue-humility
+  source_id: proper-pride
+  relation_type: has_deficiency
+  target_id: undue-humility
+  assertion_tier: textual
+  evidence:
+    - passage_id: ne.b2.s7.p2
+      support_type: direct
+      note: Section 7 names undue humility as the deficiency corresponding to proper pride.
+  review_status: candidate
+
+- id: proper-pride--concerns--honor-and-dishonor
+  source_id: proper-pride
+  relation_type: concerns
+  target_id: honor-and-dishonor
+  assertion_tier: textual
+  evidence:
+    - passage_id: ne.b2.s7.p2
+      support_type: direct
+      note: Section 7 says proper pride is the mean with regard to honour and dishonour.
+  review_status: candidate
+
+- id: good-temper--has-excess--irascibility
+  source_id: good-temper
+  relation_type: has_excess
+  target_id: irascibility
+  assertion_tier: textual
+  evidence:
+    - passage_id: ne.b2.s7.p3
+      support_type: direct
+      note: Section 7 names irascibility as the excess corresponding to good temper.
+  review_status: candidate
+
+- id: good-temper--has-deficiency--lack-of-spirit
+  source_id: good-temper
+  relation_type: has_deficiency
+  target_id: lack-of-spirit
+  assertion_tier: editorial_normalization
+  evidence:
+    - passage_id: ne.b2.s7.p3
+      support_type: direct
+      note: Section 7 names inirascibility as the deficiency corresponding to good temper.
+  review_status: candidate
+
+- id: good-temper--concerns--anger
+  source_id: good-temper
+  relation_type: concerns
+  target_id: anger
+  assertion_tier: textual
+  evidence:
+    - passage_id: ne.b2.s7.p3
+      support_type: direct
+      note: Section 7 says the mean and extremes here are with regard to anger.
+  review_status: candidate
+
+- id: truthfulness--has-excess--boastfulness
+  source_id: truthfulness
+  relation_type: has_excess
+  target_id: boastfulness
+  assertion_tier: textual
+  evidence:
+    - passage_id: ne.b2.s7.p4
+      support_type: direct
+      note: Section 7 names boastfulness as the exaggerating excess.
+  review_status: candidate
+
+- id: truthfulness--has-deficiency--self-deprecation
+  source_id: truthfulness
+  relation_type: has_deficiency
+  target_id: self-deprecation
+  assertion_tier: editorial_normalization
+  evidence:
+    - passage_id: ne.b2.s7.p4
+      support_type: direct
+      note: Section 7 names mock modesty as the understating extreme.
+  review_status: candidate
+
+- id: truthfulness--concerns--self-presentation
+  source_id: truthfulness
+  relation_type: concerns
+  target_id: self-presentation
+  assertion_tier: editorial_normalization
+  evidence:
+    - passage_id: ne.b2.s7.p4
+      support_type: direct
+      note: Section 7 treats truthfulness within intercourse in words and actions.
+  review_status: candidate
+
+- id: wit--has-excess--buffoonery
+  source_id: wit
+  relation_type: has_excess
+  target_id: buffoonery
+  assertion_tier: editorial_normalization
+  evidence:
+    - passage_id: ne.b2.s7.p4
+      support_type: direct
+      note: Section 7 names buffoonery as the excess opposed to ready wit.
+  review_status: candidate
+
+- id: wit--has-deficiency--boorishness
+  source_id: wit
+  relation_type: has_deficiency
+  target_id: boorishness
+  assertion_tier: editorial_normalization
+  evidence:
+    - passage_id: ne.b2.s7.p4
+      support_type: direct
+      note: Section 7 names boorishness as the deficiency opposed to ready wit.
+  review_status: candidate
+
+- id: wit--concerns--amusement
+  source_id: wit
+  relation_type: concerns
+  target_id: amusement
+  assertion_tier: editorial_normalization
+  evidence:
+    - passage_id: ne.b2.s7.p4
+      support_type: direct
+      note: Section 7 places ready wit in the sphere of giving amusement.
+  review_status: candidate
+
+- id: friendliness--has-excess--obsequiousness
+  source_id: friendliness
+  relation_type: has_excess
+  target_id: obsequiousness
+  assertion_tier: editorial_normalization
+  evidence:
+    - passage_id: ne.b2.s7.p4
+      support_type: direct
+      note: Section 7 describes the excessive pleasant type as obsequious or flattering.
+  review_status: candidate
+
+- id: friendliness--has-deficiency--quarrelsomeness
+  source_id: friendliness
+  relation_type: has_deficiency
+  target_id: quarrelsomeness
+  assertion_tier: editorial_normalization
+  evidence:
+    - passage_id: ne.b2.s7.p4
+      support_type: direct
+      note: Section 7 describes the deficient type as quarrelsome and surly.
+  review_status: candidate
+
+- id: friendliness--concerns--social-intercourse
+  source_id: friendliness
+  relation_type: concerns
+  target_id: social-intercourse
+  assertion_tier: editorial_normalization
+  evidence:
+    - passage_id: ne.b2.s7.p4
+      support_type: direct
+      note: Section 7 places friendliness in the pleasantness exhibited in life in general.
+  review_status: candidate

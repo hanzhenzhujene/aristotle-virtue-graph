@@ -1,0 +1,823 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd"><key id="d30" for="edge" attr.name="evidence_support_types_json" attr.type="string"/>
+<key id="d29" for="edge" attr.name="evidence_notes_json" attr.type="string"/>
+<key id="d28" for="edge" attr.name="evidence_passage_ids_json" attr.type="string"/>
+<key id="d27" for="edge" attr.name="evidence_count" attr.type="long"/>
+<key id="d26" for="edge" attr.name="notes" attr.type="string"/>
+<key id="d25" for="edge" attr.name="review_status" attr.type="string"/>
+<key id="d24" for="edge" attr.name="evidence" attr.type="string"/>
+<key id="d23" for="edge" attr.name="assertion_tier" attr.type="string"/>
+<key id="d22" for="edge" attr.name="target_id" attr.type="string"/>
+<key id="d21" for="edge" attr.name="relation_type" attr.type="string"/>
+<key id="d20" for="edge" attr.name="source_id" attr.type="string"/>
+<key id="d19" for="edge" attr.name="id" attr.type="string"/>
+<key id="d18" for="node" attr.name="evidence_support_types_json" attr.type="string"/>
+<key id="d17" for="node" attr.name="evidence_notes_json" attr.type="string"/>
+<key id="d16" for="node" attr.name="evidence_passage_ids_json" attr.type="string"/>
+<key id="d15" for="node" attr.name="evidence_count" attr.type="long"/>
+<key id="d14" for="node" attr.name="label" attr.type="string"/>
+<key id="d13" for="node" attr.name="notes" attr.type="string"/>
+<key id="d12" for="node" attr.name="review_status" attr.type="string"/>
+<key id="d11" for="node" attr.name="evidence" attr.type="string"/>
+<key id="d10" for="node" attr.name="sections" attr.type="string"/>
+<key id="d9" for="node" attr.name="book" attr.type="long"/>
+<key id="d8" for="node" attr.name="assertion_tier" attr.type="string"/>
+<key id="d7" for="node" attr.name="description" attr.type="string"/>
+<key id="d6" for="node" attr.name="kind" attr.type="string"/>
+<key id="d5" for="node" attr.name="aliases" attr.type="string"/>
+<key id="d4" for="node" attr.name="source_labels" attr.type="string"/>
+<key id="d3" for="node" attr.name="primary_label" attr.type="string"/>
+<key id="d2" for="node" attr.name="id" attr.type="string"/>
+<key id="d1" for="graph" attr.name="mode" attr.type="string"/>
+<key id="d0" for="graph" attr.name="book" attr.type="long"/>
+<graph edgedefault="directed"><data key="d0">2</data>
+<data key="d1">strict_approved</data>
+<node id="bodily-pleasures-and-pains">
+  <data key="d2">bodily-pleasures-and-pains</data>
+  <data key="d3">bodily pleasures and pains</data>
+  <data key="d4">["bodily pleasures", "pleasures and pains"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">domain</data>
+  <data key="d7">Bodily pleasures and pains are the domain in which temperance and self-indulgence are assessed.</data>
+  <data key="d8">editorial_normalization</data>
+  <data key="d9">2</data>
+  <data key="d10">[3, 7]</data>
+  <data key="d11">[{"note": "Section 7 places temperance in relation to pleasures and pains, especially bodily pleasures.", "passage_id": "ne.b2.s7.p1", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">bodily pleasures and pains</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b2.s7.p1"]</data>
+  <data key="d17">["Section 7 places temperance in relation to pleasures and pains, especially bodily pleasures."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="choice">
+  <data key="d2">choice</data>
+  <data key="d3">choice</data>
+  <data key="d4">["choice"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">action</data>
+  <data key="d7">Choice is part of the structure of virtue and a condition of properly virtuous action.</data>
+  <data key="d8">textual</data>
+  <data key="d9">2</data>
+  <data key="d10">[4, 5, 6]</data>
+  <data key="d11">[{"note": "Section 6 defines virtue as a state of character concerned with choice.", "passage_id": "ne.b2.s6.p6", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">choice</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b2.s6.p6"]</data>
+  <data key="d17">["Section 6 defines virtue as a state of character concerned with choice."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="courage">
+  <data key="d2">courage</data>
+  <data key="d3">courage</data>
+  <data key="d4">["courage"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">virtue</data>
+  <data key="d7">Courage is the mean with respect to fear and confidence.</data>
+  <data key="d8">textual</data>
+  <data key="d9">2</data>
+  <data key="d10">[1, 2, 3, 7, 8]</data>
+  <data key="d11">[{"note": "Section 7 identifies courage as the mean regarding fear and confidence.", "passage_id": "ne.b2.s7.p1", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">courage</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b2.s7.p1"]</data>
+  <data key="d17">["Section 7 identifies courage as the mean regarding fear and confidence."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="cowardice">
+  <data key="d2">cowardice</data>
+  <data key="d3">cowardice</data>
+  <data key="d4">["coward", "cowardice"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">vice</data>
+  <data key="d7">Cowardice is the deficiency corresponding to courage in Book II's table of particulars.</data>
+  <data key="d8">textual</data>
+  <data key="d9">2</data>
+  <data key="d10">[1, 2, 3, 7, 8]</data>
+  <data key="d11">[{"note": "Section 7 names the excess in fear and defect in confidence as cowardice.", "passage_id": "ne.b2.s7.p1", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">cowardice</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b2.s7.p1"]</data>
+  <data key="d17">["Section 7 names the excess in fear and defect in confidence as cowardice."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="deficiency">
+  <data key="d2">deficiency</data>
+  <data key="d3">deficiency</data>
+  <data key="d4">["defect", "deficiency"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">principle</data>
+  <data key="d7">Deficiency is one extreme opposed to the mean in passions and actions.</data>
+  <data key="d8">textual</data>
+  <data key="d9">2</data>
+  <data key="d10">[2, 6, 8, 9]</data>
+  <data key="d11">[{"note": "Section 8 summarizes deficiency as one of the two vices opposed to the mean.", "passage_id": "ne.b2.s8.p1", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">deficiency</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b2.s8.p1"]</data>
+  <data key="d17">["Section 8 summarizes deficiency as one of the two vices opposed to the mean."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="ethical-mean">
+  <data key="d2">ethical-mean</data>
+  <data key="d3">the mean</data>
+  <data key="d4">["the mean", "the intermediate"]</data>
+  <data key="d5">["ethical mean"]</data>
+  <data key="d6">principle</data>
+  <data key="d7">Moral virtue aims at the intermediate or mean rather than at excess or deficiency.</data>
+  <data key="d8">editorial_normalization</data>
+  <data key="d9">2</data>
+  <data key="d10">[2, 6, 8, 9]</data>
+  <data key="d11">[{"note": "Section 9 restates that moral virtue is a mean between two vices.", "passage_id": "ne.b2.s9.p1", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">the mean</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b2.s9.p1"]</data>
+  <data key="d17">["Section 9 restates that moral virtue is a mean between two vices."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="excess">
+  <data key="d2">excess</data>
+  <data key="d3">excess</data>
+  <data key="d4">["excess"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">principle</data>
+  <data key="d7">Excess is one extreme opposed to the mean in passions and actions.</data>
+  <data key="d8">textual</data>
+  <data key="d9">2</data>
+  <data key="d10">[2, 6, 8, 9]</data>
+  <data key="d11">[{"note": "Section 8 summarizes excess as one of the two vices opposed to the mean.", "passage_id": "ne.b2.s8.p1", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">excess</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b2.s8.p1"]</data>
+  <data key="d17">["Section 8 summarizes excess as one of the two vices opposed to the mean."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="faculty">
+  <data key="d2">faculty</data>
+  <data key="d3">faculties</data>
+  <data key="d4">["faculties"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">faculty</data>
+  <data key="d7">Faculties are capacities for feeling passions and are distinguished from virtues.</data>
+  <data key="d8">textual</data>
+  <data key="d9">2</data>
+  <data key="d10">[5]</data>
+  <data key="d11">[{"note": "Section 5 defines faculties as capacities for feeling passions.", "passage_id": "ne.b2.s5.p1", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">faculties</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b2.s5.p1"]</data>
+  <data key="d17">["Section 5 defines faculties as capacities for feeling passions."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="fear-and-confidence">
+  <data key="d2">fear-and-confidence</data>
+  <data key="d3">fear and confidence</data>
+  <data key="d4">["feelings of fear and confidence", "fear and confidence"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">domain</data>
+  <data key="d7">Fear and confidence define the sphere in which courage, rashness, and cowardice are assessed.</data>
+  <data key="d8">textual</data>
+  <data key="d9">2</data>
+  <data key="d10">[1, 7]</data>
+  <data key="d11">[{"note": "Section 7 names fear and confidence as the field in which courage is the mean.", "passage_id": "ne.b2.s7.p1", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">fear and confidence</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b2.s7.p1"]</data>
+  <data key="d17">["Section 7 names fear and confidence as the field in which courage is the mean."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="firm-and-unchangeable-state">
+  <data key="d2">firm-and-unchangeable-state</data>
+  <data key="d3">firm and unchangeable character</data>
+  <data key="d4">["a firm and unchangeable character"]</data>
+  <data key="d5">["firm and unchangeable state"]</data>
+  <data key="d6">condition</data>
+  <data key="d7">Stable character is one of the stated conditions for properly virtuous action.</data>
+  <data key="d8">editorial_normalization</data>
+  <data key="d9">2</data>
+  <data key="d10">[4]</data>
+  <data key="d11">[{"note": "Section 4 says virtuous action must proceed from a firm and unchangeable character.", "passage_id": "ne.b2.s4.p3", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">firm and unchangeable character</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b2.s4.p3"]</data>
+  <data key="d17">["Section 4 says virtuous action must proceed from a firm and unchangeable character."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="habituation">
+  <data key="d2">habituation</data>
+  <data key="d3">habit</data>
+  <data key="d4">["habit"]</data>
+  <data key="d5">["habituation"]</data>
+  <data key="d6">process</data>
+  <data key="d7">Habit is the process by which moral virtues are acquired and perfected.</data>
+  <data key="d8">editorial_normalization</data>
+  <data key="d9">2</data>
+  <data key="d10">[1]</data>
+  <data key="d11">[{"note": "Ross says moral virtue comes about from habit and is perfected by habit.", "passage_id": "ne.b2.s1.p1", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">habit</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b2.s1.p1"]</data>
+  <data key="d17">["Ross says moral virtue comes about from habit and is perfected by habit."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="insensibility">
+  <data key="d2">insensibility</data>
+  <data key="d3">insensibility</data>
+  <data key="d4">["insensible", "insensibility"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">vice</data>
+  <data key="d7">Insensibility is the deficiency corresponding to temperance, though Ross notes it is uncommon.</data>
+  <data key="d8">textual</data>
+  <data key="d9">2</data>
+  <data key="d10">[2, 7, 8]</data>
+  <data key="d11">[{"note": "Section 7 says the deficient type is called insensible.", "passage_id": "ne.b2.s7.p1", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">insensibility</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b2.s7.p1"]</data>
+  <data key="d17">["Section 7 says the deficient type is called insensible."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="intellectual-virtue">
+  <data key="d2">intellectual-virtue</data>
+  <data key="d3">intellectual virtue</data>
+  <data key="d4">["intellectual virtue"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">virtue</data>
+  <data key="d7">The teachable kind of virtue contrasted with moral virtue at the start of Book II.</data>
+  <data key="d8">textual</data>
+  <data key="d9">2</data>
+  <data key="d10">[1]</data>
+  <data key="d11">[{"note": "Book II explicitly names intellectual virtue beside moral virtue.", "passage_id": "ne.b2.s1.p1", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">intellectual virtue</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b2.s1.p1"]</data>
+  <data key="d17">["Book II explicitly names intellectual virtue beside moral virtue."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="knowledge">
+  <data key="d2">knowledge</data>
+  <data key="d3">knowledge</data>
+  <data key="d4">["knowledge"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">condition</data>
+  <data key="d7">Knowledge is one of the conditions Aristotle names for properly virtuous action.</data>
+  <data key="d8">textual</data>
+  <data key="d9">2</data>
+  <data key="d10">[4]</data>
+  <data key="d11">[{"note": "Section 4 says the agent must have knowledge.", "passage_id": "ne.b2.s4.p3", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">knowledge</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b2.s4.p3"]</data>
+  <data key="d17">["Section 4 says the agent must have knowledge."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="moral-virtue">
+  <data key="d2">moral-virtue</data>
+  <data key="d3">moral virtue</data>
+  <data key="d4">["moral virtue"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">virtue</data>
+  <data key="d7">The ethical kind of virtue distinguished from intellectual virtue in Book II.</data>
+  <data key="d8">textual</data>
+  <data key="d9">2</data>
+  <data key="d10">[1, 3, 6, 9]</data>
+  <data key="d11">[{"note": "Book II opens by distinguishing moral virtue from intellectual virtue.", "passage_id": "ne.b2.s1.p1", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">moral virtue</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b2.s1.p1"]</data>
+  <data key="d17">["Book II opens by distinguishing moral virtue from intellectual virtue."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="nature">
+  <data key="d2">nature</data>
+  <data key="d3">nature</data>
+  <data key="d4">["nature"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">principle</data>
+  <data key="d7">Nature provides the capacity to receive virtue but does not by itself produce it.</data>
+  <data key="d8">textual</data>
+  <data key="d9">2</data>
+  <data key="d10">[1]</data>
+  <data key="d11">[{"note": "The opening argument contrasts virtue with what arises by nature.", "passage_id": "ne.b2.s1.p1", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">nature</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b2.s1.p1"]</data>
+  <data key="d17">["The opening argument contrasts virtue with what arises by nature."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="pain">
+  <data key="d2">pain</data>
+  <data key="d3">pain</data>
+  <data key="d4">["pain", "pains"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">passion</data>
+  <data key="d7">Pain is treated alongside pleasure as a key mark and material of moral formation.</data>
+  <data key="d8">textual</data>
+  <data key="d9">2</data>
+  <data key="d10">[3]</data>
+  <data key="d11">[{"note": "Section 3 uses pleasure and pain as signs of states of character.", "passage_id": "ne.b2.s3.p1", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">pain</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b2.s3.p1"]</data>
+  <data key="d17">["Section 3 uses pleasure and pain as signs of states of character."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="passion">
+  <data key="d2">passion</data>
+  <data key="d3">passions</data>
+  <data key="d4">["passions"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">passion</data>
+  <data key="d7">Passions are one of the three kinds of things found in the soul.</data>
+  <data key="d8">textual</data>
+  <data key="d9">2</data>
+  <data key="d10">[3, 5]</data>
+  <data key="d11">[{"note": "Section 5 names passions as one of the three categories in the soul.", "passage_id": "ne.b2.s5.p1", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">passions</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b2.s5.p1"]</data>
+  <data key="d17">["Section 5 names passions as one of the three categories in the soul."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="pleasure">
+  <data key="d2">pleasure</data>
+  <data key="d3">pleasure</data>
+  <data key="d4">["pleasure", "pleasures"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">passion</data>
+  <data key="d7">Pleasure is one of the central affective objects with which moral virtue is concerned.</data>
+  <data key="d8">textual</data>
+  <data key="d9">2</data>
+  <data key="d10">[3, 9]</data>
+  <data key="d11">[{"note": "Section 9 explicitly warns that pleasure is especially hard to judge rightly.", "passage_id": "ne.b2.s9.p5", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">pleasure</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b2.s9.p5"]</data>
+  <data key="d17">["Section 9 explicitly warns that pleasure is especially hard to judge rightly."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="practically-wise-person">
+  <data key="d2">practically-wise-person</data>
+  <data key="d3">the man of practical wisdom</data>
+  <data key="d4">["the man of practical wisdom"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">person</data>
+  <data key="d7">The practically wise person supplies the practical standard for determining the mean.</data>
+  <data key="d8">textual</data>
+  <data key="d9">2</data>
+  <data key="d10">[6]</data>
+  <data key="d11">[{"note": "Section 6 says the mean is determined by the principle the practically wise person would use.", "passage_id": "ne.b2.s6.p6", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">the man of practical wisdom</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b2.s6.p6"]</data>
+  <data key="d17">["Section 6 says the mean is determined by the principle the practically wise person would use."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="rashness">
+  <data key="d2">rashness</data>
+  <data key="d3">rashness</data>
+  <data key="d4">["rash", "rashness"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">vice</data>
+  <data key="d7">Rashness is the excess corresponding to courage in Book II's table of particulars.</data>
+  <data key="d8">textual</data>
+  <data key="d9">2</data>
+  <data key="d10">[2, 7, 8]</data>
+  <data key="d11">[{"note": "Section 7 names the excess in confidence as rash.", "passage_id": "ne.b2.s7.p1", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">rashness</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b2.s7.p1"]</data>
+  <data key="d17">["Section 7 names the excess in confidence as rash."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="right-reason">
+  <data key="d2">right-reason</data>
+  <data key="d3">rational principle</data>
+  <data key="d4">["the right rule", "a rational principle"]</data>
+  <data key="d5">["right reason"]</data>
+  <data key="d6">principle</data>
+  <data key="d7">The mean is linked to the right rule or rational principle in Book II.</data>
+  <data key="d8">editorial_normalization</data>
+  <data key="d9">2</data>
+  <data key="d10">[2, 6]</data>
+  <data key="d11">[{"note": "Section 2 introduces the right rule as a common principle for conduct.", "passage_id": "ne.b2.s2.p1", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">rational principle</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b2.s2.p1"]</data>
+  <data key="d17">["Section 2 introduces the right rule as a common principle for conduct."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="self-indulgence">
+  <data key="d2">self-indulgence</data>
+  <data key="d3">self-indulgence</data>
+  <data key="d4">["self-indulgence", "self-indulgent"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">vice</data>
+  <data key="d7">Self-indulgence is the excess corresponding to temperance.</data>
+  <data key="d8">textual</data>
+  <data key="d9">2</data>
+  <data key="d10">[1, 2, 3, 7, 8]</data>
+  <data key="d11">[{"note": "Section 7 names self-indulgence as the excess opposed to temperance.", "passage_id": "ne.b2.s7.p1", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">self-indulgence</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b2.s7.p1"]</data>
+  <data key="d17">["Section 7 names self-indulgence as the excess opposed to temperance."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="state-of-character">
+  <data key="d2">state-of-character</data>
+  <data key="d3">state of character</data>
+  <data key="d4">["state of character", "states of character"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">state</data>
+  <data key="d7">Virtue is argued to be a state of character rather than a passion or faculty.</data>
+  <data key="d8">textual</data>
+  <data key="d9">2</data>
+  <data key="d10">[1, 3, 5, 6]</data>
+  <data key="d11">[{"note": "Section 5 introduces states of character as the remaining category for virtue.", "passage_id": "ne.b2.s5.p1", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">state of character</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b2.s5.p1"]</data>
+  <data key="d17">["Section 5 introduces states of character as the remaining category for virtue."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="temperance">
+  <data key="d2">temperance</data>
+  <data key="d3">temperance</data>
+  <data key="d4">["temperance"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">virtue</data>
+  <data key="d7">Temperance is the mean with respect to bodily pleasures and pains.</data>
+  <data key="d8">textual</data>
+  <data key="d9">2</data>
+  <data key="d10">[1, 2, 3, 7, 8]</data>
+  <data key="d11">[{"note": "Section 7 identifies temperance as the mean in the sphere of pleasures and pains.", "passage_id": "ne.b2.s7.p1", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">temperance</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b2.s7.p1"]</data>
+  <data key="d17">["Section 7 identifies temperance as the mean in the sphere of pleasures and pains."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="virtuous-action">
+  <data key="d2">virtuous-action</data>
+  <data key="d3">acts in accordance with virtue</data>
+  <data key="d4">["acts that are in accordance with the virtues", "just acts", "temperate acts"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">action</data>
+  <data key="d7">Book II treats rightly performed actions as central to becoming and being virtuous.</data>
+  <data key="d8">editorial_normalization</data>
+  <data key="d9">2</data>
+  <data key="d10">[2, 4]</data>
+  <data key="d11">[{"note": "Section 2 turns the inquiry toward actions and how they ought to be done.", "passage_id": "ne.b2.s2.p1", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">acts in accordance with virtue</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b2.s2.p1"]</data>
+  <data key="d17">["Section 2 turns the inquiry toward actions and how they ought to be done."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<edge source="courage" target="fear-and-confidence" id="courage--concerns--fear-and-confidence">
+  <data key="d19">courage--concerns--fear-and-confidence</data>
+  <data key="d20">courage</data>
+  <data key="d21">concerns</data>
+  <data key="d22">fear-and-confidence</data>
+  <data key="d23">textual</data>
+  <data key="d24">[{"note": "Section 7 says courage is the mean with regard to fear and confidence.", "passage_id": "ne.b2.s7.p1", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b2.s7.p1"]</data>
+  <data key="d29">["Section 7 says courage is the mean with regard to fear and confidence."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
+<edge source="courage" target="cowardice" id="courage--has-deficiency--cowardice">
+  <data key="d19">courage--has-deficiency--cowardice</data>
+  <data key="d20">courage</data>
+  <data key="d21">has_deficiency</data>
+  <data key="d22">cowardice</data>
+  <data key="d23">textual</data>
+  <data key="d24">[{"note": "Section 7 names cowardice as the deficiency corresponding to courage.", "passage_id": "ne.b2.s7.p1", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b2.s7.p1"]</data>
+  <data key="d29">["Section 7 names cowardice as the deficiency corresponding to courage."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
+<edge source="courage" target="rashness" id="courage--has-excess--rashness">
+  <data key="d19">courage--has-excess--rashness</data>
+  <data key="d20">courage</data>
+  <data key="d21">has_excess</data>
+  <data key="d22">rashness</data>
+  <data key="d23">textual</data>
+  <data key="d24">[{"note": "Section 7 names rashness as the excess corresponding to courage.", "passage_id": "ne.b2.s7.p1", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b2.s7.p1"]</data>
+  <data key="d29">["Section 7 names rashness as the excess corresponding to courage."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
+<edge source="ethical-mean" target="deficiency" id="ethical-mean--contrasted-with--deficiency">
+  <data key="d19">ethical-mean--contrasted-with--deficiency</data>
+  <data key="d20">ethical-mean</data>
+  <data key="d21">contrasted_with</data>
+  <data key="d22">deficiency</data>
+  <data key="d23">textual</data>
+  <data key="d24">[{"note": "Section 8 summarizes the mean as opposed to both excess and deficiency.", "passage_id": "ne.b2.s8.p1", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b2.s8.p1"]</data>
+  <data key="d29">["Section 8 summarizes the mean as opposed to both excess and deficiency."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
+<edge source="ethical-mean" target="excess" id="ethical-mean--contrasted-with--excess">
+  <data key="d19">ethical-mean--contrasted-with--excess</data>
+  <data key="d20">ethical-mean</data>
+  <data key="d21">contrasted_with</data>
+  <data key="d22">excess</data>
+  <data key="d23">textual</data>
+  <data key="d24">[{"note": "Section 8 summarizes the mean as opposed to both excess and deficiency.", "passage_id": "ne.b2.s8.p1", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b2.s8.p1"]</data>
+  <data key="d29">["Section 8 summarizes the mean as opposed to both excess and deficiency."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
+<edge source="ethical-mean" target="practically-wise-person" id="ethical-mean--determined-by--practically-wise-person">
+  <data key="d19">ethical-mean--determined-by--practically-wise-person</data>
+  <data key="d20">ethical-mean</data>
+  <data key="d21">determined_by</data>
+  <data key="d22">practically-wise-person</data>
+  <data key="d23">textual</data>
+  <data key="d24">[{"note": "The mean is determined by the principle used by the practically wise person.", "passage_id": "ne.b2.s6.p6", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b2.s6.p6"]</data>
+  <data key="d29">["The mean is determined by the principle used by the practically wise person."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
+<edge source="ethical-mean" target="right-reason" id="ethical-mean--determined-by--right-reason">
+  <data key="d19">ethical-mean--determined-by--right-reason</data>
+  <data key="d20">ethical-mean</data>
+  <data key="d21">determined_by</data>
+  <data key="d22">right-reason</data>
+  <data key="d23">editorial_normalization</data>
+  <data key="d24">[{"note": "The mean is said to be determined by a rational principle.", "passage_id": "ne.b2.s6.p6", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b2.s6.p6"]</data>
+  <data key="d29">["The mean is said to be determined by a rational principle."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
+<edge source="excess" target="deficiency" id="excess--opposed-to--deficiency">
+  <data key="d19">excess--opposed-to--deficiency</data>
+  <data key="d20">excess</data>
+  <data key="d21">opposed_to</data>
+  <data key="d22">deficiency</data>
+  <data key="d23">textual</data>
+  <data key="d24">[{"note": "Section 8 says the greatest contrariety is between the extremes.", "passage_id": "ne.b2.s8.p2", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b2.s8.p2"]</data>
+  <data key="d29">["Section 8 says the greatest contrariety is between the extremes."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
+<edge source="moral-virtue" target="pain" id="moral-virtue--concerns--pain">
+  <data key="d19">moral-virtue--concerns--pain</data>
+  <data key="d20">moral-virtue</data>
+  <data key="d21">concerns</data>
+  <data key="d22">pain</data>
+  <data key="d23">textual</data>
+  <data key="d24">[{"note": "Section 3 concludes that virtue is concerned with pleasures and pains.", "passage_id": "ne.b2.s3.p7", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b2.s3.p7"]</data>
+  <data key="d29">["Section 3 concludes that virtue is concerned with pleasures and pains."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
+<edge source="moral-virtue" target="pleasure" id="moral-virtue--concerns--pleasure">
+  <data key="d19">moral-virtue--concerns--pleasure</data>
+  <data key="d20">moral-virtue</data>
+  <data key="d21">concerns</data>
+  <data key="d22">pleasure</data>
+  <data key="d23">textual</data>
+  <data key="d24">[{"note": "Section 3 concludes that virtue is concerned with pleasures and pains.", "passage_id": "ne.b2.s3.p7", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b2.s3.p7"]</data>
+  <data key="d29">["Section 3 concludes that virtue is concerned with pleasures and pains."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
+<edge source="moral-virtue" target="intellectual-virtue" id="moral-virtue--contrasted-with--intellectual-virtue">
+  <data key="d19">moral-virtue--contrasted-with--intellectual-virtue</data>
+  <data key="d20">moral-virtue</data>
+  <data key="d21">contrasted_with</data>
+  <data key="d22">intellectual-virtue</data>
+  <data key="d23">textual</data>
+  <data key="d24">[{"note": "Book II opens by distinguishing moral virtue from intellectual virtue.", "passage_id": "ne.b2.s1.p1", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b2.s1.p1"]</data>
+  <data key="d29">["Book II opens by distinguishing moral virtue from intellectual virtue."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
+<edge source="moral-virtue" target="habituation" id="moral-virtue--formed-by--habituation">
+  <data key="d19">moral-virtue--formed-by--habituation</data>
+  <data key="d20">moral-virtue</data>
+  <data key="d21">formed_by</data>
+  <data key="d22">habituation</data>
+  <data key="d23">editorial_normalization</data>
+  <data key="d24">[{"note": "Moral virtue is said to come about as a result of habit.", "passage_id": "ne.b2.s1.p1", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b2.s1.p1"]</data>
+  <data key="d29">["Moral virtue is said to come about as a result of habit."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
+<edge source="moral-virtue" target="state-of-character" id="moral-virtue--is-a--state-of-character">
+  <data key="d19">moral-virtue--is-a--state-of-character</data>
+  <data key="d20">moral-virtue</data>
+  <data key="d21">is_a</data>
+  <data key="d22">state-of-character</data>
+  <data key="d23">textual</data>
+  <data key="d24">[{"note": "Section 6 says virtue is a state of character concerned with choice.", "passage_id": "ne.b2.s6.p6", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b2.s6.p6"]</data>
+  <data key="d29">["Section 6 says virtue is a state of character concerned with choice."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
+<edge source="state-of-character" target="faculty" id="state-of-character--contrasted-with--faculty">
+  <data key="d19">state-of-character--contrasted-with--faculty</data>
+  <data key="d20">state-of-character</data>
+  <data key="d21">contrasted_with</data>
+  <data key="d22">faculty</data>
+  <data key="d23">textual</data>
+  <data key="d24">[{"note": "Section 5 argues that virtues are not faculties but states of character.", "passage_id": "ne.b2.s5.p4", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b2.s5.p4"]</data>
+  <data key="d29">["Section 5 argues that virtues are not faculties but states of character."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
+<edge source="state-of-character" target="passion" id="state-of-character--contrasted-with--passion">
+  <data key="d19">state-of-character--contrasted-with--passion</data>
+  <data key="d20">state-of-character</data>
+  <data key="d21">contrasted_with</data>
+  <data key="d22">passion</data>
+  <data key="d23">textual</data>
+  <data key="d24">[{"note": "Section 5 argues that virtues and vices are not passions.", "passage_id": "ne.b2.s5.p2", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b2.s5.p2"]</data>
+  <data key="d29">["Section 5 argues that virtues and vices are not passions."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
+<edge source="temperance" target="bodily-pleasures-and-pains" id="temperance--concerns--bodily-pleasures-and-pains">
+  <data key="d19">temperance--concerns--bodily-pleasures-and-pains</data>
+  <data key="d20">temperance</data>
+  <data key="d21">concerns</data>
+  <data key="d22">bodily-pleasures-and-pains</data>
+  <data key="d23">editorial_normalization</data>
+  <data key="d24">[{"note": "Section 7 places temperance in relation to pleasures and pains, especially bodily pleasures.", "passage_id": "ne.b2.s7.p1", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b2.s7.p1"]</data>
+  <data key="d29">["Section 7 places temperance in relation to pleasures and pains, especially bodily pleasures."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
+<edge source="temperance" target="insensibility" id="temperance--has-deficiency--insensibility">
+  <data key="d19">temperance--has-deficiency--insensibility</data>
+  <data key="d20">temperance</data>
+  <data key="d21">has_deficiency</data>
+  <data key="d22">insensibility</data>
+  <data key="d23">textual</data>
+  <data key="d24">[{"note": "Section 7 says the deficient type is called insensible.", "passage_id": "ne.b2.s7.p1", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b2.s7.p1"]</data>
+  <data key="d29">["Section 7 says the deficient type is called insensible."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
+<edge source="temperance" target="self-indulgence" id="temperance--has-excess--self-indulgence">
+  <data key="d19">temperance--has-excess--self-indulgence</data>
+  <data key="d20">temperance</data>
+  <data key="d21">has_excess</data>
+  <data key="d22">self-indulgence</data>
+  <data key="d23">textual</data>
+  <data key="d24">[{"note": "Section 7 names self-indulgence as the excess corresponding to temperance.", "passage_id": "ne.b2.s7.p1", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b2.s7.p1"]</data>
+  <data key="d29">["Section 7 names self-indulgence as the excess corresponding to temperance."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
+<edge source="virtuous-action" target="choice" id="virtuous-action--requires--choice">
+  <data key="d19">virtuous-action--requires--choice</data>
+  <data key="d20">virtuous-action</data>
+  <data key="d21">requires</data>
+  <data key="d22">choice</data>
+  <data key="d23">textual</data>
+  <data key="d24">[{"note": "Aristotle says the agent must choose the acts for their own sakes.", "passage_id": "ne.b2.s4.p3", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b2.s4.p3"]</data>
+  <data key="d29">["Aristotle says the agent must choose the acts for their own sakes."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
+<edge source="virtuous-action" target="firm-and-unchangeable-state" id="virtuous-action--requires--firm-and-unchangeable-state">
+  <data key="d19">virtuous-action--requires--firm-and-unchangeable-state</data>
+  <data key="d20">virtuous-action</data>
+  <data key="d21">requires</data>
+  <data key="d22">firm-and-unchangeable-state</data>
+  <data key="d23">editorial_normalization</data>
+  <data key="d24">[{"note": "Aristotle says the action must proceed from a firm and unchangeable character.", "passage_id": "ne.b2.s4.p3", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b2.s4.p3"]</data>
+  <data key="d29">["Aristotle says the action must proceed from a firm and unchangeable character."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
+<edge source="virtuous-action" target="knowledge" id="virtuous-action--requires--knowledge">
+  <data key="d19">virtuous-action--requires--knowledge</data>
+  <data key="d20">virtuous-action</data>
+  <data key="d21">requires</data>
+  <data key="d22">knowledge</data>
+  <data key="d23">textual</data>
+  <data key="d24">[{"note": "Aristotle says the agent must have knowledge.", "passage_id": "ne.b2.s4.p3", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b2.s4.p3"]</data>
+  <data key="d29">["Aristotle says the agent must have knowledge."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
+</graph></graphml>

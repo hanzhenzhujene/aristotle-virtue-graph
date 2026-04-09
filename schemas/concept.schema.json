@@ -1,0 +1,143 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aristotle-virtue-graph.local/schemas/concept.schema.json",
+  "title": "Concept",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "primary_label",
+    "source_labels",
+    "kind",
+    "description",
+    "assertion_tier",
+    "book",
+    "sections",
+    "evidence",
+    "review_status"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "primary_label": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "source_labels": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "aliases": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "default": []
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "virtue",
+        "vice",
+        "domain",
+        "principle",
+        "state",
+        "faculty",
+        "passion",
+        "process",
+        "action",
+        "person",
+        "condition"
+      ]
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 240
+    },
+    "assertion_tier": {
+      "type": "string",
+      "enum": [
+        "textual",
+        "editorial_normalization",
+        "interpretive"
+      ]
+    },
+    "book": {
+      "type": "integer",
+      "const": 2
+    },
+    "sections": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 9
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/evidence"
+      }
+    },
+    "review_status": {
+      "type": "string",
+      "enum": [
+        "candidate",
+        "approved"
+      ]
+    },
+    "notes": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 400
+    }
+  },
+  "$defs": {
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "passage_id",
+        "support_type",
+        "note"
+      ],
+      "properties": {
+        "passage_id": {
+          "type": "string",
+          "pattern": "^ne\\.b2\\.s([1-9])\\.p([1-9][0-9]*)$"
+        },
+        "support_type": {
+          "type": "string",
+          "enum": [
+            "direct",
+            "paraphrase",
+            "editorial"
+          ]
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 280
+        },
+        "quote_excerpt": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 280
+        }
+      }
+    }
+  }
+}
