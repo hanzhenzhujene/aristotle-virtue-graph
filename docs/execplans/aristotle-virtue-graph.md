@@ -207,6 +207,8 @@ Keep identifiers stable and human-readable.
 - Public-facing polish exposed a real compatibility issue: `st.dataframe(width="stretch")`
   breaks on older installed Streamlit versions, so the viewer should prefer the broader
   `use_container_width=True` path for stable local runs.
+- Once the live app exists, the README should link directly to the real dashboard URL rather
+  than forcing visitors through deployment notes first.
 
 ## Decision Log
 
@@ -252,6 +254,8 @@ Keep identifiers stable and human-readable.
   obvious app entrypoint and a clean deployment path.
 - 2026-04-09: Make the top README CTA explicitly honest about live status (`coming soon`) until
   a real public Streamlit URL exists, and split first-run instructions from rebuild workflows.
+- 2026-04-09: Replace the temporary `coming soon` CTA with the real Streamlit Community Cloud
+  URL once deployment is live.
 
 ## Outcomes & Retrospective
 
@@ -316,6 +320,8 @@ Observed results:
   entrypoint and explicit deployment instructions
 - the README top section now centers on a single dashboard hero, a non-misleading live-status
   CTA, and a lighter first-run path that does not force export commands before opening the app
+- the public README now points directly to the live Streamlit dashboard at
+  `https://aristotle-virtue-graph-asqtn6j429dzaxvgfttrmk.streamlit.app/`
 - the project now lives in its own public GitHub repository rather than remaining nested inside
   the unrelated parent `MESOTES` repository
 - `pytest`, `ruff check .`, and `mypy src/` all pass
@@ -327,8 +333,8 @@ Known limitations:
   work before the rest of Book II should be treated as reviewed
 - GraphML intentionally flattens nested structures, so `book2_graph.json` remains the richer
   downstream format
-- the live Streamlit Community Cloud URL has not been created yet because the final publish step
-  still requires a browser-authenticated Streamlit Cloud `Create app` action
+- the live Streamlit URL is currently a generated Streamlit hostname rather than a shorter custom
+  subdomain
 
 Next recommended step:
 

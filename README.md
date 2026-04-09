@@ -17,9 +17,9 @@ _Hero view: `courage` open in the dashboard, with evidence, relation tables, and
 
 | Live dashboard | Run locally | Viewer guide |
 | --- | --- | --- |
-| **Open live dashboard:** coming soon | **Run now:** [`make app`](#run-the-viewer) | [Start with `courage`](docs/viewer_guide.md) |
+| **[Open live dashboard](https://aristotle-virtue-graph-asqtn6j429dzaxvgfttrmk.streamlit.app/)** | **Run now:** [`make app`](#run-the-viewer) | [Start with `courage`](docs/viewer_guide.md) |
 
-_The repo is already prepared for Streamlit Community Cloud. The only missing step is a logged-in Streamlit Cloud **Create app** click. See [docs/deployment.md](docs/deployment.md)._
+_The live app is now available on Streamlit Community Cloud. Local run instructions and deployment details remain in [docs/deployment.md](docs/deployment.md)._
 
 ## Run the viewer
 
@@ -187,13 +187,14 @@ Full rationale: [docs/source_policy.md](docs/source_policy.md)
 
 ## Deployment
 
-The repository is ready for Streamlit Community Cloud:
+The live dashboard is running on Streamlit Community Cloud:
 
+- live URL: `https://aristotle-virtue-graph-asqtn6j429dzaxvgfttrmk.streamlit.app/`
 - app entrypoint: `streamlit_app.py`
 - deployment dependencies: `requirements.txt`
 - app theme/config: `.streamlit/config.toml`
 
-The remaining manual step is in [docs/deployment.md](docs/deployment.md).
+Deployment notes and the current hosted target are in [docs/deployment.md](docs/deployment.md).
 
 ## Repository guide
 

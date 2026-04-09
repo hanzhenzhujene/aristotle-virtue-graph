@@ -1,40 +1,33 @@
 # Deployment
 
-This repository is prepared for Streamlit Community Cloud deployment.
+This repository is deployed on Streamlit Community Cloud.
 
 ## Current status
 
 - GitHub repository is public
+- live app URL: `https://aristotle-virtue-graph-asqtn6j429dzaxvgfttrmk.streamlit.app/`
 - app entrypoint is at the repo root: `streamlit_app.py`
 - deployment dependencies are in the repo root: `requirements.txt`
 - processed Book II data is already committed, so the deployed app does not need a separate build step
-- README intentionally says **Open live dashboard: coming soon** until a real public app URL exists
 
 ## Streamlit Community Cloud target
 
-Use these settings in Community Cloud:
+Current hosted target:
 
 - Repository: `hanzhenzhujene/aristotle-virtue-graph`
 - Branch: `main`
 - Main file path: `streamlit_app.py`
-
-## Final step still required
-
-The remaining action must be done in a browser session connected to a Streamlit Community Cloud account with GitHub access.
-
-Per the official deployment flow, the last step is:
-
-1. Go to `share.streamlit.io`
-2. Click **Create app**
-3. Select the repository `hanzhenzhujene/aristotle-virtue-graph`
-4. Set the main file path to `streamlit_app.py`
-5. Click **Deploy**
 
 Official docs:
 
 - [Deploy your app on Community Cloud](https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/deploy)
 - [Connect your GitHub account](https://docs.streamlit.io/deploy/streamlit-community-cloud/get-started/connect-your-github-account)
 
-## After deployment
+## Updating the deployment
 
-Once the live URL exists, replace the README placeholder with a direct `Open live dashboard` link.
+If the app is redeployed under a different URL, update:
+
+1. `README.md`
+2. `docs/deployment.md`
+
+Keep the README top CTA pointed at the real live dashboard, not at deployment setup instructions.
