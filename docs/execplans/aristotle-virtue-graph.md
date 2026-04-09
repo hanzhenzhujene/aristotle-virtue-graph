@@ -229,6 +229,9 @@ Keep identifiers stable and human-readable.
   approved mode has no reviewed concepts or relations yet.
 - 2026-04-09: Split `Aristotle Virtue Graph` into its own git repository before GitHub
   publication so it does not remain entangled with the unrelated parent `MESOTES` repository.
+- 2026-04-09: Publish the standalone repository publicly at
+  `https://github.com/hanzhenzhujene/aristotle-virtue-graph` after the README and docs were
+  polished around the actual Book II findings.
 
 ## Outcomes & Retrospective
 
@@ -279,6 +282,8 @@ Observed results:
   views over candidate and approved processed data
 - the README now leads with the actual Book II findings and the practical value of the graph,
   rather than only describing the toolchain
+- the project now lives in its own public GitHub repository rather than remaining nested inside
+  the unrelated parent `MESOTES` repository
 - `pytest`, `ruff check .`, and `mypy src/` all pass
 
 Known limitations:
