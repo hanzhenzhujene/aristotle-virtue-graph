@@ -4,6 +4,17 @@ The local viewer is the fastest way to understand what this repository is doing.
 
 ## Start here
 
+If you only want to open the viewer against the committed Book II exports:
+
+```bash
+python3 -m venv .venv
+. .venv/bin/activate
+pip install -e ".[viewer]"
+make app
+```
+
+If you also want to rebuild the processed exports first:
+
 ```bash
 python3 -m venv .venv
 . .venv/bin/activate

@@ -61,35 +61,49 @@ def render() -> None:
     assertion_tiers = available_assertion_tiers(dataset)
 
     st.sidebar.caption(
-        "Tip: start with `courage`, then switch between candidate and approved mode."
+        "Start with `courage`, then compare `candidate` and `approved`."
     )
-
-    st.sidebar.markdown("### Filters")
-    search_text = st.sidebar.text_input(
-        "Concept search",
-        placeholder="Search courage, pleasure, habit...",
-    )
-    selected_kinds = st.sidebar.multiselect(
-        "Concept kinds",
-        options=concept_kinds,
-        default=concept_kinds,
-    )
-    selected_relation_types = st.sidebar.multiselect(
-        "Relation types",
-        options=relation_types,
-        default=relation_types,
-    )
-    selected_tiers = st.sidebar.multiselect(
-        "Assertion tiers",
-        options=assertion_tiers,
-        default=assertion_tiers,
-    )
-    selected_sections = st.sidebar.multiselect(
-        "Book II sections",
-        options=list(range(1, 10)),
-        default=list(range(1, 10)),
+    default_concept = default_concept_id(dataset, list(dataset.concepts))
+    concept_options = {concept.primary_label: concept.id for concept in dataset.concepts}
+    concept_labels = list(concept_options.keys()) if concept_options else ["No concepts available"]
+    selected_index = 0
+    if default_concept is not None:
+        for index, label in enumerate(concept_labels):
+            if concept_options.get(label) == default_concept:
+                selected_index = index
+                break
+    selected_concept_label = st.sidebar.selectbox(
+        "Selected concept",
+        options=concept_labels,
+        index=selected_index,
     )
     graph_hops = st.sidebar.radio("Graph depth", options=[1, 2], index=0, horizontal=True)
+
+    with st.sidebar.expander("Filters", expanded=False):
+        search_text = st.text_input(
+            "Concept search",
+            placeholder="Search courage, pleasure, habit...",
+        )
+        selected_kinds = st.multiselect(
+            "Concept kinds",
+            options=concept_kinds,
+            default=concept_kinds,
+        )
+        selected_relation_types = st.multiselect(
+            "Relation types",
+            options=relation_types,
+            default=relation_types,
+        )
+        selected_tiers = st.multiselect(
+            "Assertion tiers",
+            options=assertion_tiers,
+            default=assertion_tiers,
+        )
+        selected_sections = st.multiselect(
+            "Book II sections",
+            options=list(range(1, 10)),
+            default=list(range(1, 10)),
+        )
 
     filters = ViewerFilters(
         search_text=search_text,
@@ -121,21 +135,6 @@ def render() -> None:
 
     filtered_concepts = filter_concepts(dataset, filters)
     filtered_passages = filter_passages(dataset, filters)
-
-    default_concept = default_concept_id(dataset, filtered_concepts)
-    concept_options = {concept.primary_label: concept.id for concept in filtered_concepts}
-    concept_labels = list(concept_options.keys()) if concept_options else ["No matching concepts"]
-    selected_index = 0
-    if default_concept is not None:
-        for index, label in enumerate(concept_labels):
-            if concept_options.get(label) == default_concept:
-                selected_index = index
-                break
-    selected_concept_label = st.sidebar.selectbox(
-        "Selected concept",
-        options=concept_labels,
-        index=selected_index,
-    )
     selected_concept_id = concept_options.get(selected_concept_label, default_concept)
 
     concept_tab, passage_tab, graph_tab, stats_tab = st.tabs(
@@ -144,91 +143,89 @@ def render() -> None:
 
     with concept_tab:
         st.subheader("Concept Explorer")
-        if not filtered_concepts:
-            st.info("No concepts match the current filters.")
+        selected_concept = (
+            dataset.concept_index[selected_concept_id]
+            if selected_concept_id is not None
+            else None
+        )
+        if selected_concept is None:
+            st.info("Choose a concept from the sidebar.")
         else:
-            selected_concept = (
-                dataset.concept_index[selected_concept_id]
-                if selected_concept_id is not None
-                else None
+            section_labels = ", ".join(str(section) for section in selected_concept.sections)
+            source_labels = ", ".join(selected_concept.source_labels)
+            alias_labels = (
+                ", ".join(selected_concept.aliases)
+                if selected_concept.aliases
+                else "None"
             )
-            if selected_concept is None:
-                st.info("Choose a concept from the sidebar.")
-            else:
-                section_labels = ", ".join(
-                    str(section) for section in selected_concept.sections
+            left_col, right_col = st.columns([1.3, 1])
+            with left_col:
+                st.markdown(f"### {selected_concept.primary_label}")
+                st.write(selected_concept.description)
+                st.markdown(
+                    "\n".join(
+                        [
+                            f"- `id`: `{selected_concept.id}`",
+                            f"- `kind`: `{selected_concept.kind}`",
+                            f"- `assertion tier`: `{selected_concept.assertion_tier}`",
+                            f"- `review status`: `{selected_concept.review_status}`",
+                            f"- `sections`: {section_labels}",
+                            f"- `source labels`: {source_labels}",
+                            f"- `aliases`: {alias_labels}",
+                        ]
+                    )
                 )
-                source_labels = ", ".join(selected_concept.source_labels)
-                alias_labels = (
-                    ", ".join(selected_concept.aliases)
-                    if selected_concept.aliases
-                    else "None"
-                )
-                left_col, right_col = st.columns([1.3, 1])
-                with left_col:
-                    st.markdown(f"### {selected_concept.primary_label}")
-                    st.write(selected_concept.description)
-                    st.markdown(
-                        "\n".join(
-                            [
-                                f"- `id`: `{selected_concept.id}`",
-                                f"- `kind`: `{selected_concept.kind}`",
-                                f"- `assertion tier`: `{selected_concept.assertion_tier}`",
-                                f"- `review status`: `{selected_concept.review_status}`",
-                                f"- `sections`: {section_labels}",
-                                f"- `source labels`: {source_labels}",
-                                f"- `aliases`: {alias_labels}",
-                            ]
-                        )
-                    )
-                    if selected_concept.notes:
-                        st.caption(selected_concept.notes)
-                with right_col:
-                    st.markdown("#### Evidence")
-                    st.dataframe(
-                        evidence_rows(selected_concept),
-                        width="stretch",
-                        hide_index=True,
-                    )
-
-                outgoing_relations = filter_relations(
-                    dataset,
-                    filters,
-                    related_to_concept_id=selected_concept.id,
-                )
-                incoming_rows = [
-                    relation
-                    for relation in outgoing_relations
-                    if relation.target_id == selected_concept.id
-                ]
-                outgoing_rows = [
-                    relation
-                    for relation in outgoing_relations
-                    if relation.source_id == selected_concept.id
-                ]
-
-                relation_left, relation_right = st.columns(2)
-                with relation_left:
-                    st.markdown("#### Outgoing relations")
-                    st.dataframe(
-                        relation_rows(outgoing_rows, dataset),
-                        width="stretch",
-                        hide_index=True,
-                    )
-                with relation_right:
-                    st.markdown("#### Incoming relations")
-                    st.dataframe(
-                        relation_rows(incoming_rows, dataset),
-                        width="stretch",
-                        hide_index=True,
-                    )
-
-                st.markdown("#### Filtered concepts")
+                if selected_concept.notes:
+                    st.caption(selected_concept.notes)
+            with right_col:
+                st.markdown("#### Evidence")
                 st.dataframe(
-                    concept_summary_rows(filtered_concepts),
-                    width="stretch",
+                    evidence_rows(selected_concept),
+                    use_container_width=True,
                     hide_index=True,
                 )
+
+            outgoing_relations = filter_relations(
+                dataset,
+                filters,
+                related_to_concept_id=selected_concept.id,
+            )
+            incoming_rows = [
+                relation
+                for relation in outgoing_relations
+                if relation.target_id == selected_concept.id
+            ]
+            outgoing_rows = [
+                relation
+                for relation in outgoing_relations
+                if relation.source_id == selected_concept.id
+            ]
+
+            relation_left, relation_right = st.columns(2)
+            with relation_left:
+                st.markdown("#### Outgoing relations")
+                st.dataframe(
+                    relation_rows(outgoing_rows, dataset),
+                    use_container_width=True,
+                    hide_index=True,
+                )
+            with relation_right:
+                st.markdown("#### Incoming relations")
+                st.dataframe(
+                    relation_rows(incoming_rows, dataset),
+                    use_container_width=True,
+                    hide_index=True,
+                )
+
+            st.markdown("#### Filtered concepts")
+            if filtered_concepts:
+                st.dataframe(
+                    concept_summary_rows(filtered_concepts),
+                    use_container_width=True,
+                    hide_index=True,
+                )
+            else:
+                st.caption("No concepts match the current filters.")
 
     with passage_tab:
         st.subheader("Passage Explorer")
@@ -269,7 +266,7 @@ def render() -> None:
                 if passage_concepts:
                     st.dataframe(
                         concept_summary_rows(list(passage_concepts)),
-                        width="stretch",
+                        use_container_width=True,
                         hide_index=True,
                     )
                 else:
@@ -279,7 +276,7 @@ def render() -> None:
                 if passage_relations:
                     st.dataframe(
                         passage_relation_rows(passage_relations),
-                        width="stretch",
+                        use_container_width=True,
                         hide_index=True,
                     )
                 else:
@@ -314,7 +311,7 @@ def render() -> None:
                 )
                 st.dataframe(
                     relation_rows(ego_relations, dataset),
-                    width="stretch",
+                    use_container_width=True,
                     hide_index=True,
                 )
 

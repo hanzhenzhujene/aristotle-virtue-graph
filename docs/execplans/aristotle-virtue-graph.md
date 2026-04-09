@@ -202,6 +202,11 @@ Keep identifiers stable and human-readable.
 - Streamlit Community Cloud deployment becomes much clearer when the repository exposes a root
   `streamlit_app.py`, root `requirements.txt`, and a short deployment note instead of assuming
   readers will infer the entrypoint from package internals.
+- The README front page works better with one strong dashboard screenshot than with a second
+  overview graphic competing for attention before the user has even opened the app.
+- Public-facing polish exposed a real compatibility issue: `st.dataframe(width="stretch")`
+  breaks on older installed Streamlit versions, so the viewer should prefer the broader
+  `use_container_width=True` path for stable local runs.
 
 ## Decision Log
 
@@ -245,6 +250,8 @@ Keep identifiers stable and human-readable.
 - 2026-04-09: Add root-level deployment files for Streamlit Community Cloud
   (`streamlit_app.py`, `requirements.txt`, `.streamlit/config.toml`) so the public repo has an
   obvious app entrypoint and a clean deployment path.
+- 2026-04-09: Make the top README CTA explicitly honest about live status (`coming soon`) until
+  a real public Streamlit URL exists, and split first-run instructions from rebuild workflows.
 
 ## Outcomes & Retrospective
 
@@ -307,6 +314,8 @@ Observed results:
   viewer guide, and a code license
 - the repository is now deployment-ready for Streamlit Community Cloud with a root app
   entrypoint and explicit deployment instructions
+- the README top section now centers on a single dashboard hero, a non-misleading live-status
+  CTA, and a lighter first-run path that does not force export commands before opening the app
 - the project now lives in its own public GitHub repository rather than remaining nested inside
   the unrelated parent `MESOTES` repository
 - `pytest`, `ruff check .`, and `mypy src/` all pass

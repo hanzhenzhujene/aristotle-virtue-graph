@@ -9,37 +9,31 @@ Open a concept like `courage`, follow its linked relations, open the supporting 
 **Viewer:** Streamlit dashboard  
 **Current reviewed core:** 26 approved concepts, 21 approved relations
 
-**Open now:** [Live dashboard setup](docs/deployment.md) · [Run locally](#quickstart) · [Viewer guide](docs/viewer_guide.md)
+![Dashboard hero](docs/assets/viewer-courage-candidate.png)
+
+_Hero view: `courage` open in the dashboard, with evidence, relation tables, and the main navigation visible._
 
 ## Open the dashboard
 
-| Live dashboard | Local dashboard | First guide |
+| Live dashboard | Run locally | Viewer guide |
 | --- | --- | --- |
-| **Deployment-ready for Streamlit Community Cloud** → [publish the live app](docs/deployment.md) | **Run now:** `make app` | [Start with `courage`](docs/viewer_guide.md) |
+| **Open live dashboard:** coming soon | **Run now:** [`make app`](#run-the-viewer) | [Start with `courage`](docs/viewer_guide.md) |
 
-_The repository is fully prepared for Streamlit Community Cloud. The final publish action still requires a browser-authenticated Streamlit Cloud “Create app” step. See [docs/deployment.md](docs/deployment.md)._
+_The repo is already prepared for Streamlit Community Cloud. The only missing step is a logged-in Streamlit Cloud **Create app** click. See [docs/deployment.md](docs/deployment.md)._
 
-![Dashboard preview](docs/assets/viewer-courage-candidate.png)
-
-_Dashboard preview: `courage` open in the local viewer, with evidence and relation tables in view._
-
-## Quickstart
+## Run the viewer
 
 ```bash
 python3 -m venv .venv
 . .venv/bin/activate
-pip install -e ".[dev,viewer]"
-make annotations-export
-make annotations-export-strict
+pip install -e ".[viewer]"
 make app
 ```
 
-This opens the dashboard with Book II already loaded.
+This opens the dashboard immediately with the committed Book II exports.
 Start with `courage`.
 
 ## Try this first
-
-Use the shortest path that shows the project working:
 
 1. Open the dashboard.
 2. Keep `courage` selected.
@@ -70,6 +64,21 @@ It stays attached to the passage that supports it.
 - Compare the broader candidate graph with the reviewed approved core.
 - Explore a local 1-hop or 2-hop graph neighborhood around a selected concept.
 
+## Rebuild exported data
+
+Use this only if you want to regenerate the processed artifacts from the annotation files.
+
+```bash
+python3 -m venv .venv
+. .venv/bin/activate
+pip install -e ".[dev,viewer]"
+make annotations-validate
+make annotations-validate-strict
+make annotations-export
+make annotations-export-strict
+make annotations-stats
+```
+
 ## Why it is interesting
 
 Book II is often reduced to a few phrases about habit and the mean.
@@ -81,8 +90,6 @@ This repo makes the internal structure more navigable:
 - textual claims, editorial normalization, and interpretation are kept separate
 
 It is small enough to audit and concrete enough to reuse.
-
-![Book II overview](docs/assets/book2-overview.svg)
 
 ## Current state
 
@@ -123,30 +130,6 @@ The project stays strict in a few concrete ways:
 - `source_labels` preserve Ross wording instead of silently modernizing it.
 - `candidate` and `approved` are separate files and separate export modes.
 - Book II is a hard boundary; the repo does not quietly expand into later books.
-
-## Local run path
-
-Shortest local route:
-
-```bash
-make app
-```
-
-Direct Streamlit entrypoint:
-
-```bash
-python -m streamlit run streamlit_app.py
-```
-
-If you need to rebuild processed data first:
-
-```bash
-make annotations-validate
-make annotations-validate-strict
-make annotations-export
-make annotations-export-strict
-make annotations-stats
-```
 
 ## Data artifacts
 

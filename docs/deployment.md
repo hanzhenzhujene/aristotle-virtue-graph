@@ -8,6 +8,7 @@ This repository is prepared for Streamlit Community Cloud deployment.
 - app entrypoint is at the repo root: `streamlit_app.py`
 - deployment dependencies are in the repo root: `requirements.txt`
 - processed Book II data is already committed, so the deployed app does not need a separate build step
+- README intentionally says **Open live dashboard: coming soon** until a real public app URL exists
 
 ## Streamlit Community Cloud target
 
@@ -36,4 +37,4 @@ Official docs:
 
 ## After deployment
 
-Once the live URL exists, put it in the top section of `README.md` in place of the deployment-ready placeholder link.
+Once the live URL exists, replace the README placeholder with a direct `Open live dashboard` link.

@@ -23,11 +23,9 @@ _KIND_COLORS = {
 
 def intro_markdown() -> str:
     return (
-        "This local viewer presents an evidence-first graph for *Nicomachean Ethics* Book II. "
-        "Every concept and relation shown here is tied to one or more passage ids. "
-        "Candidate mode shows machine-assisted draft annotations; approved mode is reserved for "
-        "human-reviewed material only. To promote reviewed items, move them from the candidate "
-        "files into the matching approved files and rerun the strict export commands."
+        "Every concept and relation shown here is grounded in one or more "
+        "*Nicomachean Ethics* Book II passages. "
+        "Candidate mode shows the broader working layer; approved mode shows the reviewed core."
     )
 
 
