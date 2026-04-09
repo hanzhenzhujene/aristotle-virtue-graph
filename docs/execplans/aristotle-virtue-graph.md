@@ -197,6 +197,8 @@ Keep identifiers stable and human-readable.
   graph in one local view.
 - Keeping this project inside the parent `MESOTES` git repository would blur project boundaries,
   so the clean publish path is to give `Aristotle Virtue Graph` its own standalone git history.
+- The repo became much easier to scan once the README led with a real viewer preview, a
+  `courage` walkthrough, and concrete counts rather than methodology first.
 
 ## Decision Log
 
@@ -232,6 +234,11 @@ Keep identifiers stable and human-readable.
 - 2026-04-09: Publish the standalone repository publicly at
   `https://github.com/hanzhenzhujene/aristotle-virtue-graph` after the README and docs were
   polished around the actual Book II findings.
+- 2026-04-09: Add a real viewer screenshot, a compact overview graphic, a viewer guide, and a
+  code license so the public repository reads like a usable research artifact rather than a
+  toolchain dump.
+- 2026-04-09: Improve the local viewer's first-run path by defaulting the concept selector to
+  `courage` when it is visible.
 
 ## Outcomes & Retrospective
 
@@ -263,6 +270,10 @@ Outputs:
 - `data/processed/approved/book2_graph.json`
 - `data/processed/approved/book2_graph.graphml`
 - `data/processed/approved/book2_stats.json`
+- `docs/assets/viewer-courage-candidate.png`
+- `docs/assets/book2-overview.svg`
+- `docs/viewer_guide.md`
+- `LICENSE`
 - `src/aristotle_graph/viewer/`
 - `src/aristotle_graph/app/streamlit_app.py`
 
@@ -282,6 +293,8 @@ Observed results:
   views over candidate and approved processed data
 - the README now leads with the actual Book II findings and the practical value of the graph,
   rather than only describing the toolchain
+- the public-facing repo now includes a real viewer preview, a compact overview graphic, a
+  viewer guide, and a code license
 - the project now lives in its own public GitHub repository rather than remaining nested inside
   the unrelated parent `MESOTES` repository
 - `pytest`, `ruff check .`, and `mypy src/` all pass

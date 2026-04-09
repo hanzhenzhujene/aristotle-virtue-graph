@@ -60,6 +60,10 @@ def render() -> None:
     relation_types = available_relation_types(dataset)
     assertion_tiers = available_assertion_tiers(dataset)
 
+    st.sidebar.caption(
+        "Tip: start with `courage`, then switch between candidate and approved mode."
+    )
+
     st.sidebar.markdown("### Filters")
     search_text = st.sidebar.text_input(
         "Concept search",
@@ -100,15 +104,37 @@ def render() -> None:
     if dataset.empty_notice is not None:
         st.warning(dataset.empty_notice)
 
+    metric_cols = st.columns(4)
+    metric_cols[0].metric(
+        "Concepts",
+        dataset.stats.get("concept_count", len(dataset.concepts)),
+    )
+    metric_cols[1].metric(
+        "Relations",
+        dataset.stats.get("relation_count", len(dataset.relations)),
+    )
+    metric_cols[2].metric(
+        "Passages",
+        dataset.stats.get("passage_count", len(dataset.passages)),
+    )
+    metric_cols[3].metric("Mode", "Approved" if mode == "approved" else "Candidate")
+
     filtered_concepts = filter_concepts(dataset, filters)
     filtered_passages = filter_passages(dataset, filters)
 
     default_concept = default_concept_id(dataset, filtered_concepts)
     concept_options = {concept.primary_label: concept.id for concept in filtered_concepts}
+    concept_labels = list(concept_options.keys()) if concept_options else ["No matching concepts"]
+    selected_index = 0
+    if default_concept is not None:
+        for index, label in enumerate(concept_labels):
+            if concept_options.get(label) == default_concept:
+                selected_index = index
+                break
     selected_concept_label = st.sidebar.selectbox(
         "Selected concept",
-        options=list(concept_options.keys()) if concept_options else ["No matching concepts"],
-        index=0,
+        options=concept_labels,
+        index=selected_index,
     )
     selected_concept_id = concept_options.get(selected_concept_label, default_concept)
 
@@ -161,7 +187,7 @@ def render() -> None:
                     st.markdown("#### Evidence")
                     st.dataframe(
                         evidence_rows(selected_concept),
-                        use_container_width=True,
+                        width="stretch",
                         hide_index=True,
                     )
 
@@ -186,21 +212,21 @@ def render() -> None:
                     st.markdown("#### Outgoing relations")
                     st.dataframe(
                         relation_rows(outgoing_rows, dataset),
-                        use_container_width=True,
+                        width="stretch",
                         hide_index=True,
                     )
                 with relation_right:
                     st.markdown("#### Incoming relations")
                     st.dataframe(
                         relation_rows(incoming_rows, dataset),
-                        use_container_width=True,
+                        width="stretch",
                         hide_index=True,
                     )
 
                 st.markdown("#### Filtered concepts")
                 st.dataframe(
                     concept_summary_rows(filtered_concepts),
-                    use_container_width=True,
+                    width="stretch",
                     hide_index=True,
                 )
 
@@ -243,7 +269,7 @@ def render() -> None:
                 if passage_concepts:
                     st.dataframe(
                         concept_summary_rows(list(passage_concepts)),
-                        use_container_width=True,
+                        width="stretch",
                         hide_index=True,
                     )
                 else:
@@ -253,7 +279,7 @@ def render() -> None:
                 if passage_relations:
                     st.dataframe(
                         passage_relation_rows(passage_relations),
-                        use_container_width=True,
+                        width="stretch",
                         hide_index=True,
                     )
                 else:
@@ -288,7 +314,7 @@ def render() -> None:
                 )
                 st.dataframe(
                     relation_rows(ego_relations, dataset),
-                    use_container_width=True,
+                    width="stretch",
                     hide_index=True,
                 )
 

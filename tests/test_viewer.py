@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 
 from aristotle_graph.viewer.load import approved_empty_notice, load_viewer_dataset
+from aristotle_graph.viewer.state import default_concept_id
 
 
 def _write_jsonl(path: Path, rows: list[dict]) -> None:
@@ -29,6 +30,12 @@ def test_viewer_loader_succeeds_on_repository_approved_exports() -> None:
     assert len(dataset.relations) == 21
     assert len(dataset.passages) == 45
     assert dataset.empty_notice is None
+
+
+def test_default_concept_prefers_courage() -> None:
+    dataset = load_viewer_dataset("candidate")
+
+    assert default_concept_id(dataset, dataset.concepts) == "courage"
 
 
 def test_viewer_loader_handles_empty_approved_mode(tmp_path: Path) -> None:

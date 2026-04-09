@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 720" role="img" aria-labelledby="title desc">
+  <title id="title">Aristotle Virtue Graph overview</title>
+  <desc id="desc">A high-level overview of the project flow: passages, candidate graph, reviewed core, and local viewer.</desc>
+  <rect width="1400" height="720" fill="#f6f0e6"/>
+  <rect x="40" y="40" width="1320" height="640" rx="28" fill="#fbf8f2" stroke="#eadfce"/>
+  <circle cx="114" cy="100" r="10" fill="#b86e46" opacity="0.9"/>
+  <circle cx="144" cy="100" r="10" fill="#c9a54f" opacity="0.9"/>
+  <circle cx="174" cy="100" r="10" fill="#6d8a63" opacity="0.9"/>
+  <text x="90" y="155" fill="#1f2f44" font-size="38" font-family="Georgia, serif" font-weight="700">Book II, made navigable</text>
+  <text x="90" y="192" fill="#526174" font-size="20" font-family="Arial, Helvetica, sans-serif">Passage authority, annotation layers, reviewed core, and a local viewer.</text>
+
+  <rect x="90" y="245" width="250" height="250" rx="24" fill="#edf4fb" stroke="#c6d9ef"/>
+  <text x="118" y="290" fill="#1f365c" font-size="18" font-family="Arial, Helvetica, sans-serif" font-weight="700">1. Passage authority</text>
+  <text x="118" y="355" fill="#1f365c" font-size="56" font-family="Arial, Helvetica, sans-serif" font-weight="700">45</text>
+  <text x="118" y="390" fill="#526174" font-size="20" font-family="Arial, Helvetica, sans-serif">stable passages</text>
+  <text x="118" y="430" fill="#526174" font-size="18" font-family="Arial, Helvetica, sans-serif">9 sections</text>
+  <text x="118" y="458" fill="#526174" font-size="18" font-family="Arial, Helvetica, sans-serif">deterministic passage ids</text>
+  <text x="118" y="486" fill="#526174" font-size="18" font-family="Arial, Helvetica, sans-serif">example: NE II.7 p1</text>
+
+  <rect x="410" y="245" width="250" height="250" rx="24" fill="#fcf0ea" stroke="#e7c8b5"/>
+  <text x="438" y="290" fill="#8f5230" font-size="18" font-family="Arial, Helvetica, sans-serif" font-weight="700">2. Candidate graph</text>
+  <text x="438" y="355" fill="#8f5230" font-size="44" font-family="Arial, Helvetica, sans-serif" font-weight="700">54 / 42</text>
+  <text x="438" y="390" fill="#725748" font-size="20" font-family="Arial, Helvetica, sans-serif">concepts / relations</text>
+  <text x="438" y="430" fill="#725748" font-size="18" font-family="Arial, Helvetica, sans-serif">broader working map</text>
+  <text x="438" y="458" fill="#725748" font-size="18" font-family="Arial, Helvetica, sans-serif">candidate plus approved items</text>
+  <text x="438" y="486" fill="#725748" font-size="18" font-family="Arial, Helvetica, sans-serif">full Book II structure</text>
+
+  <rect x="730" y="245" width="250" height="250" rx="24" fill="#eef5eb" stroke="#cadabc"/>
+  <text x="758" y="290" fill="#42633f" font-size="18" font-family="Arial, Helvetica, sans-serif" font-weight="700">3. Reviewed core</text>
+  <text x="758" y="355" fill="#42633f" font-size="44" font-family="Arial, Helvetica, sans-serif" font-weight="700">26 / 21</text>
+  <text x="758" y="390" fill="#5b6958" font-size="20" font-family="Arial, Helvetica, sans-serif">concepts / relations</text>
+  <text x="758" y="430" fill="#5b6958" font-size="18" font-family="Arial, Helvetica, sans-serif">sections 1, 4, 5, 6</text>
+  <text x="758" y="458" fill="#5b6958" font-size="18" font-family="Arial, Helvetica, sans-serif">courage triad</text>
+  <text x="758" y="486" fill="#5b6958" font-size="18" font-family="Arial, Helvetica, sans-serif">temperance triad</text>
+
+  <rect x="1050" y="245" width="250" height="250" rx="24" fill="#fbf4e4" stroke="#e6d39e"/>
+  <text x="1078" y="290" fill="#8f6e1b" font-size="18" font-family="Arial, Helvetica, sans-serif" font-weight="700">4. Local viewer</text>
+  <text x="1078" y="355" fill="#8f6e1b" font-size="44" font-family="Arial, Helvetica, sans-serif" font-weight="700">4 views</text>
+  <text x="1078" y="390" fill="#6e6448" font-size="20" font-family="Arial, Helvetica, sans-serif">concept, passage, graph, stats</text>
+  <text x="1078" y="430" fill="#6e6448" font-size="18" font-family="Arial, Helvetica, sans-serif">compare candidate / approved</text>
+  <text x="1078" y="458" fill="#6e6448" font-size="18" font-family="Arial, Helvetica, sans-serif">start with courage</text>
+  <text x="1078" y="486" fill="#6e6448" font-size="18" font-family="Arial, Helvetica, sans-serif">inspect evidence locally</text>
+
+  <path d="M340 370 H396" stroke="#b9aa96" stroke-width="5" stroke-linecap="round"/>
+  <path d="M396 370 L382 360" stroke="#b9aa96" stroke-width="5" stroke-linecap="round"/>
+  <path d="M396 370 L382 380" stroke="#b9aa96" stroke-width="5" stroke-linecap="round"/>
+
+  <path d="M660 370 H716" stroke="#b9aa96" stroke-width="5" stroke-linecap="round"/>
+  <path d="M716 370 L702 360" stroke="#b9aa96" stroke-width="5" stroke-linecap="round"/>
+  <path d="M716 370 L702 380" stroke="#b9aa96" stroke-width="5" stroke-linecap="round"/>
+
+  <path d="M980 370 H1036" stroke="#b9aa96" stroke-width="5" stroke-linecap="round"/>
+  <path d="M1036 370 L1022 360" stroke="#b9aa96" stroke-width="5" stroke-linecap="round"/>
+  <path d="M1036 370 L1022 380" stroke="#b9aa96" stroke-width="5" stroke-linecap="round"/>
+
+  <rect x="90" y="550" width="1210" height="88" rx="22" fill="#1f2f44"/>
+  <text x="122" y="590" fill="#ffffff" font-size="20" font-family="Arial, Helvetica, sans-serif" font-weight="700">One concrete path</text>
+  <text x="122" y="620" fill="#e8edf3" font-size="22" font-family="Arial, Helvetica, sans-serif">courage  ->  has_excess  ->  rashness   |   has_deficiency  ->  cowardice   |   concerns  ->  fear and confidence</text>
+  <text x="122" y="648" fill="#cfd8e3" font-size="17" font-family="Arial, Helvetica, sans-serif">Every relation above is anchored to NE II.7 p1 in the current reviewed core.</text>
+</svg>

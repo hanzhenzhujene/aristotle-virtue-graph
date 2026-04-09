@@ -1,117 +1,20 @@
 # Aristotle Virtue Graph
 
-An evidence-first knowledge graph for Aristotle's *Nicomachean Ethics* Book II.
+> Browse *Nicomachean Ethics* Book II as an auditable graph of concepts, relations, and passages.
 
-This project turns Book II into a passage-grounded graph of concepts, relations, and evidence.
-Its goal is not to build a chatbot or a giant philosophy ontology. Its goal is to make the
-argument structure of Book II inspectable, reviewable, and reusable without losing contact
-with the text.
+This repository turns Book II into a local, evidence-backed graph.
+You can inspect concepts like `courage` or `temperance`, follow their relations, and open the
+exact passages that support each claim.
 
-## The takeaway
+**Scope:** Book II only  
+**Viewer:** local, read-only, and evidence-first  
+**Reviewed core:** 26 approved concepts, 21 approved relations
 
-Book II presents a practical architecture of moral formation:
+![Viewer preview](docs/assets/viewer-courage-candidate.png)
 
-- moral virtue is not produced by nature; it is formed by habit
-- virtue is tracked by pleasure and pain
-- virtue is a state of character, not a passion or a faculty
-- acting virtuously requires knowledge, choice, and a firm state
-- virtue aims at a mean relative to us, guided by right reason and the practically wise
-- specific virtues can be modeled as stable triads:
-  virtue -> excess -> deficiency, within a determinate domain
-
-The graph makes those claims explicit and traceable.
-Every concept and every non-hierarchical relation must point back to one or more Book II
-passages.
-
-## Why this repo is useful
-
-Most summaries of Aristotle flatten Book II into slogans.
-This repo does something more instrumental:
-
-- it separates textual claims from editorial normalization and interpretation
-- it preserves a stable passage authority
-- it distinguishes candidate annotations from approved ones
-- it exports machine-usable graph artifacts without hiding the evidence
-- it lets a reader move directly from concept -> relation -> passage
-
-If you want to know not just what the repo claims, but where Book II supports it, this is the
-point of the project.
-
-## Current findings
-
-Current Book II dataset status:
-
-- 45 deterministic passages across 9 sections
-- 54 total concepts in candidate mode
-- 42 total relations in candidate mode
-- 26 approved concepts in the reviewed core
-- 21 approved relations in the reviewed core
-
-What is already reviewed in strict approved mode:
-
-- the opening distinction between moral and intellectual virtue
-- moral virtue as formed by habituation
-- the role of pleasure and pain in moral formation
-- virtue as a state of character rather than passion or faculty
-- the conditions of virtuous action: knowledge, choice, and stability
-- the mean as determined by right reason and the practically wise person
-- two fully reviewed virtue triads:
-  courage / rashness / cowardice in the domain of fear and confidence
-  temperance / self-indulgence / insensibility in the domain of bodily pleasures and pains
-
-This means the repository already supports a strong, evidence-backed reading of Book II's core
-practical thesis:
-Aristotle is not merely classifying virtues; he is describing how character is formed,
-recognized, and judged.
-
-## What the app lets you do
-
-The local viewer is read-only and evidence-first.
-
-You can:
-
-- browse the graph in `candidate` or `approved` mode
-- inspect a concept and see its incoming and outgoing relations
-- open the exact passages used as evidence
-- explore a 1-hop or 2-hop ego graph around a selected concept
-- compare the larger candidate layer with the smaller reviewed core
-
-The main happy path is:
-
-1. choose a concept such as `courage`
-2. inspect its relations
-3. open the linked passage
-4. confirm the claim against the text
-
-## Project principles
-
-- Scope is limited to *Nicomachean Ethics* Book II.
-- Every concept must have evidence.
-- Every relation must have evidence.
-- Non-hierarchical relations are never allowed without a supporting passage.
-- Ross wording is preserved in `source_labels`.
-- Modernized wording belongs in `aliases`, not in the source field.
-- Textual, editorial, and interpretive layers are kept distinct.
-- LLM-generated annotations are never treated as automatic ground truth.
-
-## Source policy
-
-- Preferred canonical ingest source for Book II: the Ross translation on Wikisource
-- Verification source: MIT Internet Classics Book II page
-- MIT may be used for verification, but it is not treated as the committed canonical raw corpus
-- Raw downloaded HTML stays local; the committed passage authority is the derived file
-  `data/interim/book2_passages.jsonl`
-
-See [docs/source_policy.md](docs/source_policy.md) for the fuller rationale.
+_Local viewer preview: the default run now opens on `courage`, with relations and evidence in view._
 
 ## Quickstart
-
-Prerequisites:
-
-- Python 3.11 or newer
-- a local virtual environment
-
-Install and run:
 
 ```bash
 python3 -m venv .venv
@@ -122,48 +25,102 @@ make annotations-export-strict
 make app
 ```
 
-If you only need the export pipeline and not the viewer, `pip install -e ".[dev]"` is enough.
+This opens a local Streamlit app with Book II already loaded.
+Start with `courage`.
 
-## Canonical workflow
+## Try this first
 
-Build processed artifacts:
+Open the viewer and follow one concrete path:
 
-```bash
-make annotations-validate
-make annotations-validate-strict
-make annotations-export
-make annotations-export-strict
-make annotations-stats
+1. Leave the app in `candidate` mode and keep `courage` selected.
+2. Read the outgoing relations.
+3. Open the supporting passage `NE II.7 p1`.
+4. Switch to `approved` mode and compare the smaller reviewed core against the larger candidate layer.
+
+What you should see:
+
+```text
+courage
+|- has_excess      -> rashness
+|- has_deficiency -> cowardice
+`- concerns       -> fear and confidence
+
+evidence: NE II.7 p1
 ```
 
-Run the viewer:
+That short path already shows what this project is for:
+graph structure stays tied to the passage that justifies it.
 
-```bash
-make app
-```
+## What you can do here
 
-Equivalent direct command:
+- Inspect Aristotle's virtue structure as a graph rather than a flat summary.
+- Trace concepts and relations back to specific Book II passages.
+- Compare tentative annotations against the reviewed subset.
+- Explore Book II by concept, passage, graph neighborhood, or stats.
 
-```bash
-python -m streamlit run src/aristotle_graph/app/streamlit_app.py
-```
+## Viewer capabilities
 
-Run checks:
+| View | What it is good for |
+| --- | --- |
+| Concept Explorer | Read one concept closely: labels, evidence, and incoming/outgoing relations |
+| Passage Explorer | Start from the text and see which concepts and relations are grounded there |
+| Graph View | Inspect a 1-hop or 2-hop neighborhood without rendering the full graph as a hairball |
+| Stats | See the size and composition of the current candidate and approved layers |
 
-```bash
-make test
-make lint
-make typecheck
-make check
-```
+More usage detail lives in [docs/viewer_guide.md](docs/viewer_guide.md).
 
-## Data artifacts
+## Why this is interesting
+
+Book II is often reduced to a few slogans about habit and the mean.
+This repo makes its structure inspectable in a more useful way:
+
+- virtue can be explored as a set of linked claims, not isolated summaries
+- every non-hierarchical relation is passage-grounded
+- candidate and approved annotations remain visibly distinct
+- textual claims, editorial normalization, and interpretation are not collapsed into one layer
+
+That makes the project small enough to audit and rich enough to reuse.
+
+![Book II overview](docs/assets/book2-overview.svg)
+
+## Current state
+
+| Mode | Concepts | Relations | Passages | What it gives you |
+| --- | ---: | ---: | ---: | --- |
+| Candidate | 54 | 42 | 45 | The broader working map for all of Book II |
+| Approved | 26 | 21 | 45 | A reviewed core centered on the main practical structure |
+
+The current reviewed core covers:
+
+- the distinction between moral and intellectual virtue
+- habituation
+- pleasure and pain as markers of formation
+- virtue as a state of character rather than passion or faculty
+- the conditions of virtuous action: knowledge, choice, and stability
+- the mean as guided by right reason and the practically wise person
+- two reviewed virtue triads:
+  courage / rashness / cowardice
+  temperance / self-indulgence / insensibility
+
+## Why the repo feels trustworthy
+
+The project stays rigorous in a few specific ways:
+
+- Every concept must cite one or more passages.
+- Every relation must cite one or more passages.
+- `source_labels` preserve Ross wording instead of silently modernizing it.
+- `candidate` and `approved` are separate files and separate export modes.
+- Book II is the hard boundary; the repo does not quietly sprawl into later books.
+
+This is why the repo can be accessible without becoming hand-wavy.
+
+## Data and outputs
 
 Authoritative passage source:
 
 - `data/interim/book2_passages.jsonl`
 
-Candidate-mode processed artifacts:
+Processed candidate artifacts:
 
 - `data/processed/book2_passages.jsonl`
 - `data/processed/book2_concepts.jsonl`
@@ -172,7 +129,7 @@ Candidate-mode processed artifacts:
 - `data/processed/book2_graph.graphml`
 - `data/processed/book2_stats.json`
 
-Strict approved-mode processed artifacts:
+Processed approved artifacts:
 
 - `data/processed/approved/book2_passages.jsonl`
 - `data/processed/approved/book2_concepts.jsonl`
@@ -181,7 +138,7 @@ Strict approved-mode processed artifacts:
 - `data/processed/approved/book2_graph.graphml`
 - `data/processed/approved/book2_stats.json`
 
-`book2_graph.json` is the primary rich graph payload.
+`book2_graph.json` is the primary rich export.
 `book2_graph.graphml` is a flattened interoperability export.
 
 ## Review workflow
@@ -199,9 +156,19 @@ The working rule is simple:
 - only human-reviewed items move to `approved`
 - strict export mode uses only the approved layer
 
-This repository already includes a reviewed core, so approved mode is usable immediately.
+This repository already includes a usable reviewed core, so approved mode is meaningful from the first run.
 
-## Repository layout
+## Source policy
+
+- Preferred canonical ingest source for Book II: the Ross translation on Wikisource
+- Verification source: MIT Internet Classics Book II page
+- MIT may be used for verification, but it is not treated as the committed canonical raw corpus
+- Raw downloaded HTML stays local; the committed passage authority is the derived file
+  `data/interim/book2_passages.jsonl`
+
+See [docs/source_policy.md](docs/source_policy.md) for the fuller rationale.
+
+## Repository guide
 
 - `src/aristotle_graph/ingest/`: source adapters, normalization, segmentation
 - `src/aristotle_graph/annotations/`: schemas, loaders, validation, export
@@ -210,25 +177,34 @@ This repository already includes a reviewed core, so approved mode is usable imm
 - `src/aristotle_graph/app/`: Streamlit entrypoint
 - `annotations/`: candidate and approved Book II annotation files
 - `data/`: interim and processed outputs
-- `docs/`: data model, annotation guide, source policy, and execution plan
+- `docs/`: user and maintainer docs
+
+Useful docs:
+
+- [docs/viewer_guide.md](docs/viewer_guide.md)
+- [docs/annotation_guide.md](docs/annotation_guide.md)
+- [docs/data_model.md](docs/data_model.md)
+- [docs/source_policy.md](docs/source_policy.md)
+- [docs/execplans/aristotle-virtue-graph.md](docs/execplans/aristotle-virtue-graph.md)
 
 ## Limits
 
 - This is Book II only.
 - There is no database.
 - There is no chatbot or RAG layer.
-- The approved subset is still intentionally smaller than the candidate layer.
+- The approved subset is intentionally smaller than the candidate layer.
 - Bekker references and CTS URNs are not yet populated.
+
+## License
+
+Code in this repository is released under the [MIT License](LICENSE).
+Text provenance and redistribution constraints are described in [docs/source_policy.md](docs/source_policy.md).
 
 ## Next step
 
 The next meaningful extension is not more software complexity.
 It is more review:
 
-- continue promoting the remaining Book II virtue clusters from candidate to approved
+- promote the remaining Book II virtue clusters from candidate to approved
 - keep every promotion passage-grounded
-- grow the approved graph without weakening the evidence standard
-
-See [docs/annotation_guide.md](docs/annotation_guide.md),
-[docs/data_model.md](docs/data_model.md), and
-[docs/execplans/aristotle-virtue-graph.md](docs/execplans/aristotle-virtue-graph.md).
+- grow the reviewed graph without weakening the evidence standard
