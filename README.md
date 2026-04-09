@@ -1,18 +1,27 @@
 # Aristotle Virtue Graph
 
-> Browse *Nicomachean Ethics* Book II as an auditable graph of concepts, relations, and passages.
+> An evidence-first dashboard for exploring *Nicomachean Ethics* Book II as concepts, relations, and passages.
 
-This repository turns Book II into a local, evidence-backed graph.
-You can inspect concepts like `courage` or `temperance`, follow their relations, and open the
-exact passages that support each claim.
+This project turns Aristotle's Book II into a graph you can actually inspect.
+Open a concept like `courage`, follow its linked relations, open the supporting passage, and compare the broader candidate layer against the smaller reviewed core.
 
 **Scope:** Book II only  
-**Viewer:** local, read-only, and evidence-first  
-**Reviewed core:** 26 approved concepts, 21 approved relations
+**Viewer:** Streamlit dashboard  
+**Current reviewed core:** 26 approved concepts, 21 approved relations
 
-![Viewer preview](docs/assets/viewer-courage-candidate.png)
+**Open now:** [Live dashboard setup](docs/deployment.md) · [Run locally](#quickstart) · [Viewer guide](docs/viewer_guide.md)
 
-_Local viewer preview: the default run now opens on `courage`, with relations and evidence in view._
+## Open the dashboard
+
+| Live dashboard | Local dashboard | First guide |
+| --- | --- | --- |
+| **Deployment-ready for Streamlit Community Cloud** → [publish the live app](docs/deployment.md) | **Run now:** `make app` | [Start with `courage`](docs/viewer_guide.md) |
+
+_The repository is fully prepared for Streamlit Community Cloud. The final publish action still requires a browser-authenticated Streamlit Cloud “Create app” step. See [docs/deployment.md](docs/deployment.md)._
+
+![Dashboard preview](docs/assets/viewer-courage-candidate.png)
+
+_Dashboard preview: `courage` open in the local viewer, with evidence and relation tables in view._
 
 ## Quickstart
 
@@ -25,17 +34,18 @@ make annotations-export-strict
 make app
 ```
 
-This opens a local Streamlit app with Book II already loaded.
+This opens the dashboard with Book II already loaded.
 Start with `courage`.
 
 ## Try this first
 
-Open the viewer and follow one concrete path:
+Use the shortest path that shows the project working:
 
-1. Leave the app in `candidate` mode and keep `courage` selected.
-2. Read the outgoing relations.
-3. Open the supporting passage `NE II.7 p1`.
-4. Switch to `approved` mode and compare the smaller reviewed core against the larger candidate layer.
+1. Open the dashboard.
+2. Keep `courage` selected.
+3. Read the outgoing relations.
+4. Open the supporting passage `NE II.7 p1`.
+5. Switch between `candidate` and `approved` mode.
 
 What you should see:
 
@@ -48,38 +58,29 @@ courage
 evidence: NE II.7 p1
 ```
 
-That short path already shows what this project is for:
-graph structure stays tied to the passage that justifies it.
+That one path already shows the point of the repo:
+the graph is not a summary layer floating above the text.
+It stays attached to the passage that supports it.
 
 ## What you can do here
 
-- Inspect Aristotle's virtue structure as a graph rather than a flat summary.
-- Trace concepts and relations back to specific Book II passages.
-- Compare tentative annotations against the reviewed subset.
-- Explore Book II by concept, passage, graph neighborhood, or stats.
+- Browse Book II as a graph instead of a flat outline.
+- Inspect a concept and see its evidence, labels, and linked relations.
+- Start from a passage and see which concepts and relations are grounded there.
+- Compare the broader candidate graph with the reviewed approved core.
+- Explore a local 1-hop or 2-hop graph neighborhood around a selected concept.
 
-## Viewer capabilities
+## Why it is interesting
 
-| View | What it is good for |
-| --- | --- |
-| Concept Explorer | Read one concept closely: labels, evidence, and incoming/outgoing relations |
-| Passage Explorer | Start from the text and see which concepts and relations are grounded there |
-| Graph View | Inspect a 1-hop or 2-hop neighborhood without rendering the full graph as a hairball |
-| Stats | See the size and composition of the current candidate and approved layers |
+Book II is often reduced to a few phrases about habit and the mean.
+This repo makes the internal structure more navigable:
 
-More usage detail lives in [docs/viewer_guide.md](docs/viewer_guide.md).
-
-## Why this is interesting
-
-Book II is often reduced to a few slogans about habit and the mean.
-This repo makes its structure inspectable in a more useful way:
-
-- virtue can be explored as a set of linked claims, not isolated summaries
-- every non-hierarchical relation is passage-grounded
+- virtue can be explored as linked claims instead of isolated slogans
+- non-hierarchical relations stay passage-grounded
 - candidate and approved annotations remain visibly distinct
-- textual claims, editorial normalization, and interpretation are not collapsed into one layer
+- textual claims, editorial normalization, and interpretation are kept separate
 
-That makes the project small enough to audit and rich enough to reuse.
+It is small enough to audit and concrete enough to reuse.
 
 ![Book II overview](docs/assets/book2-overview.svg)
 
@@ -90,7 +91,7 @@ That makes the project small enough to audit and rich enough to reuse.
 | Candidate | 54 | 42 | 45 | The broader working map for all of Book II |
 | Approved | 26 | 21 | 45 | A reviewed core centered on the main practical structure |
 
-The current reviewed core covers:
+The current reviewed core already covers:
 
 - the distinction between moral and intellectual virtue
 - habituation
@@ -102,19 +103,52 @@ The current reviewed core covers:
   courage / rashness / cowardice
   temperance / self-indulgence / insensibility
 
-## Why the repo feels trustworthy
+## Viewer at a glance
 
-The project stays rigorous in a few specific ways:
+| View | What it is for |
+| --- | --- |
+| Concept Explorer | Read one concept closely: labels, review status, evidence, and linked relations |
+| Passage Explorer | Start from the text and see which concepts and relations cite that passage |
+| Graph View | Inspect a 1-hop or 2-hop neighborhood without rendering the full graph as a hairball |
+| Stats | See current counts, relation types, concept kinds, and review-status breakdowns |
+
+More detail: [docs/viewer_guide.md](docs/viewer_guide.md)
+
+## Why the structure is trustworthy
+
+The project stays strict in a few concrete ways:
 
 - Every concept must cite one or more passages.
 - Every relation must cite one or more passages.
 - `source_labels` preserve Ross wording instead of silently modernizing it.
 - `candidate` and `approved` are separate files and separate export modes.
-- Book II is the hard boundary; the repo does not quietly sprawl into later books.
+- Book II is a hard boundary; the repo does not quietly expand into later books.
 
-This is why the repo can be accessible without becoming hand-wavy.
+## Local run path
 
-## Data and outputs
+Shortest local route:
+
+```bash
+make app
+```
+
+Direct Streamlit entrypoint:
+
+```bash
+python -m streamlit run streamlit_app.py
+```
+
+If you need to rebuild processed data first:
+
+```bash
+make annotations-validate
+make annotations-validate-strict
+make annotations-export
+make annotations-export-strict
+make annotations-stats
+```
+
+## Data artifacts
 
 Authoritative passage source:
 
@@ -166,7 +200,17 @@ This repository already includes a usable reviewed core, so approved mode is mea
 - Raw downloaded HTML stays local; the committed passage authority is the derived file
   `data/interim/book2_passages.jsonl`
 
-See [docs/source_policy.md](docs/source_policy.md) for the fuller rationale.
+Full rationale: [docs/source_policy.md](docs/source_policy.md)
+
+## Deployment
+
+The repository is ready for Streamlit Community Cloud:
+
+- app entrypoint: `streamlit_app.py`
+- deployment dependencies: `requirements.txt`
+- app theme/config: `.streamlit/config.toml`
+
+The remaining manual step is in [docs/deployment.md](docs/deployment.md).
 
 ## Repository guide
 
@@ -174,7 +218,8 @@ See [docs/source_policy.md](docs/source_policy.md) for the fuller rationale.
 - `src/aristotle_graph/annotations/`: schemas, loaders, validation, export
 - `src/aristotle_graph/graph/`: graph payload construction and GraphML export
 - `src/aristotle_graph/viewer/`: viewer loading, filtering, and rendering helpers
-- `src/aristotle_graph/app/`: Streamlit entrypoint
+- `src/aristotle_graph/app/`: app logic
+- `streamlit_app.py`: deployment-friendly root entrypoint
 - `annotations/`: candidate and approved Book II annotation files
 - `data/`: interim and processed outputs
 - `docs/`: user and maintainer docs
@@ -182,6 +227,7 @@ See [docs/source_policy.md](docs/source_policy.md) for the fuller rationale.
 Useful docs:
 
 - [docs/viewer_guide.md](docs/viewer_guide.md)
+- [docs/deployment.md](docs/deployment.md)
 - [docs/annotation_guide.md](docs/annotation_guide.md)
 - [docs/data_model.md](docs/data_model.md)
 - [docs/source_policy.md](docs/source_policy.md)

@@ -33,7 +33,7 @@ annotations-stats:
 	$(PYTHON) -m aristotle_graph.cli annotations stats
 
 app:
-	$(PYTHON) -m streamlit run src/aristotle_graph/app/streamlit_app.py
+	$(PYTHON) -m streamlit run streamlit_app.py
 
 test:
 	pytest

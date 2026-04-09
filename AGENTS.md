@@ -37,7 +37,7 @@ Do not expand scope beyond Book II unless the user explicitly asks.
 - Test: `pytest`
 - Lint: `ruff check .`
 - Type check: `mypy src/`
-- Run app: `python -m streamlit run src/aristotle_graph/app/streamlit_app.py`
+- Run app: `python -m streamlit run streamlit_app.py`
 
 ## Done means
 

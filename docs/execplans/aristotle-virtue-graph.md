@@ -199,6 +199,9 @@ Keep identifiers stable and human-readable.
   so the clean publish path is to give `Aristotle Virtue Graph` its own standalone git history.
 - The repo became much easier to scan once the README led with a real viewer preview, a
   `courage` walkthrough, and concrete counts rather than methodology first.
+- Streamlit Community Cloud deployment becomes much clearer when the repository exposes a root
+  `streamlit_app.py`, root `requirements.txt`, and a short deployment note instead of assuming
+  readers will infer the entrypoint from package internals.
 
 ## Decision Log
 
@@ -239,6 +242,9 @@ Keep identifiers stable and human-readable.
   toolchain dump.
 - 2026-04-09: Improve the local viewer's first-run path by defaulting the concept selector to
   `courage` when it is visible.
+- 2026-04-09: Add root-level deployment files for Streamlit Community Cloud
+  (`streamlit_app.py`, `requirements.txt`, `.streamlit/config.toml`) so the public repo has an
+  obvious app entrypoint and a clean deployment path.
 
 ## Outcomes & Retrospective
 
@@ -273,7 +279,11 @@ Outputs:
 - `docs/assets/viewer-courage-candidate.png`
 - `docs/assets/book2-overview.svg`
 - `docs/viewer_guide.md`
+- `docs/deployment.md`
 - `LICENSE`
+- `streamlit_app.py`
+- `requirements.txt`
+- `.streamlit/config.toml`
 - `src/aristotle_graph/viewer/`
 - `src/aristotle_graph/app/streamlit_app.py`
 
@@ -295,6 +305,8 @@ Observed results:
   rather than only describing the toolchain
 - the public-facing repo now includes a real viewer preview, a compact overview graphic, a
   viewer guide, and a code license
+- the repository is now deployment-ready for Streamlit Community Cloud with a root app
+  entrypoint and explicit deployment instructions
 - the project now lives in its own public GitHub repository rather than remaining nested inside
   the unrelated parent `MESOTES` repository
 - `pytest`, `ruff check .`, and `mypy src/` all pass
@@ -306,6 +318,8 @@ Known limitations:
   work before the rest of Book II should be treated as reviewed
 - GraphML intentionally flattens nested structures, so `book2_graph.json` remains the richer
   downstream format
+- the live Streamlit Community Cloud URL has not been created yet because the final publish step
+  still requires a browser-authenticated Streamlit Cloud `Create app` action
 
 Next recommended step:
 

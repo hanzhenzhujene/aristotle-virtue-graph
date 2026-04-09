@@ -10,7 +10,7 @@ python3 -m venv .venv
 pip install -e ".[dev,viewer]"
 make annotations-export
 make annotations-export-strict
-make app
+python -m streamlit run streamlit_app.py
 ```
 
 Once the app opens, start with `courage`.
