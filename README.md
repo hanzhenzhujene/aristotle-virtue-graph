@@ -2,7 +2,8 @@
   <img src="docs/assets/aristotle-head-icon.png" alt="Aristotle head icon" width="70" />
 </p>
 
-# Aristotle Virtue Graph
+# Aristotle Virtue Graph  <img src="docs/assets/aristotle-head-icon.png" alt="Aristotle head icon" width="70" />
+
 
 > An evidence-first dashboard for exploring *Nicomachean Ethics* Book II as concepts, relations, and passages. **[Open live dashboard](https://aristotle-virtue-graph.streamlit.app/)**
 
