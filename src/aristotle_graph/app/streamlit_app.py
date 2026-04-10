@@ -49,7 +49,7 @@ def render() -> None:
     header_left, header_right = st.columns([1, 7])
     with header_left:
         if logo_path.exists():
-            st.image(str(logo_path), width=104)
+            st.image(str(logo_path), width=68)
     with header_right:
         st.title("Aristotle Virtue Graph")
         st.caption("Evidence-first explorer for Nicomachean Ethics Book II.")

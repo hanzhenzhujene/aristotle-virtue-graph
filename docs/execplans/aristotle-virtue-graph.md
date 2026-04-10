@@ -273,8 +273,8 @@ Keep identifiers stable and human-readable.
   rechecking the direct wording of `NE II.7 ¶4`.
 - 2026-04-10: Document the Streamlit app-settings path for choosing a shorter custom subdomain,
   since shortening the live URL cannot be completed from inside the repo alone.
-- 2026-04-10: Add a hand-authored Aristotle bust SVG and reuse it in the README and Streamlit
-  header to give the public-facing project a clearer visual identity without adding a design stack.
+- 2026-04-10: Replace the first Aristotle bust mark with a smaller monochrome line icon based on
+  a supplied reference image, and reuse it in the README and Streamlit header.
 
 ## Outcomes & Retrospective
 
