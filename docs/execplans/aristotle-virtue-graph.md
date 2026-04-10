@@ -336,7 +336,7 @@ Observed results:
 - the README top section now centers on a single dashboard hero, a non-misleading live-status
   CTA, and a lighter first-run path that does not force export commands before opening the app
 - the public README now points directly to the live Streamlit dashboard at
-  `https://aristotle-virtue-graph-asqtn6j429dzaxvgfttrmk.streamlit.app/`
+  `https://aristotle-virtue-graph.streamlit.app/`
 - the viewer now includes curated `Start here` shortcuts and one-click passage jumps from
   concept evidence and relation shortcuts into Passage Explorer
 - the approved core now includes 42 concepts and 33 relations, adding reviewed wit and
@@ -352,8 +352,8 @@ Known limitations:
   work before the rest of Book II should be treated as reviewed
 - GraphML intentionally flattens nested structures, so `book2_graph.json` remains the richer
   downstream format
-- the live Streamlit URL is currently a generated Streamlit hostname rather than a shorter custom
-  subdomain
+- the live Streamlit URL is now the shorter custom subdomain
+  `https://aristotle-virtue-graph.streamlit.app/`
 - the remaining section 7 clusters, especially magnificence, proper pride, and good temper, still
   need the same careful reviewed promotion work before the approved layer can be treated as
   broadly representative of all section 7 particulars

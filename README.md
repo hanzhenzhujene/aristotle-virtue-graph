@@ -1,6 +1,6 @@
 # Aristotle Virtue Graph
 
-> An evidence-first dashboard for exploring *Nicomachean Ethics* Book II as concepts, relations, and passages.  **[Open live dashboard！](https://aristotle-virtue-graph-asqtn6j429dzaxvgfttrmk.streamlit.app/)** 
+> An evidence-first dashboard for exploring *Nicomachean Ethics* Book II as concepts, relations, and passages.
 
 This project turns Aristotle's Book II into a graph you can actually inspect.
 Open a concept like `courage`, follow its linked relations, open the supporting passage, and compare the broader candidate layer against the smaller reviewed core.
@@ -17,7 +17,7 @@ _Hero view: `courage` open in the dashboard, with evidence, relation tables, and
 
 | Live dashboard | Run locally | Viewer guide |
 | --- | --- | --- |
-| **[Open live dashboard](https://aristotle-virtue-graph-asqtn6j429dzaxvgfttrmk.streamlit.app/)** | **Run now:** [`make app`](#run-the-viewer) | [Start with `courage`](docs/viewer_guide.md) |
+| **[Open live dashboard](https://aristotle-virtue-graph.streamlit.app/)** | **Run now:** [`make app`](#run-the-viewer) | [Start with `courage`](docs/viewer_guide.md) |
 
 _The live app is now available on Streamlit Community Cloud. Local run instructions and deployment details remain in [docs/deployment.md](docs/deployment.md)._
 
@@ -194,7 +194,7 @@ Full rationale: [docs/source_policy.md](docs/source_policy.md)
 
 The live dashboard is running on Streamlit Community Cloud:
 
-- live URL: `https://aristotle-virtue-graph-asqtn6j429dzaxvgfttrmk.streamlit.app/`
+- live URL: `https://aristotle-virtue-graph.streamlit.app/`
 - app entrypoint: `streamlit_app.py`
 - deployment dependencies: `requirements.txt`
 - app theme/config: `.streamlit/config.toml`
