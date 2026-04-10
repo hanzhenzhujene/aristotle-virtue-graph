@@ -233,12 +233,3 @@ Useful docs:
 
 Code in this repository is released under the [MIT License](LICENSE).
 Text provenance and redistribution constraints are described in [docs/source_policy.md](docs/source_policy.md).
-
-## Next step
-
-The next meaningful extension is not more software complexity.
-It is more review:
-
-- promote the remaining Book II virtue clusters from candidate to approved
-- keep every promotion passage-grounded
-- grow the reviewed graph without weakening the evidence standard
