@@ -209,6 +209,11 @@ Keep identifiers stable and human-readable.
   `use_container_width=True` path for stable local runs.
 - Once the live app exists, the README should link directly to the real dashboard URL rather
   than forcing visitors through deployment notes first.
+- Streamlit `tabs` are awkward for evidence-driven navigation because buttons elsewhere in the
+  page cannot reliably move the user into the relevant tab, so a controlled view selector is a
+  better fit when concept or relation evidence should open directly into Passage Explorer.
+- Extending the reviewed core works best when each added triad is promoted in small, textually
+  direct batches rather than trying to approve the rest of section 7 all at once.
 
 ## Decision Log
 
@@ -256,6 +261,10 @@ Keep identifiers stable and human-readable.
   a real public Streamlit URL exists, and split first-run instructions from rebuild workflows.
 - 2026-04-09: Replace the temporary `coming soon` CTA with the real Streamlit Community Cloud
   URL once deployment is live.
+- 2026-04-10: Replace the viewer tabs with a controlled top-level view selector so evidence
+  buttons can send the user directly to Passage Explorer without adding a frontend framework.
+- 2026-04-10: Promote the liberality and truthfulness triads from candidate to approved after
+  rechecking their Book II.7 passage evidence.
 
 ## Outcomes & Retrospective
 
@@ -322,6 +331,10 @@ Observed results:
   CTA, and a lighter first-run path that does not force export commands before opening the app
 - the public README now points directly to the live Streamlit dashboard at
   `https://aristotle-virtue-graph-asqtn6j429dzaxvgfttrmk.streamlit.app/`
+- the viewer now includes curated `Start here` shortcuts and one-click passage jumps from
+  concept evidence and relation shortcuts into Passage Explorer
+- the approved core now includes 34 concepts and 27 relations, adding reviewed liberality and
+  truthfulness triads to the earlier courage and temperance coverage
 - the project now lives in its own public GitHub repository rather than remaining nested inside
   the unrelated parent `MESOTES` repository
 - `pytest`, `ruff check .`, and `mypy src/` all pass
@@ -335,6 +348,8 @@ Known limitations:
   downstream format
 - the live Streamlit URL is currently a generated Streamlit hostname rather than a shorter custom
   subdomain
+- the remaining Book II.7 triads still need the same careful reviewed promotion work before the
+  approved layer can be treated as broadly representative of all section 7 particulars
 
 Next recommended step:
 

@@ -81,7 +81,7 @@
   <data key="d9">2</data>
   <data key="d10">[7]</data>
   <data key="d11">[{"note": "Section 7 names boastfulness as the exaggerating excess.", "passage_id": "ne.b2.s7.p4", "quote_excerpt": null, "support_type": "direct"}]</data>
-  <data key="d12">candidate</data>
+  <data key="d12">approved</data>
   <data key="d13"></data>
   <data key="d14">boastfulness</data>
   <data key="d15">1</data>
@@ -347,7 +347,7 @@
   <data key="d9">2</data>
   <data key="d10">[7]</data>
   <data key="d11">[{"note": "Section 7 explicitly names giving and taking money as liberality's sphere.", "passage_id": "ne.b2.s7.p2", "quote_excerpt": null, "support_type": "direct"}]</data>
-  <data key="d12">candidate</data>
+  <data key="d12">approved</data>
   <data key="d13"></data>
   <data key="d14">giving and taking of money</data>
   <data key="d15">1</data>
@@ -537,7 +537,7 @@
   <data key="d9">2</data>
   <data key="d10">[7, 8]</data>
   <data key="d11">[{"note": "Section 7 names liberality as the mean with respect to money.", "passage_id": "ne.b2.s7.p2", "quote_excerpt": null, "support_type": "direct"}]</data>
-  <data key="d12">candidate</data>
+  <data key="d12">approved</data>
   <data key="d13"></data>
   <data key="d14">liberality</data>
   <data key="d15">1</data>
@@ -575,7 +575,7 @@
   <data key="d9">2</data>
   <data key="d10">[7, 8]</data>
   <data key="d11">[{"note": "Section 7 names meanness as the defect corresponding to liberality.", "passage_id": "ne.b2.s7.p2", "quote_excerpt": null, "support_type": "direct"}]</data>
-  <data key="d12">candidate</data>
+  <data key="d12">approved</data>
   <data key="d13"></data>
   <data key="d14">meanness</data>
   <data key="d15">1</data>
@@ -746,7 +746,7 @@
   <data key="d9">2</data>
   <data key="d10">[7, 8]</data>
   <data key="d11">[{"note": "Section 7 names prodigality as the excess in giving and taking money.", "passage_id": "ne.b2.s7.p2", "quote_excerpt": null, "support_type": "direct"}]</data>
-  <data key="d12">candidate</data>
+  <data key="d12">approved</data>
   <data key="d13"></data>
   <data key="d14">prodigality</data>
   <data key="d15">1</data>
@@ -841,7 +841,7 @@
   <data key="d9">2</data>
   <data key="d10">[7]</data>
   <data key="d11">[{"note": "Section 7 names mock modesty as the understating extreme.", "passage_id": "ne.b2.s7.p4", "quote_excerpt": null, "support_type": "direct"}]</data>
-  <data key="d12">candidate</data>
+  <data key="d12">approved</data>
   <data key="d13">The repo id uses a modern mnemonic label, but Ross's wording remains the primary label.</data>
   <data key="d14">mock modesty</data>
   <data key="d15">1</data>
@@ -879,7 +879,7 @@
   <data key="d9">2</data>
   <data key="d10">[7]</data>
   <data key="d11">[{"note": "Section 7 frames truthfulness within intercourse in words and actions.", "passage_id": "ne.b2.s7.p4", "quote_excerpt": null, "support_type": "direct"}]</data>
-  <data key="d12">candidate</data>
+  <data key="d12">approved</data>
   <data key="d13"></data>
   <data key="d14">truth in this sphere</data>
   <data key="d15">1</data>
@@ -955,7 +955,7 @@
   <data key="d9">2</data>
   <data key="d10">[7]</data>
   <data key="d11">[{"note": "Section 7 names truthfulness as the mean in the sphere of truth.", "passage_id": "ne.b2.s7.p4", "quote_excerpt": null, "support_type": "direct"}]</data>
-  <data key="d12">candidate</data>
+  <data key="d12">approved</data>
   <data key="d13"></data>
   <data key="d14">truthfulness</data>
   <data key="d15">1</data>
@@ -1261,7 +1261,7 @@
   <data key="d22">giving-and-taking-money</data>
   <data key="d23">textual</data>
   <data key="d24">[{"note": "Section 7 says liberality is the mean with regard to giving and taking money.", "passage_id": "ne.b2.s7.p2", "quote_excerpt": null, "support_type": "direct"}]</data>
-  <data key="d25">candidate</data>
+  <data key="d25">approved</data>
   <data key="d26"></data>
   <data key="d27">1</data>
   <data key="d28">["ne.b2.s7.p2"]</data>
@@ -1275,7 +1275,7 @@
   <data key="d22">meanness</data>
   <data key="d23">textual</data>
   <data key="d24">[{"note": "Section 7 names meanness as the defect corresponding to liberality.", "passage_id": "ne.b2.s7.p2", "quote_excerpt": null, "support_type": "direct"}]</data>
-  <data key="d25">candidate</data>
+  <data key="d25">approved</data>
   <data key="d26"></data>
   <data key="d27">1</data>
   <data key="d28">["ne.b2.s7.p2"]</data>
@@ -1289,7 +1289,7 @@
   <data key="d22">prodigality</data>
   <data key="d23">textual</data>
   <data key="d24">[{"note": "Section 7 names prodigality as the excess corresponding to liberality.", "passage_id": "ne.b2.s7.p2", "quote_excerpt": null, "support_type": "direct"}]</data>
-  <data key="d25">candidate</data>
+  <data key="d25">approved</data>
   <data key="d26"></data>
   <data key="d27">1</data>
   <data key="d28">["ne.b2.s7.p2"]</data>
@@ -1527,7 +1527,7 @@
   <data key="d22">self-presentation</data>
   <data key="d23">editorial_normalization</data>
   <data key="d24">[{"note": "Section 7 treats truthfulness within intercourse in words and actions.", "passage_id": "ne.b2.s7.p4", "quote_excerpt": null, "support_type": "direct"}]</data>
-  <data key="d25">candidate</data>
+  <data key="d25">approved</data>
   <data key="d26"></data>
   <data key="d27">1</data>
   <data key="d28">["ne.b2.s7.p4"]</data>
@@ -1541,7 +1541,7 @@
   <data key="d22">self-deprecation</data>
   <data key="d23">editorial_normalization</data>
   <data key="d24">[{"note": "Section 7 names mock modesty as the understating extreme.", "passage_id": "ne.b2.s7.p4", "quote_excerpt": null, "support_type": "direct"}]</data>
-  <data key="d25">candidate</data>
+  <data key="d25">approved</data>
   <data key="d26"></data>
   <data key="d27">1</data>
   <data key="d28">["ne.b2.s7.p4"]</data>
@@ -1555,7 +1555,7 @@
   <data key="d22">boastfulness</data>
   <data key="d23">textual</data>
   <data key="d24">[{"note": "Section 7 names boastfulness as the exaggerating excess.", "passage_id": "ne.b2.s7.p4", "quote_excerpt": null, "support_type": "direct"}]</data>
-  <data key="d25">candidate</data>
+  <data key="d25">approved</data>
   <data key="d26"></data>
   <data key="d27">1</data>
   <data key="d28">["ne.b2.s7.p4"]</data>

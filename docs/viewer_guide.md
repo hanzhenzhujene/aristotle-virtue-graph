@@ -26,6 +26,9 @@ python -m streamlit run streamlit_app.py
 
 Once the app opens, start with `courage`.
 
+The sidebar now includes a small `Start here` set so you can jump straight to a few strong entry
+points without typing.
+
 ## Suggested first walkthrough
 
 1. Stay in `candidate` mode and choose `courage`.
@@ -33,7 +36,7 @@ Once the app opens, start with `courage`.
    - `has_excess -> rashness`
    - `has_deficiency -> cowardice`
    - `concerns -> fear and confidence`
-3. Open the linked evidence passage `NE II.7 ¶1`.
+3. Use the evidence shortcut to open the linked passage `NE II.7 ¶1`.
 4. Switch to `approved` mode and compare the reviewed subset against the larger candidate map.
 
 This is the quickest way to see how the project works:
@@ -52,6 +55,7 @@ It shows:
 - review status
 - supporting evidence
 - incoming and outgoing relations
+- one-click shortcuts that open the relevant passage in Passage Explorer
 
 ### Passage Explorer
 

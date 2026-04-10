@@ -1,36 +1,3 @@
-- id: liberality--has-excess--prodigality
-  source_id: liberality
-  relation_type: has_excess
-  target_id: prodigality
-  assertion_tier: textual
-  evidence:
-    - passage_id: ne.b2.s7.p2
-      support_type: direct
-      note: Section 7 names prodigality as the excess corresponding to liberality.
-  review_status: candidate
-
-- id: liberality--has-deficiency--meanness
-  source_id: liberality
-  relation_type: has_deficiency
-  target_id: meanness
-  assertion_tier: textual
-  evidence:
-    - passage_id: ne.b2.s7.p2
-      support_type: direct
-      note: Section 7 names meanness as the defect corresponding to liberality.
-  review_status: candidate
-
-- id: liberality--concerns--giving-and-taking-money
-  source_id: liberality
-  relation_type: concerns
-  target_id: giving-and-taking-money
-  assertion_tier: textual
-  evidence:
-    - passage_id: ne.b2.s7.p2
-      support_type: direct
-      note: Section 7 says liberality is the mean with regard to giving and taking money.
-  review_status: candidate
-
 - id: magnificence--has-excess--vulgarity
   source_id: magnificence
   relation_type: has_excess
@@ -128,39 +95,6 @@
     - passage_id: ne.b2.s7.p3
       support_type: direct
       note: Section 7 says the mean and extremes here are with regard to anger.
-  review_status: candidate
-
-- id: truthfulness--has-excess--boastfulness
-  source_id: truthfulness
-  relation_type: has_excess
-  target_id: boastfulness
-  assertion_tier: textual
-  evidence:
-    - passage_id: ne.b2.s7.p4
-      support_type: direct
-      note: Section 7 names boastfulness as the exaggerating excess.
-  review_status: candidate
-
-- id: truthfulness--has-deficiency--self-deprecation
-  source_id: truthfulness
-  relation_type: has_deficiency
-  target_id: self-deprecation
-  assertion_tier: editorial_normalization
-  evidence:
-    - passage_id: ne.b2.s7.p4
-      support_type: direct
-      note: Section 7 names mock modesty as the understating extreme.
-  review_status: candidate
-
-- id: truthfulness--concerns--self-presentation
-  source_id: truthfulness
-  relation_type: concerns
-  target_id: self-presentation
-  assertion_tier: editorial_normalization
-  evidence:
-    - passage_id: ne.b2.s7.p4
-      support_type: direct
-      note: Section 7 treats truthfulness within intercourse in words and actions.
   review_status: candidate
 
 - id: wit--has-excess--buffoonery

@@ -7,7 +7,7 @@ Open a concept like `courage`, follow its linked relations, open the supporting 
 
 **Scope:** Book II only  
 **Viewer:** Streamlit dashboard  
-**Current reviewed core:** 26 approved concepts, 21 approved relations
+**Current reviewed core:** 34 approved concepts, 27 approved relations
 
 ![Dashboard hero](docs/assets/viewer-courage-candidate.png)
 
@@ -60,6 +60,7 @@ It stays attached to the passage that supports it.
 
 - Browse Book II as a graph instead of a flat outline.
 - Inspect a concept and see its evidence, labels, and linked relations.
+- Open a supporting passage in one click from concept evidence or relation shortcuts.
 - Start from a passage and see which concepts and relations are grounded there.
 - Compare the broader candidate graph with the reviewed approved core.
 - Explore a local 1-hop or 2-hop graph neighborhood around a selected concept.
@@ -96,7 +97,7 @@ It is small enough to audit and concrete enough to reuse.
 | Mode | Concepts | Relations | Passages | What it gives you |
 | --- | ---: | ---: | ---: | --- |
 | Candidate | 54 | 42 | 45 | The broader working map for all of Book II |
-| Approved | 26 | 21 | 45 | A reviewed core centered on the main practical structure |
+| Approved | 34 | 27 | 45 | A reviewed core centered on the main practical structure |
 
 The current reviewed core already covers:
 
@@ -106,9 +107,11 @@ The current reviewed core already covers:
 - virtue as a state of character rather than passion or faculty
 - the conditions of virtuous action: knowledge, choice, and stability
 - the mean as guided by right reason and the practically wise person
-- two reviewed virtue triads:
+- four reviewed virtue triads:
   courage / rashness / cowardice
   temperance / self-indulgence / insensibility
+  liberality / prodigality / meanness
+  truthfulness / boastfulness / mock modesty
 
 ## Viewer at a glance
 

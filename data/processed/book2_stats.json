@@ -33,11 +33,11 @@
     "textual": 66
   },
   "concept_review_statuses": {
-    "approved": 26,
-    "candidate": 28
+    "approved": 34,
+    "candidate": 20
   },
   "relation_review_statuses": {
-    "approved": 21,
-    "candidate": 21
+    "approved": 27,
+    "candidate": 15
   }
 }

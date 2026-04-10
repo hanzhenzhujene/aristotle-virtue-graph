@@ -4,7 +4,11 @@ import json
 from pathlib import Path
 
 from aristotle_graph.viewer.load import approved_empty_notice, load_viewer_dataset
-from aristotle_graph.viewer.state import default_concept_id
+from aristotle_graph.viewer.state import (
+    default_concept_id,
+    passage_options,
+    start_here_concept_ids,
+)
 
 
 def _write_jsonl(path: Path, rows: list[dict]) -> None:
@@ -26,8 +30,8 @@ def test_viewer_loader_succeeds_on_repository_candidate_exports() -> None:
 def test_viewer_loader_succeeds_on_repository_approved_exports() -> None:
     dataset = load_viewer_dataset("approved")
 
-    assert len(dataset.concepts) == 26
-    assert len(dataset.relations) == 21
+    assert len(dataset.concepts) == 34
+    assert len(dataset.relations) == 27
     assert len(dataset.passages) == 45
     assert dataset.empty_notice is None
 
@@ -36,6 +40,32 @@ def test_default_concept_prefers_courage() -> None:
     dataset = load_viewer_dataset("candidate")
 
     assert default_concept_id(dataset, dataset.concepts) == "courage"
+
+
+def test_start_here_concepts_include_curated_entry_points() -> None:
+    dataset = load_viewer_dataset("candidate")
+
+    assert start_here_concept_ids(dataset) == [
+        "courage",
+        "temperance",
+        "liberality",
+        "truthfulness",
+        "moral-virtue",
+    ]
+
+
+def test_passage_options_include_focused_passage_outside_current_filter() -> None:
+    dataset = load_viewer_dataset("candidate")
+    visible_passages = [dataset.passages[0]]
+
+    options = passage_options(
+        dataset,
+        visible_passages,
+        focused_passage_id="ne.b2.s7.p4",
+    )
+
+    assert options[0].passage_id == "ne.b2.s7.p4"
+    assert options[1].passage_id == visible_passages[0].passage_id
 
 
 def test_viewer_loader_handles_empty_approved_mode(tmp_path: Path) -> None:

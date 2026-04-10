@@ -1,11 +1,27 @@
 from __future__ import annotations
 
 from collections import Counter
+from collections.abc import Sequence
 from dataclasses import dataclass
 
-from aristotle_graph.annotations.models import ConceptAnnotation, RelationAnnotation
+from aristotle_graph.annotations.models import ConceptAnnotation, EvidenceRecord, RelationAnnotation
 from aristotle_graph.schemas import PassageRecord
 from aristotle_graph.viewer.load import ViewerDataset
+
+VIEW_NAMES = (
+    "Concept Explorer",
+    "Passage Explorer",
+    "Graph View",
+    "Stats",
+)
+
+START_HERE_IDS = (
+    "courage",
+    "temperance",
+    "liberality",
+    "truthfulness",
+    "moral-virtue",
+)
 
 
 @dataclass(frozen=True)
@@ -121,6 +137,40 @@ def default_concept_id(
         if concept.id == "courage":
             return concept.id
     return visible_concepts[0].id
+
+
+def start_here_concept_ids(dataset: ViewerDataset) -> list[str]:
+    return [
+        concept_id for concept_id in START_HERE_IDS if concept_id in dataset.concept_index
+    ]
+
+
+def evidence_passage_ids(evidence_records: Sequence[EvidenceRecord]) -> list[str]:
+    ordered_ids: list[str] = []
+    seen: set[str] = set()
+    for evidence in evidence_records:
+        if evidence.passage_id in seen:
+            continue
+        seen.add(evidence.passage_id)
+        ordered_ids.append(evidence.passage_id)
+    return ordered_ids
+
+
+def passage_options(
+    dataset: ViewerDataset,
+    visible_passages: list[PassageRecord],
+    *,
+    focused_passage_id: str | None = None,
+) -> list[PassageRecord]:
+    if focused_passage_id is None or focused_passage_id not in dataset.passage_index:
+        return visible_passages
+
+    visible_ids = {passage.passage_id for passage in visible_passages}
+    if focused_passage_id in visible_ids:
+        return visible_passages
+
+    focused_passage = dataset.passage_index[focused_passage_id]
+    return [focused_passage, *visible_passages]
 
 
 def build_ego_graph(
