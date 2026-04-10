@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from html import escape
 from typing import Any, cast
 
@@ -20,6 +21,11 @@ _KIND_COLORS = {
     "condition": "#b56576",
 }
 
+_EDGE_COLORS = {
+    "approved": "#34506b",
+    "candidate": "#9aa5b1",
+}
+
 
 def intro_markdown() -> str:
     return (
@@ -31,6 +37,10 @@ def intro_markdown() -> str:
 
 def kind_color(kind: str) -> str:
     return _KIND_COLORS.get(kind, "#6c757d")
+
+
+def edge_color(review_status: str) -> str:
+    return _EDGE_COLORS.get(review_status, "#9aa5b1")
 
 
 def relation_rows(
@@ -101,11 +111,29 @@ def passage_relation_rows(
     ]
 
 
+def kind_legend_html(kinds: list[str]) -> str:
+    chips = []
+    for kind in kinds:
+        chips.append(
+            "<span style=\"display:inline-flex;align-items:center;gap:0.45rem;"
+            "padding:0.35rem 0.7rem;margin:0 0.45rem 0.45rem 0;border-radius:999px;"
+            "background:#ffffff;border:1px solid #d7dfeb;color:#1f2f44;font-size:0.92rem;\">"
+            f"<span style=\"width:0.8rem;height:0.8rem;border-radius:999px;"
+            f"background:{kind_color(kind)};display:inline-block;\"></span>"
+            f"{escape(kind.replace('-', ' ').title())}</span>"
+        )
+    return "".join(chips)
+
+
 def build_graph_html(
     nodes: list[ConceptAnnotation],
     relations: list[RelationAnnotation],
     *,
-    center_concept_id: str,
+    center_concept_id: str | None,
+    highlight_concept_id: str | None = None,
+    graph_mode: str = "ego",
+    show_edge_labels: bool = True,
+    height: str = "540px",
 ) -> str:
     try:
         from pyvis.network import Network
@@ -117,25 +145,64 @@ def build_graph_html(
             "</div>"
         )
 
+    is_overall_map = graph_mode == "overall"
     network = Network(
-        height="540px",
+        height=height,
         width="100%",
         directed=True,
         notebook=False,
-        bgcolor="#ffffff",
-        font_color="#111111",
+        neighborhood_highlight=is_overall_map,
+        select_menu=is_overall_map,
+        filter_menu=is_overall_map,
+        bgcolor="#fbf8f2" if is_overall_map else "#ffffff",
+        font_color="#1f2f44",
         cdn_resources="in_line",
     )
-    network.barnes_hut()
+    if is_overall_map:
+        network.barnes_hut(
+            gravity=-4200,
+            central_gravity=0.22,
+            spring_length=145,
+            spring_strength=0.04,
+            damping=0.2,
+            overlap=0.15,
+        )
+    else:
+        network.barnes_hut(
+            gravity=-3000,
+            central_gravity=0.26,
+            spring_length=120,
+            spring_strength=0.05,
+            damping=0.18,
+            overlap=0.1,
+        )
+
+    degree_counts: dict[str, int] = {}
+    for relation in relations:
+        degree_counts[relation.source_id] = degree_counts.get(relation.source_id, 0) + 1
+        degree_counts[relation.target_id] = degree_counts.get(relation.target_id, 0) + 1
+    max_degree = max(degree_counts.values(), default=1)
+    emphasized_concept_id = highlight_concept_id or center_concept_id
 
     for concept in nodes:
+        degree = degree_counts.get(concept.id, 0)
+        degree_ratio = degree / max_degree if max_degree else 0
+        size = 18 + (16 * degree_ratio)
+        if concept.id == center_concept_id:
+            size += 12
+        elif concept.id == emphasized_concept_id:
+            size += 7
         tooltip = escape(
             "\n".join(
                 [
                     f"Label: {concept.primary_label}",
                     f"Kind: {concept.kind}",
                     f"Tier: {concept.assertion_tier}",
+                    f"Review: {concept.review_status}",
+                    f"Degree: {degree}",
                     f"Sections: {', '.join(str(section) for section in concept.sections)}",
+                    f"Evidence count: {len(concept.evidence)}",
+                    f"Description: {concept.description}",
                 ]
             )
         ).replace("\n", "<br>")
@@ -143,16 +210,38 @@ def build_graph_html(
             concept.id,
             label=concept.primary_label,
             title=tooltip,
-            color=kind_color(concept.kind),
-            size=34 if concept.id == center_concept_id else 22,
-            borderWidth=3 if concept.id == center_concept_id else 1,
+            group=concept.kind,
+            color={
+                "background": kind_color(concept.kind),
+                "border": "#1f2f44" if concept.review_status == "approved" else "#c98b4a",
+                "highlight": {
+                    "background": kind_color(concept.kind),
+                    "border": "#0b1824",
+                },
+            },
+            size=size,
+            borderWidth=(
+                4
+                if concept.id == center_concept_id
+                else 2.5 if concept.id == emphasized_concept_id else 1.5
+            ),
+            borderWidthSelected=5,
+            font={
+                "face": "Georgia, serif",
+                "size": 17 if is_overall_map else 15,
+                "color": "#16324f",
+                "strokeWidth": 4,
+                "strokeColor": "#fbf8f2" if is_overall_map else "#ffffff",
+            },
+            mass=1 + degree_ratio,
         )
 
     for relation in relations:
+        relation_label = relation.relation_type.replace("_", " ")
         tooltip = escape(
             "\n".join(
                 [
-                    f"Relation: {relation.relation_type}",
+                    f"Relation: {relation_label}",
                     f"Tier: {relation.assertion_tier}",
                     f"Review: {relation.review_status}",
                     "Evidence: "
@@ -163,19 +252,49 @@ def build_graph_html(
         network.add_edge(
             relation.source_id,
             relation.target_id,
-            label=relation.relation_type,
+            label=relation_label if show_edge_labels else "",
             title=tooltip,
             arrows="to",
-            color="#9aa5b1",
+            color=edge_color(relation.review_status),
+            dashes=relation.review_status != "approved",
+            width=2.4 if relation.review_status == "approved" else 1.8,
         )
 
-    network.set_options(
-        """
-        const options = {
-          "interaction": {"hover": true, "navigationButtons": true},
-          "physics": {"stabilization": {"iterations": 200}},
-          "edges": {"font": {"size": 12, "align": "middle"}}
-        }
-        """
-    )
+    options = {
+        "interaction": {
+            "hover": True,
+            "navigationButtons": True,
+            "keyboard": {"enabled": True, "bindToWindow": False},
+            "tooltipDelay": 110,
+            "multiselect": is_overall_map,
+            "selectConnectedEdges": False,
+        },
+        "layout": {"improvedLayout": True},
+        "physics": {
+            "stabilization": {
+                "enabled": True,
+                "iterations": 420 if is_overall_map else 220,
+                "fit": True,
+            },
+        },
+        "nodes": {
+            "shape": "dot",
+            "shadow": {"enabled": is_overall_map, "size": 10, "x": 0, "y": 3},
+        },
+        "edges": {
+            "smooth": {
+                "enabled": True,
+                "type": "dynamic" if is_overall_map else "continuous",
+                "roundness": 0.22 if is_overall_map else 0.14,
+            },
+            "font": {
+                "size": 11 if is_overall_map else 12,
+                "align": "middle",
+                "face": "Georgia, serif",
+                "strokeWidth": 5,
+                "strokeColor": "#fbf8f2" if is_overall_map else "#ffffff",
+            },
+        },
+    }
+    network.set_options(json.dumps(options))
     return cast(str, network.generate_html())

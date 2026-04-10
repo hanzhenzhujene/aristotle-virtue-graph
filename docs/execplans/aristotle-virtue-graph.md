@@ -195,6 +195,8 @@ Keep identifiers stable and human-readable.
   fields are flattened into predictable strings first.
 - A concept-centered ego graph is much more readable than trying to render the full Book II
   graph in one local view.
+- The full Book II graph is still readable at this scale if it gets its own page, stronger
+  physics/layout tuning, and supporting summaries instead of competing with the ego graph view.
 - Keeping this project inside the parent `MESOTES` git repository would blur project boundaries,
   so the clean publish path is to give `Aristotle Virtue Graph` its own standalone git history.
 - The repo became much easier to scan once the README led with a real viewer preview, a
@@ -279,6 +281,8 @@ Keep identifiers stable and human-readable.
   rechecking the direct wording of `NE II.7 ¶4`.
 - 2026-04-10: Document the Streamlit app-settings path for choosing a shorter custom subdomain,
   since shortening the live URL cannot be completed from inside the repo alone.
+- 2026-04-10: Add a dedicated `Overall Map` page rather than overloading the ego-graph page, so
+  the dashboard can support both close neighborhood reading and whole-graph inspection.
 - 2026-04-10: Fix the `Open supporting passage` and related jump buttons by switching the viewer
   to a pending-navigation pattern, because Streamlit rejects direct same-run writes into the
   session-state key of the active view radio.
@@ -344,6 +348,8 @@ Observed results:
 - GraphML export loads successfully as a flattened representation of the processed graph
 - the local Streamlit app launches successfully and supports concept, passage, graph, and stats
   views over candidate and approved processed data
+- the local Streamlit app now also includes an interactive `Overall Map` page that renders the
+  full filtered Book II network with kind colors, built-in graph menus, and hub summaries
 - the README now leads with the actual Book II findings and the practical value of the graph,
   rather than only describing the toolchain
 - the public-facing repo now includes a real viewer preview, a compact overview graphic, a

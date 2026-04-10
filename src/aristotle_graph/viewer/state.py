@@ -3,6 +3,7 @@ from __future__ import annotations
 from collections import Counter
 from collections.abc import Sequence
 from dataclasses import dataclass
+from typing import cast
 
 from aristotle_graph.annotations.models import ConceptAnnotation, EvidenceRecord, RelationAnnotation
 from aristotle_graph.schemas import PassageRecord
@@ -12,6 +13,7 @@ VIEW_NAMES = (
     "Concept Explorer",
     "Passage Explorer",
     "Graph View",
+    "Overall Map",
     "Stats",
 )
 
@@ -213,6 +215,66 @@ def build_ego_graph(
         key=lambda concept: concept.primary_label.lower(),
     )
     return (visible_nodes, visible_relations)
+
+
+def build_filtered_graph(
+    dataset: ViewerDataset,
+    filters: ViewerFilters,
+    *,
+    include_isolates: bool = True,
+) -> tuple[list[ConceptAnnotation], list[RelationAnnotation]]:
+    visible_concepts = filter_concepts(dataset, filters)
+    visible_concept_ids = {concept.id for concept in visible_concepts}
+    visible_relations = [
+        relation
+        for relation in filter_relations(dataset, filters)
+        if relation.source_id in visible_concept_ids and relation.target_id in visible_concept_ids
+    ]
+
+    if include_isolates:
+        return (visible_concepts, visible_relations)
+
+    connected_ids = {
+        concept_id
+        for relation in visible_relations
+        for concept_id in (relation.source_id, relation.target_id)
+    }
+    connected_concepts = [
+        concept for concept in visible_concepts if concept.id in connected_ids
+    ]
+    return (connected_concepts, visible_relations)
+
+
+def graph_degree_rows(
+    concepts: Sequence[ConceptAnnotation],
+    relations: Sequence[RelationAnnotation],
+) -> list[dict[str, object]]:
+    in_degree: Counter[str] = Counter()
+    out_degree: Counter[str] = Counter()
+
+    for relation in relations:
+        out_degree[relation.source_id] += 1
+        in_degree[relation.target_id] += 1
+
+    rows = [
+        {
+            "label": concept.primary_label,
+            "id": concept.id,
+            "kind": concept.kind,
+            "in_degree": in_degree[concept.id],
+            "out_degree": out_degree[concept.id],
+            "total_degree": in_degree[concept.id] + out_degree[concept.id],
+        }
+        for concept in concepts
+    ]
+    rows.sort(
+        key=lambda row: (
+            -cast(int, row["total_degree"]),
+            -cast(int, row["out_degree"]),
+            cast(str, row["label"]).lower(),
+        )
+    )
+    return rows
 
 
 def concept_stats(dataset: ViewerDataset) -> dict[str, int]:

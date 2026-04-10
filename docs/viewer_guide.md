@@ -42,7 +42,7 @@ points without typing.
 This is the quickest way to see how the project works:
 graph claims stay connected to the text.
 
-## What each tab is for
+## What each view is for
 
 ### Concept Explorer
 
@@ -72,6 +72,18 @@ It shows:
 Use this when you want a local structural view without rendering the entire graph as a hairball.
 
 The graph view centers on one concept and expands to a 1-hop or 2-hop neighborhood.
+
+### Overall Map
+
+Use this when you want the whole filtered Book II network in one place.
+
+It shows:
+
+- the full filtered node-edge map, not just one ego neighborhood
+- built-in graph menus for search and kind-based filtering inside the canvas
+- optional edge labels for a denser explanatory view
+- top connected concepts and the current relation mix
+- isolated nodes that still match your current sidebar filters
 
 ### Stats
 

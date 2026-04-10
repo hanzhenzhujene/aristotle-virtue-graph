@@ -63,6 +63,7 @@ It stays attached to the passage that supports it.
 - Start from a passage and see which concepts and relations are grounded there.
 - Compare the broader candidate graph with the reviewed approved core.
 - Explore a local 1-hop or 2-hop graph neighborhood around a selected concept.
+- Open an `Overall Map` page that renders the full filtered Book II network with built-in search, filter menus, and hub summaries.
 
 ## Rebuild exported data
 
@@ -121,6 +122,7 @@ The current reviewed core already covers:
 | Concept Explorer | Read one concept closely: labels, review status, evidence, and linked relations |
 | Passage Explorer | Start from the text and see which concepts and relations cite that passage |
 | Graph View | Inspect a 1-hop or 2-hop neighborhood without rendering the full graph as a hairball |
+| Overall Map | Explore the whole filtered Book II network with kind colors, interactive search/filter controls, and top-connection summaries |
 | Stats | See current counts, relation types, concept kinds, and review-status breakdowns |
 
 More detail: [docs/viewer_guide.md](docs/viewer_guide.md)

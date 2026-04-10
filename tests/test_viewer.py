@@ -2,11 +2,16 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from typing import cast
 
 from aristotle_graph.app.streamlit_app import apply_pending_view_navigation
 from aristotle_graph.viewer.load import approved_empty_notice, load_viewer_dataset
 from aristotle_graph.viewer.state import (
+    VIEW_NAMES,
+    ViewerFilters,
+    build_filtered_graph,
     default_concept_id,
+    graph_degree_rows,
     passage_options,
     start_here_concept_ids,
 )
@@ -55,6 +60,16 @@ def test_start_here_concepts_include_curated_entry_points() -> None:
     ]
 
 
+def test_view_names_include_overall_map_before_stats() -> None:
+    assert VIEW_NAMES == (
+        "Concept Explorer",
+        "Passage Explorer",
+        "Graph View",
+        "Overall Map",
+        "Stats",
+    )
+
+
 def test_passage_options_include_focused_passage_outside_current_filter() -> None:
     dataset = load_viewer_dataset("candidate")
     visible_passages = [dataset.passages[0]]
@@ -67,6 +82,37 @@ def test_passage_options_include_focused_passage_outside_current_filter() -> Non
 
     assert options[0].passage_id == "ne.b2.s7.p4"
     assert options[1].passage_id == visible_passages[0].passage_id
+
+
+def test_build_filtered_graph_returns_consistent_node_edge_subset() -> None:
+    dataset = load_viewer_dataset("candidate")
+    filters = ViewerFilters(
+        concept_kinds=frozenset({"virtue", "vice"}),
+        relation_types=frozenset({"has_excess", "has_deficiency"}),
+        assertion_tiers=frozenset({"textual"}),
+        sections=frozenset({7}),
+    )
+
+    nodes, relations = build_filtered_graph(dataset, filters, include_isolates=False)
+    node_ids = {concept.id for concept in nodes}
+
+    assert nodes
+    assert relations
+    assert all(relation.source_id in node_ids for relation in relations)
+    assert all(relation.target_id in node_ids for relation in relations)
+
+
+def test_graph_degree_rows_sort_by_total_degree() -> None:
+    dataset = load_viewer_dataset("candidate")
+    nodes, relations = build_filtered_graph(dataset, ViewerFilters())
+
+    rows = graph_degree_rows(nodes, relations)
+
+    assert rows
+    assert cast(int, rows[0]["total_degree"]) >= cast(int, rows[-1]["total_degree"])
+    assert {"label", "id", "kind", "in_degree", "out_degree", "total_degree"} <= set(
+        rows[0]
+    )
 
 
 def test_apply_pending_view_navigation_switches_view_on_next_rerun() -> None:

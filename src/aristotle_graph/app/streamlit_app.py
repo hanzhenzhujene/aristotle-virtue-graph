@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib
+from collections import Counter
 from collections.abc import MutableMapping
 from pathlib import Path
 from typing import cast
@@ -12,6 +13,7 @@ from aristotle_graph.viewer.render import (
     concept_summary_rows,
     evidence_rows,
     intro_markdown,
+    kind_legend_html,
     passage_relation_rows,
     relation_rows,
 )
@@ -22,11 +24,13 @@ from aristotle_graph.viewer.state import (
     available_concept_kinds,
     available_relation_types,
     build_ego_graph,
+    build_filtered_graph,
     default_concept_id,
     evidence_passage_ids,
     filter_concepts,
     filter_passages,
     filter_relations,
+    graph_degree_rows,
     passage_options,
     start_here_concept_ids,
 )
@@ -457,6 +461,105 @@ def render() -> None:
                 )
                 st.dataframe(
                     relation_rows(ego_relations, dataset),
+                    use_container_width=True,
+                    hide_index=True,
+                )
+
+    elif active_view == VIEW_NAMES[3]:
+        st.subheader("Overall Map")
+        map_control_left, map_control_right, map_control_third = st.columns([1, 1, 1.2])
+        with map_control_left:
+            overall_show_edge_labels = st.toggle(
+                "Show edge labels",
+                value=False,
+                key=f"avg-overall-edge-labels-{mode}",
+            )
+        with map_control_right:
+            overall_show_isolates = st.toggle(
+                "Show isolated nodes",
+                value=True,
+                key=f"avg-overall-isolates-{mode}",
+            )
+        with map_control_third:
+            st.caption(
+                "Use the graph's built-in Select and Filter menus to search nodes, "
+                "filter by kind, and drag clusters apart."
+            )
+
+        overall_nodes, overall_relations = build_filtered_graph(
+            dataset,
+            filters,
+            include_isolates=overall_show_isolates,
+        )
+        overall_node_ids = {concept.id for concept in overall_nodes}
+        highlighted_concept_id = (
+            selected_concept_id if selected_concept_id in overall_node_ids else None
+        )
+        overall_degree_rows = graph_degree_rows(overall_nodes, overall_relations)
+        isolate_labels = [
+            cast(str, row["label"])
+            for row in overall_degree_rows
+            if cast(int, row["total_degree"]) == 0
+        ]
+        relation_mix_rows: list[dict[str, object]] = [
+            {"relation_type": relation_type, "count": count}
+            for relation_type, count in sorted(
+                Counter(relation.relation_type for relation in overall_relations).items(),
+                key=lambda item: (-item[1], item[0]),
+            )
+        ]
+
+        if not overall_nodes:
+            st.info("No concepts match the current filters for the overall map.")
+        else:
+            overall_metrics = st.columns(4)
+            overall_metrics[0].metric("Visible concepts", len(overall_nodes))
+            overall_metrics[1].metric("Visible relations", len(overall_relations))
+            overall_metrics[2].metric("Kinds in view", len({node.kind for node in overall_nodes}))
+            overall_metrics[3].metric("Isolated nodes", len(isolate_labels))
+
+            if highlighted_concept_id is not None:
+                st.caption(
+                    f"`{dataset.concept_index[highlighted_concept_id].primary_label}` "
+                    "is highlighted in the overall map."
+                )
+
+            components.html(
+                build_graph_html(
+                    overall_nodes,
+                    overall_relations,
+                    center_concept_id=None,
+                    highlight_concept_id=highlighted_concept_id,
+                    graph_mode="overall",
+                    show_edge_labels=overall_show_edge_labels,
+                    height="760px",
+                ),
+                height=840,
+                scrolling=False,
+            )
+
+            map_info_left, map_info_center, map_info_right = st.columns([1.15, 1.2, 1])
+            with map_info_left:
+                st.markdown("#### Kind legend")
+                st.markdown(
+                    kind_legend_html(sorted({concept.kind for concept in overall_nodes})),
+                    unsafe_allow_html=True,
+                )
+                if isolate_labels:
+                    isolate_preview = ", ".join(isolate_labels[:8])
+                    suffix = " ..." if len(isolate_labels) > 8 else ""
+                    st.caption(f"Isolated under current filters: {isolate_preview}{suffix}")
+            with map_info_center:
+                st.markdown("#### Top connected concepts")
+                st.dataframe(
+                    overall_degree_rows[:12],
+                    use_container_width=True,
+                    hide_index=True,
+                )
+            with map_info_right:
+                st.markdown("#### Relation mix")
+                st.dataframe(
+                    relation_mix_rows or [{"relation_type": "none", "count": 0}],
                     use_container_width=True,
                     hide_index=True,
                 )
