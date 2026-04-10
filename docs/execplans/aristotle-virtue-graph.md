@@ -216,8 +216,8 @@ Keep identifiers stable and human-readable.
   direct batches rather than trying to approve the rest of section 7 all at once.
 - Streamlit app URLs can be shortened from Community Cloud app settings, but that change lives in
   the hosted dashboard configuration rather than in repository code or deployment files.
-- A small custom visual mark helps the public repo and live app feel more finished, as long as it
-  stays secondary to the evidence-first content and does not crowd the first-run path.
+- A small public-facing icon helps the repo and live app feel more finished, as long as it stays
+  secondary to the evidence-first content and does not crowd the first-run path.
 
 ## Decision Log
 
@@ -273,8 +273,8 @@ Keep identifiers stable and human-readable.
   rechecking the direct wording of `NE II.7 ¶4`.
 - 2026-04-10: Document the Streamlit app-settings path for choosing a shorter custom subdomain,
   since shortening the live URL cannot be completed from inside the repo alone.
-- 2026-04-10: Replace the first Aristotle bust mark with a smaller monochrome line icon based on
-  a supplied reference image, and reuse it in the README and Streamlit header.
+- 2026-04-10: Replace the earlier repo mark with the supplied Aristotle head PNG and reuse that
+  same small raster icon in the README and Streamlit header.
 
 ## Outcomes & Retrospective
 
@@ -308,7 +308,7 @@ Outputs:
 - `data/processed/approved/book2_stats.json`
 - `docs/assets/viewer-courage-candidate.png`
 - `docs/assets/book2-overview.svg`
-- `docs/assets/aristotle-head-mark.svg`
+- `docs/assets/aristotle-head-icon.png`
 - `docs/viewer_guide.md`
 - `docs/deployment.md`
 - `LICENSE`
@@ -336,7 +336,7 @@ Observed results:
   rather than only describing the toolchain
 - the public-facing repo now includes a real viewer preview, a compact overview graphic, a
   viewer guide, and a code license
-- the public-facing repo and live app now share a small Aristotle bust mark, which makes the
+- the public-facing repo and live app now share a small Aristotle head PNG, which makes the
   project easier to recognize without replacing the dashboard screenshot as the main entry point
 - the repository is now deployment-ready for Streamlit Community Cloud with a root app
   entrypoint and explicit deployment instructions

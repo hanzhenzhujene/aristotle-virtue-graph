@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/assets/aristotle-head-mark.svg" alt="Aristotle head icon" width="82" />
+  <img src="docs/assets/aristotle-head-icon.png" alt="Aristotle head icon" width="70" />
 </p>
 
 # Aristotle Virtue Graph

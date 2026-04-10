@@ -42,14 +42,14 @@ def render() -> None:
         )
         raise SystemExit(msg) from exc
 
-    logo_path = Path(__file__).resolve().parents[3] / "docs" / "assets" / "aristotle-head-mark.svg"
+    logo_path = Path(__file__).resolve().parents[3] / "docs" / "assets" / "aristotle-head-icon.png"
     page_icon = str(logo_path) if logo_path.exists() else "🏛️"
     st.set_page_config(page_title="Aristotle Virtue Graph", page_icon=page_icon, layout="wide")
 
-    header_left, header_right = st.columns([1, 7])
+    header_left, header_right = st.columns([0.7, 7.3])
     with header_left:
         if logo_path.exists():
-            st.image(str(logo_path), width=68)
+            st.image(str(logo_path), width=54)
     with header_right:
         st.title("Aristotle Virtue Graph")
         st.caption("Evidence-first explorer for Nicomachean Ethics Book II.")
