@@ -215,6 +215,9 @@ Keep identifiers stable and human-readable.
 - Streamlit also forbids mutating the session-state key of an already-instantiated widget in the
   same run, so button-driven view changes need a pending-navigation key that is applied on the
   next rerun rather than writing directly into the `st.radio` state.
+- On Streamlit Community Cloud, button-triggered navigation is safer when it uses `on_click`
+  callbacks plus queued state changes rather than mutating session state inside the button branch
+  itself.
 - Extending the reviewed core works best when each added triad is promoted in small, textually
   direct batches rather than trying to approve the rest of section 7 all at once.
 - Streamlit app URLs can be shortened from Community Cloud app settings, but that change lives in
@@ -279,6 +282,9 @@ Keep identifiers stable and human-readable.
 - 2026-04-10: Fix the `Open supporting passage` and related jump buttons by switching the viewer
   to a pending-navigation pattern, because Streamlit rejects direct same-run writes into the
   session-state key of the active view radio.
+- 2026-04-10: Follow up on the passage-jump fix by moving the navigation buttons to `on_click`
+  callbacks as well, so Community Cloud does not execute the state write from inside the button
+  branch.
 - 2026-04-10: Replace the earlier repo mark with the supplied Aristotle head PNG and reuse that
   same small raster icon in the README and Streamlit header.
 
@@ -354,6 +360,8 @@ Observed results:
   concept evidence and relation shortcuts into Passage Explorer
 - the one-click passage jumps now work on Streamlit Community Cloud without raising a
   session-state mutation exception
+- the passage-jump buttons now use callback-driven queued navigation, which is more robust across
+  local Streamlit and Community Cloud runs
 - the approved core now includes 42 concepts and 33 relations, adding reviewed wit and
   friendliness triads to the earlier courage, temperance, liberality, and truthfulness coverage
 - the project now lives in its own public GitHub repository rather than remaining nested inside

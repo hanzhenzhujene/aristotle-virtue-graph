@@ -127,13 +127,13 @@ def render() -> None:
         st.sidebar.markdown("### Start here")
         for concept_id in start_here_ids:
             concept = dataset.concept_index[concept_id]
-            if st.sidebar.button(
+            st.sidebar.button(
                 concept.primary_label,
                 key=f"start-here-{mode}-{concept_id}",
                 use_container_width=True,
-            ):
-                set_selected_concept(concept_id)
-                st.rerun()
+                on_click=set_selected_concept,
+                args=(concept_id,),
+            )
 
     selected_concept_label = st.sidebar.selectbox(
         "Selected concept",
@@ -228,13 +228,13 @@ def render() -> None:
         st.caption("Open supporting passage")
         for passage_id in passage_ids:
             passage = dataset.passage_index[passage_id]
-            if st.button(
+            st.button(
                 f"Open {passage.citation_label}",
                 key=f"{key_prefix}-{passage_id}",
                 use_container_width=True,
-            ):
-                focus_passage(passage_id)
-                st.rerun()
+                on_click=focus_passage,
+                args=(passage_id,),
+            )
 
     def render_relation_shortcuts(
         relations: list[RelationAnnotation],
@@ -253,13 +253,13 @@ def render() -> None:
             source_label = dataset.concept_index[relation.source_id].primary_label
             target_label = dataset.concept_index[relation.target_id].primary_label
             relation_label = relation.relation_type.replace("_", " ")
-            if st.button(
+            st.button(
                 f"{passage.citation_label}: {source_label} {relation_label} {target_label}",
                 key=f"{key_prefix}-{relation.id}",
                 use_container_width=True,
-            ):
-                focus_passage(passage_id)
-                st.rerun()
+                on_click=focus_passage,
+                args=(passage_id,),
+            )
 
     active_view = cast(
         str,
