@@ -7,7 +7,7 @@ Open a concept like `courage`, follow its linked relations, open the supporting 
 
 **Scope:** Book II only  
 **Viewer:** Streamlit dashboard  
-**Current reviewed core:** 34 approved concepts, 27 approved relations
+**Current reviewed core:** 42 approved concepts, 33 approved relations
 
 ![Dashboard hero](docs/assets/viewer-courage-candidate.png)
 
@@ -97,7 +97,7 @@ It is small enough to audit and concrete enough to reuse.
 | Mode | Concepts | Relations | Passages | What it gives you |
 | --- | ---: | ---: | ---: | --- |
 | Candidate | 54 | 42 | 45 | The broader working map for all of Book II |
-| Approved | 34 | 27 | 45 | A reviewed core centered on the main practical structure |
+| Approved | 42 | 33 | 45 | A reviewed core centered on the main practical structure |
 
 The current reviewed core already covers:
 
@@ -107,11 +107,13 @@ The current reviewed core already covers:
 - virtue as a state of character rather than passion or faculty
 - the conditions of virtuous action: knowledge, choice, and stability
 - the mean as guided by right reason and the practically wise person
-- four reviewed virtue triads:
+- six reviewed virtue triads:
   courage / rashness / cowardice
   temperance / self-indulgence / insensibility
   liberality / prodigality / meanness
   truthfulness / boastfulness / mock modesty
+  wit / buffoonery / boorishness
+  friendliness / obsequiousness / quarrelsomeness
 
 ## Viewer at a glance
 

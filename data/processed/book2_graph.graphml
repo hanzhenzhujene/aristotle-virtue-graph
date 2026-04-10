@@ -43,7 +43,7 @@
   <data key="d9">2</data>
   <data key="d10">[7]</data>
   <data key="d11">[{"note": "Section 7 places ready wit in the sphere of giving amusement.", "passage_id": "ne.b2.s7.p4", "quote_excerpt": null, "support_type": "direct"}]</data>
-  <data key="d12">candidate</data>
+  <data key="d12">approved</data>
   <data key="d13"></data>
   <data key="d14">giving amusement</data>
   <data key="d15">1</data>
@@ -119,7 +119,7 @@
   <data key="d9">2</data>
   <data key="d10">[7]</data>
   <data key="d11">[{"note": "Section 7 names boorishness as the deficiency in amusement.", "passage_id": "ne.b2.s7.p4", "quote_excerpt": null, "support_type": "direct"}]</data>
-  <data key="d12">candidate</data>
+  <data key="d12">approved</data>
   <data key="d13"></data>
   <data key="d14">boorishness</data>
   <data key="d15">1</data>
@@ -138,7 +138,7 @@
   <data key="d9">2</data>
   <data key="d10">[7]</data>
   <data key="d11">[{"note": "Section 7 names buffoonery as the excess in amusement.", "passage_id": "ne.b2.s7.p4", "quote_excerpt": null, "support_type": "direct"}]</data>
-  <data key="d12">candidate</data>
+  <data key="d12">approved</data>
   <data key="d13"></data>
   <data key="d14">buffoonery</data>
   <data key="d15">1</data>
@@ -328,7 +328,7 @@
   <data key="d9">2</data>
   <data key="d10">[7]</data>
   <data key="d11">[{"note": "Section 7 says the pleasant person in the right way is friendly and the mean is friendliness.", "passage_id": "ne.b2.s7.p4", "quote_excerpt": null, "support_type": "direct"}]</data>
-  <data key="d12">candidate</data>
+  <data key="d12">approved</data>
   <data key="d13"></data>
   <data key="d14">friendliness</data>
   <data key="d15">1</data>
@@ -651,7 +651,7 @@
   <data key="d9">2</data>
   <data key="d10">[7]</data>
   <data key="d11">[{"note": "Section 7 describes the excessive pleasant person as obsequious or flattering.", "passage_id": "ne.b2.s7.p4", "quote_excerpt": null, "support_type": "direct"}]</data>
-  <data key="d12">candidate</data>
+  <data key="d12">approved</data>
   <data key="d13">Ross names person-types here; the repo uses an abstract vice id for graph consistency.</data>
   <data key="d14">obsequious person</data>
   <data key="d15">1</data>
@@ -784,7 +784,7 @@
   <data key="d9">2</data>
   <data key="d10">[7]</data>
   <data key="d11">[{"note": "Section 7 describes the deficient extreme as quarrelsome and surly.", "passage_id": "ne.b2.s7.p4", "quote_excerpt": null, "support_type": "direct"}]</data>
-  <data key="d12">candidate</data>
+  <data key="d12">approved</data>
   <data key="d13"></data>
   <data key="d14">quarrelsome and surly</data>
   <data key="d15">1</data>
@@ -898,7 +898,7 @@
   <data key="d9">2</data>
   <data key="d10">[7]</data>
   <data key="d11">[{"note": "Section 7 places friendliness in the pleasantness exhibited in life in general.", "passage_id": "ne.b2.s7.p4", "quote_excerpt": null, "support_type": "direct"}]</data>
-  <data key="d12">candidate</data>
+  <data key="d12">approved</data>
   <data key="d13"></data>
   <data key="d14">life in general</data>
   <data key="d15">1</data>
@@ -1050,7 +1050,7 @@
   <data key="d9">2</data>
   <data key="d10">[7]</data>
   <data key="d11">[{"note": "Section 7 names ready wit as the mean in giving amusement.", "passage_id": "ne.b2.s7.p4", "quote_excerpt": null, "support_type": "direct"}]</data>
-  <data key="d12">candidate</data>
+  <data key="d12">approved</data>
   <data key="d13"></data>
   <data key="d14">ready wit</data>
   <data key="d15">1</data>
@@ -1177,7 +1177,7 @@
   <data key="d22">social-intercourse</data>
   <data key="d23">editorial_normalization</data>
   <data key="d24">[{"note": "Section 7 places friendliness in the pleasantness exhibited in life in general.", "passage_id": "ne.b2.s7.p4", "quote_excerpt": null, "support_type": "direct"}]</data>
-  <data key="d25">candidate</data>
+  <data key="d25">approved</data>
   <data key="d26"></data>
   <data key="d27">1</data>
   <data key="d28">["ne.b2.s7.p4"]</data>
@@ -1191,7 +1191,7 @@
   <data key="d22">quarrelsomeness</data>
   <data key="d23">editorial_normalization</data>
   <data key="d24">[{"note": "Section 7 describes the deficient type as quarrelsome and surly.", "passage_id": "ne.b2.s7.p4", "quote_excerpt": null, "support_type": "direct"}]</data>
-  <data key="d25">candidate</data>
+  <data key="d25">approved</data>
   <data key="d26"></data>
   <data key="d27">1</data>
   <data key="d28">["ne.b2.s7.p4"]</data>
@@ -1205,7 +1205,7 @@
   <data key="d22">obsequiousness</data>
   <data key="d23">editorial_normalization</data>
   <data key="d24">[{"note": "Section 7 describes the excessive pleasant type as obsequious or flattering.", "passage_id": "ne.b2.s7.p4", "quote_excerpt": null, "support_type": "direct"}]</data>
-  <data key="d25">candidate</data>
+  <data key="d25">approved</data>
   <data key="d26"></data>
   <data key="d27">1</data>
   <data key="d28">["ne.b2.s7.p4"]</data>
@@ -1611,7 +1611,7 @@
   <data key="d22">amusement</data>
   <data key="d23">editorial_normalization</data>
   <data key="d24">[{"note": "Section 7 places ready wit in the sphere of giving amusement.", "passage_id": "ne.b2.s7.p4", "quote_excerpt": null, "support_type": "direct"}]</data>
-  <data key="d25">candidate</data>
+  <data key="d25">approved</data>
   <data key="d26"></data>
   <data key="d27">1</data>
   <data key="d28">["ne.b2.s7.p4"]</data>
@@ -1625,7 +1625,7 @@
   <data key="d22">boorishness</data>
   <data key="d23">editorial_normalization</data>
   <data key="d24">[{"note": "Section 7 names boorishness as the deficiency opposed to ready wit.", "passage_id": "ne.b2.s7.p4", "quote_excerpt": null, "support_type": "direct"}]</data>
-  <data key="d25">candidate</data>
+  <data key="d25">approved</data>
   <data key="d26"></data>
   <data key="d27">1</data>
   <data key="d28">["ne.b2.s7.p4"]</data>
@@ -1639,7 +1639,7 @@
   <data key="d22">buffoonery</data>
   <data key="d23">editorial_normalization</data>
   <data key="d24">[{"note": "Section 7 names buffoonery as the excess opposed to ready wit.", "passage_id": "ne.b2.s7.p4", "quote_excerpt": null, "support_type": "direct"}]</data>
-  <data key="d25">candidate</data>
+  <data key="d25">approved</data>
   <data key="d26"></data>
   <data key="d27">1</data>
   <data key="d28">["ne.b2.s7.p4"]</data>

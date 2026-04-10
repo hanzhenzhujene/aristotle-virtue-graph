@@ -30,8 +30,8 @@ def test_viewer_loader_succeeds_on_repository_candidate_exports() -> None:
 def test_viewer_loader_succeeds_on_repository_approved_exports() -> None:
     dataset = load_viewer_dataset("approved")
 
-    assert len(dataset.concepts) == 34
-    assert len(dataset.relations) == 27
+    assert len(dataset.concepts) == 42
+    assert len(dataset.relations) == 33
     assert len(dataset.passages) == 45
     assert dataset.empty_notice is None
 

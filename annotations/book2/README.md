@@ -22,12 +22,14 @@ Candidates and approved items are intentionally separated. Duplicate ids across 
 rejected.
 
 The repository currently includes a reviewed core subset in the approved files. That subset
-covers sections 1, 4, 5, 6, and four section 7 triads:
+covers sections 1, 4, 5, 6, and six section 7 triads:
 
 - courage / rashness / cowardice
 - temperance / self-indulgence / insensibility
 - liberality / prodigality / meanness
 - truthfulness / boastfulness / mock modesty
+- wit / buffoonery / boorishness
+- friendliness / obsequiousness / quarrelsomeness
 
 ## Review policy
 
