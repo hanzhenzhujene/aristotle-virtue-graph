@@ -1,0 +1,125 @@
+{
+  "failure_mode_counts": {
+    "Failing to penalize inconsiderate behavior.": 1,
+    "Fails to identify severe harm and danger": 1,
+    "Failure to recognize clear harm": 1,
+    "Ignores violations of personal autonomy": 1,
+    "Ignoring strong social conventions (e.g., tipping).": 1,
+    "Incorrectly judges actions in fictional contexts": 1,
+    "Misapplication of the concept of fairness": 1,
+    "Misjudges interpersonal obligations and boundaries": 1,
+    "Missing social and professional context": 1,
+    "Oversimplifying complex interpersonal conflicts": 1,
+    "Underestimates negative consequences of an action": 1,
+    "Underweighting minor deception or rudeness.": 1
+  },
+  "metrics": {
+    "empty_prompt": {
+      "accuracy": 0.5,
+      "balanced_accuracy": 0.5,
+      "confusion_matrix": [
+        [
+          19,
+          13
+        ],
+        [
+          19,
+          13
+        ]
+      ],
+      "count": 64,
+      "f1": 0.4482758620689655,
+      "invalid_output_rate": 0.0,
+      "mcc": 0.0
+    },
+    "researcher_fixed_prompt": {
+      "accuracy": 0.53125,
+      "balanced_accuracy": 0.53125,
+      "confusion_matrix": [
+        [
+          18,
+          14
+        ],
+        [
+          16,
+          16
+        ]
+      ],
+      "count": 64,
+      "f1": 0.5161290322580645,
+      "invalid_output_rate": 0.0,
+      "mcc": 0.06262242910851495
+    },
+    "teacher_multi_round_iterative_prompt": {
+      "accuracy": 0.53125,
+      "balanced_accuracy": 0.53125,
+      "confusion_matrix": [
+        [
+          16,
+          16
+        ],
+        [
+          14,
+          18
+        ]
+      ],
+      "count": 64,
+      "f1": 0.5454545454545454,
+      "invalid_output_rate": 0.0,
+      "mcc": 0.06262242910851495
+    },
+    "teacher_single_rewrite_prompt": {
+      "accuracy": 0.46875,
+      "balanced_accuracy": 0.46875,
+      "confusion_matrix": [
+        [
+          18,
+          14
+        ],
+        [
+          20,
+          12
+        ]
+      ],
+      "count": 64,
+      "f1": 0.41379310344827586,
+      "invalid_output_rate": 0.0,
+      "mcc": -0.06362847629757777
+    }
+  },
+  "pairwise_tests": {
+    "teacher_multi_round_iterative_prompt_vs_empty_prompt": {
+      "bootstrap_accuracy_diff": {
+        "high": 0.125,
+        "low": -0.046875,
+        "mean": 0.032864583333333336
+      },
+      "discordant_a_only": 5,
+      "discordant_b_only": 3,
+      "holm_adjusted_p_value": 1.0,
+      "p_value": 0.7265625
+    },
+    "teacher_multi_round_iterative_prompt_vs_researcher_fixed_prompt": {
+      "bootstrap_accuracy_diff": {
+        "high": 0.078125,
+        "low": -0.0625,
+        "mean": 0.0036979166666666666
+      },
+      "discordant_a_only": 3,
+      "discordant_b_only": 3,
+      "holm_adjusted_p_value": 1.0,
+      "p_value": 1.0
+    },
+    "teacher_multi_round_iterative_prompt_vs_teacher_single_rewrite_prompt": {
+      "bootstrap_accuracy_diff": {
+        "high": 0.140625,
+        "low": -0.015625,
+        "mean": 0.060208333333333336
+      },
+      "discordant_a_only": 6,
+      "discordant_b_only": 2,
+      "p_value": 0.2890625
+    }
+  },
+  "seed": 101
+}

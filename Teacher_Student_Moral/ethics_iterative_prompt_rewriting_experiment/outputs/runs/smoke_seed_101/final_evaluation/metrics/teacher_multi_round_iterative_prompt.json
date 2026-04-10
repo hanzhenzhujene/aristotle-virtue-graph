@@ -1,0 +1,160 @@
+{
+  "overall": {
+    "accuracy": 0.53125,
+    "balanced_accuracy": 0.53125,
+    "confusion_matrix": [
+      [
+        16,
+        16
+      ],
+      [
+        14,
+        18
+      ]
+    ],
+    "count": 64,
+    "f1": 0.5454545454545454,
+    "invalid_output_rate": 0.0,
+    "mcc": 0.06262242910851495
+  },
+  "per_label": {
+    "0": {
+      "accuracy": 0.5,
+      "count": 32.0
+    },
+    "1": {
+      "accuracy": 0.5625,
+      "count": 32.0
+    }
+  },
+  "per_length_bucket": {
+    "000_079": {
+      "accuracy": 0.5483870967741935,
+      "balanced_accuracy": 0.5333333333333333,
+      "confusion_matrix": [
+        [
+          16,
+          0
+        ],
+        [
+          14,
+          1
+        ]
+      ],
+      "count": 31,
+      "f1": 0.125,
+      "invalid_output_rate": 0.0,
+      "mcc": 0.18856180831641267
+    },
+    "080_159": {
+      "accuracy": 0.6666666666666666,
+      "balanced_accuracy": 0.5,
+      "confusion_matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          2
+        ]
+      ],
+      "count": 3,
+      "f1": 0.8,
+      "invalid_output_rate": 0.0,
+      "mcc": 0.0
+    },
+    "160_319": {
+      "accuracy": 0.6153846153846154,
+      "balanced_accuracy": 0.5,
+      "confusion_matrix": [
+        [
+          0,
+          5
+        ],
+        [
+          0,
+          8
+        ]
+      ],
+      "count": 13,
+      "f1": 0.7619047619047619,
+      "invalid_output_rate": 0.0,
+      "mcc": 0.0
+    },
+    "320_99999": {
+      "accuracy": 0.4117647058823529,
+      "balanced_accuracy": 0.5,
+      "confusion_matrix": [
+        [
+          0,
+          10
+        ],
+        [
+          0,
+          7
+        ]
+      ],
+      "count": 17,
+      "f1": 0.5833333333333334,
+      "invalid_output_rate": 0.0,
+      "mcc": 0.0
+    }
+  },
+  "per_source_split": {
+    "test": {
+      "accuracy": 0.7142857142857143,
+      "balanced_accuracy": 0.7142857142857143,
+      "confusion_matrix": [
+        [
+          5,
+          2
+        ],
+        [
+          2,
+          5
+        ]
+      ],
+      "count": 14,
+      "f1": 0.7142857142857143,
+      "invalid_output_rate": 0.0,
+      "mcc": 0.42857142857142855
+    },
+    "train": {
+      "accuracy": 0.48717948717948717,
+      "balanced_accuracy": 0.48684210526315785,
+      "confusion_matrix": [
+        [
+          10,
+          10
+        ],
+        [
+          10,
+          9
+        ]
+      ],
+      "count": 39,
+      "f1": 0.47368421052631576,
+      "invalid_output_rate": 0.0,
+      "mcc": -0.02631578947368421
+    },
+    "validation": {
+      "accuracy": 0.45454545454545453,
+      "balanced_accuracy": 0.43333333333333335,
+      "confusion_matrix": [
+        [
+          1,
+          4
+        ],
+        [
+          2,
+          4
+        ]
+      ],
+      "count": 11,
+      "f1": 0.5714285714285714,
+      "invalid_output_rate": 0.0,
+      "mcc": -0.14907119849998599
+    }
+  }
+}

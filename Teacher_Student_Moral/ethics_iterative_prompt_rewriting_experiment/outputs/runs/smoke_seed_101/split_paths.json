@@ -1,0 +1,11 @@
+{
+  "access_log": "/Users/hanzhenzhu/Desktop/MESOTES/Aristotle Virtue Graph/Teacher_Student_Moral/ethics_iterative_prompt_rewriting_experiment/outputs/runs/smoke_seed_101/data/access_log.jsonl",
+  "all_examples": "/Users/hanzhenzhu/Desktop/MESOTES/Aristotle Virtue Graph/Teacher_Student_Moral/ethics_iterative_prompt_rewriting_experiment/outputs/runs/smoke_seed_101/data/all_examples.jsonl",
+  "development": "/Users/hanzhenzhu/Desktop/MESOTES/Aristotle Virtue Graph/Teacher_Student_Moral/ethics_iterative_prompt_rewriting_experiment/outputs/runs/smoke_seed_101/data/development.jsonl",
+  "final_test_locked": "/Users/hanzhenzhu/Desktop/MESOTES/Aristotle Virtue Graph/Teacher_Student_Moral/ethics_iterative_prompt_rewriting_experiment/outputs/runs/smoke_seed_101/data/locked_final_test/final_test.jsonl",
+  "groups": "/Users/hanzhenzhu/Desktop/MESOTES/Aristotle Virtue Graph/Teacher_Student_Moral/ethics_iterative_prompt_rewriting_experiment/outputs/runs/smoke_seed_101/data/duplicate_groups.jsonl",
+  "label_semantics": "/Users/hanzhenzhu/Desktop/MESOTES/Aristotle Virtue Graph/Teacher_Student_Moral/ethics_iterative_prompt_rewriting_experiment/outputs/runs/smoke_seed_101/data/label_semantics.json",
+  "selector_dev": "/Users/hanzhenzhu/Desktop/MESOTES/Aristotle Virtue Graph/Teacher_Student_Moral/ethics_iterative_prompt_rewriting_experiment/outputs/runs/smoke_seed_101/data/selector_dev.jsonl",
+  "summary": "/Users/hanzhenzhu/Desktop/MESOTES/Aristotle Virtue Graph/Teacher_Student_Moral/ethics_iterative_prompt_rewriting_experiment/outputs/runs/smoke_seed_101/data/split_summary.json",
+  "teacher_dev": "/Users/hanzhenzhu/Desktop/MESOTES/Aristotle Virtue Graph/Teacher_Student_Moral/ethics_iterative_prompt_rewriting_experiment/outputs/runs/smoke_seed_101/data/teacher_dev.jsonl"
+}

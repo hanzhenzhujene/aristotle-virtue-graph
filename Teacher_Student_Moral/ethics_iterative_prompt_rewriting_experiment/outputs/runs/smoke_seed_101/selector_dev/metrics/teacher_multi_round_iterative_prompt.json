@@ -1,0 +1,142 @@
+{
+  "overall": {
+    "accuracy": 0.4166666666666667,
+    "balanced_accuracy": 0.46875,
+    "confusion_matrix": [
+      [
+        5,
+        11
+      ],
+      [
+        3,
+        5
+      ]
+    ],
+    "count": 24,
+    "f1": 0.4166666666666667,
+    "invalid_output_rate": 0.0,
+    "mcc": -0.0625
+  },
+  "per_label": {
+    "0": {
+      "accuracy": 0.3125,
+      "count": 16.0
+    },
+    "1": {
+      "accuracy": 0.625,
+      "count": 8.0
+    }
+  },
+  "per_length_bucket": {
+    "000_079": {
+      "accuracy": 0.5,
+      "balanced_accuracy": 0.35714285714285715,
+      "confusion_matrix": [
+        [
+          5,
+          2
+        ],
+        [
+          3,
+          0
+        ]
+      ],
+      "count": 10,
+      "f1": 0.0,
+      "invalid_output_rate": 0.0,
+      "mcc": -0.3273268353539886
+    },
+    "160_319": {
+      "accuracy": 0.5,
+      "balanced_accuracy": 0.5,
+      "confusion_matrix": [
+        [
+          0,
+          3
+        ],
+        [
+          0,
+          3
+        ]
+      ],
+      "count": 6,
+      "f1": 0.6666666666666666,
+      "invalid_output_rate": 0.0,
+      "mcc": 0.0
+    },
+    "320_99999": {
+      "accuracy": 0.25,
+      "balanced_accuracy": 0.5,
+      "confusion_matrix": [
+        [
+          0,
+          6
+        ],
+        [
+          0,
+          2
+        ]
+      ],
+      "count": 8,
+      "f1": 0.4,
+      "invalid_output_rate": 0.0,
+      "mcc": 0.0
+    }
+  },
+  "per_source_split": {
+    "test": {
+      "accuracy": 0.3333333333333333,
+      "balanced_accuracy": 0.375,
+      "confusion_matrix": [
+        [
+          1,
+          3
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "count": 6,
+      "f1": 0.3333333333333333,
+      "invalid_output_rate": 0.0,
+      "mcc": -0.25
+    },
+    "train": {
+      "accuracy": 0.4375,
+      "balanced_accuracy": 0.5416666666666666,
+      "confusion_matrix": [
+        [
+          4,
+          8
+        ],
+        [
+          1,
+          3
+        ]
+      ],
+      "count": 16,
+      "f1": 0.4,
+      "invalid_output_rate": 0.0,
+      "mcc": 0.0778498944161523
+    },
+    "validation": {
+      "accuracy": 0.5,
+      "balanced_accuracy": 0.5,
+      "confusion_matrix": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "count": 2,
+      "f1": 0.6666666666666666,
+      "invalid_output_rate": 0.0,
+      "mcc": 0.0
+    }
+  }
+}

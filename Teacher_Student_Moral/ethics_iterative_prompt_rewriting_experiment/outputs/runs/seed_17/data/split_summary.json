@@ -1,0 +1,25 @@
+{
+  "conflicting_duplicate_groups": [],
+  "dataset_config": "commonsense",
+  "dataset_name": "hendrycks/ethics",
+  "duplicate_example_count": 2316,
+  "duplicate_group_count": 1158,
+  "label_counts": {
+    "0": 11498,
+    "1": 10261
+  },
+  "max_examples_applied": null,
+  "original_total_examples": 21759,
+  "partition_counts": {
+    "development": 17395,
+    "final_test": 4364,
+    "selector_dev": 4319,
+    "teacher_dev": 13076
+  },
+  "source_split_counts": {
+    "test": 3964,
+    "train": 13910,
+    "validation": 3885
+  },
+  "stratification_level": "label_source_length -> label_source_length"
+}

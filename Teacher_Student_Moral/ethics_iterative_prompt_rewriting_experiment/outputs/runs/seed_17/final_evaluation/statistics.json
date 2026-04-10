@@ -1,0 +1,159 @@
+{
+  "failure_mode_counts": {
+    "Applying simplistic heuristics without context": 1,
+    "Being overly sensitive to interpersonal conflict": 1,
+    "Conflating expressing feelings with immoral actions": 1,
+    "Confuses causing emotional upset with causing unjustified harm.": 1,
+    "Confuses causing reasonable offense with immoral action.": 1,
+    "Confuses interpersonal conflict with moral failure.": 1,
+    "Confuses personal rights with moral failings": 1,
+    "Confuses setting reasonable boundaries with causing unacceptable harm": 1,
+    "Confuses setting reasonable boundaries with morally unacceptable behavior.": 1,
+    "Failing to assess the proportionality of an action": 1,
+    "Failing to prioritize child safety or fairness": 1,
+    "Failing to recognize non-physical or emotional harm": 1,
+    "Fails to detect implicit cruelty or malicious subtext.": 1,
+    "Fails to identify clear moral violations like theft, deception, and illegal acts.": 1,
+    "Fails to identify exploitation or deception": 1,
+    "Fails to identify severe, unambiguous moral wrongs (e.g., racism, malice, theft).": 1,
+    "Fails to recognize clear harm in short scenarios": 1,
+    "Fails to recognize obvious moral violations (theft, cheating, harm).": 1,
+    "Fails to recognize severe, direct harm.": 1,
+    "Fails to recognize violations of privacy and dignity": 1,
+    "Getting misled by narrative framing in complex scenarios": 1,
+    "Ignoring breaches of common social etiquette": 1,
+    "Ignoring crucial context in complex social situations": 1,
+    "Ignoring the context and proportionality of an action": 1,
+    "Ignoring violations of common social norms": 1,
+    "Incorrectly assigning blame for unforeseeable consequences": 1,
+    "Incorrectly assigns blame to victims of emotional manipulation.": 1,
+    "Incorrectly flags neutral or helpful actions as immoral.": 1,
+    "Incorrectly penalizes reasonable boundary-setting in interpersonal conflicts.": 1,
+    "Judges feelings instead of actions": 1,
+    "Misinterprets some clear-cut malicious or illegal acts": 1,
+    "Misjudges actions involving deception or dishonesty.": 1,
+    "Misjudges actions that are irresponsible or negligent as acceptable.": 1,
+    "Misjudges justified reactions to wrongdoing as unacceptable.": 1,
+    "Misjudges violations of personal boundaries and property.": 1,
+    "Misjudging obviously harmful or dangerous acts": 1,
+    "Misjudging reactions in relational disputes": 1,
+    "Misjudging the severity of harm or risk": 1,
+    "Over-penalizing justified confrontation": 1,
+    "Over-weights minor social norms against justifying context.": 1,
+    "Penalizing reasonable boundary-setting or requests": 1,
+    "Struggles to judge the proportionality of actions and reactions.": 1,
+    "Under-weights negligence and recklessness": 1,
+    "Underestimates the importance of social norms": 1,
+    "Underestimates the severity of criminal acts.": 1,
+    "Underestimating severe, foreseeable harm": 1
+  },
+  "metrics": {
+    "empty_prompt": {
+      "accuracy": 0.5229147571035747,
+      "balanced_accuracy": 0.5211324540438464,
+      "confusion_matrix": [
+        [
+          1274,
+          1036
+        ],
+        [
+          1046,
+          1008
+        ]
+      ],
+      "count": 4364,
+      "f1": 0.49194729136163984,
+      "invalid_output_rate": 0.0,
+      "mcc": 0.04227676036498414
+    },
+    "researcher_fixed_prompt": {
+      "accuracy": 0.5197066911090742,
+      "balanced_accuracy": 0.518237037224379,
+      "confusion_matrix": [
+        [
+          1255,
+          1055
+        ],
+        [
+          1041,
+          1013
+        ]
+      ],
+      "count": 4364,
+      "f1": 0.49150897622513345,
+      "invalid_output_rate": 0.0,
+      "mcc": 0.03646105919137521
+    },
+    "teacher_multi_round_iterative_prompt": {
+      "accuracy": 0.5242896425297892,
+      "balanced_accuracy": 0.5254256292230977,
+      "confusion_matrix": [
+        [
+          1169,
+          1141
+        ],
+        [
+          935,
+          1119
+        ]
+      ],
+      "count": 4364,
+      "f1": 0.5187760778859527,
+      "invalid_output_rate": 0.0,
+      "mcc": 0.0507961535568542
+    },
+    "teacher_single_rewrite_prompt": {
+      "accuracy": 0.5215398716773603,
+      "balanced_accuracy": 0.5211556376113338,
+      "confusion_matrix": [
+        [
+          1219,
+          1091
+        ],
+        [
+          997,
+          1057
+        ]
+      ],
+      "count": 4364,
+      "f1": 0.5030937648738696,
+      "invalid_output_rate": 0.0,
+      "mcc": 0.04224354028768189
+    }
+  },
+  "pairwise_tests": {
+    "teacher_multi_round_iterative_prompt_vs_empty_prompt": {
+      "bootstrap_accuracy_diff": {
+        "high": 0.007791017415215373,
+        "low": -0.005499541704857891,
+        "mean": 0.0013853116406966094
+      },
+      "discordant_a_only": 115,
+      "discordant_b_only": 109,
+      "holm_adjusted_p_value": 0.7384057149811345,
+      "p_value": 0.7384057149811345
+    },
+    "teacher_multi_round_iterative_prompt_vs_researcher_fixed_prompt": {
+      "bootstrap_accuracy_diff": {
+        "high": 0.011228230980751545,
+        "low": -0.0018331805682859637,
+        "mean": 0.004577681026581118
+      },
+      "discordant_a_only": 115,
+      "discordant_b_only": 95,
+      "holm_adjusted_p_value": 0.3793799779582968,
+      "p_value": 0.1896899889791484
+    },
+    "teacher_multi_round_iterative_prompt_vs_teacher_single_rewrite_prompt": {
+      "bootstrap_accuracy_diff": {
+        "high": 0.007561869844179725,
+        "low": -0.0018389092575619656,
+        "mean": 0.0027428964252978892
+      },
+      "discordant_a_only": 64,
+      "discordant_b_only": 52,
+      "p_value": 0.3070896636491838
+    }
+  },
+  "seed": 17
+}

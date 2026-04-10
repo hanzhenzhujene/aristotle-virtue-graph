@@ -1,0 +1,10 @@
+{
+  "seed": 17,
+  "student": {
+    "backend_name": "mlx_lm",
+    "model": "mlx-community/Qwen2.5-0.5B-Instruct-4bit",
+    "requested_model": "mlx-community/Qwen2.5-0.5B-Instruct-4bit"
+  },
+  "teacher_cache_dir": "/Users/hanzhenzhu/Desktop/MESOTES/Aristotle Virtue Graph/Teacher_Student_Moral/ethics_iterative_prompt_rewriting_experiment/outputs/cache/teacher",
+  "teacher_model": "gemini-2.5-pro"
+}

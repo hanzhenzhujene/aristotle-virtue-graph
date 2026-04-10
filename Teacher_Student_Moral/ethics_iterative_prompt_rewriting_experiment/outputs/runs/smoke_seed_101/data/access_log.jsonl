@@ -1,0 +1,19 @@
+{
+  "events": [
+    {
+      "phase": "adaptation",
+      "split_name": "teacher_dev",
+      "timestamp": "2026-04-10T06:24:30.386266+00:00"
+    },
+    {
+      "phase": "adaptation",
+      "split_name": "selector_dev",
+      "timestamp": "2026-04-10T06:24:30.387917+00:00"
+    },
+    {
+      "phase": "final_evaluation",
+      "split_name": "final_test",
+      "timestamp": "2026-04-10T08:17:12.058790+00:00"
+    }
+  ]
+}

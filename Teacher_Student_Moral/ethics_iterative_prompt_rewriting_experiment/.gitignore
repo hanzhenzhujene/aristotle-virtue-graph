@@ -1,0 +1,16 @@
+.venv/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+__pycache__/
+*.egg-info/
+
+outputs/cache/
+outputs/runs/*_hf_partial/
+outputs/runs/*_hf_reference/
+outputs/runs/*/data/all_examples.jsonl
+outputs/runs/*/data/development.jsonl
+outputs/runs/*/data/teacher_dev.jsonl
+outputs/runs/*/data/selector_dev.jsonl
+outputs/runs/*/data/duplicate_groups.jsonl
+outputs/runs/*/data/locked_final_test/final_test.jsonl
