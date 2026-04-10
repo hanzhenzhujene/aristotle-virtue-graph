@@ -294,3 +294,69 @@
       support_type: direct
       note: Section 7 treats truthfulness within intercourse in words and actions.
   review_status: approved
+
+- id: wit--has-excess--buffoonery
+  source_id: wit
+  relation_type: has_excess
+  target_id: buffoonery
+  assertion_tier: editorial_normalization
+  evidence:
+    - passage_id: ne.b2.s7.p4
+      support_type: direct
+      note: Section 7 names buffoonery as the excess opposed to ready wit.
+  review_status: approved
+
+- id: wit--has-deficiency--boorishness
+  source_id: wit
+  relation_type: has_deficiency
+  target_id: boorishness
+  assertion_tier: editorial_normalization
+  evidence:
+    - passage_id: ne.b2.s7.p4
+      support_type: direct
+      note: Section 7 names boorishness as the deficiency opposed to ready wit.
+  review_status: approved
+
+- id: wit--concerns--amusement
+  source_id: wit
+  relation_type: concerns
+  target_id: amusement
+  assertion_tier: editorial_normalization
+  evidence:
+    - passage_id: ne.b2.s7.p4
+      support_type: direct
+      note: Section 7 places ready wit in the sphere of giving amusement.
+  review_status: approved
+
+- id: friendliness--has-excess--obsequiousness
+  source_id: friendliness
+  relation_type: has_excess
+  target_id: obsequiousness
+  assertion_tier: editorial_normalization
+  evidence:
+    - passage_id: ne.b2.s7.p4
+      support_type: direct
+      note: Section 7 describes the excessive pleasant type as obsequious or flattering.
+  review_status: approved
+
+- id: friendliness--has-deficiency--quarrelsomeness
+  source_id: friendliness
+  relation_type: has_deficiency
+  target_id: quarrelsomeness
+  assertion_tier: editorial_normalization
+  evidence:
+    - passage_id: ne.b2.s7.p4
+      support_type: direct
+      note: Section 7 describes the deficient type as quarrelsome and surly.
+  review_status: approved
+
+- id: friendliness--concerns--social-intercourse
+  source_id: friendliness
+  relation_type: concerns
+  target_id: social-intercourse
+  assertion_tier: editorial_normalization
+  evidence:
+    - passage_id: ne.b2.s7.p4
+      support_type: direct
+      note: Section 7 places friendliness in the pleasantness exhibited in life in general.
+  review_status: approved

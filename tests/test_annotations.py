@@ -277,14 +277,14 @@ def test_processed_export_succeeds_for_repository_approved_seed(tmp_path: Path) 
     ]
 
     assert graph["meta"]["mode"] == "strict_approved"
-    assert len(graph["nodes"]) == 34
-    assert len(graph["edges"]) == 27
+    assert len(graph["nodes"]) == 42
+    assert len(graph["edges"]) == 33
     assert len(graph["passages"]) == 45
-    assert stats["concept_count"] == 34
-    assert stats["relation_count"] == 27
+    assert stats["concept_count"] == 42
+    assert stats["relation_count"] == 33
     assert stats["passage_count"] == 45
-    assert stats["concept_review_statuses"] == {"approved": 34}
-    assert stats["relation_review_statuses"] == {"approved": 27}
+    assert stats["concept_review_statuses"] == {"approved": 42}
+    assert stats["relation_review_statuses"] == {"approved": 33}
     assert len(approved_passages) == 45
-    assert graphml.number_of_nodes() == 34
-    assert graphml.number_of_edges() == 27
+    assert graphml.number_of_nodes() == 42
+    assert graphml.number_of_edges() == 33
