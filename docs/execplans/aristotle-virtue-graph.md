@@ -212,6 +212,9 @@ Keep identifiers stable and human-readable.
 - Streamlit `tabs` are awkward for evidence-driven navigation because buttons elsewhere in the
   page cannot reliably move the user into the relevant tab, so a controlled view selector is a
   better fit when concept or relation evidence should open directly into Passage Explorer.
+- Streamlit also forbids mutating the session-state key of an already-instantiated widget in the
+  same run, so button-driven view changes need a pending-navigation key that is applied on the
+  next rerun rather than writing directly into the `st.radio` state.
 - Extending the reviewed core works best when each added triad is promoted in small, textually
   direct batches rather than trying to approve the rest of section 7 all at once.
 - Streamlit app URLs can be shortened from Community Cloud app settings, but that change lives in
@@ -273,6 +276,9 @@ Keep identifiers stable and human-readable.
   rechecking the direct wording of `NE II.7 ¶4`.
 - 2026-04-10: Document the Streamlit app-settings path for choosing a shorter custom subdomain,
   since shortening the live URL cannot be completed from inside the repo alone.
+- 2026-04-10: Fix the `Open supporting passage` and related jump buttons by switching the viewer
+  to a pending-navigation pattern, because Streamlit rejects direct same-run writes into the
+  session-state key of the active view radio.
 - 2026-04-10: Replace the earlier repo mark with the supplied Aristotle head PNG and reuse that
   same small raster icon in the README and Streamlit header.
 
@@ -346,6 +352,8 @@ Observed results:
   `https://aristotle-virtue-graph.streamlit.app/`
 - the viewer now includes curated `Start here` shortcuts and one-click passage jumps from
   concept evidence and relation shortcuts into Passage Explorer
+- the one-click passage jumps now work on Streamlit Community Cloud without raising a
+  session-state mutation exception
 - the approved core now includes 42 concepts and 33 relations, adding reviewed wit and
   friendliness triads to the earlier courage, temperance, liberality, and truthfulness coverage
 - the project now lives in its own public GitHub repository rather than remaining nested inside

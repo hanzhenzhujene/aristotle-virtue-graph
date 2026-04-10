@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib
+from collections.abc import MutableMapping
 from pathlib import Path
 from typing import cast
 
@@ -29,6 +30,20 @@ from aristotle_graph.viewer.state import (
     passage_options,
     start_here_concept_ids,
 )
+
+
+def apply_pending_view_navigation(
+    session_state: MutableMapping[str, object],
+    *,
+    active_view_key: str,
+    pending_view_key: str,
+) -> None:
+    pending_view = session_state.pop(pending_view_key, None)
+    if pending_view in VIEW_NAMES:
+        session_state[active_view_key] = pending_view
+        return
+    if session_state.get(active_view_key) not in VIEW_NAMES:
+        session_state[active_view_key] = VIEW_NAMES[0]
 
 
 def render() -> None:
@@ -75,6 +90,7 @@ def render() -> None:
     relation_types = available_relation_types(dataset)
     assertion_tiers = available_assertion_tiers(dataset)
     active_view_key = "avg-active-view"
+    pending_view_key = "avg-pending-view"
     selected_concept_key = f"avg-selected-concept-label-{mode}"
     selected_passage_key = f"avg-selected-passage-id-{mode}"
 
@@ -92,16 +108,19 @@ def render() -> None:
                 break
     if st.session_state.get(selected_concept_key) not in concept_options:
         st.session_state[selected_concept_key] = default_concept_label
-    if st.session_state.get(active_view_key) not in VIEW_NAMES:
-        st.session_state[active_view_key] = VIEW_NAMES[0]
+    apply_pending_view_navigation(
+        st.session_state,
+        active_view_key=active_view_key,
+        pending_view_key=pending_view_key,
+    )
 
     def set_selected_concept(concept_id: str) -> None:
         st.session_state[selected_concept_key] = dataset.concept_index[concept_id].primary_label
-        st.session_state[active_view_key] = VIEW_NAMES[0]
+        st.session_state[pending_view_key] = VIEW_NAMES[0]
 
     def focus_passage(passage_id: str) -> None:
         st.session_state[selected_passage_key] = passage_id
-        st.session_state[active_view_key] = VIEW_NAMES[1]
+        st.session_state[pending_view_key] = VIEW_NAMES[1]
 
     start_here_ids = start_here_concept_ids(dataset)
     if start_here_ids:

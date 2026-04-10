@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from aristotle_graph.app.streamlit_app import apply_pending_view_navigation
 from aristotle_graph.viewer.load import approved_empty_notice, load_viewer_dataset
 from aristotle_graph.viewer.state import (
     default_concept_id,
@@ -66,6 +67,34 @@ def test_passage_options_include_focused_passage_outside_current_filter() -> Non
 
     assert options[0].passage_id == "ne.b2.s7.p4"
     assert options[1].passage_id == visible_passages[0].passage_id
+
+
+def test_apply_pending_view_navigation_switches_view_on_next_rerun() -> None:
+    session_state: dict[str, object] = {
+        "avg-active-view": "Concept Explorer",
+        "avg-pending-view": "Passage Explorer",
+    }
+
+    apply_pending_view_navigation(
+        session_state,
+        active_view_key="avg-active-view",
+        pending_view_key="avg-pending-view",
+    )
+
+    assert session_state["avg-active-view"] == "Passage Explorer"
+    assert "avg-pending-view" not in session_state
+
+
+def test_apply_pending_view_navigation_recovers_invalid_active_view() -> None:
+    session_state: dict[str, object] = {"avg-active-view": "Bad View"}
+
+    apply_pending_view_navigation(
+        session_state,
+        active_view_key="avg-active-view",
+        pending_view_key="avg-pending-view",
+    )
+
+    assert session_state["avg-active-view"] == "Concept Explorer"
 
 
 def test_viewer_loader_handles_empty_approved_mode(tmp_path: Path) -> None:
