@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title>Aristotle head mark</title>
+  <desc>A stylized Aristotle bust inside a warm bronze medallion.</desc>
+  <defs>
+    <linearGradient id="avg-bg" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#fbf4e4" />
+      <stop offset="100%" stop-color="#e5cfa6" />
+    </linearGradient>
+    <linearGradient id="avg-ring" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#d5a25c" />
+      <stop offset="100%" stop-color="#8f5d33" />
+    </linearGradient>
+    <linearGradient id="avg-bust" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#8d5a37" />
+      <stop offset="100%" stop-color="#59331f" />
+    </linearGradient>
+  </defs>
+
+  <circle cx="128" cy="128" r="118" fill="url(#avg-bg)" />
+  <circle cx="128" cy="128" r="118" fill="none" stroke="url(#avg-ring)" stroke-width="12" />
+  <circle cx="128" cy="128" r="98" fill="#f7edd7" opacity="0.72" />
+
+  <path
+    d="M77 214c6-27 19-45 38-54 3-2 5-5 5-8v-11h16v11c0 3 2 6 5 8 19 9 32 27 38 54H77z"
+    fill="url(#avg-bust)"
+  />
+  <path
+    d="M128 53c-29 0-50 22-50 54 0 18 7 34 19 45 5 4 8 11 9 18 3 18 12 28 22 32v12h8v-12c10-4 19-14 22-32 1-7 4-14 9-18 12-11 19-27 19-45 0-32-21-54-50-54z"
+    fill="#7f4f2f"
+  />
+  <path
+    d="M102 84c8-18 23-29 44-29 16 0 29 7 38 20-2-18-19-39-56-39-31 0-56 23-56 56 0 13 4 24 11 33 1-18 8-31 19-41z"
+    fill="#5d3520"
+  />
+  <path
+    d="M95 114c0 12 4 23 12 32 6 6 11 15 13 25 1 7 4 14 8 20 4 6 11 10 20 10 9 0 16-4 20-10 4-6 7-13 8-20 2-10 7-19 13-25 8-9 12-20 12-32-6 10-15 17-26 21-8 3-19 6-27 6-9 0-20-3-28-6-11-4-20-11-25-21z"
+    fill="#6f4328"
+  />
+  <path
+    d="M105 151c6 20 14 31 23 31 9 0 17-11 23-31-7 4-15 6-23 6-8 0-16-2-23-6z"
+    fill="#4d2a18"
+  />
+  <path
+    d="M111 105c4 0 7 3 7 7s-3 7-7 7-7-3-7-7 3-7 7-7zm34 0c4 0 7 3 7 7s-3 7-7 7-7-3-7-7 3-7 7-7z"
+    fill="#f7edd7"
+    opacity="0.32"
+  />
+  <path
+    d="M128 112v25m-11 9c3 2 7 3 11 3 4 0 8-1 11-3m-31-38c4-3 8-4 12-3m16 0c4-1 8 0 12 3"
+    fill="none"
+    stroke="#f6e8cf"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="4"
+    opacity="0.72"
+  />
+  <path
+    d="M55 96c7-19 22-34 41-41m105 41c-7-19-22-34-41-41"
+    fill="none"
+    stroke="#c68e4f"
+    stroke-linecap="round"
+    stroke-width="6"
+    opacity="0.65"
+  />
+</svg>

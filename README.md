@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/assets/aristotle-head-mark.svg" alt="Aristotle bust mark" width="116" />
+</p>
+
 # Aristotle Virtue Graph
 
 > An evidence-first dashboard for exploring *Nicomachean Ethics* Book II as concepts, relations, and passages. **[Open live dashboard](https://aristotle-virtue-graph.streamlit.app/)**
@@ -5,9 +9,7 @@
 This project turns Aristotle's Book II into a graph you can actually inspect.
 Open a concept like `courage`, follow its linked relations, open the supporting passage, and compare the broader candidate layer against the smaller reviewed core.
 
-**Scope:** Book II only  
-**Viewer:** Streamlit dashboard  
-**Current reviewed core:** 42 approved concepts, 33 approved relations
+🏛️ **Book II only** · 📜 **45 passages** · 🌐 **Live dashboard** · ✅ **42 approved concepts / 33 approved relations**
 
 ![Dashboard hero](docs/assets/viewer-courage-candidate.png)
 
@@ -19,7 +21,7 @@ _Hero view: `courage` open in the dashboard, with evidence, relation tables, and
 | --- | --- | --- |
 | **[Open live dashboard](https://aristotle-virtue-graph.streamlit.app/)** | **Run now:** [`make app`](#run-the-viewer) | [Start with `courage`](docs/viewer_guide.md) |
 
-_The live app is now available on Streamlit Community Cloud. Local run instructions and deployment details remain in [docs/deployment.md](docs/deployment.md)._
+_The live app is available on Streamlit Community Cloud. Local run instructions and deployment details remain in [docs/deployment.md](docs/deployment.md)._
 
 ## Run the viewer
 

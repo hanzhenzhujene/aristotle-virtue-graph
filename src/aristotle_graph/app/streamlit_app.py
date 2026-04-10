@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib
+from pathlib import Path
 from typing import cast
 
 from aristotle_graph.annotations.models import RelationAnnotation
@@ -41,9 +42,18 @@ def render() -> None:
         )
         raise SystemExit(msg) from exc
 
-    st.set_page_config(page_title="Aristotle Virtue Graph", layout="wide")
-    st.title("Aristotle Virtue Graph")
-    st.caption("Evidence-first local explorer for Nicomachean Ethics Book II.")
+    logo_path = Path(__file__).resolve().parents[3] / "docs" / "assets" / "aristotle-head-mark.svg"
+    page_icon = str(logo_path) if logo_path.exists() else "🏛️"
+    st.set_page_config(page_title="Aristotle Virtue Graph", page_icon=page_icon, layout="wide")
+
+    header_left, header_right = st.columns([1, 7])
+    with header_left:
+        if logo_path.exists():
+            st.image(str(logo_path), width=104)
+    with header_right:
+        st.title("Aristotle Virtue Graph")
+        st.caption("Evidence-first explorer for Nicomachean Ethics Book II.")
+        st.markdown("`Book II only` `45 passages` `candidate + approved`")
 
     mode = cast(
         ReviewMode,

@@ -216,6 +216,8 @@ Keep identifiers stable and human-readable.
   direct batches rather than trying to approve the rest of section 7 all at once.
 - Streamlit app URLs can be shortened from Community Cloud app settings, but that change lives in
   the hosted dashboard configuration rather than in repository code or deployment files.
+- A small custom visual mark helps the public repo and live app feel more finished, as long as it
+  stays secondary to the evidence-first content and does not crowd the first-run path.
 
 ## Decision Log
 
@@ -271,6 +273,8 @@ Keep identifiers stable and human-readable.
   rechecking the direct wording of `NE II.7 ¶4`.
 - 2026-04-10: Document the Streamlit app-settings path for choosing a shorter custom subdomain,
   since shortening the live URL cannot be completed from inside the repo alone.
+- 2026-04-10: Add a hand-authored Aristotle bust SVG and reuse it in the README and Streamlit
+  header to give the public-facing project a clearer visual identity without adding a design stack.
 
 ## Outcomes & Retrospective
 
@@ -304,6 +308,7 @@ Outputs:
 - `data/processed/approved/book2_stats.json`
 - `docs/assets/viewer-courage-candidate.png`
 - `docs/assets/book2-overview.svg`
+- `docs/assets/aristotle-head-mark.svg`
 - `docs/viewer_guide.md`
 - `docs/deployment.md`
 - `LICENSE`
@@ -320,8 +325,8 @@ Observed results:
 - repeated segmentation runs produced the same SHA-256 for
   `data/interim/book2_passages.jsonl`
 - candidate annotation validation currently exports 54 concepts and 42 relations
-- strict approved mode now validates and exports a reviewed subset of 26 concepts and
-  21 relations
+- strict approved mode now validates and exports a reviewed subset of 42 concepts and
+  33 relations
 - processed passage export now carries all 45 authoritative Book II passages in both candidate
   and approved modes
 - GraphML export loads successfully as a flattened representation of the processed graph
@@ -331,6 +336,8 @@ Observed results:
   rather than only describing the toolchain
 - the public-facing repo now includes a real viewer preview, a compact overview graphic, a
   viewer guide, and a code license
+- the public-facing repo and live app now share a small Aristotle bust mark, which makes the
+  project easier to recognize without replacing the dashboard screenshot as the main entry point
 - the repository is now deployment-ready for Streamlit Community Cloud with a root app
   entrypoint and explicit deployment instructions
 - the README top section now centers on a single dashboard hero, a non-misleading live-status
