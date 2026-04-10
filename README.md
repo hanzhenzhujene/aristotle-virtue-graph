@@ -1,6 +1,6 @@
 # Aristotle Virtue Graph
 
-> An evidence-first dashboard for exploring *Nicomachean Ethics* Book II as concepts, relations, and passages.
+> An evidence-first dashboard for exploring *Nicomachean Ethics* Book II as concepts, relations, and passages.  **[Open live dashboard](https://aristotle-virtue-graph-asqtn6j429dzaxvgfttrmk.streamlit.app/)** 
 
 This project turns Aristotle's Book II into a graph you can actually inspect.
 Open a concept like `courage`, follow its linked relations, open the supporting passage, and compare the broader candidate layer against the smaller reviewed core.
