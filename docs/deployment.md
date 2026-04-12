@@ -33,18 +33,32 @@ If the app is redeployed under a different URL, update:
 
 Keep the README top CTA pointed at the real live dashboard, not at deployment setup instructions.
 
-## Current app URL
+## Verified hosted target
 
-The app now uses the shorter custom subdomain:
+The current public app should be configured in Streamlit Community Cloud as:
 
-- `https://aristotle-virtue-graph.streamlit.app/`
+- Repository: `hanzhenzhujene/aristotle-virtue-graph`
+- Branch: `main`
+- Main file path: `streamlit_app.py`
+- Live URL: `https://aristotle-virtue-graph.streamlit.app/`
 
-This setting lives in Streamlit Community Cloud app settings, not in repository code.
+If the live dashboard stops reflecting GitHub pushes, check those three settings first and then
+use **Manage app** -> **Reboot app**.
 
-If you ever want to change it again:
+## Change the public URL
+
+Streamlit Community Cloud lets you replace the generated hostname with a custom subdomain.
+This is a dashboard setting, not a repository change.
+
+From the deployed app or from `share.streamlit.io`:
 
 1. Open **Manage app**
 2. Open **Settings**
 3. On the **General** tab, find **App URL**
-4. Enter a new custom subdomain between 6 and 63 characters
+4. Enter a new subdomain between 6 and 63 characters
 5. Click **Save**
+
+If the URL changes, update the links in:
+
+1. `README.md`
+2. `docs/deployment.md`

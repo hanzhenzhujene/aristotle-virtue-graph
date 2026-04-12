@@ -223,6 +223,10 @@ def viewer_shell_css() -> str:
     margin: 0;
 }
 
+.avg-card--route {
+    min-height: 11.85rem;
+}
+
 .avg-card-kicker {
     color: var(--avg-accent);
     font-size: 0.72rem;
@@ -253,6 +257,38 @@ def viewer_shell_css() -> str:
 
 .avg-list li {
     margin-bottom: 0.45rem;
+}
+
+.avg-feature-list {
+    display: grid;
+    gap: 0.72rem;
+    margin-top: 0.18rem;
+}
+
+.avg-feature-row {
+    display: grid;
+    grid-template-columns: 1.6rem 1fr;
+    gap: 0.68rem;
+    align-items: start;
+}
+
+.avg-feature-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 999px;
+    background: rgba(143, 90, 52, 0.12);
+    color: var(--avg-accent-strong);
+    font-size: 0.92rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.avg-feature-text {
+    color: var(--avg-ink);
+    line-height: 1.56;
 }
 
 .avg-stat-grid {
@@ -627,7 +663,7 @@ div[data-testid="stMetric"] {
     align-items: center;
     justify-content: flex-end;
     gap: 0.48rem;
-    margin: -0.1rem 0 0.75rem 0;
+    margin: 0.3rem 0 1rem 0;
     color: var(--avg-muted);
     font-size: 0.82rem;
     line-height: 1.4;
@@ -682,7 +718,7 @@ div[data-testid="stMetric"] {
 
     .avg-attribution {
         justify-content: flex-start;
-        margin-top: 0.05rem;
+        margin-top: 0.28rem;
     }
 }
 </style>
@@ -723,12 +759,13 @@ def attribution_html(*, name: str, linkedin_url: str) -> str:
     )
 
 
-def section_heading_html(*, title: str, body: str, level: int = 2) -> str:
+def section_heading_html(*, title: str, body: str | None, level: int = 2) -> str:
     safe_level = 2 if level not in {2, 3} else level
+    body_html = f"<p>{escape(body)}</p>" if body else ""
     return (
         "<div class='avg-section-heading'>"
         f"<h{safe_level}>{escape(title)}</h{safe_level}>"
-        f"<p>{escape(body)}</p>"
+        f"{body_html}"
         "</div>"
     )
 
@@ -738,12 +775,14 @@ def simple_card_html(
     title: str,
     body: str,
     eyebrow: str | None = None,
+    class_name: str | None = None,
 ) -> str:
     eyebrow_html = (
         f"<div class='avg-card-kicker'>{escape(eyebrow)}</div>" if eyebrow is not None else ""
     )
+    class_suffix = f" avg-card--{escape(class_name)}" if class_name is not None else ""
     return (
-        "<div class='avg-card'>"
+        f"<div class='avg-card{class_suffix}'>"
         f"{eyebrow_html}"
         f"<h3>{escape(title)}</h3>"
         f"<p>{escape(body)}</p>"
@@ -766,6 +805,18 @@ def stat_grid_html(items: list[tuple[str, str]]) -> str:
 def bullet_list_html(items: list[str]) -> str:
     rows = [f"<li>{escape(item)}</li>" for item in items]
     return "<ul class='avg-list'>" + "".join(rows) + "</ul>"
+
+
+def icon_feature_list_html(items: list[tuple[str, str]]) -> str:
+    rows = []
+    for icon, text in items:
+        rows.append(
+            "<div class='avg-feature-row'>"
+            f"<span class='avg-feature-icon'>{escape(icon)}</span>"
+            f"<span class='avg-feature-text'>{escape(text)}</span>"
+            "</div>"
+        )
+    return "<div class='avg-feature-list'>" + "".join(rows) + "</div>"
 
 
 def meta_pills_html(items: list[str]) -> str:

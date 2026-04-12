@@ -364,6 +364,8 @@ Keep identifiers stable and human-readable.
   eyebrow and move the local map higher in the page flow.
 - 2026-04-12: Restore the public-facing author attribution, LinkedIn icon, and missing
   Aristotle head icon asset so the README and app shell no longer lose those identity details.
+- 2026-04-12: Nudge the author row lower under the hero, align the three `Home` route buttons,
+  add small icons to the capability list, and rename the home download section more directly.
 
 ## Outcomes & Retrospective
 
@@ -455,6 +457,13 @@ Observed results:
   navigation happen in the same upper-page flow without the extra eyebrow label over the summary
 - the README and app shell once again show the small `by Jenny Zhu` attribution and LinkedIn link,
   and the missing Aristotle head icon asset has been restored for the repo and page icon
+- the `Home` page now spaces the author row more cleanly under the hero, keeps the three route
+  buttons aligned, uses icon-led capability rows, and labels the export area as
+  `Download the dataset`
+- Concept Explorer no longer opens with the extra helper sentence above the page, and its upper
+  content row now places `How this functions in Book II` beside the local map so the evidence
+  narrative and neighborhood view read together while `Supporting passages` sits higher on the
+  right
 - the public-facing repo now includes a real viewer preview, a compact overview graphic, a
   viewer guide, and a code license
 - the public-facing repo and live app now share a small Aristotle head PNG, which makes the

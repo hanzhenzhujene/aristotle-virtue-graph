@@ -15,13 +15,13 @@ from aristotle_graph.viewer.load import ViewerDataError, ViewerDataset, load_vie
 from aristotle_graph.viewer.render import (
     attribution_html,
     build_graph_html,
-    bullet_list_html,
     concept_detail_rows,
     concept_role_line,
     concept_story_markdown,
     concept_summary_rows,
     evidence_rows,
     hero_html,
+    icon_feature_list_html,
     kind_legend_html,
     meta_pills_html,
     passage_preview,
@@ -449,6 +449,7 @@ def _render_home_view(
                         "and the field it concerns."
                     ),
                     eyebrow="Specific virtue",
+                    class_name="route",
                 ),
                 unsafe_allow_html=True,
             )
@@ -472,6 +473,7 @@ def _render_home_view(
                         "character is acquired."
                     ),
                     eyebrow="Formation route",
+                    class_name="route",
                 ),
                 unsafe_allow_html=True,
             )
@@ -495,6 +497,7 @@ def _render_home_view(
                     title=passage_title,
                     body=passage_body,
                     eyebrow="Passage-first reading",
+                    class_name="route",
                 ),
                 unsafe_allow_html=True,
             )
@@ -519,11 +522,20 @@ def _render_home_view(
             unsafe_allow_html=True,
         )
         st.markdown(
-            bullet_list_html(
+            icon_feature_list_html(
                 [
-                    "Compare one virtue with its neighboring vices and its domain.",
-                    "Move from a graph link straight to the passage that supports it.",
-                    "Reuse the processed exports outside the app for close reading or graph work.",
+                    (
+                        "◌",
+                        "Compare one virtue with its neighboring vices and its domain.",
+                    ),
+                    (
+                        "↗",
+                        "Move from a graph link straight to the passage that supports it.",
+                    ),
+                    (
+                        "↓",
+                        "Download the processed exports for close reading or graph work.",
+                    ),
                 ]
             ),
             unsafe_allow_html=True,
@@ -531,7 +543,7 @@ def _render_home_view(
     with reuse_right:
         st.markdown(
             section_heading_html(
-                title="Reuse the dataset",
+                title="Download the dataset",
                 body=(
                     "Download the committed Book II exports when you want the structured files "
                     "outside the viewer."
@@ -562,10 +574,7 @@ def _render_concept_view(
     st.markdown(
         section_heading_html(
             title="Concept Explorer",
-            body=(
-                "Open one concept, understand its role in Book II, then move outward through "
-                "supporting passages and nearby links."
-            ),
+            body=None,
         ),
         unsafe_allow_html=True,
     )
@@ -600,7 +609,7 @@ def _render_concept_view(
         f"{len(selected_concept.evidence)} supporting passages",
     ]
 
-    lead_col, evidence_col = st.columns([1.18, 0.82])
+    lead_col, evidence_col = st.columns([1.16, 0.84])
     with lead_col:
         st.markdown(
             _context_card_html(
@@ -615,70 +624,73 @@ def _render_concept_view(
         triad_html = triad_strip_html(selected_concept, dataset)
         if triad_html:
             st.markdown(triad_html, unsafe_allow_html=True)
-        st.markdown(
-            section_heading_html(
-                title="Local map",
-                body=(
-                    "Use this smaller neighborhood for nearby moves; use the overall map when "
-                    "you want the whole Book II network."
+        map_col, summary_col = st.columns([0.95, 1.05], vertical_alignment="top")
+        with map_col:
+            st.markdown(
+                section_heading_html(
+                    title="Local map",
+                    body=(
+                        "Use this smaller neighborhood for nearby moves; use the overall map "
+                        "when you want the whole Book II network."
+                    ),
+                    level=3,
                 ),
-                level=3,
-            ),
-            unsafe_allow_html=True,
-        )
-        show_edge_labels = st.toggle(
-            "Show relation labels on the local map",
-            value=False,
-            key=f"concept-edge-labels-{selected_concept.id}",
-        )
-        ego_nodes, ego_relations = build_ego_graph(
-            dataset,
-            selected_concept.id,
-            filters,
-            hops=graph_hops,
-        )
-        if ego_nodes:
-            clicked_concept_id = render_clickable_graph(
-                graph_html=build_graph_html(
-                    ego_nodes,
-                    ego_relations,
-                    center_concept_id=selected_concept.id,
-                    show_edge_labels=show_edge_labels,
+                unsafe_allow_html=True,
+            )
+            show_edge_labels = st.toggle(
+                "Show relation labels on the local map",
+                value=False,
+                key=f"concept-edge-labels-{selected_concept.id}",
+            )
+            ego_nodes, ego_relations = build_ego_graph(
+                dataset,
+                selected_concept.id,
+                filters,
+                hops=graph_hops,
+            )
+            if ego_nodes:
+                clicked_concept_id = render_clickable_graph(
+                    graph_html=build_graph_html(
+                        ego_nodes,
+                        ego_relations,
+                        center_concept_id=selected_concept.id,
+                        show_edge_labels=show_edge_labels,
+                        height="280px",
+                    ),
                     height="280px",
-                ),
-                height="280px",
-                key=f"concept-map-{selected_concept.id}-{graph_hops}",
-            )
-            if queue_graph_click_navigation(
-                st.session_state,
-                clicked_concept_id=clicked_concept_id,
-                pending_concept_key=pending_concept_key,
-                pending_view_key=pending_view_key,
-                dataset=dataset,
-            ):
-                st.rerun()
+                    key=f"concept-map-{selected_concept.id}-{graph_hops}",
+                )
+                if queue_graph_click_navigation(
+                    st.session_state,
+                    clicked_concept_id=clicked_concept_id,
+                    pending_concept_key=pending_concept_key,
+                    pending_view_key=pending_view_key,
+                    dataset=dataset,
+                ):
+                    st.rerun()
+                st.markdown(
+                    _small_helper_html(
+                        f"Showing a {graph_hops}-hop neighborhood around "
+                        f"{selected_concept.primary_label}. Every visible node is clickable."
+                    ),
+                    unsafe_allow_html=True,
+                )
+            else:
+                st.markdown(
+                    _empty_state_html(
+                        title="No local map under the current filters",
+                        body="Broaden the filters or move to the overall map for a wider view.",
+                    ),
+                    unsafe_allow_html=True,
+                )
+        with summary_col:
             st.markdown(
-                _small_helper_html(
-                    f"Showing a {graph_hops}-hop neighborhood around "
-                    f"{selected_concept.primary_label}. Every visible node is clickable."
+                prose_panel_html(
+                    title="How this functions in Book II",
+                    body=concept_story_markdown(selected_concept, dataset),
                 ),
                 unsafe_allow_html=True,
             )
-        else:
-            st.markdown(
-                _empty_state_html(
-                    title="No local map under the current filters",
-                    body="Broaden the filters or move to the overall map for a wider view.",
-                ),
-                unsafe_allow_html=True,
-            )
-        st.markdown(
-            prose_panel_html(
-                title="How this functions in Book II",
-                body=concept_story_markdown(selected_concept, dataset),
-            ),
-            unsafe_allow_html=True,
-        )
         if selected_concept.notes:
             st.markdown(_small_helper_html(selected_concept.notes), unsafe_allow_html=True)
 
