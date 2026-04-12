@@ -9,7 +9,7 @@ from aristotle_graph.app.streamlit_app import (
     apply_pending_view_navigation,
     queue_graph_click_navigation,
 )
-from aristotle_graph.viewer.downloads import build_dataset_bundle
+from aristotle_graph.viewer.downloads import build_dataset_bundle, build_download_artifacts
 from aristotle_graph.viewer.load import load_viewer_dataset
 from aristotle_graph.viewer.render import build_graph_html, concept_story_markdown
 from aristotle_graph.viewer.state import (
@@ -189,6 +189,7 @@ def test_build_dataset_bundle_contains_reviewed_exports() -> None:
         names = set(archive.namelist())
 
     assert bundle.filename.endswith(".zip")
+    assert "approved" not in bundle.filename
     assert {
         "README.txt",
         "book2_passages.jsonl",
@@ -198,6 +199,30 @@ def test_build_dataset_bundle_contains_reviewed_exports() -> None:
         "book2_graph.graphml",
         "book2_stats.json",
     } <= names
+
+
+def test_build_download_artifacts_cover_bundle_and_individual_files() -> None:
+    dataset = load_viewer_dataset()
+    artifacts = build_download_artifacts(dataset)
+    artifact_index = {artifact.key: artifact for artifact in artifacts}
+
+    assert [artifact.key for artifact in artifacts] == [
+        "bundle",
+        "passages",
+        "concepts",
+        "relations",
+        "graph-json",
+        "graphml",
+        "stats",
+    ]
+    assert all("approved" not in artifact.label.lower() for artifact in artifacts)
+    assert artifact_index["bundle"].mime == "application/zip"
+    assert artifact_index["passages"].payload == dataset.paths.passages_path.read_bytes()
+    assert artifact_index["concepts"].payload == dataset.paths.concepts_path.read_bytes()
+    assert artifact_index["relations"].payload == dataset.paths.relations_path.read_bytes()
+    assert artifact_index["graph-json"].payload == dataset.paths.graph_path.read_bytes()
+    assert artifact_index["graphml"].payload == dataset.paths.graphml_path.read_bytes()
+    assert artifact_index["stats"].payload == dataset.paths.stats_path.read_bytes()
 
 
 def test_build_graph_html_includes_click_bridge() -> None:

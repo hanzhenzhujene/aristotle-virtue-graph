@@ -317,6 +317,9 @@ Keep identifiers stable and human-readable.
   `temperance` without conflict as long as the exports stay book-scoped; true multi-book node
   unification is a later problem, not something to solve implicitly inside a first Book III
   tranche.
+- The dataset download UX is clearer when the app opens a chooser first and then offers specific
+  artifacts, instead of forcing one immediate bundle download with workflow language like
+  `approved dataset`.
 
 ## Decision Log
 
@@ -406,6 +409,8 @@ Keep identifiers stable and human-readable.
 - 2026-04-12: Keep the temperance-side deficiency as a candidate-only Book III normalization,
   because Book III.11 says the type lacks a settled name even though Book II supplied the later
   label `insensibility`.
+- 2026-04-12: Replace the one-shot `Download approved dataset` button with a chooser-based
+  dataset download flow that offers the full bundle or individual processed files.
 
 ## Outcomes & Retrospective
 
@@ -525,6 +530,8 @@ Observed results:
   passages into `data/processed/book3_*`
 - the reviewed Book III starter covers voluntary and involuntary action, choice and deliberation,
   courage, and temperance without yet claiming complete Book III coverage
+- the app now lets users open a dataset-download chooser and pick the full zip bundle or a single
+  processed artifact, and the bundle filename/labels no longer use the word `approved`
 - the project now lives in its own public GitHub repository rather than remaining nested inside
   the unrelated parent `MESOTES` repository
 - `pytest`, `ruff check .`, and `mypy src/` all pass

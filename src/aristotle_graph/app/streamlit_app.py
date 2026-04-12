@@ -8,7 +8,7 @@ from typing import Any, cast
 
 from aristotle_graph.annotations.models import ConceptAnnotation, RelationAnnotation
 from aristotle_graph.schemas import PassageRecord
-from aristotle_graph.viewer.downloads import build_dataset_bundle
+from aristotle_graph.viewer.downloads import DownloadArtifact, build_download_artifacts
 from aristotle_graph.viewer.graph_component import render_clickable_graph
 from aristotle_graph.viewer.load import ViewerDataError, ViewerDataset, load_viewer_dataset
 from aristotle_graph.viewer.render import (
@@ -239,12 +239,44 @@ def _render_passage_concept_cards(
             )
 
 
+def _render_download_chooser(
+    st: Any,
+    *,
+    artifacts: tuple[DownloadArtifact, ...],
+    key_prefix: str,
+) -> None:
+    artifact_index = {artifact.key: artifact for artifact in artifacts}
+    first_artifact = artifacts[0]
+    with st.popover("Download dataset"):
+        st.caption("Choose a file to download.")
+        selected_key = cast(
+            str,
+            st.selectbox(
+                "File",
+                options=[artifact.key for artifact in artifacts],
+                index=0,
+                format_func=lambda artifact_key: artifact_index[artifact_key].label,
+                key=f"{key_prefix}-artifact",
+                label_visibility="collapsed",
+            ),
+        )
+        selected_artifact = artifact_index.get(selected_key, first_artifact)
+        st.caption(selected_artifact.description)
+        st.download_button(
+            f"Download {selected_artifact.label}",
+            data=selected_artifact.payload,
+            file_name=selected_artifact.filename,
+            mime=selected_artifact.mime,
+            use_container_width=True,
+            key=f"{key_prefix}-download-{selected_artifact.key}",
+        )
+
+
 def _render_home_view(
     st: Any,
     *,
     dataset: ViewerDataset,
-    bundle_name: str,
-    bundle_payload: bytes,
+    download_artifacts: tuple[DownloadArtifact, ...],
     queue_concept: Callable[[str], None],
     queue_passage: Callable[[str], None],
 ) -> None:
@@ -320,18 +352,15 @@ def _render_home_view(
             )
         )
     with what_right:
-        st.markdown("### Download the reviewed dataset")
+        st.markdown("### Download the dataset")
         st.write(
             "Grab the structured Book II exports for NLP, graph analysis, or close reading "
             "outside the app."
         )
-        st.download_button(
-            "Download approved dataset",
-            data=bundle_payload,
-            file_name=bundle_name,
-            mime="application/zip",
-            use_container_width=True,
-            key="home-dataset-download",
+        _render_download_chooser(
+            st,
+            artifacts=download_artifacts,
+            key_prefix="home-dataset",
         )
 
 
@@ -739,7 +768,7 @@ def render() -> None:
         st.error(str(exc))
         st.stop()
 
-    bundle = build_dataset_bundle(dataset)
+    download_artifacts = build_download_artifacts(dataset)
 
     concept_kinds = available_concept_kinds(dataset)
     relation_types = available_relation_types(dataset)
@@ -802,13 +831,10 @@ def render() -> None:
         )
 
     st.sidebar.caption("Reviewed Book II explorer")
-    st.sidebar.download_button(
-        "Download approved dataset",
-        data=bundle.payload,
-        file_name=bundle.filename,
-        mime="application/zip",
-        use_container_width=True,
-        key="sidebar-dataset-download",
+    _render_download_chooser(
+        st.sidebar,
+        artifacts=download_artifacts,
+        key_prefix="sidebar-dataset",
     )
 
     start_here_ids = start_here_concept_ids(dataset)
@@ -918,8 +944,7 @@ def render() -> None:
         _render_home_view(
             st,
             dataset=dataset,
-            bundle_name=bundle.filename,
-            bundle_payload=bundle.payload,
+            download_artifacts=download_artifacts,
             queue_concept=on_queue_concept,
             queue_passage=on_queue_passage,
         )
