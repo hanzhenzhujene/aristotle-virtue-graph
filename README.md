@@ -1,18 +1,16 @@
 # Aristotle Virtue Graph <img src="docs/assets/aristotle-head-icon.png" alt="Aristotle head icon" width="50" />
 
 > A reviewed, passage-grounded dashboard for exploring *Nicomachean Ethics* Book II. **[Open live dashboard](https://aristotle-virtue-graph.streamlit.app/)**
->
-> <sub>by Jenny Zhu <a href="https://www.linkedin.com/in/hanzhen-zhu/"><img src="docs/assets/linkedin-icon.svg" alt="LinkedIn" width="14" style="vertical-align:text-bottom; margin-left:4px;" /></a></sub>
 
 This project turns Book II into something you can inspect instead of merely summarize.
-Open a concept like `courage`, click through its neighboring nodes, read the supporting passage,
-and download the structured dataset that drives the app.
+Open the dashboard, start with `courage` or a supporting passage, and move between concept,
+passage, and overall map without losing the text beneath the graph.
 
 🏛️ **Book II only** · 📜 **45 passages** · 🧠 **54 reviewed concepts** · 🔗 **42 reviewed relations**
 
-![Dashboard hero](docs/assets/viewer-courage-candidate.png)
+![Dashboard hero](docs/assets/viewer-home-hero.png)
 
-_Hero view: the dashboard centered on `courage`, with concept reading, passage grounding, and graph navigation in one place._
+_Hero view: the current reviewed-only home screen, with distinct routes through a virtue, a formation concept, and a passage-first reading path._
 
 ## Open the dashboard
 
@@ -31,16 +29,16 @@ pip install -e ".[viewer]"
 make app
 ```
 
-This opens the dashboard immediately against the committed reviewed Book II exports.
-Start with `courage`.
+This opens the dashboard directly on `Home` against the committed reviewed Book II exports.
+Start with `courage`, `habituation`, or the passage-first route from section 7.
 
 ## Try this first
 
 1. Open the dashboard.
 2. Click `Open courage`.
-3. Read the short summary at the top of Concept Explorer.
+3. Read the top concept panel and the triad strip.
 4. Open the supporting passage `NE II.7 ¶1`.
-5. Use the small concept map on the same page, or open `Overall Map`, and click a neighboring node.
+5. Return to the local map or open `Overall Map` and click a neighboring node.
 
 What you should see:
 
@@ -60,10 +58,11 @@ It stays attached to the passage that supports it.
 ## What you can do here
 
 - Browse Book II as a reviewed graph instead of a flat outline.
-- Read a concept in plain language before opening the structured metadata.
+- Read a concept in plain language before opening dataset details.
 - Start from a passage and see which concepts and relations are grounded there.
 - Click nodes in the embedded concept map or the overall map to navigate into Concept Explorer.
-- Download the reviewed Book II dataset for NLP, graph analysis, or close reading work.
+- Download either the full Book II bundle or a single processed artifact for NLP, graph
+  analysis, or close reading work.
 
 ## Rebuild exported data
 
@@ -131,7 +130,7 @@ The project stays strict in a few concrete ways:
 - Every concept must cite one or more passages.
 - Every relation must cite one or more passages.
 - `source_labels` preserve Ross wording instead of silently modernizing it.
-- Draft material stays in candidate files and does not power the public app by default.
+- The public app runs only on the reviewed Book II dataset in `data/processed/`.
 - Book II is a hard boundary; the repo does not quietly expand into later books.
 
 ## Data artifacts
@@ -149,31 +148,14 @@ Public reviewed artifacts:
 - `data/processed/book2_graph.graphml`
 - `data/processed/book2_stats.json`
 
-Compatibility copy of the strict export:
-
-- `data/processed/approved/book2_passages.jsonl`
-- `data/processed/approved/book2_concepts.jsonl`
-- `data/processed/approved/book2_relations.jsonl`
-- `data/processed/approved/book2_graph.json`
-- `data/processed/approved/book2_graph.graphml`
-- `data/processed/approved/book2_stats.json`
-
 `book2_graph.json` is the primary rich export.
 `book2_graph.graphml` is a flattened interoperability export.
 
-## Review workflow
+## Maintainer workflow
 
-Human-editable annotation files live in:
-
-- `annotations/book2/concepts.candidate.yaml`
-- `annotations/book2/relations.candidate.yaml`
-- `annotations/book2/concepts.approved.yaml`
-- `annotations/book2/relations.approved.yaml`
-
-The public app now uses the reviewed Book II set only.
-Candidate files remain for future maintainer work, not as a second public mode.
-
-More detail: [docs/annotation_guide.md](docs/annotation_guide.md)
+The public app uses the reviewed Book II exports in `data/processed/`.
+Annotation promotion, strict export, and draft-layer workflow live in
+[docs/annotation_guide.md](docs/annotation_guide.md).
 
 ## Source policy
 
@@ -191,17 +173,16 @@ The next meaningful expansion is more Aristotle, not more interface complexity.
 Book II is a strong starting slice, but it is still only the opening architecture of the
 ethical system. The clearest next path is:
 
-- a future courage-and-temperance expansion that adds the fuller arguments behind the Book II
-  triads
-- the dense run of practical virtue triads that would make the graph much richer to read and
-  compare
-- practical wisdom as the hinge that guides the mean
-- happiness, pleasure, and the shape of the good life as the system's endpoint
+- Book III, to complete courage, temperance, voluntary action, and choice
+- Book IV, to add the dense run of practical virtue triads that would make the graph much
+  richer to read and compare
+- Book VI, to explain practical wisdom as the hinge that guides the mean
+- Book X, to connect the network back to happiness, pleasure, and the shape of the good life
 
 That sequence would also broaden the audience.
 With Book II alone, the repo is most useful for focused coursework and close reading.
-With a fuller multi-book corpus, it starts to become a serious companion for students,
-reading groups, self-directed readers, and researchers building structured datasets.
+With Books II, III, IV, VI, and X together, it starts to become a serious companion for
+students, reading groups, self-directed readers, and researchers building structured datasets.
 
 Full note: [docs/roadmap.md](docs/roadmap.md)
 
@@ -224,7 +205,7 @@ Deployment notes and the current hosted target are in [docs/deployment.md](docs/
 - `src/aristotle_graph/viewer/`: viewer loading, filtering, rendering, and dataset bundle helpers
 - `src/aristotle_graph/app/`: Streamlit app logic
 - `streamlit_app.py`: deployment-friendly root entrypoint
-- `annotations/`: candidate and approved Book II annotation files
+- `annotations/`: maintainer-facing Book II annotation files
 - `data/`: interim and processed outputs
 - `docs/`: user and maintainer docs
 

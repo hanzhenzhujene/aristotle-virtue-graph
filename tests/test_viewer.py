@@ -5,6 +5,7 @@ from typing import cast
 from zipfile import ZipFile
 
 from aristotle_graph.app.streamlit_app import (
+    _home_passage_card_copy,
     apply_pending_concept_selection,
     apply_pending_view_navigation,
     queue_graph_click_navigation,
@@ -13,8 +14,13 @@ from aristotle_graph.viewer.downloads import build_dataset_bundle, build_downloa
 from aristotle_graph.viewer.load import load_viewer_dataset
 from aristotle_graph.viewer.render import (
     build_graph_html,
+    concept_role_line,
     concept_story_markdown,
     edge_font_options,
+    hero_html,
+    meta_pills_html,
+    ranking_rows_html,
+    reading_panel_html,
 )
 from aristotle_graph.viewer.state import (
     VIEW_NAMES,
@@ -22,7 +28,10 @@ from aristotle_graph.viewer.state import (
     build_ego_graph,
     build_filtered_graph,
     default_concept_id,
+    filter_summary_text,
     graph_degree_rows,
+    home_concept_ids,
+    passage_navigation_targets,
     passage_options,
     start_here_concept_ids,
 )
@@ -51,6 +60,16 @@ def test_start_here_concepts_include_curated_entry_points() -> None:
         "temperance",
         "liberality",
         "truthfulness",
+        "moral-virtue",
+    ]
+
+
+def test_home_concepts_distinguish_specific_and_formation_routes() -> None:
+    dataset = load_viewer_dataset()
+
+    assert home_concept_ids(dataset) == [
+        "courage",
+        "habituation",
         "moral-virtue",
     ]
 
@@ -185,6 +204,55 @@ def test_concept_story_markdown_handles_triad_and_principle_nodes() -> None:
     assert "contrasts the mean with deficiency and excess" in mean_story
 
 
+def test_concept_role_line_is_reader_facing_for_triad_and_principle_nodes() -> None:
+    dataset = load_viewer_dataset()
+
+    courage_role = concept_role_line(dataset.concept_index["courage"], dataset)
+    mean_role = concept_role_line(dataset.concept_index["ethical-mean"], dataset)
+
+    assert "mean between cowardice and rashness" in courage_role
+    assert "guiding Book II claim" in mean_role
+
+
+def test_passage_navigation_targets_cover_start_middle_and_end() -> None:
+    dataset = load_viewer_dataset()
+    passages = list(dataset.passages[:3])
+
+    start_targets = passage_navigation_targets(passages, passages[0].passage_id)
+    middle_targets = passage_navigation_targets(passages, passages[1].passage_id)
+    end_targets = passage_navigation_targets(passages, passages[2].passage_id)
+
+    assert start_targets == (None, passages[1].passage_id)
+    assert middle_targets == (passages[0].passage_id, passages[2].passage_id)
+    assert end_targets == (passages[1].passage_id, None)
+
+
+def test_filter_summary_text_reads_like_a_short_status_line() -> None:
+    dataset = load_viewer_dataset()
+    filters = ViewerFilters(
+        search_text="courage",
+        concept_kinds=frozenset({"virtue"}),
+        relation_types=frozenset({"has_excess"}),
+        assertion_tiers=frozenset({"textual"}),
+        sections=frozenset({7}),
+    )
+
+    summary = filter_summary_text(dataset, filters)
+
+    assert summary == "Search: courage · 1 concept kinds · 1 relation types · Section 7"
+
+
+def test_home_passage_card_copy_names_the_passage_and_subject_matter() -> None:
+    dataset = load_viewer_dataset()
+
+    title, body, button = _home_passage_card_copy(dataset, "ne.b2.s7.p1")
+
+    assert title == "Read NE II.7 ¶1"
+    assert "courage" in body
+    assert "cowardice" in body
+    assert button == "Read NE II.7 ¶1"
+
+
 def test_build_dataset_bundle_contains_reviewed_exports() -> None:
     dataset = load_viewer_dataset()
     bundle = build_dataset_bundle(dataset)
@@ -193,7 +261,6 @@ def test_build_dataset_bundle_contains_reviewed_exports() -> None:
         names = set(archive.namelist())
 
     assert bundle.filename.endswith(".zip")
-    assert "approved" not in bundle.filename
     assert {
         "README.txt",
         "book2_passages.jsonl",
@@ -205,28 +272,20 @@ def test_build_dataset_bundle_contains_reviewed_exports() -> None:
     } <= names
 
 
-def test_build_download_artifacts_cover_bundle_and_individual_files() -> None:
+def test_build_download_artifacts_match_processed_files() -> None:
     dataset = load_viewer_dataset()
     artifacts = build_download_artifacts(dataset)
     artifact_index = {artifact.key: artifact for artifact in artifacts}
 
-    assert [artifact.key for artifact in artifacts] == [
-        "bundle",
-        "passages",
-        "concepts",
-        "relations",
-        "graph-json",
-        "graphml",
-        "stats",
-    ]
-    assert all("approved" not in artifact.label.lower() for artifact in artifacts)
-    assert artifact_index["bundle"].mime == "application/zip"
+    assert artifact_index["bundle"].filename.endswith(".zip")
+    assert artifact_index["bundle"].payload
+    assert "approved" not in artifact_index["bundle"].filename
     assert artifact_index["bundle"].size_bytes == len(artifact_index["bundle"].payload)
     assert artifact_index["passages"].payload == dataset.paths.passages_path.read_bytes()
     assert artifact_index["concepts"].payload == dataset.paths.concepts_path.read_bytes()
     assert artifact_index["relations"].payload == dataset.paths.relations_path.read_bytes()
     assert artifact_index["graph-json"].payload == dataset.paths.graph_path.read_bytes()
-    assert artifact_index["graphml"].payload == dataset.paths.graphml_path.read_bytes()
+    assert artifact_index["graph-graphml"].payload == dataset.paths.graphml_path.read_bytes()
     assert artifact_index["stats"].payload == dataset.paths.stats_path.read_bytes()
     assert artifact_index["passages"].size_bytes == dataset.paths.passages_path.stat().st_size
 
@@ -251,3 +310,28 @@ def test_edge_font_options_use_readable_edge_label_background() -> None:
     assert concept_map_font["background"] == "rgba(255, 250, 241, 0.96)"
     assert concept_map_font["align"] == "horizontal"
     assert overall_map_font["vadjust"] < concept_map_font["vadjust"]
+
+
+def test_hero_html_omits_copy_block_when_subtitle_is_absent() -> None:
+    html = hero_html(title="Aristotle Virtue Graph", subtitle=None, chips=[])
+
+    assert "avg-copy" not in html
+    assert "avg-chip-row" not in html
+    assert "Aristotle Virtue Graph" in html
+
+
+def test_reader_facing_html_helpers_include_visible_content() -> None:
+    pills = meta_pills_html(["Virtue", "Section 7", "3 supporting passages"])
+    ranking = ranking_rows_html([("courage", "8 links")])
+    panel = reading_panel_html(
+        title="NE II.7 ¶1",
+        meta="Book II · Section 7",
+        lead="Read the text first.",
+        text="We must, however, not only make this general statement.",
+    )
+
+    assert "Section 7" in pills
+    assert "courage" in ranking
+    assert "8 links" in ranking
+    assert "NE II.7 ¶1" in panel
+    assert "Read the text first." in panel

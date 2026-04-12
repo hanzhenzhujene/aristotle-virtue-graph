@@ -27,8 +27,8 @@ START_HERE_IDS = (
 
 HOME_CONCEPT_IDS = (
     "courage",
-    "moral-virtue",
     "habituation",
+    "moral-virtue",
 )
 
 HOME_PASSAGE_ID = "ne.b2.s7.p1"
@@ -206,6 +206,50 @@ def passage_options(
 
     focused_passage = dataset.passage_index[focused_passage_id]
     return [focused_passage, *visible_passages]
+
+
+def passage_navigation_targets(
+    visible_passages: Sequence[PassageRecord],
+    selected_passage_id: str | None,
+) -> tuple[str | None, str | None]:
+    if selected_passage_id is None:
+        return (None, None)
+    ordered_ids = [passage.passage_id for passage in visible_passages]
+    if selected_passage_id not in ordered_ids:
+        return (None, None)
+    index = ordered_ids.index(selected_passage_id)
+    previous_id = ordered_ids[index - 1] if index > 0 else None
+    next_id = ordered_ids[index + 1] if index < len(ordered_ids) - 1 else None
+    return (previous_id, next_id)
+
+
+def _section_summary(sections: frozenset[int]) -> str:
+    if not sections or sections == frozenset(range(1, 10)):
+        return "Sections 1–9"
+    ordered_sections = sorted(sections)
+    if len(ordered_sections) == 1:
+        return f"Section {ordered_sections[0]}"
+    return "Sections " + ", ".join(str(section) for section in ordered_sections)
+
+
+def filter_summary_text(dataset: ViewerDataset, filters: ViewerFilters) -> str:
+    all_kinds = set(available_concept_kinds(dataset))
+    all_relations = set(available_relation_types(dataset))
+    concept_summary = (
+        "All concepts"
+        if not filters.concept_kinds or set(filters.concept_kinds) == all_kinds
+        else f"{len(filters.concept_kinds)} concept kinds"
+    )
+    relation_summary = (
+        "All relations"
+        if not filters.relation_types or set(filters.relation_types) == all_relations
+        else f"{len(filters.relation_types)} relation types"
+    )
+    pieces = [concept_summary, relation_summary, _section_summary(filters.sections)]
+    search_text = filters.search_text.strip()
+    if search_text:
+        pieces.insert(0, f"Search: {search_text}")
+    return " · ".join(pieces)
 
 
 def build_ego_graph(

@@ -120,9 +120,9 @@ Acceptance:
 
 Implement a local app with:
 
-- concept explorer with an embedded local graph map
-- overall map
+- graph view
 - passage explorer
+- concept explorer
 - stats panel
 
 Clicking a concept should show evidence passages and related concepts.
@@ -169,6 +169,7 @@ Keep identifiers stable and human-readable.
 - [x] Milestone 4 local viewer complete
 - [x] Milestone 5 polish complete
 - [x] 2026-04-11 approved-first viewer refresh complete
+- [x] 2026-04-12 reader-first frontend refactor complete
 
 ## Surprises & Discoveries
 
@@ -249,9 +250,20 @@ Keep identifiers stable and human-readable.
   and filename clearly.
 - The graph interaction feels much more trustworthy when the UI says explicitly that every visible
   concept node is clickable, rather than leaving users to infer that from hover behavior alone.
-- The dataset download UX is clearer when the app opens a chooser first and then offers specific
-  artifacts, instead of forcing one immediate bundle download with workflow language like
-  `approved dataset`.
+- The public app becomes much easier to enter once `Home` does the onboarding work and the
+  sidebar is demoted to navigation plus filters instead of trying to be the first-run guide.
+- Streamlit can support a more deliberate visual system than the default tool look if the app
+  injects a small CSS layer for cards, chips, hero layout, and typographic hierarchy.
+- Real screenshots are worth the extra setup work: a current capture of the redesigned app
+  communicates far more clearly than a stale image from an older candidate/approved-era layout.
+- The app becomes much easier to read when the hero stops repeating dataset counts and leaves
+  scale to the Stats and Overall Map pages.
+- A stronger Streamlit visual system comes less from adding ornament and more from tightening
+  hierarchy: lighter onboarding, calmer sidebar, more deliberate cards, and clearer reading
+  surfaces for concepts and passages.
+- The clearest public entry routes are not three concepts of the same scale, but three distinct
+  modes of entry: a specific virtue (`courage`), a formation route (`habituation`), and an
+  explicit passage-first route (`NE II.7 ¶1`).
 
 ## Decision Log
 
@@ -324,7 +336,7 @@ Keep identifiers stable and human-readable.
 - 2026-04-11: Replace the public review-mode toggle with a single reviewed Book II app surface,
   add a `Home` page, and move technical metadata behind optional detail sections.
 - 2026-04-11: Add a small Streamlit v2 graph bridge around the existing PyVis HTML so clicking a
-  node in the overall map or the local concept map opens that concept in Concept Explorer.
+  node in either graph view opens that concept in Concept Explorer.
 - 2026-04-11: Add an in-app reviewed dataset download bundle and document Books III, IV, VI, and
   X as the next corpus-expansion roadmap rather than extending scope in this batch.
 - 2026-04-11: Clarify the post-Book II roadmap around Books III, IV, VI, and X specifically,
@@ -333,13 +345,19 @@ Keep identifiers stable and human-readable.
 - 2026-04-11: Merge the ego graph into Concept Explorer and remove the separate `Graph View`, so
   narrative context, evidence links, and local structure stay on one page during close reading.
 - 2026-04-12: Strengthen the graph click bridge around click, node-selection, and double-click
-  events, make the map copy explicit that every visible concept node should open its concept page,
-  and refine the download chooser around direct per-file byte downloads.
-- 2026-04-12: Replace the one-shot `Download approved dataset` button with a chooser-based
-  dataset download flow that offers the full bundle or individual processed files.
-- 2026-04-12: Remove the exploratory Book III tranche from the repository and restore the public
-  scope to a strict Book II-only dashboard, so the public surface stays coherent and fully
-  reviewed.
+  events, and make the map copy explicit that every visible concept node should open its concept
+  page.
+- 2026-04-12: Remove the decorative in-app explorer badge, keep the header plainer, and replace
+  the dataset buttons with a chooser that serves the full bundle or individual files directly.
+- 2026-04-12: Redesign the public Streamlit viewer around a reader-first flow with a compact hero,
+  a `Home` page that carries onboarding, a narrative-first Concept Explorer, a promoted Passage
+  Explorer, and a quieter sidebar that focuses on navigation plus filters.
+- 2026-04-12: Follow up on the reader-first redesign with a higher-standard frontend pass:
+  remove the hero count row, tighten the app shell, make the three `Home` routes more distinct,
+  strengthen the concept and passage reading surfaces, and restyle Overall Map and Stats so they
+  support reading instead of feeling like raw dashboards.
+- 2026-04-12: Refresh the public screenshot assets from the current local app so the README and
+  viewer guide show the reviewed-only UI as it actually looks after the reader-first redesign.
 
 ## Outcomes & Retrospective
 
@@ -371,7 +389,8 @@ Outputs:
 - `data/processed/approved/book2_graph.json`
 - `data/processed/approved/book2_graph.graphml`
 - `data/processed/approved/book2_stats.json`
-- `docs/assets/viewer-courage-candidate.png`
+- `docs/assets/viewer-home-hero.png`
+- `docs/assets/viewer-courage-hero.png`
 - `docs/assets/book2-overview.svg`
 - `docs/assets/aristotle-head-icon.png`
 - `docs/viewer_guide.md`
@@ -397,40 +416,57 @@ Observed results:
 - GraphML export loads successfully as a flattened representation of the processed graph
 - the local Streamlit app launches successfully and now centers on a reviewed-only Book II
   dataset with `Home`, concept, passage, overall-map, and stats views
+- the local Streamlit app now uses a reader-first shell with one compact hero, gentler
+  typography, and a warmer card-based layout rather than the earlier control-panel feel
+- the sidebar now focuses on concept navigation, passage navigation, filter state, and dataset
+  download, while the onboarding work happens on `Home`
 - the local Streamlit app now also includes an interactive `Overall Map` page that renders the
   full filtered Book II network with kind colors, built-in graph menus, and hub summaries
 - the overall map and the embedded concept map now support node click-through into Concept
   Explorer through a small Streamlit v2 component bridge over the PyVis HTML
 - the small ego graph now lives inside Concept Explorer, so the default concept-reading page
   includes its own local navigation surface without forcing a separate view change
-- Concept Explorer now leads with a deterministic plain-language summary and passage previews,
-  while ids, tiers, and tables sit behind optional detail sections
-- Passage Explorer is now easier to enter from `Home`, concept evidence cards, and relation cards,
-  and it supports concept jump-backs from linked passage concepts
+- Concept Explorer now leads with a concept panel, triad strip when applicable, a stronger
+  deterministic narrative summary, and compact evidence cards, while ids, tiers, and tables sit
+  behind optional dataset details
+- Passage Explorer is now a primary reading mode with previous/next navigation, linked concept
+  cards, readable grounded relations, and natural entry points from both `Home` and concept cards
+- the `Home` page now opens with one compact `Start here` block and three clearer routes:
+  a specific virtue (`courage`), a formation route (`habituation`), and an explicit
+  passage-first route (`NE II.7 ¶1`) that says what the passage is about before the user clicks
 - the public app now includes a one-click reviewed dataset download bundle built from the
   processed JSONL, JSON, GraphML, and stats exports
 - the README now leads with the actual Book II findings and the practical value of the graph,
   rather than only describing the toolchain
+- the README and viewer guide now use current reviewed-only screenshots from the redesigned app,
+  rather than an outdated image from the earlier candidate/approved interface
+- the screenshot assets have been refreshed again after the latest frontend pass, so the public
+  docs now show the current reviewed-only `Home` and `Concept Explorer` screens rather than a
+  stale pre-refactor capture
 - the public-facing repo now includes a real viewer preview, a compact overview graphic, a
   viewer guide, and a code license
 - the public-facing repo and live app now share a small Aristotle head PNG, which makes the
   project easier to recognize without replacing the dashboard screenshot as the main entry point
 - the repository is now deployment-ready for Streamlit Community Cloud with a root app
   entrypoint and explicit deployment instructions
+- the deployment docs now match the real hosted target: repository
+  `hanzhenzhujene/aristotle-virtue-graph`, branch `main`, entrypoint `streamlit_app.py`, and
+  live URL `https://aristotle-virtue-graph.streamlit.app/`
 - the README top section now centers on a single dashboard hero, a non-misleading live-status
   CTA, and a lighter first-run path that does not force export commands before opening the app
 - the public README now points directly to the live Streamlit dashboard at
   `https://aristotle-virtue-graph.streamlit.app/`
-- the viewer now includes curated `Start here` shortcuts and one-click passage jumps from
-  concept evidence and relation shortcuts into Passage Explorer
+- the viewer now includes guided `Home` entry cards and one-click passage jumps from concept
+  evidence and relation shortcuts into Passage Explorer
+- the current frontend pass also gives Concept Explorer a stronger narrative hierarchy,
+  Passage Explorer a reading-panel layout with clearer linked cards, and Overall Map / Stats
+  pages that feel more like supporting product views than engineering consoles
 - the one-click passage jumps now work on Streamlit Community Cloud without raising a
   session-state mutation exception
 - the passage-jump buttons now use callback-driven queued navigation, which is more robust across
   local Streamlit and Community Cloud runs
 - the reviewed Book II graph now includes 54 concepts and 42 relations, covering all nine
   section-7 virtue clusters in this MVP
-- the app now lets users open a dataset-download chooser and pick the full zip bundle or a single
-  processed artifact, and the bundle filename/labels no longer use the word `approved`
 - the project now lives in its own public GitHub repository rather than remaining nested inside
   the unrelated parent `MESOTES` repository
 - `pytest`, `ruff check .`, and `mypy src/` all pass
