@@ -143,6 +143,34 @@ Acceptance:
 - data model and source policy docs are complete
 - tests, lint, and type checks pass
 
+## Tranche A: Book III foundation
+
+Start the next corpus tranche carefully by extending the proven Book II ingest path to
+*Nicomachean Ethics* Book III without changing the public runtime dataset yet.
+
+This tranche is intentionally limited to:
+
+- source registry support for Book III canonical and verification URLs
+- robust adapter support for Book III normalization
+- deterministic Book III passage segmentation
+- committed derived interim artifacts for Book III normalization and passages
+- tests and docs that verify the Book III pipeline
+
+This tranche does not yet include:
+
+- Book III concept or relation annotations
+- Book III processed graph exports
+- Book III viewer mode or public app expansion
+- any weakening of the reviewed-only Book II runtime path
+
+Acceptance:
+
+- Book III can be fetched, normalized, and segmented through the CLI
+- Book III passage ids are stable and deterministic
+- citation labels and book labels are no longer hard-coded to Book II
+- Wikisource and MIT normalization agree on the same Book III section structure
+- Book II tests remain green after the multi-book ingest changes
+
 ## Data Model Rules
 
 The graph must distinguish:
@@ -169,6 +197,7 @@ Keep identifiers stable and human-readable.
 - [x] Milestone 4 local viewer complete
 - [x] Milestone 5 polish complete
 - [x] 2026-04-11 approved-first viewer refresh complete
+- [x] 2026-04-11 Tranche A Book III foundation complete
 
 ## Surprises & Discoveries
 
@@ -240,6 +269,14 @@ Keep identifiers stable and human-readable.
   practical virtue triads, explain practical wisdom, and connect the system back to happiness.
 - The per-concept reading flow becomes more natural when the ego graph is embedded as a small
   local map inside Concept Explorer, rather than split into a separate top-level page.
+- The same Wikisource and MIT adapter pattern used for Book II carries over cleanly to Book III
+  once book-specific URLs and citation labels are lifted into the source registry, which keeps
+  the ingest architecture multi-book without adding a new pipeline.
+- Live Book III normalization runs from both sources now agree on the same 12-section structure,
+  and the canonical Wikisource segmentation yields a stable 65-passage interim export.
+- Book III source comparison is structurally clean but not byte-identical: at least one late
+  paragraph differs in wording between Wikisource and MIT, which reinforces the decision to keep
+  Wikisource as canonical and MIT as verification only.
 
 ## Decision Log
 
@@ -320,6 +357,9 @@ Keep identifiers stable and human-readable.
   companion for students, reading groups, self-directed readers, and structured-dataset work.
 - 2026-04-11: Merge the ego graph into Concept Explorer and remove the separate `Graph View`, so
   narrative context, evidence links, and local structure stay on one page during close reading.
+- 2026-04-11: Start Book III as a foundation-only tranche first, limited to source registration,
+  normalization, deterministic segmentation, interim artifacts, and tests, so the repo can verify
+  corpus stability before it commits to Book III annotation or public runtime expansion.
 
 ## Outcomes & Retrospective
 
@@ -332,6 +372,9 @@ Outputs:
 - `data/interim/book2_wikisource_ross_1908_normalized.json`
 - `data/interim/book2_mit_archive_ross_normalized.json`
 - `data/interim/book2_passages.jsonl`
+- `data/interim/book3_wikisource_ross_1908_normalized.json`
+- `data/interim/book3_mit_archive_ross_normalized.json`
+- `data/interim/book3_passages.jsonl`
 - `schemas/evidence.schema.json`
 - `schemas/concept.schema.json`
 - `schemas/relation.schema.json`
@@ -409,6 +452,13 @@ Observed results:
   local Streamlit and Community Cloud runs
 - the reviewed Book II graph now includes 54 concepts and 42 relations, covering all nine
   section-7 virtue clusters in this MVP
+- Book III normalization now works through the same CLI pipeline for both Wikisource and MIT,
+  and both sources currently agree on a 12-section structure with paragraph counts
+  `[10, 8, 5, 2, 9, 1, 3, 13, 3, 5, 3, 3]`
+- the canonical Book III interim passage export currently contains 65 passages, ranging from
+  `ne.b3.s1.p1` / `NE III.1 ¶1` through `ne.b3.s12.p3` / `NE III.12 ¶3`
+- Book-specific URLs now live in the source registry and citation labels are no longer hard-coded
+  to Book II, which makes later-book ingest a controlled extension of the same architecture
 - the project now lives in its own public GitHub repository rather than remaining nested inside
   the unrelated parent `MESOTES` repository
 - `pytest`, `ruff check .`, and `mypy src/` all pass
@@ -422,6 +472,8 @@ Known limitations:
   `https://aristotle-virtue-graph.streamlit.app/`
 - the current scope is still Book II only, so users who want the full treatment of courage,
   temperance, practical wisdom, or happiness still need later books
+- Book III currently exists only at the ingest and interim passage layer; there are not yet
+  Book III annotations, processed graph exports, or public viewer routes for it
 
 Next recommended step:
 
@@ -429,3 +481,6 @@ Next recommended step:
   passage-grounded discipline; that sequence would complete the Book II treatment of courage and
   temperance, deepen the practical virtue triads, add practical wisdom as the governing hinge,
   and connect the graph back to happiness and the good life
+- begin the next Book III tranche with reviewed annotation work focused on voluntary action,
+  choice, courage, and temperance, using `data/interim/book3_passages.jsonl` as the sole passage
+  authority

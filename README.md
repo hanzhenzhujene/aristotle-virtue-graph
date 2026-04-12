@@ -138,6 +138,12 @@ Authoritative passage source:
 
 - `data/interim/book2_passages.jsonl`
 
+Book III foundation artifacts now committed for the next tranche:
+
+- `data/interim/book3_wikisource_ross_1908_normalized.json`
+- `data/interim/book3_mit_archive_ross_normalized.json`
+- `data/interim/book3_passages.jsonl`
+
 Public reviewed artifacts:
 
 - `data/processed/book2_passages.jsonl`
@@ -199,6 +205,9 @@ That sequence would also broaden the audience.
 With Book II alone, the repo is most useful for focused coursework and close reading.
 With Books II, III, IV, VI, and X together, it starts to become a serious companion for
 students, reading groups, self-directed readers, and researchers building structured datasets.
+
+Foundation work for Book III ingestion and segmentation is now underway in the repository,
+but the public reviewed dataset and live dashboard remain Book II-only.
 
 Full note: [docs/roadmap.md](docs/roadmap.md)
 

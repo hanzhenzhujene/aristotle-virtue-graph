@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup, Tag
 from aristotle_graph.ingest.base import SourceAdapter
 from aristotle_graph.ingest.normalize import build_normalized_book
 from aristotle_graph.schemas import NormalizedBook
-from aristotle_graph.source_registry import MIT_BOOK_II_URL
+from aristotle_graph.source_registry import source_url_for_book
 
 _ANCHOR_RE = re.compile(r"<a[^>]+name=\"\d+\"[^>]*></a>", flags=re.IGNORECASE)
 _SECTION_MARKER_RE = re.compile(
@@ -24,16 +24,13 @@ class MITArchiveAdapter(SourceAdapter):
     source_id = "mit_archive_ross"
 
     def default_book_url(self, book_number: int) -> str:
-        if book_number != 2:
-            msg = "Milestone 1 only supports Nicomachean Ethics Book II"
-            raise ValueError(msg)
-        return MIT_BOOK_II_URL
+        return source_url_for_book(self.source_id, book_number)
 
     def parse_book(self, raw_html: str, *, book_number: int) -> NormalizedBook:
         soup = BeautifulSoup(raw_html, "lxml")
         start_anchor = soup.find("a", attrs={"name": "start"})
         if start_anchor is None:
-            msg = "Could not find MIT Book II start anchor"
+            msg = f"Could not find MIT Book {book_number} start anchor"
             raise ValueError(msg)
 
         fragment_parts: list[str] = []
@@ -70,7 +67,7 @@ class MITArchiveAdapter(SourceAdapter):
             sections.append((f"Part {current_section}", None, current_paragraphs))
 
         if not sections:
-            msg = "No Book II sections were parsed from MIT"
+            msg = f"No Book {book_number} sections were parsed from MIT"
             raise ValueError(msg)
 
         return build_normalized_book(

@@ -5,23 +5,20 @@ from bs4 import BeautifulSoup, Tag
 from aristotle_graph.ingest.base import SourceAdapter
 from aristotle_graph.ingest.normalize import build_normalized_book
 from aristotle_graph.schemas import NormalizedBook
-from aristotle_graph.source_registry import WIKISOURCE_BOOK_II_URL
+from aristotle_graph.source_registry import source_url_for_book
 
 
 class WikisourceAdapter(SourceAdapter):
     source_id = "wikisource_ross_1908"
 
     def default_book_url(self, book_number: int) -> str:
-        if book_number != 2:
-            msg = "Milestone 1 only supports Nicomachean Ethics Book II"
-            raise ValueError(msg)
-        return WIKISOURCE_BOOK_II_URL
+        return source_url_for_book(self.source_id, book_number)
 
     def parse_book(self, raw_html: str, *, book_number: int) -> NormalizedBook:
         soup = BeautifulSoup(raw_html, "lxml")
         content = soup.select_one("#mw-content-text .mw-parser-output")
         if content is None:
-            msg = "Could not find Wikisource content container"
+            msg = f"Could not find Wikisource content container for Book {book_number}"
             raise ValueError(msg)
 
         sections: list[tuple[str, str | None, list[str]]] = []
@@ -58,7 +55,7 @@ class WikisourceAdapter(SourceAdapter):
             sections.append((current_label, current_anchor, current_paragraphs))
 
         if not sections:
-            msg = "No Book II sections were parsed from Wikisource"
+            msg = f"No Book {book_number} sections were parsed from Wikisource"
             raise ValueError(msg)
 
         return build_normalized_book(
