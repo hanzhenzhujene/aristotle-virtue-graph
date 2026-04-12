@@ -13,7 +13,7 @@ Status now:
 - deterministic passage authority committed
 - reviewed starter annotations committed for voluntary and involuntary action, choice,
   courage, and temperance
-- public dashboard still Book II-only
+- public dashboard now includes a separate Book III starter view
 
 Book III would complete what Book II only sketches about:
 

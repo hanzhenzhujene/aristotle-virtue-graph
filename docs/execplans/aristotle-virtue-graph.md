@@ -532,6 +532,8 @@ Observed results:
   courage, and temperance without yet claiming complete Book III coverage
 - the app now lets users open a dataset-download chooser and pick the full zip bundle or a single
   processed artifact, and the bundle filename/labels no longer use the word `approved`
+- the dashboard works best with Book II and Book III as separate selectable runtime datasets for
+  now, because that keeps passage authority, review depth, and concept roles scoped per book
 - the project now lives in its own public GitHub repository rather than remaining nested inside
   the unrelated parent `MESOTES` repository
 - `pytest`, `ruff check .`, and `mypy src/` all pass
@@ -543,10 +545,11 @@ Known limitations:
   downstream format
 - the live Streamlit URL is now the shorter custom subdomain
   `https://aristotle-virtue-graph.streamlit.app/`
-- the current scope is still Book II only, so users who want the full treatment of courage,
-  temperance, practical wisdom, or happiness still need later books
-- the repo now has reviewed Book III annotations and processed graph exports, but the public live
-  dashboard still runs on the reviewed Book II dataset only
+- the public graph is still not a full multi-book Aristotle companion, so users who want the full
+  treatment of courage, temperance, practical wisdom, or happiness still need later books and
+  deeper review coverage
+- the public dashboard now supports a book selector with separate Book II and Book III runtime
+  views rather than a merged multi-book graph
 - concept ids are currently stable within per-book exports, but there is not yet a unified
   multi-book concept-merging layer for combined runtime graphs
 

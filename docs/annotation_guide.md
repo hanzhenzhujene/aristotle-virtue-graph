@@ -1,6 +1,6 @@
 # Annotation Guide
 
-The public app now runs on a fully reviewed Book II dataset.
+The public app now exposes a full reviewed Book II graph and a separate reviewed Book III starter.
 This guide is therefore maintainer-facing: it explains how new work begins in candidate files
 without leaking draft material into the public dashboard.
 
