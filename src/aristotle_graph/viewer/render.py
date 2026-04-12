@@ -28,12 +28,32 @@ _EDGE_COLORS = {
 
 _GRAPH_CLICK_BRIDGE = """
 if (typeof network !== "undefined") {
+    const emitConceptNavigation = function(params) {
+        if (!params || !Array.isArray(params.nodes) || params.nodes.length === 0) {
+            return;
+        }
+        window.parent.postMessage(
+            { type: "avg-node-click", conceptId: String(params.nodes[0]) },
+            "*"
+        );
+    };
     network.on("click", function(params) {
-        if (params.nodes.length > 0) {
-            window.parent.postMessage(
-                { type: "avg-node-click", conceptId: String(params.nodes[0]) },
-                "*"
-            );
+        emitConceptNavigation(params);
+    });
+    network.on("doubleClick", function(params) {
+        emitConceptNavigation(params);
+    });
+    network.on("selectNode", function(params) {
+        emitConceptNavigation(params);
+    });
+    network.on("hoverNode", function() {
+        if (network.canvas && network.canvas.body && network.canvas.body.container) {
+            network.canvas.body.container.style.cursor = "pointer";
+        }
+    });
+    network.on("blurNode", function() {
+        if (network.canvas && network.canvas.body && network.canvas.body.container) {
+            network.canvas.body.container.style.cursor = "default";
         }
     });
 }
@@ -259,6 +279,18 @@ def _inject_graph_click_bridge(html: str) -> str:
     return html.replace(marker, f"{_GRAPH_CLICK_BRIDGE}\n\n                  {marker}", 1)
 
 
+def edge_font_options(*, is_overall_map: bool) -> dict[str, Any]:
+    return {
+        "size": 10 if is_overall_map else 11,
+        "align": "horizontal",
+        "face": "Georgia, serif",
+        "strokeWidth": 0,
+        "color": "#223047",
+        "background": "rgba(255, 250, 241, 0.96)",
+        "vadjust": -10 if is_overall_map else -6,
+    }
+
+
 def build_graph_html(
     nodes: list[ConceptAnnotation],
     relations: list[RelationAnnotation],
@@ -417,15 +449,11 @@ def build_graph_html(
             "smooth": {
                 "enabled": True,
                 "type": "dynamic" if is_overall_map else "continuous",
-                "roundness": 0.22 if is_overall_map else 0.14,
+                "roundness": 0.28 if is_overall_map else 0.18,
             },
-            "font": {
-                "size": 11 if is_overall_map else 12,
-                "align": "middle",
-                "face": "Georgia, serif",
-                "strokeWidth": 5,
-                "strokeColor": "#fbf8f2" if is_overall_map else "#ffffff",
-            },
+            "font": edge_font_options(is_overall_map=is_overall_map),
+            "labelHighlightBold": False,
+            "widthConstraint": {"maximum": 76 if is_overall_map else 92},
         },
     }
     network.set_options(json.dumps(options))

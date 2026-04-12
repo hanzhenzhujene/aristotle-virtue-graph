@@ -240,6 +240,15 @@ Keep identifiers stable and human-readable.
   practical virtue triads, explain practical wisdom, and connect the system back to happiness.
 - The per-concept reading flow becomes more natural when the ego graph is embedded as a small
   local map inside Concept Explorer, rather than split into a separate top-level page.
+- The compact concept map reads better when relation labels are optional and rendered with a
+  light background plus width constraints instead of always being painted directly onto the edge.
+- Streamlit file downloads are more dependable when each processed artifact is served from
+  explicit bytes with a chooser-based UI, especially for `jsonl` and `graphml` files.
+- A small download chooser works better as a selectbox than as a long radio list once each
+  processed export is available separately, because the menu stays compact and can show file size
+  and filename clearly.
+- The graph interaction feels much more trustworthy when the UI says explicitly that every visible
+  concept node is clickable, rather than leaving users to infer that from hover behavior alone.
 - The dataset download UX is clearer when the app opens a chooser first and then offers specific
   artifacts, instead of forcing one immediate bundle download with workflow language like
   `approved dataset`.
@@ -323,6 +332,9 @@ Keep identifiers stable and human-readable.
   companion for students, reading groups, self-directed readers, and structured-dataset work.
 - 2026-04-11: Merge the ego graph into Concept Explorer and remove the separate `Graph View`, so
   narrative context, evidence links, and local structure stay on one page during close reading.
+- 2026-04-12: Strengthen the graph click bridge around click, node-selection, and double-click
+  events, make the map copy explicit that every visible concept node should open its concept page,
+  and refine the download chooser around direct per-file byte downloads.
 - 2026-04-12: Replace the one-shot `Download approved dataset` button with a chooser-based
   dataset download flow that offers the full bundle or individual processed files.
 - 2026-04-12: Remove the exploratory Book III tranche from the repository and restore the public

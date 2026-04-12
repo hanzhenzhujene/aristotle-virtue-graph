@@ -11,7 +11,11 @@ from aristotle_graph.app.streamlit_app import (
 )
 from aristotle_graph.viewer.downloads import build_dataset_bundle, build_download_artifacts
 from aristotle_graph.viewer.load import load_viewer_dataset
-from aristotle_graph.viewer.render import build_graph_html, concept_story_markdown
+from aristotle_graph.viewer.render import (
+    build_graph_html,
+    concept_story_markdown,
+    edge_font_options,
+)
 from aristotle_graph.viewer.state import (
     VIEW_NAMES,
     ViewerFilters,
@@ -217,12 +221,14 @@ def test_build_download_artifacts_cover_bundle_and_individual_files() -> None:
     ]
     assert all("approved" not in artifact.label.lower() for artifact in artifacts)
     assert artifact_index["bundle"].mime == "application/zip"
+    assert artifact_index["bundle"].size_bytes == len(artifact_index["bundle"].payload)
     assert artifact_index["passages"].payload == dataset.paths.passages_path.read_bytes()
     assert artifact_index["concepts"].payload == dataset.paths.concepts_path.read_bytes()
     assert artifact_index["relations"].payload == dataset.paths.relations_path.read_bytes()
     assert artifact_index["graph-json"].payload == dataset.paths.graph_path.read_bytes()
     assert artifact_index["graphml"].payload == dataset.paths.graphml_path.read_bytes()
     assert artifact_index["stats"].payload == dataset.paths.stats_path.read_bytes()
+    assert artifact_index["passages"].size_bytes == dataset.paths.passages_path.stat().st_size
 
 
 def test_build_graph_html_includes_click_bridge() -> None:
@@ -232,3 +238,16 @@ def test_build_graph_html_includes_click_bridge() -> None:
     html = build_graph_html(nodes, relations, center_concept_id="courage")
 
     assert "avg-node-click" in html
+    assert 'network.on("selectNode"' in html
+    assert 'network.on("doubleClick"' in html
+    assert 'style.cursor = "pointer"' in html
+    assert "widthConstraint" in html
+
+
+def test_edge_font_options_use_readable_edge_label_background() -> None:
+    concept_map_font = edge_font_options(is_overall_map=False)
+    overall_map_font = edge_font_options(is_overall_map=True)
+
+    assert concept_map_font["background"] == "rgba(255, 250, 241, 0.96)"
+    assert concept_map_font["align"] == "horizontal"
+    assert overall_map_font["vadjust"] < concept_map_font["vadjust"]

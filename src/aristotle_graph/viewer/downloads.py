@@ -16,6 +16,7 @@ class DownloadArtifact:
     mime: str
     payload: bytes
     description: str
+    size_bytes: int
 
 
 @dataclass(frozen=True)
@@ -66,6 +67,9 @@ def _manifest_text(dataset: ViewerDataset) -> str:
             f"Relations: {dataset.stats.get('relation_count', len(dataset.relations))}",
             f"Passages: {dataset.stats.get('passage_count', len(dataset.passages))}",
             "",
+            "Each file is copied directly from the processed exports committed in",
+            "`data/processed/`.",
+            "",
             "Included files:",
             *[f"- {name}" for name in included_files],
         ]
@@ -78,25 +82,28 @@ def _file_artifacts(dataset: ViewerDataset) -> tuple[DownloadArtifact, ...]:
             key="passages",
             label="Passages (.jsonl)",
             filename=dataset.paths.passages_path.name,
-            mime="application/x-ndjson",
+            mime="application/octet-stream",
             payload=_read_artifact_bytes(dataset.paths.passages_path),
             description="Authoritative processed passage rows for the current book.",
+            size_bytes=dataset.paths.passages_path.stat().st_size,
         ),
         DownloadArtifact(
             key="concepts",
             label="Concepts (.jsonl)",
             filename=dataset.paths.concepts_path.name,
-            mime="application/x-ndjson",
+            mime="application/octet-stream",
             payload=_read_artifact_bytes(dataset.paths.concepts_path),
             description="Processed concept annotations with evidence and stable ids.",
+            size_bytes=dataset.paths.concepts_path.stat().st_size,
         ),
         DownloadArtifact(
             key="relations",
             label="Relations (.jsonl)",
             filename=dataset.paths.relations_path.name,
-            mime="application/x-ndjson",
+            mime="application/octet-stream",
             payload=_read_artifact_bytes(dataset.paths.relations_path),
             description="Processed relation annotations with passage-grounded evidence.",
+            size_bytes=dataset.paths.relations_path.stat().st_size,
         ),
         DownloadArtifact(
             key="graph-json",
@@ -105,14 +112,16 @@ def _file_artifacts(dataset: ViewerDataset) -> tuple[DownloadArtifact, ...]:
             mime="application/json",
             payload=_read_artifact_bytes(dataset.paths.graph_path),
             description="Rich node-link graph payload for downstream apps and analysis.",
+            size_bytes=dataset.paths.graph_path.stat().st_size,
         ),
         DownloadArtifact(
             key="graphml",
             label="GraphML (.graphml)",
             filename=dataset.paths.graphml_path.name,
-            mime="application/graphml+xml",
+            mime="application/octet-stream",
             payload=_read_artifact_bytes(dataset.paths.graphml_path),
             description="Flattened interoperability graph export for graph tools.",
+            size_bytes=dataset.paths.graphml_path.stat().st_size,
         ),
         DownloadArtifact(
             key="stats",
@@ -121,6 +130,7 @@ def _file_artifacts(dataset: ViewerDataset) -> tuple[DownloadArtifact, ...]:
             mime="application/json",
             payload=_read_artifact_bytes(dataset.paths.stats_path),
             description="Top-level counts by concept kind, relation type, and assertion tier.",
+            size_bytes=dataset.paths.stats_path.stat().st_size,
         ),
     )
 
@@ -157,5 +167,6 @@ def build_download_artifacts(dataset: ViewerDataset) -> tuple[DownloadArtifact, 
             "Everything in one zip: passages, concepts, relations, graph payload, "
             "GraphML, stats, and a manifest."
         ),
+        size_bytes=len(bundle.payload),
     )
     return (bundle_artifact, *_file_artifacts(dataset))

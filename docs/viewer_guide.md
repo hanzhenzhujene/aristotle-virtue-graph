@@ -49,7 +49,7 @@ It gives you:
 
 - a short explanation of why the graph exists
 - guided paths into `courage`, `moral virtue`, and a passage-first route
-- a one-click dataset download
+- a dataset chooser for the full bundle or any single processed file, with file sizes
 
 ### Concept Explorer
 
@@ -60,6 +60,8 @@ It shows:
 - a short human-readable description
 - a deterministic summary of how that concept functions in Book II
 - a compact clickable local graph around the selected concept
+- optional horizontal edge labels on that compact map when you want them, without forcing them
+  on by default
 - readable relation cards with one-click concept and passage jumps
 - supporting passage previews
 - an optional `Dataset details` section for ids, tiers, and structured tables

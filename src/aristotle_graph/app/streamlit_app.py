@@ -57,6 +57,17 @@ def _data_uri_for_asset(path: Path, *, mime: str) -> str | None:
     return f"data:{mime};base64,{encoded}"
 
 
+def _format_file_size(size_bytes: int) -> str:
+    thresholds = (
+        (1024 * 1024, "MB"),
+        (1024, "KB"),
+    )
+    for divisor, suffix in thresholds:
+        if size_bytes >= divisor:
+            return f"{size_bytes / divisor:.1f} {suffix}"
+    return f"{size_bytes} B"
+
+
 def apply_pending_view_navigation(
     session_state: MutableMapping[str, object],
     *,
@@ -256,11 +267,11 @@ def _render_download_chooser(
     artifact_index = {artifact.key: artifact for artifact in artifacts}
     first_artifact = artifacts[0]
     with st.popover("Download dataset"):
-        st.caption("Choose a file to download.")
+        st.caption("Choose the full bundle or one processed file from `data/processed/`.")
         selected_key = cast(
             str,
             st.selectbox(
-                "File",
+                "Dataset file",
                 options=[artifact.key for artifact in artifacts],
                 index=0,
                 format_func=lambda artifact_key: artifact_index[artifact_key].label,
@@ -269,14 +280,18 @@ def _render_download_chooser(
             ),
         )
         selected_artifact = artifact_index.get(selected_key, first_artifact)
+        st.caption(
+            f"{selected_artifact.filename} · {_format_file_size(selected_artifact.size_bytes)}"
+        )
         st.caption(selected_artifact.description)
         st.download_button(
-            f"Download {selected_artifact.label}",
+            f"Download {selected_artifact.filename}",
             data=selected_artifact.payload,
             file_name=selected_artifact.filename,
             mime=selected_artifact.mime,
             use_container_width=True,
             key=f"{key_prefix}-download-{selected_artifact.key}",
+            on_click="ignore",
         )
 
 
@@ -427,6 +442,15 @@ def _render_concept_view(
         )
 
     st.markdown("### Local concept map")
+    show_edge_labels = st.toggle(
+        "Show relation labels on the map",
+        value=False,
+        key=f"concept-edge-labels-{selected_concept.id}",
+        help=(
+            "Keep this off for a cleaner compact map; turn it on when you want "
+            "labels on the edges."
+        ),
+    )
     ego_nodes, ego_relations = build_ego_graph(
         dataset,
         selected_concept.id,
@@ -438,13 +462,15 @@ def _render_concept_view(
         with map_left:
             st.caption(
                 f"Showing a compact {graph_hops}-hop neighborhood around "
-                f"`{selected_concept.primary_label}`. Click any node to open it here."
+                f"`{selected_concept.primary_label}`. Every visible concept node is clickable "
+                "and opens here."
             )
             clicked_concept_id = render_clickable_graph(
                 graph_html=build_graph_html(
                     ego_nodes,
                     ego_relations,
                     center_concept_id=selected_concept.id,
+                    show_edge_labels=show_edge_labels,
                     height="360px",
                 ),
                 height="360px",
@@ -637,8 +663,8 @@ def _render_overall_map_view(
         )
     with map_control_third:
         st.caption(
-            "Click a node to jump into its concept page. Use the built-in Select and "
-            "Filter menus inside the graph to search and trim the map."
+            "Every visible concept node is clickable and opens its concept page. "
+            "Use the built-in Select and Filter menus inside the graph to search and trim the map."
         )
 
     overall_nodes, overall_relations = build_filtered_graph(
@@ -816,32 +842,27 @@ def render() -> None:
     ):
         st.session_state[selected_concept_key] = default_concept
 
-    header_left, header_right = st.columns([0.7, 7.3])
-    with header_left:
-        if logo_path.exists():
-            st.image(str(logo_path), width=54)
-    with header_right:
-        st.title("Aristotle Virtue Graph")
-        st.caption("Reviewed, passage-grounded explorer for Nicomachean Ethics Book II.")
-        linkedin_img = (
-            f"<img src='{linkedin_icon_uri}' alt='LinkedIn' width='12' "
-            "style='vertical-align:-2px;margin-left:4px;'/>"
-            if linkedin_icon_uri is not None
-            else "LinkedIn"
-        )
-        st.markdown(
-            (
-                "<div style='font-size:0.82rem;color:#5b6470;'>"
-                "by Jenny Zhu "
-                "<a href='https://www.linkedin.com/in/hanzhen-zhu/' target='_blank' "
-                "style='text-decoration:none;'>"
-                f"{linkedin_img}"
-                "</a>"
-                "</div>"
-            ),
-            unsafe_allow_html=True,
-        )
-        st.markdown("`Book II only` `45 passages` `54 concepts` `42 relations`")
+    st.title("Aristotle Virtue Graph")
+    st.caption("Passage-grounded explorer for Nicomachean Ethics Book II.")
+    linkedin_img = (
+        f"<img src='{linkedin_icon_uri}' alt='LinkedIn' width='12' "
+        "style='vertical-align:-2px;margin-left:4px;'/>"
+        if linkedin_icon_uri is not None
+        else "LinkedIn"
+    )
+    st.markdown(
+        (
+            "<div style='font-size:0.82rem;color:#5b6470;'>"
+            "by Jenny Zhu "
+            "<a href='https://www.linkedin.com/in/hanzhen-zhu/' target='_blank' "
+            "style='text-decoration:none;'>"
+            f"{linkedin_img}"
+            "</a>"
+            "</div>"
+        ),
+        unsafe_allow_html=True,
+    )
+    st.markdown("`Book II only` `45 passages` `54 concepts` `42 relations`")
 
     def on_queue_concept(concept_id: str) -> None:
         queue_concept_navigation(
@@ -859,7 +880,6 @@ def render() -> None:
             pending_view_key=pending_view_key,
         )
 
-    st.sidebar.caption("Reviewed Book II explorer")
     _render_download_chooser(
         st.sidebar,
         artifacts=download_artifacts,
