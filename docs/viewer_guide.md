@@ -34,7 +34,7 @@ Once the app opens, start with `courage`.
 2. Open `courage`.
 3. Read the short narrative summary at the top of Concept Explorer.
 4. Open the linked supporting passage `NE II.7 ¶1`.
-5. Switch to `Graph View` or `Overall Map` and click a nearby node to jump back into its concept page.
+5. Use the small concept map on the same page, or switch to `Overall Map`, and click a nearby node to jump into its concept page.
 
 This is the quickest way to see how the project works:
 the graph is navigable, but every claim stays attached to the passage that supports it.
@@ -59,6 +59,7 @@ It shows:
 
 - a short human-readable description
 - a deterministic summary of how that concept functions in Book II
+- a compact clickable local graph around the selected concept
 - readable relation cards with one-click concept and passage jumps
 - supporting passage previews
 - an optional `Dataset details` section for ids, tiers, and structured tables
@@ -72,13 +73,6 @@ It shows:
 - the full passage text
 - linked concepts as buttons back into Concept Explorer
 - linked relations grounded in that passage
-
-### Graph View
-
-Use this when you want a local structural view without rendering the entire graph as a hairball.
-
-The graph view centers on one concept and expands to a 1-hop or 2-hop neighborhood.
-Clicking a node opens that concept.
 
 ### Overall Map
 

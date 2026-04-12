@@ -120,9 +120,9 @@ Acceptance:
 
 Implement a local app with:
 
-- graph view
+- concept explorer with an embedded local graph map
+- overall map
 - passage explorer
-- concept explorer
 - stats panel
 
 Clicking a concept should show evidence passages and related concepts.
@@ -235,6 +235,11 @@ Keep identifiers stable and human-readable.
   return a clicked node id directly to Python.
 - The public app feels much clearer when it has one reviewed data surface, a homepage, and
   dataset download, instead of exposing the repo's candidate-versus-approved workflow directly.
+- Book II is enough to prove the evidence-first method, but the clearest long-term product value
+  lies in expanding to the later books that complete courage and temperance, add the richer
+  practical virtue triads, explain practical wisdom, and connect the system back to happiness.
+- The per-concept reading flow becomes more natural when the ego graph is embedded as a small
+  local map inside Concept Explorer, rather than split into a separate top-level page.
 
 ## Decision Log
 
@@ -307,9 +312,14 @@ Keep identifiers stable and human-readable.
 - 2026-04-11: Replace the public review-mode toggle with a single reviewed Book II app surface,
   add a `Home` page, and move technical metadata behind optional detail sections.
 - 2026-04-11: Add a small Streamlit v2 graph bridge around the existing PyVis HTML so clicking a
-  node in either graph view opens that concept in Concept Explorer.
+  node in the overall map or the local concept map opens that concept in Concept Explorer.
 - 2026-04-11: Add an in-app reviewed dataset download bundle and document Books III, IV, VI, and
   X as the next corpus-expansion roadmap rather than extending scope in this batch.
+- 2026-04-11: Clarify the post-Book II roadmap around Books III, IV, VI, and X specifically,
+  because those books would turn the project from a strong Book II explorer into a more complete
+  companion for students, reading groups, self-directed readers, and structured-dataset work.
+- 2026-04-11: Merge the ego graph into Concept Explorer and remove the separate `Graph View`, so
+  narrative context, evidence links, and local structure stay on one page during close reading.
 
 ## Outcomes & Retrospective
 
@@ -366,11 +376,13 @@ Observed results:
   and approved modes
 - GraphML export loads successfully as a flattened representation of the processed graph
 - the local Streamlit app launches successfully and now centers on a reviewed-only Book II
-  dataset with `Home`, concept, passage, graph, overall-map, and stats views
+  dataset with `Home`, concept, passage, overall-map, and stats views
 - the local Streamlit app now also includes an interactive `Overall Map` page that renders the
   full filtered Book II network with kind colors, built-in graph menus, and hub summaries
-- both graph views now support node click-through into Concept Explorer through a small
-  Streamlit v2 component bridge over the PyVis HTML
+- the overall map and the embedded concept map now support node click-through into Concept
+  Explorer through a small Streamlit v2 component bridge over the PyVis HTML
+- the small ego graph now lives inside Concept Explorer, so the default concept-reading page
+  includes its own local navigation surface without forcing a separate view change
 - Concept Explorer now leads with a deterministic plain-language summary and passage previews,
   while ids, tiers, and tables sit behind optional detail sections
 - Passage Explorer is now easier to enter from `Home`, concept evidence cards, and relation cards,
@@ -413,5 +425,7 @@ Known limitations:
 
 Next recommended step:
 
-- expand next into Books III, IV, VI, and X while preserving the same reviewed,
-  passage-grounded discipline
+- expand next into Books III, IV, VI, and X, in that order, while preserving the same reviewed,
+  passage-grounded discipline; that sequence would complete the Book II treatment of courage and
+  temperance, deepen the practical virtue triads, add practical wisdom as the governing hinge,
+  and connect the graph back to happiness and the good life

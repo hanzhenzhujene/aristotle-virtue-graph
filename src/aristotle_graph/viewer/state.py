@@ -13,7 +13,6 @@ VIEW_NAMES = (
     "Home",
     "Concept Explorer",
     "Passage Explorer",
-    "Graph View",
     "Overall Map",
     "Stats",
 )

@@ -51,12 +51,11 @@ def test_start_here_concepts_include_curated_entry_points() -> None:
     ]
 
 
-def test_view_names_include_home_and_overall_map_before_stats() -> None:
+def test_view_names_embed_the_local_graph_inside_concept_explorer() -> None:
     assert VIEW_NAMES == (
         "Home",
         "Concept Explorer",
         "Passage Explorer",
-        "Graph View",
         "Overall Map",
         "Stats",
     )

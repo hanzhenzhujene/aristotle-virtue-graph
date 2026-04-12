@@ -38,7 +38,7 @@ Start with `courage`.
 2. Click `Open courage`.
 3. Read the short summary at the top of Concept Explorer.
 4. Open the supporting passage `NE II.7 ¶1`.
-5. Switch to `Graph View` or `Overall Map` and click a neighboring node.
+5. Use the small concept map on the same page, or open `Overall Map`, and click a neighboring node.
 
 What you should see:
 
@@ -60,7 +60,7 @@ It stays attached to the passage that supports it.
 - Browse Book II as a reviewed graph instead of a flat outline.
 - Read a concept in plain language before opening the structured metadata.
 - Start from a passage and see which concepts and relations are grounded there.
-- Click nodes in both graph views to navigate into Concept Explorer.
+- Click nodes in the embedded concept map or the overall map to navigate into Concept Explorer.
 - Download the reviewed Book II dataset for NLP, graph analysis, or close reading work.
 
 ## Rebuild exported data
@@ -115,9 +115,8 @@ The reviewed Book II dataset currently covers:
 | View | What it is for |
 | --- | --- |
 | Home | Understand the job of the app and jump into the strongest first paths |
-| Concept Explorer | Read one concept closely, then move through linked concepts and passages |
+| Concept Explorer | Read one concept closely, inspect its small local graph, then move through linked concepts and passages |
 | Passage Explorer | Start from the text and see which concepts and relations are grounded there |
-| Graph View | Inspect a 1-hop or 2-hop neighborhood and click nodes to open them |
 | Overall Map | Explore the whole filtered Book II network with search, filtering, and hub summaries |
 | Stats | See counts by concept kind, relation type, and assertion tier |
 
@@ -187,11 +186,19 @@ Full rationale: [docs/source_policy.md](docs/source_policy.md)
 ## Roadmap
 
 The next meaningful expansion is more Aristotle, not more interface complexity.
+Book II is a strong starting slice, but it is still only the opening architecture of the
+ethical system. The clearest next path is:
 
-- Book III would deepen courage, temperance, and voluntary action.
-- Book IV would add a richer band of practical virtue triads.
-- Book VI would supply practical wisdom as the system's governing hinge.
-- Book X would connect the graph back to happiness and the good life.
+- Book III, to complete courage, temperance, voluntary action, and choice
+- Book IV, to add the dense run of practical virtue triads that would make the graph much
+  richer to read and compare
+- Book VI, to explain practical wisdom as the hinge that guides the mean
+- Book X, to connect the network back to happiness, pleasure, and the shape of the good life
+
+That sequence would also broaden the audience.
+With Book II alone, the repo is most useful for focused coursework and close reading.
+With Books II, III, IV, VI, and X together, it starts to become a serious companion for
+students, reading groups, self-directed readers, and researchers building structured datasets.
 
 Full note: [docs/roadmap.md](docs/roadmap.md)
 

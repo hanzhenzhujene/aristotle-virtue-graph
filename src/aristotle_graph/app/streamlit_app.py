@@ -46,7 +46,7 @@ from aristotle_graph.viewer.state import (
     start_here_concept_ids,
 )
 
-HOME_VIEW, CONCEPT_VIEW, PASSAGE_VIEW, GRAPH_VIEW, OVERALL_MAP_VIEW, STATS_VIEW = VIEW_NAMES
+HOME_VIEW, CONCEPT_VIEW, PASSAGE_VIEW, OVERALL_MAP_VIEW, STATS_VIEW = VIEW_NAMES
 
 
 def apply_pending_view_navigation(
@@ -342,6 +342,9 @@ def _render_concept_view(
     filters: ViewerFilters,
     filtered_concepts: list[ConceptAnnotation],
     selected_concept: ConceptAnnotation | None,
+    graph_hops: int,
+    pending_concept_key: str,
+    pending_view_key: str,
     queue_concept: Callable[[str], None],
     queue_passage: Callable[[str], None],
 ) -> None:
@@ -385,6 +388,56 @@ def _render_concept_view(
             key_prefix=f"concept-evidence-{selected_concept.id}",
             queue_passage=queue_passage,
         )
+
+    st.markdown("### Local concept map")
+    ego_nodes, ego_relations = build_ego_graph(
+        dataset,
+        selected_concept.id,
+        filters,
+        hops=graph_hops,
+    )
+    if ego_nodes:
+        map_left, map_right = st.columns([1.15, 0.85])
+        with map_left:
+            st.caption(
+                f"Showing a compact {graph_hops}-hop neighborhood around "
+                f"`{selected_concept.primary_label}`. Click any node to open it here."
+            )
+            clicked_concept_id = render_clickable_graph(
+                graph_html=build_graph_html(
+                    ego_nodes,
+                    ego_relations,
+                    center_concept_id=selected_concept.id,
+                    height="360px",
+                ),
+                height="360px",
+                key=f"concept-map-{selected_concept.id}-{graph_hops}",
+            )
+            if queue_graph_click_navigation(
+                st.session_state,
+                clicked_concept_id=clicked_concept_id,
+                pending_concept_key=pending_concept_key,
+                pending_view_key=pending_view_key,
+                dataset=dataset,
+            ):
+                st.rerun()
+        with map_right:
+            st.markdown("#### In this neighborhood")
+            st.markdown(
+                "\n".join(
+                    [
+                        f"- {len(ego_nodes)} visible concepts",
+                        f"- {len(ego_relations)} visible relations",
+                        f"- Depth: {graph_hops} hop" + ("" if graph_hops == 1 else "s"),
+                    ]
+                )
+            )
+            st.caption(
+                "Use this smaller map for close reading. Use Overall Map when you want the "
+                "full filtered Book II network."
+            )
+    else:
+        st.info("No local concept map matches the current filters.")
 
     relation_left, relation_right = st.columns(2)
     with relation_left:
@@ -521,63 +574,6 @@ def _render_passage_view(
             use_container_width=True,
             hide_index=True,
         )
-
-
-def _render_graph_view(
-    st: Any,
-    *,
-    dataset: ViewerDataset,
-    filters: ViewerFilters,
-    selected_concept_id: str | None,
-    graph_hops: int,
-    pending_concept_key: str,
-    pending_view_key: str,
-) -> None:
-    st.subheader("Graph View")
-    st.caption("Click any node to open that concept in Concept Explorer.")
-    if selected_concept_id is None:
-        st.info("Choose a concept from the sidebar to render an ego graph.")
-        return
-
-    ego_nodes, ego_relations = build_ego_graph(
-        dataset,
-        selected_concept_id,
-        filters,
-        hops=graph_hops,
-    )
-    if not ego_nodes:
-        st.info("No graph neighborhood matches the current filters.")
-        return
-
-    st.caption(
-        f"Showing a {graph_hops}-hop neighborhood around "
-        f"`{dataset.concept_index[selected_concept_id].primary_label}`."
-    )
-    clicked_concept_id = render_clickable_graph(
-        graph_html=build_graph_html(
-            ego_nodes,
-            ego_relations,
-            center_concept_id=selected_concept_id,
-        ),
-        height="560px",
-        key=f"ego-graph-{selected_concept_id}-{graph_hops}",
-    )
-    if queue_graph_click_navigation(
-        st.session_state,
-        clicked_concept_id=clicked_concept_id,
-        pending_concept_key=pending_concept_key,
-        pending_view_key=pending_view_key,
-        dataset=dataset,
-    ):
-        st.rerun()
-
-    with st.expander("Edges in this neighborhood", expanded=False):
-        st.dataframe(
-            relation_rows(ego_relations, dataset),
-            use_container_width=True,
-            hide_index=True,
-        )
-
 
 def _render_overall_map_view(
     st: Any,
@@ -837,7 +833,12 @@ def render() -> None:
             key=selected_concept_key,
         ),
     )
-    graph_hops = st.sidebar.radio("Graph depth", options=[1, 2], index=0, horizontal=True)
+    graph_hops = st.sidebar.radio(
+        "Concept map depth",
+        options=[1, 2],
+        index=0,
+        horizontal=True,
+    )
 
     with st.sidebar.expander("Filters", expanded=False):
         search_text = st.text_input(
@@ -929,6 +930,9 @@ def render() -> None:
             filters=filters,
             filtered_concepts=filtered_concepts,
             selected_concept=selected_concept,
+            graph_hops=graph_hops,
+            pending_concept_key=pending_concept_key,
+            pending_view_key=pending_view_key,
             queue_concept=on_queue_concept,
             queue_passage=on_queue_passage,
         )
@@ -942,16 +946,6 @@ def render() -> None:
             selected_passage_key=selected_passage_key,
             selected_passage_id=selected_passage_id,
             queue_concept=on_queue_concept,
-        )
-    elif active_view == GRAPH_VIEW:
-        _render_graph_view(
-            st,
-            dataset=dataset,
-            filters=filters,
-            selected_concept_id=selected_concept_id,
-            graph_hops=graph_hops,
-            pending_concept_key=pending_concept_key,
-            pending_view_key=pending_view_key,
         )
     elif active_view == OVERALL_MAP_VIEW:
         _render_overall_map_view(
