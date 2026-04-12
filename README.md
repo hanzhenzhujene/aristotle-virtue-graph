@@ -2,6 +2,8 @@
 
 > A reviewed, passage-grounded dashboard for exploring *Nicomachean Ethics* Book II. **[Open live dashboard](https://aristotle-virtue-graph.streamlit.app/)**
 
+<sub>by Jenny Zhu · <a href="https://www.linkedin.com/in/hanzhen-zhu/"><img src="docs/assets/linkedin-icon.svg" alt="LinkedIn" width="12" /></a></sub>
+
 This project turns Book II into something you can inspect instead of merely summarize.
 Open the dashboard, start with `courage` or a supporting passage, and move between concept,
 passage, and overall map without losing the text beneath the graph.

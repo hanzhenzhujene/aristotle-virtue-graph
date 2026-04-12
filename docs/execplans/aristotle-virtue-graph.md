@@ -362,6 +362,8 @@ Keep identifiers stable and human-readable.
   clipped title ascenders in Streamlit Cloud.
 - 2026-04-12: Simplify the Concept Explorer story block by removing the deterministic-summary
   eyebrow and move the local map higher in the page flow.
+- 2026-04-12: Restore the public-facing author attribution, LinkedIn icon, and missing
+  Aristotle head icon asset so the README and app shell no longer lose those identity details.
 
 ## Outcomes & Retrospective
 
@@ -451,6 +453,8 @@ Observed results:
   to the hero card and typography
 - Concept Explorer now surfaces the local map earlier, so concept reading and nearby graph
   navigation happen in the same upper-page flow without the extra eyebrow label over the summary
+- the README and app shell once again show the small `by Jenny Zhu` attribution and LinkedIn link,
+  and the missing Aristotle head icon asset has been restored for the repo and page icon
 - the public-facing repo now includes a real viewer preview, a compact overview graphic, a
   viewer guide, and a code license
 - the public-facing repo and live app now share a small Aristotle head PNG, which makes the

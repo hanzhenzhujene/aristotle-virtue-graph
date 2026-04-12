@@ -26,6 +26,18 @@ _EDGE_COLORS = {
     "candidate": "#9aa5b1",
 }
 
+_LINKEDIN_ICON_SVG = """
+<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+  <path
+    d="M6.94 8.5H3.56V20h3.38V8.5Zm-1.69-5.37A1.96 1.96 0 0 0 3.25 5.1
+       c0 1.08.8 1.96 1.96 1.96h.02c1.18 0 1.96-.88 1.96-1.96-.02-1.1-.78-1.97-1.94-1.97ZM20
+       12.86c0-3.47-1.85-5.08-4.32-5.08-1.99 0-2.88 1.1-3.38 1.88V8.5H8.94c.04.77 0 11.5 0
+       11.5h3.38v-6.42c0-.34.02-.68.12-.92.27-.67.88-1.36 1.9-1.36 1.34 0 1.88 1.02
+       1.88 2.52V20H20v-7.14Z"
+  />
+</svg>
+"""
+
 _GRAPH_CLICK_BRIDGE = """
 if (typeof network !== "undefined") {
     const emitConceptNavigation = function(params) {
@@ -610,6 +622,36 @@ div[data-testid="stMetric"] {
     display: inline-block;
 }
 
+.avg-attribution {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.48rem;
+    margin: -0.1rem 0 0.75rem 0;
+    color: var(--avg-muted);
+    font-size: 0.82rem;
+    line-height: 1.4;
+    flex-wrap: wrap;
+}
+
+.avg-attribution-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: var(--avg-muted);
+    text-decoration: none;
+}
+
+.avg-attribution-link:hover {
+    color: var(--avg-ink-strong);
+}
+
+.avg-attribution-link svg {
+    width: 0.8rem;
+    height: 0.8rem;
+    fill: currentColor;
+}
+
 @media (max-width: 900px) {
     .avg-title {
         font-size: 1.95rem;
@@ -637,6 +679,11 @@ div[data-testid="stMetric"] {
     .avg-prose-card {
         border-radius: 18px;
     }
+
+    .avg-attribution {
+        justify-content: flex-start;
+        margin-top: 0.05rem;
+    }
 }
 </style>
 """
@@ -661,6 +708,17 @@ def hero_html(*, title: str, subtitle: str | None, chips: list[str]) -> str:
         f"<div class='avg-title'>{escape(title)}</div>"
         f"{subtitle_html}"
         f"{chip_row_html}"
+        "</div>"
+    )
+
+
+def attribution_html(*, name: str, linkedin_url: str) -> str:
+    return (
+        "<div class='avg-attribution'>"
+        f"<span>by {escape(name)}</span>"
+        f"<a class='avg-attribution-link' href='{escape(linkedin_url)}' "
+        "target='_blank' rel='noopener noreferrer'>"
+        f"{_LINKEDIN_ICON_SVG}<span>LinkedIn</span></a>"
         "</div>"
     )
 

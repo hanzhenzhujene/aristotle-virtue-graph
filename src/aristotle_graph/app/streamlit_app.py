@@ -13,6 +13,7 @@ from aristotle_graph.viewer.downloads import DownloadArtifact, build_download_ar
 from aristotle_graph.viewer.graph_component import render_clickable_graph
 from aristotle_graph.viewer.load import ViewerDataError, ViewerDataset, load_viewer_dataset
 from aristotle_graph.viewer.render import (
+    attribution_html,
     build_graph_html,
     bullet_list_html,
     concept_detail_rows,
@@ -1329,6 +1330,13 @@ def render() -> None:
             title="Aristotle Virtue Graph",
             subtitle=None,
             chips=[],
+        ),
+        unsafe_allow_html=True,
+    )
+    st.markdown(
+        attribution_html(
+            name="Jenny Zhu",
+            linkedin_url="https://www.linkedin.com/in/hanzhen-zhu/",
         ),
         unsafe_allow_html=True,
     )

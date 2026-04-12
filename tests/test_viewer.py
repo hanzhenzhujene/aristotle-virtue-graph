@@ -13,6 +13,7 @@ from aristotle_graph.app.streamlit_app import (
 from aristotle_graph.viewer.downloads import build_dataset_bundle, build_download_artifacts
 from aristotle_graph.viewer.load import load_viewer_dataset
 from aristotle_graph.viewer.render import (
+    attribution_html,
     build_graph_html,
     concept_role_line,
     concept_story_markdown,
@@ -335,3 +336,14 @@ def test_reader_facing_html_helpers_include_visible_content() -> None:
     assert "8 links" in ranking
     assert "NE II.7 ¶1" in panel
     assert "Read the text first." in panel
+
+
+def test_attribution_html_includes_author_name_and_link() -> None:
+    html = attribution_html(
+        name="Jenny Zhu",
+        linkedin_url="https://www.linkedin.com/in/hanzhen-zhu/",
+    )
+
+    assert "by Jenny Zhu" in html
+    assert "LinkedIn" in html
+    assert "linkedin.com/in/hanzhen-zhu" in html
