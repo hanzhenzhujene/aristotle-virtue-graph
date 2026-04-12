@@ -113,9 +113,10 @@ def viewer_shell_css() -> str:
         linear-gradient(135deg, rgba(255, 254, 250, 0.98), rgba(245, 235, 218, 0.98));
     border: 1px solid rgba(185, 157, 123, 0.7);
     border-radius: 30px;
-    padding: 1.15rem 1.45rem 1.05rem 1.45rem;
+    padding: 1.35rem 1.45rem 1.05rem 1.45rem;
     margin-bottom: 0.9rem;
     box-shadow: var(--avg-shadow-soft);
+    overflow: visible;
 }
 
 .avg-kicker {
@@ -125,6 +126,9 @@ def viewer_shell_css() -> str:
     letter-spacing: 0.08em;
     text-transform: uppercase;
     margin-bottom: 0.45rem;
+    line-height: 1.3;
+    padding-top: 0.08rem;
+    overflow: visible;
 }
 
 .avg-title {
@@ -132,8 +136,10 @@ def viewer_shell_css() -> str:
     font-family: Georgia, serif;
     font-size: clamp(2.05rem, 3vw, 3.05rem);
     font-weight: 700;
-    line-height: 1.08;
+    line-height: 1.16;
     margin-bottom: 0;
+    padding-top: 0.04rem;
+    overflow: visible;
 }
 
 .avg-copy {

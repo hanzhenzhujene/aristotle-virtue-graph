@@ -358,6 +358,8 @@ Keep identifiers stable and human-readable.
   support reading instead of feeling like raw dashboards.
 - 2026-04-12: Refresh the public screenshot assets from the current local app so the README and
   viewer guide show the reviewed-only UI as it actually looks after the reader-first redesign.
+- 2026-04-12: Increase the hero top padding and title line-height after the deployed app showed
+  clipped title ascenders in Streamlit Cloud.
 
 ## Outcomes & Retrospective
 
@@ -443,6 +445,8 @@ Observed results:
 - the screenshot assets have been refreshed again after the latest frontend pass, so the public
   docs now show the current reviewed-only `Home` and `Concept Explorer` screens rather than a
   stale pre-refactor capture
+- the deployed hero title no longer clips at the top on Streamlit Cloud after a small spacing fix
+  to the hero card and typography
 - the public-facing repo now includes a real viewer preview, a compact overview graphic, a
   viewer guide, and a code license
 - the public-facing repo and live app now share a small Aristotle head PNG, which makes the
