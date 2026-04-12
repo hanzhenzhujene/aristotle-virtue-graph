@@ -17,17 +17,6 @@ def test_wikisource_adapter_parses_sections() -> None:
     assert normalized.sections[1].source_anchor == "Part_2"
 
 
-def test_wikisource_adapter_parses_book_three_sections() -> None:
-    raw_html = Path("tests/fixtures/wikisource_book3_excerpt.html").read_text(encoding="utf-8")
-
-    normalized = WikisourceAdapter().parse_book(raw_html, book_number=3)
-
-    assert len(normalized.sections) == 2
-    assert normalized.book_number == 3
-    assert normalized.sections[0].paragraphs[0].startswith("Since virtue is concerned")
-    assert normalized.sections[1].source_anchor == "Part_2"
-
-
 def test_mit_adapter_parses_sections() -> None:
     raw_html = Path("tests/fixtures/mit_book2_excerpt.html").read_text(encoding="utf-8")
 
@@ -36,14 +25,3 @@ def test_mit_adapter_parses_sections() -> None:
     assert len(normalized.sections) == 2
     assert normalized.sections[0].section_label == "Part 1"
     assert normalized.sections[1].paragraphs[0].startswith("Since, then")
-
-
-def test_mit_adapter_parses_book_three_sections() -> None:
-    raw_html = Path("tests/fixtures/mit_book3_excerpt.html").read_text(encoding="utf-8")
-
-    normalized = MITArchiveAdapter().parse_book(raw_html, book_number=3)
-
-    assert len(normalized.sections) == 2
-    assert normalized.book_number == 3
-    assert normalized.sections[0].section_label == "Part 1"
-    assert normalized.sections[1].paragraphs[0].startswith("Both the voluntary")

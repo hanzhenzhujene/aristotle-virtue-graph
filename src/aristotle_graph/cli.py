@@ -32,12 +32,7 @@ from aristotle_graph.ingest.base import SourceAdapter
 from aristotle_graph.ingest.mit_archive import MITArchiveAdapter
 from aristotle_graph.ingest.segment import segment_book
 from aristotle_graph.ingest.wikisource import WikisourceAdapter
-from aristotle_graph.source_registry import (
-    get_source,
-    list_sources,
-    source_url_for_book,
-    supported_books,
-)
+from aristotle_graph.source_registry import get_source, list_sources
 from aristotle_graph.utils.io import read_text, write_json, write_jsonl, write_text
 
 app = typer.Typer(no_args_is_help=True)
@@ -134,15 +129,13 @@ def _load_or_fetch_raw(
 
 @sources_app.command("list")
 def list_sources_command() -> None:
-    """List registered sources and their supported books."""
+    """List registered Book II sources."""
 
     for source in list_sources():
-        books = ", ".join(str(book) for book in supported_books(source.source_id))
         typer.echo(
             f"{source.source_id}\n"
             f"  label: {source.label}\n"
             f"  url: {source.url}\n"
-            f"  supported_books: {books}\n"
             f"  can_commit_raw_text: {source.can_commit_raw_text}\n"
             f"  notes: {source.notes}\n"
         )
@@ -173,7 +166,7 @@ def normalize(
     book: BookOption,
     input_file: InputFileOption = None,
 ) -> None:
-    """Normalize source content for one book into stable sections."""
+    """Normalize Book II source content into stable sections."""
 
     ensure_project_directories()
     adapter = _get_adapter(source)
@@ -195,7 +188,7 @@ def segment(
     book: BookOption,
     input_file: InputFileOption = None,
 ) -> None:
-    """Write stable passage records for one book."""
+    """Write stable Book II passage records."""
 
     ensure_project_directories()
     adapter = _get_adapter(source)
@@ -220,13 +213,7 @@ def show_source(source: str = typer.Argument(..., help="Source identifier.")) ->
     """Show registered metadata for a source."""
 
     metadata = get_source(source)
-    payload = metadata.model_dump(mode="json")
-    payload["supported_books"] = list(supported_books(source))
-    payload["book_urls"] = {
-        str(book_number): source_url_for_book(source, book_number)
-        for book_number in supported_books(source)
-    }
-    typer.echo(json.dumps(payload, ensure_ascii=False, indent=2))
+    typer.echo(json.dumps(metadata.model_dump(mode="json"), ensure_ascii=False, indent=2))
 
 
 @annotations_app.command("validate")

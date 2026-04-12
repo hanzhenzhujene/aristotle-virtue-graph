@@ -12,7 +12,6 @@ def test_sources_list_command_runs() -> None:
     assert result.exit_code == 0
     assert "wikisource_ross_1908" in result.stdout
     assert "mit_archive_ross" in result.stdout
-    assert "supported_books: 2, 3" in result.stdout
 
 
 def test_annotations_validate_command_runs() -> None:

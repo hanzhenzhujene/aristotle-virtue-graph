@@ -38,35 +38,3 @@ def test_segmentation_produces_stable_passage_ids() -> None:
     ]
     assert first_run[0].source_url.endswith("#Part_1")
     assert first_run[-1].sequence_in_book == 3
-    assert first_run[0].citation_label == "NE II.1 ¶1"
-
-
-def test_segmentation_uses_book_aware_citation_labels() -> None:
-    book = NormalizedBook(
-        book_number=3,
-        source_id="wikisource_ross_1908",
-        source_url="https://example.test/book-three",
-        sections=[
-            NormalizedSection(
-                section_number=1,
-                section_label="Part 1",
-                source_anchor="Part_1",
-                paragraphs=["Paragraph one."],
-            ),
-            NormalizedSection(
-                section_number=2,
-                section_label="Part 2",
-                source_anchor="Part_2",
-                paragraphs=["Paragraph two."],
-            ),
-        ],
-    )
-
-    passages = segment_book(book)
-
-    assert [passage.passage_id for passage in passages] == [
-        "ne.b3.s1.p1",
-        "ne.b3.s2.p1",
-    ]
-    assert passages[0].citation_label == "NE III.1 ¶1"
-    assert passages[1].citation_label == "NE III.2 ¶1"
