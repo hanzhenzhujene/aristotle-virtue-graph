@@ -31,19 +31,6 @@ def test_annotations_validate_strict_command_runs() -> None:
     assert '"mode": "strict_approved"' in result.stdout
 
 
-def test_book3_annotations_validate_strict_command_runs() -> None:
-    runner = CliRunner()
-    result = runner.invoke(
-        app,
-        ["annotations", "validate", "--book", "3", "--strict-approved"],
-    )
-
-    assert result.exit_code == 0
-    assert '"book": 3' in result.stdout
-    assert '"concept_count": 19' in result.stdout
-    assert '"relation_count": 16' in result.stdout
-
-
 def test_annotations_stats_command_runs() -> None:
     runner = CliRunner()
     result = runner.invoke(app, ["annotations", "stats"])

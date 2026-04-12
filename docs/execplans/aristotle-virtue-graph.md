@@ -171,34 +171,6 @@ Acceptance:
 - Wikisource and MIT normalization agree on the same Book III section structure
 - Book II tests remain green after the multi-book ingest changes
 
-## Tranche B: Book III reviewed annotation starter
-
-Build the first reviewed annotation slice for *Nicomachean Ethics* Book III on top of the
-now-stable Book III passage authority.
-
-This tranche is intentionally limited to:
-
-- generalizing the Book II annotation core where it is still hard-coded to Book II
-- creating Book III annotation files that follow the existing candidate/approved workflow
-- reviewing and approving a narrow Book III core around voluntary action, choice, courage,
-  and temperance
-- exporting Book III processed artifacts for downstream graph work
-- tests and docs that verify the Book III annotation path
-
-This tranche does not yet include:
-
-- a claim to cover all of Book III
-- public viewer expansion beyond the reviewed Book II dashboard
-- replacing the Book II public dataset with mixed-book runtime data
-- speculative annotation of every named distinction in Book III
-
-Acceptance:
-
-- Book III annotations validate in candidate and strict-approved modes
-- Book III processed concept, relation, graph, GraphML, and stats exports build cleanly
-- the first reviewed Book III slice is passage-grounded and bounded to the cited sections
-- Book II exports and the public app remain unchanged
-
 ## Data Model Rules
 
 The graph must distinguish:
@@ -226,7 +198,6 @@ Keep identifiers stable and human-readable.
 - [x] Milestone 5 polish complete
 - [x] 2026-04-11 approved-first viewer refresh complete
 - [x] 2026-04-11 Tranche A Book III foundation complete
-- [x] 2026-04-11 Tranche B Book III reviewed annotation starter complete
 
 ## Surprises & Discoveries
 
@@ -306,17 +277,6 @@ Keep identifiers stable and human-readable.
 - Book III source comparison is structurally clean but not byte-identical: at least one late
   paragraph differs in wording between Wikisource and MIT, which reinforces the decision to keep
   Wikisource as canonical and MIT as verification only.
-- The Book III annotation path needed less CLI work than expected because the commands were
-  already book-parameterized; the real blockers were the model and schema assumptions that still
-  hard-coded Book II passage ids, section bounds, and graph metadata.
-- A careful Book III starter should not force every familiar Book II triad back into approved
-  form. The temperance-side deficiency is the clearest example: Book III.11 says the type has no
-  settled name, so the carry-over label `insensibility` belongs in candidate mode only unless a
-  maintainer explicitly approves that editorial normalization.
-- Per-book exports can safely reuse stable concept ids like `choice`, `courage`, and
-  `temperance` without conflict as long as the exports stay book-scoped; true multi-book node
-  unification is a later problem, not something to solve implicitly inside a first Book III
-  tranche.
 - The dataset download UX is clearer when the app opens a chooser first and then offers specific
   artifacts, instead of forcing one immediate bundle download with workflow language like
   `approved dataset`.
@@ -403,12 +363,6 @@ Keep identifiers stable and human-readable.
 - 2026-04-11: Start Book III as a foundation-only tranche first, limited to source registration,
   normalization, deterministic segmentation, interim artifacts, and tests, so the repo can verify
   corpus stability before it commits to Book III annotation or public runtime expansion.
-- 2026-04-12: Start Book III annotations with a reviewed starter slice around voluntary and
-  involuntary action, choice, courage, and temperance rather than trying to approve the whole
-  book at once.
-- 2026-04-12: Keep the temperance-side deficiency as a candidate-only Book III normalization,
-  because Book III.11 says the type lacks a settled name even though Book II supplied the later
-  label `insensibility`.
 - 2026-04-12: Replace the one-shot `Download approved dataset` button with a chooser-based
   dataset download flow that offers the full bundle or individual processed files.
 
@@ -433,23 +387,12 @@ Outputs:
 - `annotations/book2/relations.candidate.yaml`
 - `annotations/book2/concepts.approved.yaml`
 - `annotations/book2/relations.approved.yaml`
-- `annotations/book3/README.md`
-- `annotations/book3/concepts.candidate.yaml`
-- `annotations/book3/relations.candidate.yaml`
-- `annotations/book3/concepts.approved.yaml`
-- `annotations/book3/relations.approved.yaml`
 - `data/processed/book2_passages.jsonl`
 - `data/processed/book2_concepts.jsonl`
 - `data/processed/book2_relations.jsonl`
 - `data/processed/book2_graph.json`
 - `data/processed/book2_graph.graphml`
 - `data/processed/book2_stats.json`
-- `data/processed/book3_passages.jsonl`
-- `data/processed/book3_concepts.jsonl`
-- `data/processed/book3_relations.jsonl`
-- `data/processed/book3_graph.json`
-- `data/processed/book3_graph.graphml`
-- `data/processed/book3_stats.json`
 - `data/processed/approved/book2_passages.jsonl`
 - `data/processed/approved/book2_concepts.jsonl`
 - `data/processed/approved/book2_relations.jsonl`
@@ -521,19 +464,8 @@ Observed results:
   `ne.b3.s1.p1` / `NE III.1 ¶1` through `ne.b3.s12.p3` / `NE III.12 ¶3`
 - Book-specific URLs now live in the source registry and citation labels are no longer hard-coded
   to Book II, which makes later-book ingest a controlled extension of the same architecture
-- the annotation schemas, models, and graph export metadata are now book-aware for Books II and
-  III rather than silently assuming Book II ids, section bounds, or passage authority paths
-- the Book III candidate layer currently validates at 20 concepts and 17 relations, with the only
-  draft-only normalization being the unnamed temperance-side deficiency kept under the candidate
-  label `insensibility`
-- the reviewed Book III starter currently exports 19 concepts, 16 relations, and all 65 Book III
-  passages into `data/processed/book3_*`
-- the reviewed Book III starter covers voluntary and involuntary action, choice and deliberation,
-  courage, and temperance without yet claiming complete Book III coverage
 - the app now lets users open a dataset-download chooser and pick the full zip bundle or a single
   processed artifact, and the bundle filename/labels no longer use the word `approved`
-- the dashboard works best with Book II and Book III as separate selectable runtime datasets for
-  now, because that keeps passage authority, review depth, and concept roles scoped per book
 - the project now lives in its own public GitHub repository rather than remaining nested inside
   the unrelated parent `MESOTES` repository
 - `pytest`, `ruff check .`, and `mypy src/` all pass
@@ -545,13 +477,10 @@ Known limitations:
   downstream format
 - the live Streamlit URL is now the shorter custom subdomain
   `https://aristotle-virtue-graph.streamlit.app/`
-- the public graph is still not a full multi-book Aristotle companion, so users who want the full
-  treatment of courage, temperance, practical wisdom, or happiness still need later books and
-  deeper review coverage
-- the public dashboard now supports a book selector with separate Book II and Book III runtime
-  views rather than a merged multi-book graph
-- concept ids are currently stable within per-book exports, but there is not yet a unified
-  multi-book concept-merging layer for combined runtime graphs
+- the current scope is still Book II only, so users who want the full treatment of courage,
+  temperance, practical wisdom, or happiness still need later books
+- Book III currently exists only at the ingest and interim passage layer; there are not yet
+  Book III annotations, processed graph exports, or public viewer routes for it
 
 Next recommended step:
 
@@ -562,6 +491,3 @@ Next recommended step:
 - begin the next Book III tranche with reviewed annotation work focused on voluntary action,
   choice, courage, and temperance, using `data/interim/book3_passages.jsonl` as the sole passage
   authority
-- extend Book III review next into the remaining courage and temperance argument, then the
-  voluntary-responsibility material in section 5, while keeping later-book viewer expansion
-  separate from the evidence review step

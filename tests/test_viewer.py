@@ -10,8 +10,8 @@ from aristotle_graph.app.streamlit_app import (
     queue_graph_click_navigation,
 )
 from aristotle_graph.viewer.downloads import build_dataset_bundle, build_download_artifacts
-from aristotle_graph.viewer.load import available_viewer_books, load_viewer_dataset
-from aristotle_graph.viewer.render import build_graph_html, concept_story_markdown, intro_markdown
+from aristotle_graph.viewer.load import load_viewer_dataset
+from aristotle_graph.viewer.render import build_graph_html, concept_story_markdown
 from aristotle_graph.viewer.state import (
     VIEW_NAMES,
     ViewerFilters,
@@ -19,35 +19,18 @@ from aristotle_graph.viewer.state import (
     build_filtered_graph,
     default_concept_id,
     graph_degree_rows,
-    home_concept_ids,
-    home_passage_id,
     passage_options,
     start_here_concept_ids,
 )
 
 
-def test_available_viewer_books_include_book2_and_book3() -> None:
-    assert available_viewer_books() == [2, 3]
-
-
 def test_viewer_loader_succeeds_on_repository_reviewed_exports() -> None:
     dataset = load_viewer_dataset()
 
-    assert dataset.book_number == 2
     assert len(dataset.concepts) == 54
     assert len(dataset.relations) == 42
     assert len(dataset.passages) == 45
     assert dataset.paths.graphml_path.exists()
-
-
-def test_viewer_loader_succeeds_on_repository_book3_exports() -> None:
-    dataset = load_viewer_dataset(book=3)
-
-    assert dataset.book_number == 3
-    assert len(dataset.concepts) == 19
-    assert len(dataset.relations) == 16
-    assert len(dataset.passages) == 65
-    assert dataset.paths.concepts_path.name == "book3_concepts.jsonl"
 
 
 def test_default_concept_prefers_courage() -> None:
@@ -66,19 +49,6 @@ def test_start_here_concepts_include_curated_entry_points() -> None:
         "truthfulness",
         "moral-virtue",
     ]
-
-
-def test_book3_start_here_and_home_entries_are_book_specific() -> None:
-    dataset = load_viewer_dataset(book=3)
-
-    assert start_here_concept_ids(dataset) == [
-        "courage",
-        "temperance",
-        "choice",
-        "voluntary-action",
-    ]
-    assert home_concept_ids(dataset) == ["courage", "choice"]
-    assert home_passage_id(dataset) == "ne.b3.s1.p10"
 
 
 def test_view_names_embed_the_local_graph_inside_concept_explorer() -> None:
@@ -211,18 +181,6 @@ def test_concept_story_markdown_handles_triad_and_principle_nodes() -> None:
     assert "contrasts the mean with deficiency and excess" in mean_story
 
 
-def test_book3_intro_and_story_use_book3_language() -> None:
-    dataset = load_viewer_dataset(book=3)
-
-    intro = intro_markdown(dataset)
-    assert "Book III" in intro
-    assert "choice and deliberation" in intro
-
-    courage_story = concept_story_markdown(dataset.concept_index["courage"], dataset)
-    assert "In Book III" in courage_story
-    assert "fear and confidence" in courage_story
-
-
 def test_build_dataset_bundle_contains_reviewed_exports() -> None:
     dataset = load_viewer_dataset()
     bundle = build_dataset_bundle(dataset)
@@ -240,25 +198,6 @@ def test_build_dataset_bundle_contains_reviewed_exports() -> None:
         "book2_graph.json",
         "book2_graph.graphml",
         "book2_stats.json",
-    } <= names
-
-
-def test_build_dataset_bundle_uses_book3_artifacts_when_book3_is_selected() -> None:
-    dataset = load_viewer_dataset(book=3)
-    bundle = build_dataset_bundle(dataset)
-
-    with ZipFile(BytesIO(bundle.payload)) as archive:
-        names = set(archive.namelist())
-
-    assert bundle.filename.endswith("book3-dataset.zip")
-    assert {
-        "README.txt",
-        "book3_passages.jsonl",
-        "book3_concepts.jsonl",
-        "book3_relations.jsonl",
-        "book3_graph.json",
-        "book3_graph.graphml",
-        "book3_stats.json",
     } <= names
 
 

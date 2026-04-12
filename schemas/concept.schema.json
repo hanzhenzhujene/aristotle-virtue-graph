@@ -73,7 +73,7 @@
     },
     "book": {
       "type": "integer",
-      "enum": [2, 3]
+      "const": 2
     },
     "sections": {
       "type": "array",
@@ -82,7 +82,7 @@
       "items": {
         "type": "integer",
         "minimum": 1,
-        "maximum": 12
+        "maximum": 9
       }
     },
     "evidence": {
@@ -117,7 +117,7 @@
       "properties": {
         "passage_id": {
           "type": "string",
-          "pattern": "^ne\\.b([1-9][0-9]*)\\.s([1-9][0-9]*)\\.p([1-9][0-9]*)$"
+          "pattern": "^ne\\.b2\\.s([1-9])\\.p([1-9][0-9]*)$"
         },
         "support_type": {
           "type": "string",

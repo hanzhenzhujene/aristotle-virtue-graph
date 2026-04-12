@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -28,7 +27,6 @@ class ViewerPaths:
 
 @dataclass(frozen=True)
 class ViewerDataset:
-    book_number: int
     paths: ViewerPaths
     concepts: tuple[ConceptAnnotation, ...]
     relations: tuple[RelationAnnotation, ...]
@@ -43,51 +41,26 @@ class ViewerDataset:
     relations_by_passage: dict[str, tuple[RelationAnnotation, ...]]
 
 
-_BOOK_PATH_RE = re.compile(r"^book(?P<book>\d+)_concepts\.jsonl$")
-
-
-def viewer_paths(*, book: int = 2, processed_root: Path | None = None) -> ViewerPaths:
+def viewer_paths(*, processed_root: Path | None = None) -> ViewerPaths:
     base_dir = processed_root or get_settings().processed_dir
     return ViewerPaths(
         base_dir=base_dir,
-        concepts_path=base_dir / f"book{book}_concepts.jsonl",
-        relations_path=base_dir / f"book{book}_relations.jsonl",
-        passages_path=base_dir / f"book{book}_passages.jsonl",
-        graph_path=base_dir / f"book{book}_graph.json",
-        graphml_path=base_dir / f"book{book}_graph.graphml",
-        stats_path=base_dir / f"book{book}_stats.json",
+        concepts_path=base_dir / "book2_concepts.jsonl",
+        relations_path=base_dir / "book2_relations.jsonl",
+        passages_path=base_dir / "book2_passages.jsonl",
+        graph_path=base_dir / "book2_graph.json",
+        graphml_path=base_dir / "book2_graph.graphml",
+        stats_path=base_dir / "book2_stats.json",
     )
 
 
-def available_viewer_books(*, processed_root: Path | None = None) -> list[int]:
-    base_dir = processed_root or get_settings().processed_dir
-    books: list[int] = []
-    for path in sorted(base_dir.glob("book*_concepts.jsonl")):
-        match = _BOOK_PATH_RE.fullmatch(path.name)
-        if match is None:
-            continue
-        book = int(match.group("book"))
-        paths = viewer_paths(book=book, processed_root=base_dir)
-        required_paths = (
-            paths.concepts_path,
-            paths.relations_path,
-            paths.passages_path,
-            paths.graph_path,
-            paths.graphml_path,
-            paths.stats_path,
-        )
-        if all(required_path.exists() for required_path in required_paths):
-            books.append(book)
-    return books
-
-
-def _missing_artifact_message(missing_paths: list[Path], *, book: int) -> str:
+def _missing_artifact_message(missing_paths: list[Path]) -> str:
     missing_text = "\n".join(f"- {path}" for path in missing_paths)
     return (
         "Missing processed viewer artifacts:\n"
         f"{missing_text}\n"
-        f"Build the processed Book {book} dataset with:\n"
-        f"python -m aristotle_graph.cli annotations export-all --book {book} --strict-approved"
+        "Build the reviewed Book II dataset with:\n"
+        "make annotations-export"
     )
 
 
@@ -134,10 +107,9 @@ def _relations_by_passage(
 
 def load_viewer_dataset(
     *,
-    book: int = 2,
     processed_root: Path | None = None,
 ) -> ViewerDataset:
-    paths = viewer_paths(book=book, processed_root=processed_root)
+    paths = viewer_paths(processed_root=processed_root)
     required_paths = [
         paths.concepts_path,
         paths.relations_path,
@@ -148,7 +120,7 @@ def load_viewer_dataset(
     ]
     missing = [path for path in required_paths if not path.exists()]
     if missing:
-        raise ViewerDataError(_missing_artifact_message(missing, book=book))
+        raise ViewerDataError(_missing_artifact_message(missing))
 
     concepts = tuple(
         sorted(
@@ -171,26 +143,8 @@ def load_viewer_dataset(
 
     graph_payload = read_json(paths.graph_path)
     stats = read_json(paths.stats_path)
-    passage_books = {passage.book_number for passage in passages}
-    concept_books = {concept.book for concept in concepts}
-    graph_book = graph_payload.get("meta", {}).get("book")
-    stats_book = stats.get("book")
-
-    if passage_books != {book}:
-        msg = f"Processed passage export is not consistently Book {book}: {sorted(passage_books)}"
-        raise ViewerDataError(msg)
-    if concept_books != {book}:
-        msg = f"Processed concept export is not consistently Book {book}: {sorted(concept_books)}"
-        raise ViewerDataError(msg)
-    if graph_book != book:
-        msg = f"Graph payload metadata says book={graph_book}, expected {book}"
-        raise ViewerDataError(msg)
-    if stats_book != book:
-        msg = f"Stats payload says book={stats_book}, expected {book}"
-        raise ViewerDataError(msg)
 
     return ViewerDataset(
-        book_number=book,
         paths=paths,
         concepts=concepts,
         relations=relations,

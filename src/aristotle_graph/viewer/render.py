@@ -40,33 +40,7 @@ if (typeof network !== "undefined") {
 """
 
 
-def _roman_book_number(book_number: int) -> str:
-    roman_numerals = {
-        1: "I",
-        2: "II",
-        3: "III",
-        4: "IV",
-        5: "V",
-        6: "VI",
-        7: "VII",
-        8: "VIII",
-        9: "IX",
-        10: "X",
-    }
-    return roman_numerals.get(book_number, str(book_number))
-
-
-def book_label(dataset: ViewerDataset) -> str:
-    return f"Book {_roman_book_number(dataset.book_number)}"
-
-
-def intro_markdown(dataset: ViewerDataset) -> str:
-    if dataset.book_number == 3:
-        return (
-            "This dashboard lets you inspect the reviewed Book III starter: voluntary and "
-            "involuntary action, choice and deliberation, courage, temperance, and the exact "
-            "passages that ground those claims."
-        )
+def intro_markdown() -> str:
     return (
         "This dashboard turns *Nicomachean Ethics* Book II into a reviewed, "
         "passage-grounded map. Move from a concept to its relations, then open the "
@@ -124,7 +98,6 @@ def _incoming_roles(concept: ConceptAnnotation, dataset: ViewerDataset) -> list[
 
 def concept_story_markdown(concept: ConceptAnnotation, dataset: ViewerDataset) -> str:
     label = concept.primary_label
-    current_book_label = book_label(dataset)
     deficiency_labels = _target_labels(concept.id, dataset, "has_deficiency")
     excess_labels = _target_labels(concept.id, dataset, "has_excess")
     concern_labels = _target_labels(concept.id, dataset, "concerns")
@@ -138,7 +111,7 @@ def concept_story_markdown(concept: ConceptAnnotation, dataset: ViewerDataset) -
     sentences: list[str] = []
     if deficiency_labels and excess_labels:
         triad_sentence = (
-            f"In {current_book_label}, {label} appears as a mean between "
+            f"In Book II, {label} appears as a mean between "
             f"{_join_labels(deficiency_labels)} and {_join_labels(excess_labels)}"
         )
         if concern_labels:
@@ -146,7 +119,7 @@ def concept_story_markdown(concept: ConceptAnnotation, dataset: ViewerDataset) -
         sentences.append(triad_sentence + ".")
     elif concern_labels:
         sentences.append(
-            f"In {current_book_label}, {label} is treated in the sphere of "
+            f"In Book II, {label} is treated in the sphere of "
             f"{_join_labels(concern_labels)}."
         )
 
@@ -162,7 +135,7 @@ def concept_story_markdown(concept: ConceptAnnotation, dataset: ViewerDataset) -
         )
     if contrasted_with_labels:
         sentences.append(
-            f"{current_book_label} contrasts {label} with {_join_labels(contrasted_with_labels)}."
+            f"Book II contrasts {label} with {_join_labels(contrasted_with_labels)}."
         )
     if opposed_to_labels:
         sentences.append(f"{label.capitalize()} is opposed to {_join_labels(opposed_to_labels)}.")

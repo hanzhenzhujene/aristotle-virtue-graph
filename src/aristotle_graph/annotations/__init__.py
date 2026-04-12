@@ -1,4 +1,4 @@
-"""Book-aware annotation loading, validation, and export helpers."""
+"""Book II annotation loading, validation, and export helpers."""
 
 from aristotle_graph.annotations.models import (
     AssertionTier,

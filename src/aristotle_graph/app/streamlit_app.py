@@ -11,14 +11,8 @@ from aristotle_graph.annotations.models import ConceptAnnotation, RelationAnnota
 from aristotle_graph.schemas import PassageRecord
 from aristotle_graph.viewer.downloads import DownloadArtifact, build_download_artifacts
 from aristotle_graph.viewer.graph_component import render_clickable_graph
-from aristotle_graph.viewer.load import (
-    ViewerDataError,
-    ViewerDataset,
-    available_viewer_books,
-    load_viewer_dataset,
-)
+from aristotle_graph.viewer.load import ViewerDataError, ViewerDataset, load_viewer_dataset
 from aristotle_graph.viewer.render import (
-    book_label,
     build_graph_html,
     concept_detail_rows,
     concept_story_markdown,
@@ -61,64 +55,6 @@ def _data_uri_for_asset(path: Path, *, mime: str) -> str | None:
         return None
     encoded = base64.b64encode(path.read_bytes()).decode("ascii")
     return f"data:{mime};base64,{encoded}"
-
-
-def _book_selector_label(book_number: int) -> str:
-    label = book_label_from_number(book_number)
-    return f"{label} starter" if book_number == 3 else label
-
-
-def book_label_from_number(book_number: int) -> str:
-    roman_numerals = {1: "I", 2: "II", 3: "III", 4: "IV", 5: "V", 6: "VI"}
-    return f"Book {roman_numerals.get(book_number, str(book_number))}"
-
-
-def _dataset_header_caption(dataset: ViewerDataset) -> str:
-    if dataset.book_number == 3:
-        return "Reviewed, passage-grounded starter for Nicomachean Ethics Book III."
-    return "Reviewed, passage-grounded explorer for Nicomachean Ethics Book II."
-
-
-def _dataset_scope_caption(dataset: ViewerDataset) -> str:
-    if dataset.book_number == 3:
-        return "Reviewed Book III starter"
-    return "Reviewed Book II explorer"
-
-
-def _dataset_badges(dataset: ViewerDataset) -> str:
-    book_tag = "Book III starter" if dataset.book_number == 3 else "Book II"
-    concept_count = dataset.stats.get("concept_count", len(dataset.concepts))
-    relation_count = dataset.stats.get("relation_count", len(dataset.relations))
-    passage_count = dataset.stats.get("passage_count", len(dataset.passages))
-    return (
-        f"`{book_tag}` `{passage_count} passages` "
-        f"`{concept_count} concepts` `{relation_count} relations`"
-    )
-
-
-def _book_section_numbers(dataset: ViewerDataset) -> list[int]:
-    return sorted(
-        {int(passage.passage_id.split(".")[2].removeprefix("s")) for passage in dataset.passages}
-    )
-
-
-def _secondary_home_card(
-    concept: ConceptAnnotation,
-    dataset: ViewerDataset,
-) -> tuple[str, str, str]:
-    if dataset.book_number == 3 and concept.id == "choice":
-        return (
-            "Choice",
-            "Start from Aristotle's account of choice: how it differs from wish, opinion, "
-            "and appetite, and how deliberation shapes it.",
-            "Open choice",
-        )
-    return (
-        "Moral virtue",
-        "Start from formation: how Book II distinguishes moral virtue, connects it to habit, "
-        "and ties it to pleasure and pain.",
-        "Open moral virtue",
-    )
 
 
 def apply_pending_view_navigation(
@@ -354,8 +290,8 @@ def _render_home_view(
 ) -> None:
     st.subheader("Start here")
     st.write(
-        "Use this dashboard to move between Aristotle's conceptual structure in "
-        f"{book_label(dataset)} and the exact passages that ground it."
+        "Use this dashboard to move between Aristotle's conceptual structure in Book II "
+        "and the exact passages that ground it."
     )
 
     entry_left, entry_mid, entry_right = st.columns(3)
@@ -373,28 +309,25 @@ def _render_home_view(
             )
             st.button(
                 "Open courage",
-                key=f"home-courage-b{dataset.book_number}",
+                key="home-courage",
                 use_container_width=True,
                 on_click=queue_concept,
                 args=(first_concept,),
             )
 
     if second_concept is not None:
-        second_concept_id = second_concept
-        second_concept_record = dataset.concept_index[second_concept_id]
-        second_title, second_body, second_button = _secondary_home_card(
-            second_concept_record,
-            dataset,
-        )
         with entry_mid.container(border=True):
-            st.markdown(f"### {second_title}")
-            st.write(second_body)
+            st.markdown("### Moral virtue")
+            st.write(
+                "Start from formation: how Book II distinguishes moral virtue, "
+                "connects it to habit, and ties it to pleasure and pain."
+            )
             st.button(
-                second_button,
-                key=f"home-secondary-b{dataset.book_number}",
+                "Open moral virtue",
+                key="home-moral-virtue",
                 use_container_width=True,
                 on_click=queue_concept,
-                args=(second_concept_record.id,),
+                args=(second_concept,),
             )
 
     if focus_passage_id is not None:
@@ -402,13 +335,13 @@ def _render_home_view(
         with entry_right.container(border=True):
             st.markdown("### Start from the text")
             st.write(
-                "Open a representative passage first, then move outward into the linked "
+                "Open a dense section-7 passage first, then move outward into the linked "
                 "concepts and relations."
             )
             st.caption(f"{passage.citation_label} · {passage_preview(passage.text, limit=120)}")
             st.button(
                 "Read the passage",
-                key=f"home-passage-b{dataset.book_number}",
+                key="home-passage",
                 use_container_width=True,
                 on_click=queue_passage,
                 args=(focus_passage_id,),
@@ -420,7 +353,7 @@ def _render_home_view(
         st.markdown(
             "\n".join(
                 [
-                    "- Trace a virtue, vice, or principle through the current book as a graph.",
+                    "- Trace a virtue, vice, or principle through Book II as a graph.",
                     "- Open the exact passage that supports a concept or relation.",
                     "- Use the full map as a navigation surface instead of a static picture.",
                 ]
@@ -429,13 +362,13 @@ def _render_home_view(
     with what_right:
         st.markdown("### Download the dataset")
         st.write(
-            "Grab the structured exports for the current book for NLP, graph analysis, "
-            "or close reading outside the app."
+            "Grab the structured Book II exports for NLP, graph analysis, or close reading "
+            "outside the app."
         )
         _render_download_chooser(
             st,
             artifacts=download_artifacts,
-            key_prefix=f"home-dataset-b{dataset.book_number}",
+            key_prefix="home-dataset",
         )
 
 
@@ -454,8 +387,8 @@ def _render_concept_view(
 ) -> None:
     st.subheader("Concept Explorer")
     st.caption(
-        f"Start with the readable role a concept plays in {book_label(dataset)}; "
-        "open the data table only if you need the scaffolding underneath."
+        "Start with the readable role a concept plays in Book II; open the data table "
+        "only if you need the scaffolding underneath."
     )
     if selected_concept is None:
         st.info("Choose a concept from the sidebar.")
@@ -480,7 +413,7 @@ def _render_concept_view(
     with left_col:
         st.markdown(f"## {selected_concept.primary_label}")
         st.write(selected_concept.description)
-        st.markdown(f"### How this functions in {book_label(dataset)}")
+        st.markdown("### How this functions in Book II")
         st.markdown(concept_story_markdown(selected_concept, dataset))
         if selected_concept.notes:
             st.caption(selected_concept.notes)
@@ -538,7 +471,7 @@ def _render_concept_view(
             )
             st.caption(
                 "Use this smaller map for close reading. Use Overall Map when you want the "
-                "full filtered graph for the current book."
+                "full filtered Book II network."
             )
     else:
         st.info("No local concept map matches the current filters.")
@@ -612,8 +545,8 @@ def _render_passage_view(
 ) -> None:
     st.subheader("Passage Explorer")
     st.caption(
-        f"Read a {book_label(dataset)} passage in full, then see which concepts and "
-        "relations the reviewed graph grounds there."
+        "Read a Book II passage in full, then see which concepts and relations the "
+        "reviewed graph grounds there."
     )
     if not passage_choices or selected_passage_id is None:
         st.info("No passages match the current filters.")
@@ -788,11 +721,7 @@ def _render_overall_map_view(
 
 def _render_stats_view(st: Any, *, dataset: ViewerDataset) -> None:
     st.subheader("Stats")
-    st.caption(
-        "The current dataset is the reviewed export for the selected book."
-        if dataset.book_number == 2
-        else "The current dataset is the reviewed starter export for the selected book."
-    )
+    st.caption("The current public dataset is a fully reviewed Book II export.")
     stats_left, stats_right = st.columns(2)
     with stats_left:
         st.markdown("### Counts by concept kind")
@@ -844,21 +773,8 @@ def render() -> None:
     page_icon = str(logo_path) if logo_path.exists() else "🏛️"
     st.set_page_config(page_title="Aristotle Virtue Graph", page_icon=page_icon, layout="wide")
 
-    book_key = "avg-selected-book"
-    books = available_viewer_books()
-    if not books:
-        st.error(
-            "No processed viewer datasets are available. Build a reviewed export first with "
-            "`python -m aristotle_graph.cli annotations export-all --book N --strict-approved`."
-        )
-        st.stop()
-    if st.session_state.get(book_key) not in books:
-        st.session_state[book_key] = books[0]
-
-    selected_book = int(st.session_state[book_key])
-
     try:
-        dataset = load_viewer_dataset(book=selected_book)
+        dataset = load_viewer_dataset()
     except ViewerDataError as exc:
         st.error(str(exc))
         st.stop()
@@ -870,10 +786,10 @@ def render() -> None:
     assertion_tiers = available_assertion_tiers(dataset)
     active_view_key = "avg-active-view"
     pending_view_key = "avg-pending-view"
-    selected_concept_key = f"avg-selected-concept-id-b{dataset.book_number}"
-    pending_concept_key = f"avg-pending-concept-id-b{dataset.book_number}"
-    selected_passage_key = f"avg-selected-passage-id-b{dataset.book_number}"
-    pending_passage_key = f"avg-pending-passage-id-b{dataset.book_number}"
+    selected_concept_key = "avg-selected-concept-id"
+    pending_concept_key = "avg-pending-concept-id"
+    selected_passage_key = "avg-selected-passage-id"
+    pending_passage_key = "avg-pending-passage-id"
 
     apply_pending_concept_selection(
         st.session_state,
@@ -906,7 +822,7 @@ def render() -> None:
             st.image(str(logo_path), width=54)
     with header_right:
         st.title("Aristotle Virtue Graph")
-        st.caption(_dataset_header_caption(dataset))
+        st.caption("Reviewed, passage-grounded explorer for Nicomachean Ethics Book II.")
         linkedin_img = (
             f"<img src='{linkedin_icon_uri}' alt='LinkedIn' width='12' "
             "style='vertical-align:-2px;margin-left:4px;'/>"
@@ -925,7 +841,7 @@ def render() -> None:
             ),
             unsafe_allow_html=True,
         )
-        st.markdown(_dataset_badges(dataset))
+        st.markdown("`Book II only` `45 passages` `54 concepts` `42 relations`")
 
     def on_queue_concept(concept_id: str) -> None:
         queue_concept_navigation(
@@ -943,17 +859,11 @@ def render() -> None:
             pending_view_key=pending_view_key,
         )
 
-    st.sidebar.selectbox(
-        "Book",
-        options=books,
-        format_func=_book_selector_label,
-        key=book_key,
-    )
-    st.sidebar.caption(_dataset_scope_caption(dataset))
+    st.sidebar.caption("Reviewed Book II explorer")
     _render_download_chooser(
         st.sidebar,
         artifacts=download_artifacts,
-        key_prefix=f"sidebar-dataset-b{dataset.book_number}",
+        key_prefix="sidebar-dataset",
     )
 
     start_here_ids = start_here_concept_ids(dataset)
@@ -963,7 +873,7 @@ def render() -> None:
             concept = dataset.concept_index[concept_id]
             st.sidebar.button(
                 concept.primary_label,
-                key=f"start-here-b{dataset.book_number}-{concept_id}",
+                key=f"start-here-{concept_id}",
                 use_container_width=True,
                 on_click=on_queue_concept,
                 args=(concept_id,),
@@ -1006,9 +916,9 @@ def render() -> None:
             default=assertion_tiers,
         )
         selected_sections = st.multiselect(
-            f"{book_label(dataset)} sections",
-            options=_book_section_numbers(dataset),
-            default=_book_section_numbers(dataset),
+            "Book II sections",
+            options=list(range(1, 10)),
+            default=list(range(1, 10)),
         )
 
     filters = ViewerFilters(
@@ -1019,12 +929,12 @@ def render() -> None:
         sections=frozenset(selected_sections),
     )
 
-    st.info(intro_markdown(dataset))
+    st.info(intro_markdown())
     metric_cols = st.columns(4)
     metric_cols[0].metric("Concepts", dataset.stats.get("concept_count", len(dataset.concepts)))
     metric_cols[1].metric("Relations", dataset.stats.get("relation_count", len(dataset.relations)))
     metric_cols[2].metric("Passages", dataset.stats.get("passage_count", len(dataset.passages)))
-    metric_cols[3].metric("Dataset", "Starter" if dataset.book_number == 3 else "Reviewed")
+    metric_cols[3].metric("Dataset", "Reviewed")
 
     filtered_concepts = filter_concepts(dataset, filters)
     filtered_passages = filter_passages(dataset, filters)

@@ -1,15 +1,14 @@
 # Aristotle Virtue Graph <img src="docs/assets/aristotle-head-icon.png" alt="Aristotle head icon" width="50" />
 
-> A reviewed, passage-grounded dashboard for exploring *Nicomachean Ethics* Book II, plus a separate Book III starter view. **[Open live dashboard](https://aristotle-virtue-graph.streamlit.app/)**
+> A reviewed, passage-grounded dashboard for exploring *Nicomachean Ethics* Book II. **[Open live dashboard](https://aristotle-virtue-graph.streamlit.app/)**
 >
 > <sub>by Jenny Zhu <a href="https://www.linkedin.com/in/hanzhen-zhu/"><img src="docs/assets/linkedin-icon.svg" alt="LinkedIn" width="14" style="vertical-align:text-bottom; margin-left:4px;" /></a></sub>
 
-This project turns Aristotle's ethics into something you can inspect instead of merely summarize.
-Open a concept like `courage`, switch between `Book II` and `Book III starter` in the sidebar,
-click through neighboring nodes, read the supporting passage, and download the structured dataset
-that drives the app.
+This project turns Book II into something you can inspect instead of merely summarize.
+Open a concept like `courage`, click through its neighboring nodes, read the supporting passage,
+and download the structured dataset that drives the app.
 
-🏛️ **Book II full graph** · 📘 **Book III starter** · 📜 **Passage-grounded exports** · 🧭 **Live local-first viewer**
+🏛️ **Book II only** · 📜 **45 passages** · 🧠 **54 reviewed concepts** · 🔗 **42 reviewed relations**
 
 ![Dashboard hero](docs/assets/viewer-courage-candidate.png)
 
@@ -32,9 +31,8 @@ pip install -e ".[viewer]"
 make app
 ```
 
-This opens the dashboard immediately against the committed reviewed exports.
-Start with `courage`, then use the sidebar `Book` selector to switch between `Book II` and
-`Book III starter`.
+This opens the dashboard immediately against the committed reviewed Book II exports.
+Start with `courage`.
 
 ## Try this first
 
@@ -62,11 +60,10 @@ It stays attached to the passage that supports it.
 ## What you can do here
 
 - Browse Book II as a reviewed graph instead of a flat outline.
-- Switch between Book II and the separate Book III starter without merging their evidence.
 - Read a concept in plain language before opening the structured metadata.
 - Start from a passage and see which concepts and relations are grounded there.
 - Click nodes in the embedded concept map or the overall map to navigate into Concept Explorer.
-- Download the dataset for the currently selected book for NLP, graph analysis, or close reading work.
+- Download the reviewed Book II dataset for NLP, graph analysis, or close reading work.
 
 ## Rebuild exported data
 
@@ -115,24 +112,14 @@ The reviewed Book II dataset currently covers:
   wit / buffoonery / boorishness
   friendliness / obsequiousness / quarrelsomeness
 
-The repository now also includes a reviewed Book III starter slice for downstream graph work:
-
-- 65 authoritative Book III passages
-- 19 reviewed concepts
-- 16 reviewed relations
-- focused on voluntary and involuntary action, choice and deliberation, courage, and temperance
-
-The live app now supports a separate `Book III starter` view alongside the full `Book II` graph.
-
 ## Viewer at a glance
 
 | View | What it is for |
 | --- | --- |
-| Book selector | Switch between the full Book II graph and the separate Book III starter |
 | Home | Understand the job of the app and jump into the strongest first paths |
 | Concept Explorer | Read one concept closely, inspect its small local graph, then move through linked concepts and passages |
 | Passage Explorer | Start from the text and see which concepts and relations are grounded there |
-| Overall Map | Explore the whole filtered graph for the currently selected book with search, filtering, and hub summaries |
+| Overall Map | Explore the whole filtered Book II network with search, filtering, and hub summaries |
 | Stats | See counts by concept kind, relation type, and assertion tier |
 
 More detail: [docs/viewer_guide.md](docs/viewer_guide.md)
@@ -153,17 +140,11 @@ Authoritative passage source:
 
 - `data/interim/book2_passages.jsonl`
 
-Book III interim authority and reviewed starter artifacts:
+Book III foundation artifacts now committed for the next tranche:
 
 - `data/interim/book3_wikisource_ross_1908_normalized.json`
 - `data/interim/book3_mit_archive_ross_normalized.json`
 - `data/interim/book3_passages.jsonl`
-- `data/processed/book3_passages.jsonl`
-- `data/processed/book3_concepts.jsonl`
-- `data/processed/book3_relations.jsonl`
-- `data/processed/book3_graph.json`
-- `data/processed/book3_graph.graphml`
-- `data/processed/book3_stats.json`
 
 Public reviewed artifacts:
 
@@ -194,14 +175,8 @@ Human-editable annotation files live in:
 - `annotations/book2/relations.candidate.yaml`
 - `annotations/book2/concepts.approved.yaml`
 - `annotations/book2/relations.approved.yaml`
-- `annotations/book3/concepts.candidate.yaml`
-- `annotations/book3/relations.candidate.yaml`
-- `annotations/book3/concepts.approved.yaml`
-- `annotations/book3/relations.approved.yaml`
 
-The public app uses the reviewed Book II set only.
-The public app now supports separate `Book II` and `Book III starter` views.
-Book II remains the full reviewed public graph; Book III is a narrower reviewed starter.
+The public app now uses the reviewed Book II set only.
 Candidate files remain for future maintainer work, not as a second public mode.
 
 More detail: [docs/annotation_guide.md](docs/annotation_guide.md)
@@ -233,13 +208,8 @@ With Book II alone, the repo is most useful for focused coursework and close rea
 With Books II, III, IV, VI, and X together, it starts to become a serious companion for
 students, reading groups, self-directed readers, and researchers building structured datasets.
 
-The repository now has:
-
-- Book III ingestion and deterministic segmentation
-- a reviewed Book III starter graph slice for export and inspection
-- a separate Book III starter view in the dashboard
-
-The public dashboard still keeps the books separate instead of merging them into one graph.
+Foundation work for Book III ingestion and segmentation is now underway in the repository,
+but the public reviewed dataset and live dashboard remain Book II-only.
 
 Full note: [docs/roadmap.md](docs/roadmap.md)
 
@@ -262,7 +232,7 @@ Deployment notes and the current hosted target are in [docs/deployment.md](docs/
 - `src/aristotle_graph/viewer/`: viewer loading, filtering, rendering, and dataset bundle helpers
 - `src/aristotle_graph/app/`: Streamlit app logic
 - `streamlit_app.py`: deployment-friendly root entrypoint
-- `annotations/`: candidate and approved Book II and Book III annotation files
+- `annotations/`: candidate and approved Book II annotation files
 - `data/`: interim and processed outputs
 - `docs/`: user and maintainer docs
 
@@ -278,7 +248,7 @@ Useful docs:
 
 ## Limits
 
-- Book II is the full public graph; Book III is still a reviewed starter rather than full coverage.
+- This is Book II only.
 - There is no database.
 - There is no chatbot or RAG layer.
 - The graph is reviewed and passage-grounded, but it is not a full ontology of Aristotle.

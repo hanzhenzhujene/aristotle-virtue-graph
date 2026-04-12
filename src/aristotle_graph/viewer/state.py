@@ -17,37 +17,21 @@ VIEW_NAMES = (
     "Stats",
 )
 
-START_HERE_IDS_BY_BOOK = {
-    2: (
-        "courage",
-        "temperance",
-        "liberality",
-        "truthfulness",
-        "moral-virtue",
-    ),
-    3: (
-        "courage",
-        "temperance",
-        "choice",
-        "voluntary-action",
-    ),
-}
+START_HERE_IDS = (
+    "courage",
+    "temperance",
+    "liberality",
+    "truthfulness",
+    "moral-virtue",
+)
 
-HOME_CONCEPT_IDS_BY_BOOK = {
-    2: (
-        "courage",
-        "moral-virtue",
-    ),
-    3: (
-        "courage",
-        "choice",
-    ),
-}
+HOME_CONCEPT_IDS = (
+    "courage",
+    "moral-virtue",
+    "habituation",
+)
 
-HOME_PASSAGE_ID_BY_BOOK = {
-    2: "ne.b2.s7.p1",
-    3: "ne.b3.s1.p10",
-}
+HOME_PASSAGE_ID = "ne.b2.s7.p1"
 
 RELATION_PRIORITY = {
     "is_a": 0,
@@ -179,19 +163,18 @@ def default_concept_id(
 
 
 def start_here_concept_ids(dataset: ViewerDataset) -> list[str]:
-    configured_ids = START_HERE_IDS_BY_BOOK.get(dataset.book_number, ())
-    return [concept_id for concept_id in configured_ids if concept_id in dataset.concept_index]
+    return [
+        concept_id for concept_id in START_HERE_IDS if concept_id in dataset.concept_index
+    ]
 
 
 def home_concept_ids(dataset: ViewerDataset) -> list[str]:
-    configured_ids = HOME_CONCEPT_IDS_BY_BOOK.get(dataset.book_number, ())
-    return [concept_id for concept_id in configured_ids if concept_id in dataset.concept_index]
+    return [concept_id for concept_id in HOME_CONCEPT_IDS if concept_id in dataset.concept_index]
 
 
 def home_passage_id(dataset: ViewerDataset) -> str | None:
-    configured_id = HOME_PASSAGE_ID_BY_BOOK.get(dataset.book_number)
-    if configured_id is not None and configured_id in dataset.passage_index:
-        return configured_id
+    if HOME_PASSAGE_ID in dataset.passage_index:
+        return HOME_PASSAGE_ID
     if dataset.passages:
         return dataset.passages[0].passage_id
     return None

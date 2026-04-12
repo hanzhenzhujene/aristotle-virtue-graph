@@ -1,10 +1,6 @@
 # Data Model
 
-The repository now has:
-
-- a public reviewed Book II dataset that powers the live dashboard
-- a reviewed Book III starter slice committed for downstream graph work
-
+The repository builds a passage-grounded graph for *Nicomachean Ethics* Book II.
 The model is layered:
 
 - authoritative passage records
@@ -13,21 +9,18 @@ The model is layered:
 
 ## Passage authority
 
-The passage authority is book-specific.
-Current authoritative interim files are:
+The sole passage authority for annotation and export is:
 
 - `data/interim/book2_passages.jsonl`
-- `data/interim/book3_passages.jsonl`
 
-Concepts and relations may only cite passage ids from the matching book authority file.
+Concepts and relations may only cite passage ids from that file.
 
 Processed passage files are derived from the authoritative interim export.
 They do not create new passage ids.
 
-The current reviewed processed exports live at:
+The public reviewed export lives at:
 
 - `data/processed/book2_passages.jsonl`
-- `data/processed/book3_passages.jsonl`
 
 Each passage row includes:
 
@@ -142,13 +135,10 @@ Annotations are still stored in two states:
 
 But the public app now runs only on the reviewed Book II export.
 Candidate files remain for maintainer workflow when future additions are drafted and checked.
-Book III currently uses the same candidate-versus-approved discipline, but only its reviewed
-starter export is committed into `data/processed/`.
 
 ## Processed graph exports
 
-Reviewed artifacts live in `data/processed/` on a per-book basis.
-Current committed sets are:
+The canonical reviewed artifacts live in `data/processed/`:
 
 - `data/processed/book2_passages.jsonl`
 - `data/processed/book2_concepts.jsonl`
@@ -156,14 +146,8 @@ Current committed sets are:
 - `data/processed/book2_graph.json`
 - `data/processed/book2_graph.graphml`
 - `data/processed/book2_stats.json`
-- `data/processed/book3_passages.jsonl`
-- `data/processed/book3_concepts.jsonl`
-- `data/processed/book3_relations.jsonl`
-- `data/processed/book3_graph.json`
-- `data/processed/book3_graph.graphml`
-- `data/processed/book3_stats.json`
 
-Each `bookN_graph.json` file is the primary rich export.
+`book2_graph.json` is the primary rich export.
 It uses a simple node-link shape:
 
 - `meta`: book number, export mode, and top-level counts
@@ -171,8 +155,7 @@ It uses a simple node-link shape:
 - `edges`: relation rows enriched for graph use
 - `passages`: passage rows for evidence lookup
 
-The local viewer and the in-app download bundle currently read the Book II reviewed artifacts
-directly.
+The local viewer and the in-app download bundle both read these processed artifacts directly.
 
 ## GraphML flattening
 

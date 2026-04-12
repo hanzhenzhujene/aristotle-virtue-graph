@@ -1,8 +1,7 @@
 # Viewer Guide
 
 The local viewer is the fastest way to understand what this repository is for.
-It now opens into the reviewed Book II dataset by default, with a sidebar switch for the separate
-Book III starter.
+It now opens directly into the reviewed Book II dataset.
 
 ## Start here
 
@@ -28,7 +27,6 @@ make app
 ```
 
 Once the app opens, start with `courage`.
-Then use the sidebar `Book` selector to switch between `Book II` and `Book III starter`.
 
 ## Suggested first walkthrough
 
@@ -50,8 +48,7 @@ Use this for the app's job statement and the fastest entry points.
 It gives you:
 
 - a short explanation of why the graph exists
-- guided paths into book-specific entry points such as `courage`, `moral virtue`, or `choice`
-- a sidebar book switcher for Book II and Book III starter
+- guided paths into `courage`, `moral virtue`, and a passage-first route
 - a one-click dataset download
 
 ### Concept Explorer
@@ -61,7 +58,7 @@ Use this when you want to understand one concept well.
 It shows:
 
 - a short human-readable description
-- a deterministic summary of how that concept functions in the selected book
+- a deterministic summary of how that concept functions in Book II
 - a compact clickable local graph around the selected concept
 - readable relation cards with one-click concept and passage jumps
 - supporting passage previews
@@ -79,7 +76,7 @@ It shows:
 
 ### Overall Map
 
-Use this when you want the whole filtered graph for the selected book in one place.
+Use this when you want the whole filtered Book II network in one place.
 
 It shows:
 
@@ -104,7 +101,6 @@ Use this for a quick sense of scale:
 The viewer is most useful when you ask concrete questions such as:
 
 - What exactly does Book II connect courage to?
-- How does Book III treat choice differently from appetite, anger, or opinion?
 - Where is this claim grounded in the passage sequence?
 - How does Aristotle move from moral virtue to habit, pleasure, pain, and the mean?
 - Which concepts become clearer when you start from the passage instead of from the graph?
