@@ -191,16 +191,17 @@ The next meaningful expansion is more Aristotle, not more interface complexity.
 Book II is a strong starting slice, but it is still only the opening architecture of the
 ethical system. The clearest next path is:
 
-- Book III, to complete courage, temperance, voluntary action, and choice
-- Book IV, to add the dense run of practical virtue triads that would make the graph much
-  richer to read and compare
-- Book VI, to explain practical wisdom as the hinge that guides the mean
-- Book X, to connect the network back to happiness, pleasure, and the shape of the good life
+- a future courage-and-temperance expansion that adds the fuller arguments behind the Book II
+  triads
+- the dense run of practical virtue triads that would make the graph much richer to read and
+  compare
+- practical wisdom as the hinge that guides the mean
+- happiness, pleasure, and the shape of the good life as the system's endpoint
 
 That sequence would also broaden the audience.
 With Book II alone, the repo is most useful for focused coursework and close reading.
-With Books II, III, IV, VI, and X together, it starts to become a serious companion for
-students, reading groups, self-directed readers, and researchers building structured datasets.
+With a fuller multi-book corpus, it starts to become a serious companion for students,
+reading groups, self-directed readers, and researchers building structured datasets.
 
 Full note: [docs/roadmap.md](docs/roadmap.md)
 

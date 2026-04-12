@@ -325,6 +325,9 @@ Keep identifiers stable and human-readable.
   narrative context, evidence links, and local structure stay on one page during close reading.
 - 2026-04-12: Replace the one-shot `Download approved dataset` button with a chooser-based
   dataset download flow that offers the full bundle or individual processed files.
+- 2026-04-12: Remove the exploratory Book III tranche from the repository and restore the public
+  scope to a strict Book II-only dashboard, so the public surface stays coherent and fully
+  reviewed.
 
 ## Outcomes & Retrospective
 

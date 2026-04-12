@@ -4,11 +4,11 @@ The current product is intentionally narrow:
 it is a fully reviewed, passage-grounded explorer for *Nicomachean Ethics* Book II.
 
 The next meaningful expansion is not “more ontology.”
-It is more Aristotle, added in books that deepen the graph's explanatory value.
+It is more Aristotle, added in later tranches that deepen the graph's explanatory value.
 
-## Book III
+## Courage and temperance in fuller depth
 
-Book III would complete what Book II only sketches about:
+A future expansion should complete what Book II only sketches about:
 
 - courage in full argumentative depth
 - temperance in fuller detail
@@ -17,11 +17,11 @@ Book III would complete what Book II only sketches about:
 Why it matters:
 users who open `courage` in Book II currently meet the triad and its supporting passage,
 but not Aristotle's fuller argument for why courage has that shape.
-Book III would let the graph move from outline to fuller case.
+That next tranche would let the graph move from outline to fuller case.
 
-## Book IV
+## More practical virtue triads
 
-Book IV would enrich the graph's middle band of practical virtues:
+A later expansion should enrich the graph's middle band of practical virtues:
 
 - generosity and magnificence
 - pride
@@ -34,9 +34,9 @@ these virtues are especially graph-friendly.
 They create a dense, auditable set of virtue/vice/domain triads that would make the network
 more useful for students, reading groups, and downstream dataset work.
 
-## Book VI
+## Practical wisdom
 
-Book VI would add the intellectual hinge of the ethical system:
+A later tranche should add the intellectual hinge of the ethical system:
 
 - practical wisdom (`phronesis`)
 - deliberation
@@ -47,9 +47,9 @@ Book II says the mean is determined by right reason and the practically wise per
 but Book VI is where Aristotle explains what that actually amounts to.
 Adding it would connect the graph's descriptive structure to Aristotle's account of judgment.
 
-## Book X
+## Happiness and the best life
 
-Book X would give the project a stronger endpoint:
+A later expansion should give the project a stronger endpoint:
 
 - happiness
 - pleasure revisited
