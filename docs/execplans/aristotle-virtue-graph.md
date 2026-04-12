@@ -360,6 +360,8 @@ Keep identifiers stable and human-readable.
   viewer guide show the reviewed-only UI as it actually looks after the reader-first redesign.
 - 2026-04-12: Increase the hero top padding and title line-height after the deployed app showed
   clipped title ascenders in Streamlit Cloud.
+- 2026-04-12: Simplify the Concept Explorer story block by removing the deterministic-summary
+  eyebrow and move the local map higher in the page flow.
 
 ## Outcomes & Retrospective
 
@@ -447,6 +449,8 @@ Observed results:
   stale pre-refactor capture
 - the deployed hero title no longer clips at the top on Streamlit Cloud after a small spacing fix
   to the hero card and typography
+- Concept Explorer now surfaces the local map earlier, so concept reading and nearby graph
+  navigation happen in the same upper-page flow without the extra eyebrow label over the summary
 - the public-facing repo now includes a real viewer preview, a compact overview graphic, a
   viewer guide, and a code license
 - the public-facing repo and live app now share a small Aristotle head PNG, which makes the

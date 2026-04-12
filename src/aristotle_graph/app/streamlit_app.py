@@ -615,28 +615,6 @@ def _render_concept_view(
         if triad_html:
             st.markdown(triad_html, unsafe_allow_html=True)
         st.markdown(
-            prose_panel_html(
-                title="How this functions in Book II",
-                body=concept_story_markdown(selected_concept, dataset),
-                eyebrow="Deterministic reading summary",
-            ),
-            unsafe_allow_html=True,
-        )
-        if selected_concept.notes:
-            st.markdown(_small_helper_html(selected_concept.notes), unsafe_allow_html=True)
-
-    with evidence_col:
-        _render_evidence_cards(
-            st,
-            concept=selected_concept,
-            dataset=dataset,
-            key_prefix=f"concept-evidence-{selected_concept.id}",
-            queue_passage=queue_passage,
-        )
-
-    map_col, relation_col = st.columns([0.88, 1.12])
-    with map_col:
-        st.markdown(
             section_heading_html(
                 title="Local map",
                 body=(
@@ -665,9 +643,9 @@ def _render_concept_view(
                     ego_relations,
                     center_concept_id=selected_concept.id,
                     show_edge_labels=show_edge_labels,
-                    height="300px",
+                    height="280px",
                 ),
-                height="300px",
+                height="280px",
                 key=f"concept-map-{selected_concept.id}-{graph_hops}",
             )
             if queue_graph_click_navigation(
@@ -693,8 +671,27 @@ def _render_concept_view(
                 ),
                 unsafe_allow_html=True,
             )
+        st.markdown(
+            prose_panel_html(
+                title="How this functions in Book II",
+                body=concept_story_markdown(selected_concept, dataset),
+            ),
+            unsafe_allow_html=True,
+        )
+        if selected_concept.notes:
+            st.markdown(_small_helper_html(selected_concept.notes), unsafe_allow_html=True)
 
-    with relation_col:
+    with evidence_col:
+        _render_evidence_cards(
+            st,
+            concept=selected_concept,
+            dataset=dataset,
+            key_prefix=f"concept-evidence-{selected_concept.id}",
+            queue_passage=queue_passage,
+        )
+
+    relation_left, relation_right = st.columns(2)
+    with relation_left:
         _render_relation_cards(
             st,
             title="Direct links outward",
@@ -706,6 +703,7 @@ def _render_concept_view(
             queue_concept=queue_concept,
             queue_passage=queue_passage,
         )
+    with relation_right:
         _render_relation_cards(
             st,
             title="Direct links inward",
