@@ -26,18 +26,20 @@ def _write_yaml(path: Path, rows: list[dict[str, Any]]) -> None:
 
 
 def _make_passage(passage_id: str, sequence_in_book: int) -> dict[str, Any]:
-    _, _, section_part, paragraph_part = passage_id.split(".")
+    _, book_part, section_part, paragraph_part = passage_id.split(".")
+    book_number = int(book_part.removeprefix("b"))
     section_number = int(section_part.removeprefix("s"))
     paragraph_number = int(paragraph_part.removeprefix("p"))
+    roman_book = {2: "II", 3: "III"}[book_number]
     return {
         "passage_id": passage_id,
         "work_id": "nicomachean-ethics",
-        "book_number": 2,
+        "book_number": book_number,
         "chapter_or_section": f"part-{section_number}",
         "sequence_in_book": sequence_in_book,
         "source_id": "wikisource_ross_1908",
-        "source_url": f"https://example.test/book-two#Part_{section_number}",
-        "citation_label": f"NE II.{section_number} ¶{paragraph_number}",
+        "source_url": f"https://example.test/book-{book_number}#Part_{section_number}",
+        "citation_label": f"NE {roman_book}.{section_number} ¶{paragraph_number}",
         "text": f"Fixture text for {passage_id}.",
         "cts_urn": None,
         "bekker_ref": None,
@@ -56,22 +58,26 @@ def _write_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:
 def _write_annotation_fixture(
     tmp_path: Path,
     *,
+    book: int = 2,
     concepts_candidate: list[dict[str, Any]],
     relations_candidate: list[dict[str, Any]],
     concepts_approved: list[dict[str, Any]] | None = None,
     relations_approved: list[dict[str, Any]] | None = None,
     passage_ids: list[str] | None = None,
 ) -> tuple[Path, Path]:
-    annotation_root = tmp_path / "annotations" / "book2"
+    annotation_root = tmp_path / "annotations" / f"book{book}"
     _write_yaml(annotation_root / "concepts.candidate.yaml", concepts_candidate)
     _write_yaml(annotation_root / "concepts.approved.yaml", concepts_approved or [])
     _write_yaml(annotation_root / "relations.candidate.yaml", relations_candidate)
     _write_yaml(annotation_root / "relations.approved.yaml", relations_approved or [])
 
-    passage_path = tmp_path / "book2_passages.jsonl"
+    passage_path = tmp_path / f"book{book}_passages.jsonl"
     rows = [
         _make_passage(passage_id, sequence)
-        for sequence, passage_id in enumerate(passage_ids or ["ne.b2.s1.p1"], start=1)
+        for sequence, passage_id in enumerate(
+            passage_ids or [f"ne.b{book}.s1.p1"],
+            start=1,
+        )
     ]
     _write_jsonl(passage_path, rows)
     return annotation_root, passage_path
@@ -82,7 +88,9 @@ def _concept(
     concept_id: str,
     passage_id: str = "ne.b2.s1.p1",
     review_status: str = "candidate",
+    book: int | None = None,
 ) -> dict[str, Any]:
+    book_number = book if book is not None else int(passage_id.split(".")[1].removeprefix("b"))
     return {
         "id": concept_id,
         "primary_label": concept_id.replace("-", " "),
@@ -90,7 +98,7 @@ def _concept(
         "kind": "principle",
         "description": f"Description for {concept_id}.",
         "assertion_tier": "textual",
-        "book": 2,
+        "book": book_number,
         "sections": [1],
         "evidence": [
             {
@@ -288,3 +296,37 @@ def test_processed_export_succeeds_for_repository_approved_seed(tmp_path: Path) 
     assert len(approved_passages) == 45
     assert graphml.number_of_nodes() == 54
     assert graphml.number_of_edges() == 42
+
+
+def test_processed_export_succeeds_for_repository_book3_approved_seed(tmp_path: Path) -> None:
+    bundle = load_annotation_bundle(book=3)
+    passages = load_passage_authority(book=3)
+    validated = validate_annotation_bundle(bundle, passages, strict_approved=True)
+
+    paths = export_all(validated, book=3, output_dir=tmp_path)
+
+    graph = json.loads(paths.graph_path.read_text(encoding="utf-8"))
+    stats = json.loads(paths.stats_path.read_text(encoding="utf-8"))
+    graphml = nx.read_graphml(paths.graphml_path)
+    approved_passages = [
+        json.loads(line)
+        for line in paths.passages_path.read_text(encoding="utf-8").splitlines()
+        if line.strip()
+    ]
+
+    assert graph["meta"]["book"] == 3
+    assert graph["meta"]["mode"] == "strict_approved"
+    assert graph["meta"]["passage_authority"] == "data/interim/book3_passages.jsonl"
+    assert len(graph["nodes"]) == 19
+    assert len(graph["edges"]) == 16
+    assert len(graph["passages"]) == 65
+    assert stats["book"] == 3
+    assert stats["concept_count"] == 19
+    assert stats["relation_count"] == 16
+    assert stats["passage_count"] == 65
+    assert stats["concept_review_statuses"] == {"approved": 19}
+    assert stats["relation_review_statuses"] == {"approved": 16}
+    assert len(approved_passages) == 65
+    assert graphml.number_of_nodes() == 19
+    assert graphml.number_of_edges() == 16
+    assert graphml.graph["book"] == 3

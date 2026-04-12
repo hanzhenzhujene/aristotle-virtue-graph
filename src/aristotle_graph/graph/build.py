@@ -31,15 +31,25 @@ def _passage_attrs(passage: PassageRecord) -> dict[str, Any]:
     return passage.model_dump(mode="json")
 
 
+def _bundle_book_number(bundle: ValidatedAnnotationBundle) -> int:
+    if bundle.passages:
+        return bundle.passages[0].book_number
+    if bundle.concepts:
+        return bundle.concepts[0].book
+    msg = "Cannot infer book number from an empty validated annotation bundle"
+    raise ValueError(msg)
+
+
 def build_graph_payload(bundle: ValidatedAnnotationBundle) -> dict[str, Any]:
+    book_number = _bundle_book_number(bundle)
     return {
         "meta": {
-            "book": 2,
+            "book": book_number,
             "mode": bundle.mode,
             "concept_count": len(bundle.concepts),
             "relation_count": len(bundle.relations),
             "passage_count": len(bundle.passages),
-            "passage_authority": "data/interim/book2_passages.jsonl",
+            "passage_authority": f"data/interim/book{book_number}_passages.jsonl",
         },
         "nodes": [concept.model_dump(mode="json") for concept in bundle.concepts],
         "edges": [relation.model_dump(mode="json") for relation in bundle.relations],
@@ -48,8 +58,9 @@ def build_graph_payload(bundle: ValidatedAnnotationBundle) -> dict[str, Any]:
 
 
 def build_stats_payload(bundle: ValidatedAnnotationBundle) -> dict[str, Any]:
+    book_number = _bundle_book_number(bundle)
     return {
-        "book": 2,
+        "book": book_number,
         "mode": bundle.mode,
         "concept_count": len(bundle.concepts),
         "relation_count": len(bundle.relations),
@@ -78,7 +89,7 @@ def build_stats_payload(bundle: ValidatedAnnotationBundle) -> dict[str, Any]:
 
 
 def build_graphml_graph(bundle: ValidatedAnnotationBundle) -> nx.MultiDiGraph:
-    graph = nx.MultiDiGraph(book=2, mode=bundle.mode)
+    graph = nx.MultiDiGraph(book=_bundle_book_number(bundle), mode=bundle.mode)
 
     for concept in bundle.concepts:
         concept_payload = concept.model_dump(mode="json")

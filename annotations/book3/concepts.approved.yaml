@@ -1,0 +1,316 @@
+- id: voluntary-action
+  primary_label: the voluntary
+  source_labels:
+    - the voluntary
+  aliases:
+    - voluntary action
+  kind: action
+  description: The voluntary is what has its moving principle in the agent, with awareness of the particular circumstances.
+  assertion_tier: textual
+  book: 3
+  sections:
+    - 1
+  evidence:
+    - passage_id: ne.b3.s1.p10
+      support_type: direct
+      note: Aristotle defines the voluntary by the moving principle being in the agent together with awareness of the particulars.
+  review_status: approved
+- id: involuntary-action
+  primary_label: the involuntary
+  source_labels:
+    - the involuntary
+  aliases:
+    - involuntary action
+  kind: action
+  description: The involuntary covers actions done under compulsion or owing to the relevant kind of ignorance.
+  assertion_tier: textual
+  book: 3
+  sections:
+    - 1
+  evidence:
+    - passage_id: ne.b3.s1.p1
+      support_type: direct
+      note: Aristotle opens by saying the involuntary is what takes place under compulsion or owing to ignorance.
+  review_status: approved
+- id: compulsion
+  primary_label: compulsion
+  source_labels:
+    - under compulsion
+    - compulsory
+  kind: condition
+  description: Compulsion describes cases where the moving principle is outside the agent and he contributes nothing.
+  assertion_tier: editorial_normalization
+  book: 3
+  sections:
+    - 1
+  evidence:
+    - passage_id: ne.b3.s1.p1
+      support_type: direct
+      note: Aristotle defines the compulsory by an external moving principle to which the agent contributes nothing.
+  review_status: approved
+- id: ignorance
+  primary_label: ignorance
+  source_labels:
+    - ignorance
+  kind: condition
+  description: Ignorance of the particulars can make an action involuntary when the action later brings pain and repentance.
+  assertion_tier: textual
+  book: 3
+  sections:
+    - 1
+  evidence:
+    - passage_id: ne.b3.s1.p9
+      support_type: direct
+      note: Aristotle treats ignorance of the circumstances and end of the action as what grounds involuntary action.
+  review_status: approved
+- id: choice
+  primary_label: choice
+  source_labels:
+    - choice
+  kind: action
+  description: Choice is deliberate desire of what is in our power and shows character more precisely than bare action does.
+  assertion_tier: textual
+  book: 3
+  sections:
+    - 2
+    - 3
+  evidence:
+    - passage_id: ne.b3.s3.p4
+      support_type: direct
+      note: Aristotle defines choice as deliberate desire of things in our own power.
+  review_status: approved
+- id: deliberation
+  primary_label: deliberation
+  source_labels:
+    - deliberation
+  kind: process
+  description: Deliberation concerns what can be done by us and works through the means to an assumed end.
+  assertion_tier: textual
+  book: 3
+  sections:
+    - 3
+  evidence:
+    - passage_id: ne.b3.s3.p3
+      support_type: direct
+      note: Aristotle says deliberation is about means rather than ends and traces how an end is to be achieved.
+  review_status: approved
+- id: wish
+  primary_label: wish
+  source_labels:
+    - wish
+  kind: process
+  description: Wish is directed toward the end rather than the means that bring the end about.
+  assertion_tier: textual
+  book: 3
+  sections:
+    - 2
+    - 4
+  evidence:
+    - passage_id: ne.b3.s4.p1
+      support_type: direct
+      note: Aristotle explicitly says the end is what we wish for.
+  review_status: approved
+- id: means
+  primary_label: means
+  source_labels:
+    - means
+  kind: principle
+  description: Means are the doable steps through which an end is pursued and about which choice and deliberation are concerned.
+  assertion_tier: textual
+  book: 3
+  sections:
+    - 2
+    - 3
+    - 5
+  evidence:
+    - passage_id: ne.b3.s3.p3
+      support_type: direct
+      note: Aristotle says we deliberate not about ends but about means.
+  review_status: approved
+- id: end
+  primary_label: end
+  source_labels:
+    - the end
+  kind: principle
+  description: The end is what we wish for, while choice and deliberation address the means toward it.
+  assertion_tier: textual
+  book: 3
+  sections:
+    - 3
+    - 4
+    - 5
+  evidence:
+    - passage_id: ne.b3.s4.p1
+      support_type: direct
+      note: Aristotle says the end is what we wish for.
+  review_status: approved
+- id: appetite
+  primary_label: appetite
+  source_labels:
+    - appetite
+  kind: passion
+  description: Appetite is one of the candidates Aristotle rejects as identical with choice.
+  assertion_tier: textual
+  book: 3
+  sections:
+    - 2
+  evidence:
+    - passage_id: ne.b3.s2.p3
+      support_type: direct
+      note: Aristotle says appetite is not the same as choice and can conflict with it.
+  review_status: approved
+- id: opinion
+  primary_label: opinion
+  source_labels:
+    - opinion
+  kind: state
+  description: Opinion differs from choice because it is assessed by truth and falsity rather than by moral quality.
+  assertion_tier: textual
+  book: 3
+  sections:
+    - 2
+  evidence:
+    - passage_id: ne.b3.s2.p6
+      support_type: direct
+      note: Aristotle distinguishes opinion from choice by its different objects and standards.
+  review_status: approved
+- id: anger
+  primary_label: anger
+  source_labels:
+    - anger
+  kind: passion
+  description: Anger is another thing choice is not, since acts due to anger are not especially thought objects of choice.
+  assertion_tier: textual
+  book: 3
+  sections:
+    - 2
+  evidence:
+    - passage_id: ne.b3.s2.p4
+      support_type: direct
+      note: Aristotle says acts due to anger are thought less than any others objects of choice.
+  review_status: approved
+- id: courage
+  primary_label: courage
+  source_labels:
+    - courage
+  kind: virtue
+  description: Courage is the mean with respect to fear and confidence, especially where noble danger and death are at stake.
+  assertion_tier: textual
+  book: 3
+  sections:
+    - 6
+    - 7
+    - 8
+    - 9
+  evidence:
+    - passage_id: ne.b3.s7.p3
+      support_type: direct
+      note: Aristotle says courage is the mean with respect to things that inspire confidence or fear.
+  review_status: approved
+- id: rashness
+  primary_label: rashness
+  source_labels:
+    - rash
+    - rash man
+  aliases:
+    - rashness
+  kind: vice
+  description: Rashness is the excess in confidence that imitates courage without standing firm before what is truly terrible.
+  assertion_tier: editorial_normalization
+  book: 3
+  sections:
+    - 7
+  evidence:
+    - passage_id: ne.b3.s7.p2
+      support_type: direct
+      note: Aristotle names the excessive type rash and says he is a pretender to courage.
+  review_status: approved
+- id: cowardice
+  primary_label: cowardice
+  source_labels:
+    - coward
+  aliases:
+    - cowardice
+  kind: vice
+  description: Cowardice is the excess of fear and lack of confidence opposed to courage.
+  assertion_tier: editorial_normalization
+  book: 3
+  sections:
+    - 7
+    - 12
+  evidence:
+    - passage_id: ne.b3.s7.p2
+      support_type: direct
+      note: Aristotle describes the coward as exceeding in fear and lacking confidence.
+  review_status: approved
+- id: fear-and-confidence
+  primary_label: fear and confidence
+  source_labels:
+    - fear and confidence
+    - things that inspire confidence or fear
+  kind: domain
+  description: Fear and confidence are the sphere in which Aristotle distinguishes courage, rashness, and cowardice.
+  assertion_tier: textual
+  book: 3
+  sections:
+    - 6
+    - 7
+    - 9
+  evidence:
+    - passage_id: ne.b3.s7.p3
+      support_type: direct
+      note: Aristotle says courage is a mean with respect to what inspires confidence or fear.
+  review_status: approved
+- id: temperance
+  primary_label: temperance
+  source_labels:
+    - temperance
+  kind: virtue
+  description: Temperance is the mean with respect to bodily pleasures and the appetites attached to them.
+  assertion_tier: textual
+  book: 3
+  sections:
+    - 10
+    - 11
+    - 12
+  evidence:
+    - passage_id: ne.b3.s10.p1
+      support_type: direct
+      note: Aristotle introduces temperance as the mean with regard to pleasures.
+  review_status: approved
+- id: self-indulgence
+  primary_label: self-indulgence
+  source_labels:
+    - self-indulgence
+    - self-indulgent
+  kind: vice
+  description: Self-indulgence is the culpable excess with respect to bodily pleasures.
+  assertion_tier: textual
+  book: 3
+  sections:
+    - 10
+    - 11
+    - 12
+  evidence:
+    - passage_id: ne.b3.s11.p2
+      support_type: direct
+      note: Aristotle says excess with regard to pleasures is self-indulgence and is culpable.
+  review_status: approved
+- id: bodily-pleasures-and-pains
+  primary_label: bodily pleasures
+  source_labels:
+    - bodily pleasures
+  aliases:
+    - bodily pleasures and pains
+  kind: domain
+  description: Book III narrows temperance and self-indulgence to bodily pleasures, especially those of touch.
+  assertion_tier: editorial_normalization
+  book: 3
+  sections:
+    - 10
+    - 11
+  evidence:
+    - passage_id: ne.b3.s10.p2
+      support_type: direct
+      note: Aristotle says temperance must be concerned with bodily pleasures.
+  review_status: approved

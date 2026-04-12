@@ -36,11 +36,23 @@ RelationType = Literal[
 
 _CONCEPT_ID_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 _RELATION_ID_RE = re.compile(r"^[a-z0-9][a-z0-9_-]*(?:--[a-z0-9][a-z0-9_-]*){2}$")
-_PASSAGE_ID_RE = re.compile(r"^ne\.b2\.s([1-9])\.p([1-9][0-9]*)$")
+_PASSAGE_ID_RE = re.compile(r"^ne\.b([1-9][0-9]*)\.s([1-9][0-9]*)\.p([1-9][0-9]*)$")
+_BOOK_SECTION_LIMITS = {
+    2: 9,
+    3: 12,
+}
 
 
 def make_relation_id(source_id: str, relation_type: RelationType, target_id: str) -> str:
     return f"{source_id}--{relation_type.replace('_', '-')}--{target_id}"
+
+
+def passage_book_number(passage_id: str) -> int:
+    match = _PASSAGE_ID_RE.fullmatch(passage_id)
+    if match is None:
+        msg = f"Unsupported passage_id format: {passage_id}"
+        raise ValueError(msg)
+    return int(match.group(1))
 
 
 def passage_section_number(passage_id: str) -> int:
@@ -48,7 +60,7 @@ def passage_section_number(passage_id: str) -> int:
     if match is None:
         msg = f"Unsupported passage_id format: {passage_id}"
         raise ValueError(msg)
-    return int(match.group(1))
+    return int(match.group(2))
 
 
 def _validate_non_empty_strings(values: list[str], *, field_name: str) -> list[str]:
@@ -74,7 +86,7 @@ class EvidenceRecord(BaseModel):
     @classmethod
     def validate_passage_id(cls, value: str) -> str:
         if _PASSAGE_ID_RE.fullmatch(value) is None:
-            msg = "passage_id must match the Book II passage export id format"
+            msg = "passage_id must match the stable passage export id format"
             raise ValueError(msg)
         return value
 
@@ -109,7 +121,7 @@ class ConceptAnnotation(BaseModel):
     kind: ConceptKind
     description: str = Field(min_length=1, max_length=240)
     assertion_tier: AssertionTier
-    book: Literal[2]
+    book: int
     sections: list[int] = Field(min_length=1)
     evidence: list[EvidenceRecord] = Field(min_length=1)
     review_status: ReviewStatus
@@ -140,22 +152,31 @@ class ConceptAnnotation(BaseModel):
         field_name = getattr(info, "field_name", "labels")
         return _validate_non_empty_strings(value, field_name=field_name)
 
-    @field_validator("sections")
+    @field_validator("book")
     @classmethod
-    def validate_sections(cls, value: list[int]) -> list[int]:
-        if any(section < 1 or section > 9 for section in value):
-            msg = "sections must stay within Book II sections 1-9"
-            raise ValueError(msg)
-        if value != sorted(value):
-            msg = "sections must be sorted"
-            raise ValueError(msg)
-        if len(set(value)) != len(value):
-            msg = "sections must not contain duplicates"
+    def validate_book(cls, value: int) -> int:
+        if value not in _BOOK_SECTION_LIMITS:
+            msg = f"book must be one of {sorted(_BOOK_SECTION_LIMITS)}"
             raise ValueError(msg)
         return value
 
     @model_validator(mode="after")
     def validate_evidence_sections(self) -> ConceptAnnotation:
+        if self.sections != sorted(self.sections):
+            msg = "sections must be sorted"
+            raise ValueError(msg)
+        if len(set(self.sections)) != len(self.sections):
+            msg = "sections must not contain duplicates"
+            raise ValueError(msg)
+        max_section = _BOOK_SECTION_LIMITS[self.book]
+        if any(section < 1 or section > max_section for section in self.sections):
+            msg = f"sections must stay within Book {self.book} sections 1-{max_section}"
+            raise ValueError(msg)
+
+        evidence_books = {passage_book_number(item.passage_id) for item in self.evidence}
+        if evidence_books != {self.book}:
+            msg = "all evidence passage ids must belong to the same book as the concept"
+            raise ValueError(msg)
         evidence_sections = {passage_section_number(item.passage_id) for item in self.evidence}
         if not evidence_sections.issubset(set(self.sections)):
             msg = "all evidence passage sections must be listed in sections"

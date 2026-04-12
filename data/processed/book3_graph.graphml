@@ -1,0 +1,620 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd"><key id="d30" for="edge" attr.name="evidence_support_types_json" attr.type="string"/>
+<key id="d29" for="edge" attr.name="evidence_notes_json" attr.type="string"/>
+<key id="d28" for="edge" attr.name="evidence_passage_ids_json" attr.type="string"/>
+<key id="d27" for="edge" attr.name="evidence_count" attr.type="long"/>
+<key id="d26" for="edge" attr.name="notes" attr.type="string"/>
+<key id="d25" for="edge" attr.name="review_status" attr.type="string"/>
+<key id="d24" for="edge" attr.name="evidence" attr.type="string"/>
+<key id="d23" for="edge" attr.name="assertion_tier" attr.type="string"/>
+<key id="d22" for="edge" attr.name="target_id" attr.type="string"/>
+<key id="d21" for="edge" attr.name="relation_type" attr.type="string"/>
+<key id="d20" for="edge" attr.name="source_id" attr.type="string"/>
+<key id="d19" for="edge" attr.name="id" attr.type="string"/>
+<key id="d18" for="node" attr.name="evidence_support_types_json" attr.type="string"/>
+<key id="d17" for="node" attr.name="evidence_notes_json" attr.type="string"/>
+<key id="d16" for="node" attr.name="evidence_passage_ids_json" attr.type="string"/>
+<key id="d15" for="node" attr.name="evidence_count" attr.type="long"/>
+<key id="d14" for="node" attr.name="label" attr.type="string"/>
+<key id="d13" for="node" attr.name="notes" attr.type="string"/>
+<key id="d12" for="node" attr.name="review_status" attr.type="string"/>
+<key id="d11" for="node" attr.name="evidence" attr.type="string"/>
+<key id="d10" for="node" attr.name="sections" attr.type="string"/>
+<key id="d9" for="node" attr.name="book" attr.type="long"/>
+<key id="d8" for="node" attr.name="assertion_tier" attr.type="string"/>
+<key id="d7" for="node" attr.name="description" attr.type="string"/>
+<key id="d6" for="node" attr.name="kind" attr.type="string"/>
+<key id="d5" for="node" attr.name="aliases" attr.type="string"/>
+<key id="d4" for="node" attr.name="source_labels" attr.type="string"/>
+<key id="d3" for="node" attr.name="primary_label" attr.type="string"/>
+<key id="d2" for="node" attr.name="id" attr.type="string"/>
+<key id="d1" for="graph" attr.name="mode" attr.type="string"/>
+<key id="d0" for="graph" attr.name="book" attr.type="long"/>
+<graph edgedefault="directed"><data key="d0">3</data>
+<data key="d1">strict_approved</data>
+<node id="anger">
+  <data key="d2">anger</data>
+  <data key="d3">anger</data>
+  <data key="d4">["anger"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">passion</data>
+  <data key="d7">Anger is another thing choice is not, since acts due to anger are not especially thought objects of choice.</data>
+  <data key="d8">textual</data>
+  <data key="d9">3</data>
+  <data key="d10">[2]</data>
+  <data key="d11">[{"note": "Aristotle says acts due to anger are thought less than any others objects of choice.", "passage_id": "ne.b3.s2.p4", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">anger</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b3.s2.p4"]</data>
+  <data key="d17">["Aristotle says acts due to anger are thought less than any others objects of choice."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="appetite">
+  <data key="d2">appetite</data>
+  <data key="d3">appetite</data>
+  <data key="d4">["appetite"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">passion</data>
+  <data key="d7">Appetite is one of the candidates Aristotle rejects as identical with choice.</data>
+  <data key="d8">textual</data>
+  <data key="d9">3</data>
+  <data key="d10">[2]</data>
+  <data key="d11">[{"note": "Aristotle says appetite is not the same as choice and can conflict with it.", "passage_id": "ne.b3.s2.p3", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">appetite</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b3.s2.p3"]</data>
+  <data key="d17">["Aristotle says appetite is not the same as choice and can conflict with it."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="bodily-pleasures-and-pains">
+  <data key="d2">bodily-pleasures-and-pains</data>
+  <data key="d3">bodily pleasures</data>
+  <data key="d4">["bodily pleasures"]</data>
+  <data key="d5">["bodily pleasures and pains"]</data>
+  <data key="d6">domain</data>
+  <data key="d7">Book III narrows temperance and self-indulgence to bodily pleasures, especially those of touch.</data>
+  <data key="d8">editorial_normalization</data>
+  <data key="d9">3</data>
+  <data key="d10">[10, 11]</data>
+  <data key="d11">[{"note": "Aristotle says temperance must be concerned with bodily pleasures.", "passage_id": "ne.b3.s10.p2", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">bodily pleasures</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b3.s10.p2"]</data>
+  <data key="d17">["Aristotle says temperance must be concerned with bodily pleasures."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="choice">
+  <data key="d2">choice</data>
+  <data key="d3">choice</data>
+  <data key="d4">["choice"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">action</data>
+  <data key="d7">Choice is deliberate desire of what is in our power and shows character more precisely than bare action does.</data>
+  <data key="d8">textual</data>
+  <data key="d9">3</data>
+  <data key="d10">[2, 3]</data>
+  <data key="d11">[{"note": "Aristotle defines choice as deliberate desire of things in our own power.", "passage_id": "ne.b3.s3.p4", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">choice</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b3.s3.p4"]</data>
+  <data key="d17">["Aristotle defines choice as deliberate desire of things in our own power."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="compulsion">
+  <data key="d2">compulsion</data>
+  <data key="d3">compulsion</data>
+  <data key="d4">["under compulsion", "compulsory"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">condition</data>
+  <data key="d7">Compulsion describes cases where the moving principle is outside the agent and he contributes nothing.</data>
+  <data key="d8">editorial_normalization</data>
+  <data key="d9">3</data>
+  <data key="d10">[1]</data>
+  <data key="d11">[{"note": "Aristotle defines the compulsory by an external moving principle to which the agent contributes nothing.", "passage_id": "ne.b3.s1.p1", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">compulsion</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b3.s1.p1"]</data>
+  <data key="d17">["Aristotle defines the compulsory by an external moving principle to which the agent contributes nothing."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="courage">
+  <data key="d2">courage</data>
+  <data key="d3">courage</data>
+  <data key="d4">["courage"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">virtue</data>
+  <data key="d7">Courage is the mean with respect to fear and confidence, especially where noble danger and death are at stake.</data>
+  <data key="d8">textual</data>
+  <data key="d9">3</data>
+  <data key="d10">[6, 7, 8, 9]</data>
+  <data key="d11">[{"note": "Aristotle says courage is the mean with respect to things that inspire confidence or fear.", "passage_id": "ne.b3.s7.p3", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">courage</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b3.s7.p3"]</data>
+  <data key="d17">["Aristotle says courage is the mean with respect to things that inspire confidence or fear."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="cowardice">
+  <data key="d2">cowardice</data>
+  <data key="d3">cowardice</data>
+  <data key="d4">["coward"]</data>
+  <data key="d5">["cowardice"]</data>
+  <data key="d6">vice</data>
+  <data key="d7">Cowardice is the excess of fear and lack of confidence opposed to courage.</data>
+  <data key="d8">editorial_normalization</data>
+  <data key="d9">3</data>
+  <data key="d10">[7, 12]</data>
+  <data key="d11">[{"note": "Aristotle describes the coward as exceeding in fear and lacking confidence.", "passage_id": "ne.b3.s7.p2", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">cowardice</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b3.s7.p2"]</data>
+  <data key="d17">["Aristotle describes the coward as exceeding in fear and lacking confidence."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="deliberation">
+  <data key="d2">deliberation</data>
+  <data key="d3">deliberation</data>
+  <data key="d4">["deliberation"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">process</data>
+  <data key="d7">Deliberation concerns what can be done by us and works through the means to an assumed end.</data>
+  <data key="d8">textual</data>
+  <data key="d9">3</data>
+  <data key="d10">[3]</data>
+  <data key="d11">[{"note": "Aristotle says deliberation is about means rather than ends and traces how an end is to be achieved.", "passage_id": "ne.b3.s3.p3", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">deliberation</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b3.s3.p3"]</data>
+  <data key="d17">["Aristotle says deliberation is about means rather than ends and traces how an end is to be achieved."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="end">
+  <data key="d2">end</data>
+  <data key="d3">end</data>
+  <data key="d4">["the end"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">principle</data>
+  <data key="d7">The end is what we wish for, while choice and deliberation address the means toward it.</data>
+  <data key="d8">textual</data>
+  <data key="d9">3</data>
+  <data key="d10">[3, 4, 5]</data>
+  <data key="d11">[{"note": "Aristotle says the end is what we wish for.", "passage_id": "ne.b3.s4.p1", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">end</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b3.s4.p1"]</data>
+  <data key="d17">["Aristotle says the end is what we wish for."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="fear-and-confidence">
+  <data key="d2">fear-and-confidence</data>
+  <data key="d3">fear and confidence</data>
+  <data key="d4">["fear and confidence", "things that inspire confidence or fear"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">domain</data>
+  <data key="d7">Fear and confidence are the sphere in which Aristotle distinguishes courage, rashness, and cowardice.</data>
+  <data key="d8">textual</data>
+  <data key="d9">3</data>
+  <data key="d10">[6, 7, 9]</data>
+  <data key="d11">[{"note": "Aristotle says courage is a mean with respect to what inspires confidence or fear.", "passage_id": "ne.b3.s7.p3", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">fear and confidence</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b3.s7.p3"]</data>
+  <data key="d17">["Aristotle says courage is a mean with respect to what inspires confidence or fear."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="ignorance">
+  <data key="d2">ignorance</data>
+  <data key="d3">ignorance</data>
+  <data key="d4">["ignorance"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">condition</data>
+  <data key="d7">Ignorance of the particulars can make an action involuntary when the action later brings pain and repentance.</data>
+  <data key="d8">textual</data>
+  <data key="d9">3</data>
+  <data key="d10">[1]</data>
+  <data key="d11">[{"note": "Aristotle treats ignorance of the circumstances and end of the action as what grounds involuntary action.", "passage_id": "ne.b3.s1.p9", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">ignorance</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b3.s1.p9"]</data>
+  <data key="d17">["Aristotle treats ignorance of the circumstances and end of the action as what grounds involuntary action."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="involuntary-action">
+  <data key="d2">involuntary-action</data>
+  <data key="d3">the involuntary</data>
+  <data key="d4">["the involuntary"]</data>
+  <data key="d5">["involuntary action"]</data>
+  <data key="d6">action</data>
+  <data key="d7">The involuntary covers actions done under compulsion or owing to the relevant kind of ignorance.</data>
+  <data key="d8">textual</data>
+  <data key="d9">3</data>
+  <data key="d10">[1]</data>
+  <data key="d11">[{"note": "Aristotle opens by saying the involuntary is what takes place under compulsion or owing to ignorance.", "passage_id": "ne.b3.s1.p1", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">the involuntary</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b3.s1.p1"]</data>
+  <data key="d17">["Aristotle opens by saying the involuntary is what takes place under compulsion or owing to ignorance."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="means">
+  <data key="d2">means</data>
+  <data key="d3">means</data>
+  <data key="d4">["means"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">principle</data>
+  <data key="d7">Means are the doable steps through which an end is pursued and about which choice and deliberation are concerned.</data>
+  <data key="d8">textual</data>
+  <data key="d9">3</data>
+  <data key="d10">[2, 3, 5]</data>
+  <data key="d11">[{"note": "Aristotle says we deliberate not about ends but about means.", "passage_id": "ne.b3.s3.p3", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">means</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b3.s3.p3"]</data>
+  <data key="d17">["Aristotle says we deliberate not about ends but about means."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="opinion">
+  <data key="d2">opinion</data>
+  <data key="d3">opinion</data>
+  <data key="d4">["opinion"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">state</data>
+  <data key="d7">Opinion differs from choice because it is assessed by truth and falsity rather than by moral quality.</data>
+  <data key="d8">textual</data>
+  <data key="d9">3</data>
+  <data key="d10">[2]</data>
+  <data key="d11">[{"note": "Aristotle distinguishes opinion from choice by its different objects and standards.", "passage_id": "ne.b3.s2.p6", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">opinion</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b3.s2.p6"]</data>
+  <data key="d17">["Aristotle distinguishes opinion from choice by its different objects and standards."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="rashness">
+  <data key="d2">rashness</data>
+  <data key="d3">rashness</data>
+  <data key="d4">["rash", "rash man"]</data>
+  <data key="d5">["rashness"]</data>
+  <data key="d6">vice</data>
+  <data key="d7">Rashness is the excess in confidence that imitates courage without standing firm before what is truly terrible.</data>
+  <data key="d8">editorial_normalization</data>
+  <data key="d9">3</data>
+  <data key="d10">[7]</data>
+  <data key="d11">[{"note": "Aristotle names the excessive type rash and says he is a pretender to courage.", "passage_id": "ne.b3.s7.p2", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">rashness</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b3.s7.p2"]</data>
+  <data key="d17">["Aristotle names the excessive type rash and says he is a pretender to courage."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="self-indulgence">
+  <data key="d2">self-indulgence</data>
+  <data key="d3">self-indulgence</data>
+  <data key="d4">["self-indulgence", "self-indulgent"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">vice</data>
+  <data key="d7">Self-indulgence is the culpable excess with respect to bodily pleasures.</data>
+  <data key="d8">textual</data>
+  <data key="d9">3</data>
+  <data key="d10">[10, 11, 12]</data>
+  <data key="d11">[{"note": "Aristotle says excess with regard to pleasures is self-indulgence and is culpable.", "passage_id": "ne.b3.s11.p2", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">self-indulgence</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b3.s11.p2"]</data>
+  <data key="d17">["Aristotle says excess with regard to pleasures is self-indulgence and is culpable."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="temperance">
+  <data key="d2">temperance</data>
+  <data key="d3">temperance</data>
+  <data key="d4">["temperance"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">virtue</data>
+  <data key="d7">Temperance is the mean with respect to bodily pleasures and the appetites attached to them.</data>
+  <data key="d8">textual</data>
+  <data key="d9">3</data>
+  <data key="d10">[10, 11, 12]</data>
+  <data key="d11">[{"note": "Aristotle introduces temperance as the mean with regard to pleasures.", "passage_id": "ne.b3.s10.p1", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">temperance</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b3.s10.p1"]</data>
+  <data key="d17">["Aristotle introduces temperance as the mean with regard to pleasures."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="voluntary-action">
+  <data key="d2">voluntary-action</data>
+  <data key="d3">the voluntary</data>
+  <data key="d4">["the voluntary"]</data>
+  <data key="d5">["voluntary action"]</data>
+  <data key="d6">action</data>
+  <data key="d7">The voluntary is what has its moving principle in the agent, with awareness of the particular circumstances.</data>
+  <data key="d8">textual</data>
+  <data key="d9">3</data>
+  <data key="d10">[1]</data>
+  <data key="d11">[{"note": "Aristotle defines the voluntary by the moving principle being in the agent together with awareness of the particulars.", "passage_id": "ne.b3.s1.p10", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">the voluntary</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b3.s1.p10"]</data>
+  <data key="d17">["Aristotle defines the voluntary by the moving principle being in the agent together with awareness of the particulars."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="wish">
+  <data key="d2">wish</data>
+  <data key="d3">wish</data>
+  <data key="d4">["wish"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">process</data>
+  <data key="d7">Wish is directed toward the end rather than the means that bring the end about.</data>
+  <data key="d8">textual</data>
+  <data key="d9">3</data>
+  <data key="d10">[2, 4]</data>
+  <data key="d11">[{"note": "Aristotle explicitly says the end is what we wish for.", "passage_id": "ne.b3.s4.p1", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">wish</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b3.s4.p1"]</data>
+  <data key="d17">["Aristotle explicitly says the end is what we wish for."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<edge source="choice" target="means" id="choice--concerns--means">
+  <data key="d19">choice--concerns--means</data>
+  <data key="d20">choice</data>
+  <data key="d21">concerns</data>
+  <data key="d22">means</data>
+  <data key="d23">textual</data>
+  <data key="d24">[{"note": "Aristotle says wish is for the end but choice for the acts that will bring it about.", "passage_id": "ne.b3.s2.p5", "quote_excerpt": null, "support_type": "direct"}, {"note": "Aristotle concludes that choice is concerned with means.", "passage_id": "ne.b3.s3.p5", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">2</data>
+  <data key="d28">["ne.b3.s2.p5", "ne.b3.s3.p5"]</data>
+  <data key="d29">["Aristotle says wish is for the end but choice for the acts that will bring it about.", "Aristotle concludes that choice is concerned with means."]</data>
+  <data key="d30">["direct", "direct"]</data>
+</edge>
+<edge source="choice" target="anger" id="choice--contrasted-with--anger">
+  <data key="d19">choice--contrasted-with--anger</data>
+  <data key="d20">choice</data>
+  <data key="d21">contrasted_with</data>
+  <data key="d22">anger</data>
+  <data key="d23">textual</data>
+  <data key="d24">[{"note": "Aristotle says acts due to anger are especially not counted as objects of choice.", "passage_id": "ne.b3.s2.p4", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b3.s2.p4"]</data>
+  <data key="d29">["Aristotle says acts due to anger are especially not counted as objects of choice."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
+<edge source="choice" target="appetite" id="choice--contrasted-with--appetite">
+  <data key="d19">choice--contrasted-with--appetite</data>
+  <data key="d20">choice</data>
+  <data key="d21">contrasted_with</data>
+  <data key="d22">appetite</data>
+  <data key="d23">textual</data>
+  <data key="d24">[{"note": "Aristotle rejects appetite as identical with choice and notes that the incontinent man acts with appetite but not choice.", "passage_id": "ne.b3.s2.p3", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b3.s2.p3"]</data>
+  <data key="d29">["Aristotle rejects appetite as identical with choice and notes that the incontinent man acts with appetite but not choice."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
+<edge source="choice" target="opinion" id="choice--contrasted-with--opinion">
+  <data key="d19">choice--contrasted-with--opinion</data>
+  <data key="d20">choice</data>
+  <data key="d21">contrasted_with</data>
+  <data key="d22">opinion</data>
+  <data key="d23">textual</data>
+  <data key="d24">[{"note": "Aristotle distinguishes opinion from choice by its different objects and standards.", "passage_id": "ne.b3.s2.p6", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b3.s2.p6"]</data>
+  <data key="d29">["Aristotle distinguishes opinion from choice by its different objects and standards."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
+<edge source="choice" target="wish" id="choice--contrasted-with--wish">
+  <data key="d19">choice--contrasted-with--wish</data>
+  <data key="d20">choice</data>
+  <data key="d21">contrasted_with</data>
+  <data key="d22">wish</data>
+  <data key="d23">textual</data>
+  <data key="d24">[{"note": "Aristotle says choice is not wish because wish can concern impossibles and ends, while choice does not.", "passage_id": "ne.b3.s2.p5", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b3.s2.p5"]</data>
+  <data key="d29">["Aristotle says choice is not wish because wish can concern impossibles and ends, while choice does not."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
+<edge source="choice" target="deliberation" id="choice--formed-by--deliberation">
+  <data key="d19">choice--formed-by--deliberation</data>
+  <data key="d20">choice</data>
+  <data key="d21">formed_by</data>
+  <data key="d22">deliberation</data>
+  <data key="d23">textual</data>
+  <data key="d24">[{"note": "Aristotle describes choice as what has been decided on by previous deliberation.", "passage_id": "ne.b3.s2.p8", "quote_excerpt": null, "support_type": "direct"}, {"note": "Aristotle says the object of choice is what has been decided upon as a result of deliberation.", "passage_id": "ne.b3.s3.p4", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">2</data>
+  <data key="d28">["ne.b3.s2.p8", "ne.b3.s3.p4"]</data>
+  <data key="d29">["Aristotle describes choice as what has been decided on by previous deliberation.", "Aristotle says the object of choice is what has been decided upon as a result of deliberation."]</data>
+  <data key="d30">["direct", "direct"]</data>
+</edge>
+<edge source="courage" target="fear-and-confidence" id="courage--concerns--fear-and-confidence">
+  <data key="d19">courage--concerns--fear-and-confidence</data>
+  <data key="d20">courage</data>
+  <data key="d21">concerns</data>
+  <data key="d22">fear-and-confidence</data>
+  <data key="d23">textual</data>
+  <data key="d24">[{"note": "Aristotle says courage is a mean with respect to things that inspire confidence or fear.", "passage_id": "ne.b3.s7.p3", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b3.s7.p3"]</data>
+  <data key="d29">["Aristotle says courage is a mean with respect to things that inspire confidence or fear."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
+<edge source="courage" target="cowardice" id="courage--has-deficiency--cowardice">
+  <data key="d19">courage--has-deficiency--cowardice</data>
+  <data key="d20">courage</data>
+  <data key="d21">has_deficiency</data>
+  <data key="d22">cowardice</data>
+  <data key="d23">editorial_normalization</data>
+  <data key="d24">[{"note": "Aristotle describes the coward as the one who exceeds in fear and lacks confidence.", "passage_id": "ne.b3.s7.p2", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b3.s7.p2"]</data>
+  <data key="d29">["Aristotle describes the coward as the one who exceeds in fear and lacks confidence."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
+<edge source="courage" target="rashness" id="courage--has-excess--rashness">
+  <data key="d19">courage--has-excess--rashness</data>
+  <data key="d20">courage</data>
+  <data key="d21">has_excess</data>
+  <data key="d22">rashness</data>
+  <data key="d23">textual</data>
+  <data key="d24">[{"note": "Aristotle names the excessive type with respect to confidence as rash.", "passage_id": "ne.b3.s7.p2", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b3.s7.p2"]</data>
+  <data key="d29">["Aristotle names the excessive type with respect to confidence as rash."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
+<edge source="deliberation" target="means" id="deliberation--concerns--means">
+  <data key="d19">deliberation--concerns--means</data>
+  <data key="d20">deliberation</data>
+  <data key="d21">concerns</data>
+  <data key="d22">means</data>
+  <data key="d23">textual</data>
+  <data key="d24">[{"note": "Aristotle says we deliberate not about ends but about means.", "passage_id": "ne.b3.s3.p3", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b3.s3.p3"]</data>
+  <data key="d29">["Aristotle says we deliberate not about ends but about means."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
+<edge source="involuntary-action" target="compulsion" id="involuntary-action--determined-by--compulsion">
+  <data key="d19">involuntary-action--determined-by--compulsion</data>
+  <data key="d20">involuntary-action</data>
+  <data key="d21">determined_by</data>
+  <data key="d22">compulsion</data>
+  <data key="d23">editorial_normalization</data>
+  <data key="d24">[{"note": "Aristotle says the involuntary includes what takes place under compulsion.", "passage_id": "ne.b3.s1.p1", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b3.s1.p1"]</data>
+  <data key="d29">["Aristotle says the involuntary includes what takes place under compulsion."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
+<edge source="involuntary-action" target="ignorance" id="involuntary-action--determined-by--ignorance">
+  <data key="d19">involuntary-action--determined-by--ignorance</data>
+  <data key="d20">involuntary-action</data>
+  <data key="d21">determined_by</data>
+  <data key="d22">ignorance</data>
+  <data key="d23">editorial_normalization</data>
+  <data key="d24">[{"note": "Aristotle says the involuntary also includes what takes place owing to ignorance.", "passage_id": "ne.b3.s1.p1", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b3.s1.p1"]</data>
+  <data key="d29">["Aristotle says the involuntary also includes what takes place owing to ignorance."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
+<edge source="temperance" target="bodily-pleasures-and-pains" id="temperance--concerns--bodily-pleasures-and-pains">
+  <data key="d19">temperance--concerns--bodily-pleasures-and-pains</data>
+  <data key="d20">temperance</data>
+  <data key="d21">concerns</data>
+  <data key="d22">bodily-pleasures-and-pains</data>
+  <data key="d23">editorial_normalization</data>
+  <data key="d24">[{"note": "Aristotle says temperance must be concerned with bodily pleasures.", "passage_id": "ne.b3.s10.p2", "quote_excerpt": null, "support_type": "direct"}, {"note": "Aristotle continues to contrast temperance and self-indulgence by the pleasure-pain pattern attached to bodily appetite.", "passage_id": "ne.b3.s11.p2", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">2</data>
+  <data key="d28">["ne.b3.s10.p2", "ne.b3.s11.p2"]</data>
+  <data key="d29">["Aristotle says temperance must be concerned with bodily pleasures.", "Aristotle continues to contrast temperance and self-indulgence by the pleasure-pain pattern attached to bodily appetite."]</data>
+  <data key="d30">["direct", "direct"]</data>
+</edge>
+<edge source="temperance" target="self-indulgence" id="temperance--has-excess--self-indulgence">
+  <data key="d19">temperance--has-excess--self-indulgence</data>
+  <data key="d20">temperance</data>
+  <data key="d21">has_excess</data>
+  <data key="d22">self-indulgence</data>
+  <data key="d23">textual</data>
+  <data key="d24">[{"note": "Aristotle introduces self-indulgence beside temperance in the same sphere.", "passage_id": "ne.b3.s10.p1", "quote_excerpt": null, "support_type": "direct"}, {"note": "Aristotle says excess with regard to pleasures is self-indulgence.", "passage_id": "ne.b3.s11.p2", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">2</data>
+  <data key="d28">["ne.b3.s10.p1", "ne.b3.s11.p2"]</data>
+  <data key="d29">["Aristotle introduces self-indulgence beside temperance in the same sphere.", "Aristotle says excess with regard to pleasures is self-indulgence."]</data>
+  <data key="d30">["direct", "direct"]</data>
+</edge>
+<edge source="voluntary-action" target="involuntary-action" id="voluntary-action--contrasted-with--involuntary-action">
+  <data key="d19">voluntary-action--contrasted-with--involuntary-action</data>
+  <data key="d20">voluntary-action</data>
+  <data key="d21">contrasted_with</data>
+  <data key="d22">involuntary-action</data>
+  <data key="d23">textual</data>
+  <data key="d24">[{"note": "Aristotle opens by distinguishing the voluntary from the involuntary.", "passage_id": "ne.b3.s1.p1", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b3.s1.p1"]</data>
+  <data key="d29">["Aristotle opens by distinguishing the voluntary from the involuntary."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
+<edge source="wish" target="end" id="wish--concerns--end">
+  <data key="d19">wish--concerns--end</data>
+  <data key="d20">wish</data>
+  <data key="d21">concerns</data>
+  <data key="d22">end</data>
+  <data key="d23">textual</data>
+  <data key="d24">[{"note": "Aristotle says the end is what we wish for.", "passage_id": "ne.b3.s4.p1", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b3.s4.p1"]</data>
+  <data key="d29">["Aristotle says the end is what we wish for."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
+</graph></graphml>

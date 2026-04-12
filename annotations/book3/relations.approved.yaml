@@ -1,0 +1,172 @@
+- id: voluntary-action--contrasted-with--involuntary-action
+  source_id: voluntary-action
+  relation_type: contrasted_with
+  target_id: involuntary-action
+  assertion_tier: textual
+  evidence:
+    - passage_id: ne.b3.s1.p1
+      support_type: direct
+      note: Aristotle opens by distinguishing the voluntary from the involuntary.
+  review_status: approved
+- id: involuntary-action--determined-by--compulsion
+  source_id: involuntary-action
+  relation_type: determined_by
+  target_id: compulsion
+  assertion_tier: editorial_normalization
+  evidence:
+    - passage_id: ne.b3.s1.p1
+      support_type: direct
+      note: Aristotle says the involuntary includes what takes place under compulsion.
+  review_status: approved
+- id: involuntary-action--determined-by--ignorance
+  source_id: involuntary-action
+  relation_type: determined_by
+  target_id: ignorance
+  assertion_tier: editorial_normalization
+  evidence:
+    - passage_id: ne.b3.s1.p1
+      support_type: direct
+      note: Aristotle says the involuntary also includes what takes place owing to ignorance.
+  review_status: approved
+- id: choice--formed-by--deliberation
+  source_id: choice
+  relation_type: formed_by
+  target_id: deliberation
+  assertion_tier: textual
+  evidence:
+    - passage_id: ne.b3.s2.p8
+      support_type: direct
+      note: Aristotle describes choice as what has been decided on by previous deliberation.
+    - passage_id: ne.b3.s3.p4
+      support_type: direct
+      note: Aristotle says the object of choice is what has been decided upon as a result of deliberation.
+  review_status: approved
+- id: choice--contrasted-with--wish
+  source_id: choice
+  relation_type: contrasted_with
+  target_id: wish
+  assertion_tier: textual
+  evidence:
+    - passage_id: ne.b3.s2.p5
+      support_type: direct
+      note: Aristotle says choice is not wish because wish can concern impossibles and ends, while choice does not.
+  review_status: approved
+- id: choice--contrasted-with--opinion
+  source_id: choice
+  relation_type: contrasted_with
+  target_id: opinion
+  assertion_tier: textual
+  evidence:
+    - passage_id: ne.b3.s2.p6
+      support_type: direct
+      note: Aristotle distinguishes opinion from choice by its different objects and standards.
+  review_status: approved
+- id: choice--contrasted-with--appetite
+  source_id: choice
+  relation_type: contrasted_with
+  target_id: appetite
+  assertion_tier: textual
+  evidence:
+    - passage_id: ne.b3.s2.p3
+      support_type: direct
+      note: Aristotle rejects appetite as identical with choice and notes that the incontinent man acts with appetite but not choice.
+  review_status: approved
+- id: choice--contrasted-with--anger
+  source_id: choice
+  relation_type: contrasted_with
+  target_id: anger
+  assertion_tier: textual
+  evidence:
+    - passage_id: ne.b3.s2.p4
+      support_type: direct
+      note: Aristotle says acts due to anger are especially not counted as objects of choice.
+  review_status: approved
+- id: choice--concerns--means
+  source_id: choice
+  relation_type: concerns
+  target_id: means
+  assertion_tier: textual
+  evidence:
+    - passage_id: ne.b3.s2.p5
+      support_type: direct
+      note: Aristotle says wish is for the end but choice for the acts that will bring it about.
+    - passage_id: ne.b3.s3.p5
+      support_type: direct
+      note: Aristotle concludes that choice is concerned with means.
+  review_status: approved
+- id: deliberation--concerns--means
+  source_id: deliberation
+  relation_type: concerns
+  target_id: means
+  assertion_tier: textual
+  evidence:
+    - passage_id: ne.b3.s3.p3
+      support_type: direct
+      note: Aristotle says we deliberate not about ends but about means.
+  review_status: approved
+- id: wish--concerns--end
+  source_id: wish
+  relation_type: concerns
+  target_id: end
+  assertion_tier: textual
+  evidence:
+    - passage_id: ne.b3.s4.p1
+      support_type: direct
+      note: Aristotle says the end is what we wish for.
+  review_status: approved
+- id: courage--has-excess--rashness
+  source_id: courage
+  relation_type: has_excess
+  target_id: rashness
+  assertion_tier: textual
+  evidence:
+    - passage_id: ne.b3.s7.p2
+      support_type: direct
+      note: Aristotle names the excessive type with respect to confidence as rash.
+  review_status: approved
+- id: courage--has-deficiency--cowardice
+  source_id: courage
+  relation_type: has_deficiency
+  target_id: cowardice
+  assertion_tier: editorial_normalization
+  evidence:
+    - passage_id: ne.b3.s7.p2
+      support_type: direct
+      note: Aristotle describes the coward as the one who exceeds in fear and lacks confidence.
+  review_status: approved
+- id: courage--concerns--fear-and-confidence
+  source_id: courage
+  relation_type: concerns
+  target_id: fear-and-confidence
+  assertion_tier: textual
+  evidence:
+    - passage_id: ne.b3.s7.p3
+      support_type: direct
+      note: Aristotle says courage is a mean with respect to things that inspire confidence or fear.
+  review_status: approved
+- id: temperance--has-excess--self-indulgence
+  source_id: temperance
+  relation_type: has_excess
+  target_id: self-indulgence
+  assertion_tier: textual
+  evidence:
+    - passage_id: ne.b3.s10.p1
+      support_type: direct
+      note: Aristotle introduces self-indulgence beside temperance in the same sphere.
+    - passage_id: ne.b3.s11.p2
+      support_type: direct
+      note: Aristotle says excess with regard to pleasures is self-indulgence.
+  review_status: approved
+- id: temperance--concerns--bodily-pleasures-and-pains
+  source_id: temperance
+  relation_type: concerns
+  target_id: bodily-pleasures-and-pains
+  assertion_tier: editorial_normalization
+  evidence:
+    - passage_id: ne.b3.s10.p2
+      support_type: direct
+      note: Aristotle says temperance must be concerned with bodily pleasures.
+    - passage_id: ne.b3.s11.p2
+      support_type: direct
+      note: Aristotle continues to contrast temperance and self-indulgence by the pleasure-pain pattern attached to bodily appetite.
+  review_status: approved

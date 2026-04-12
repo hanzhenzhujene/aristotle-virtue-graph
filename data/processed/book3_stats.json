@@ -1,0 +1,36 @@
+{
+  "book": 3,
+  "mode": "strict_approved",
+  "concept_count": 19,
+  "relation_count": 16,
+  "passage_count": 65,
+  "concept_kinds": {
+    "action": 3,
+    "condition": 2,
+    "domain": 2,
+    "passion": 2,
+    "principle": 2,
+    "process": 2,
+    "state": 1,
+    "vice": 3,
+    "virtue": 2
+  },
+  "relation_types": {
+    "concerns": 5,
+    "contrasted_with": 5,
+    "determined_by": 2,
+    "formed_by": 1,
+    "has_deficiency": 1,
+    "has_excess": 2
+  },
+  "assertion_tiers": {
+    "editorial_normalization": 8,
+    "textual": 27
+  },
+  "concept_review_statuses": {
+    "approved": 19
+  },
+  "relation_review_statuses": {
+    "approved": 16
+  }
+}

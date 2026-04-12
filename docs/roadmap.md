@@ -8,6 +8,13 @@ It is more Aristotle, added in books that deepen the graph's explanatory value.
 
 ## Book III
 
+Status now:
+
+- deterministic passage authority committed
+- reviewed starter annotations committed for voluntary and involuntary action, choice,
+  courage, and temperance
+- public dashboard still Book II-only
+
 Book III would complete what Book II only sketches about:
 
 - courage in full argumentative depth

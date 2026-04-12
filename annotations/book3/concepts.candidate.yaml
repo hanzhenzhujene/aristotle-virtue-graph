@@ -1,0 +1,18 @@
+- id: insensibility
+  primary_label: unnamed deficiency in bodily pleasure
+  source_labels:
+    - this sort of person has not received a name
+  aliases:
+    - insensibility
+  kind: vice
+  description: Book III acknowledges a rare deficiency with respect to bodily pleasure but says it has no settled name.
+  assertion_tier: editorial_normalization
+  book: 3
+  sections:
+    - 11
+  evidence:
+    - passage_id: ne.b3.s11.p3
+      support_type: direct
+      note: Aristotle says the person who falls short with regard to pleasures has no established name because the type hardly occurs.
+  review_status: candidate
+  notes: Candidate normalization only. Book II names the deficient type insensibility, but Book III.11 does not repeat that label.

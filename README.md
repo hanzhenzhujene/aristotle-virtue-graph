@@ -110,6 +110,15 @@ The reviewed Book II dataset currently covers:
   wit / buffoonery / boorishness
   friendliness / obsequiousness / quarrelsomeness
 
+The repository now also includes a reviewed Book III starter slice for downstream graph work:
+
+- 65 authoritative Book III passages
+- 19 reviewed concepts
+- 16 reviewed relations
+- focused on voluntary and involuntary action, choice and deliberation, courage, and temperance
+
+The live app still runs on Book II only.
+
 ## Viewer at a glance
 
 | View | What it is for |
@@ -138,11 +147,17 @@ Authoritative passage source:
 
 - `data/interim/book2_passages.jsonl`
 
-Book III foundation artifacts now committed for the next tranche:
+Book III interim authority and reviewed starter artifacts:
 
 - `data/interim/book3_wikisource_ross_1908_normalized.json`
 - `data/interim/book3_mit_archive_ross_normalized.json`
 - `data/interim/book3_passages.jsonl`
+- `data/processed/book3_passages.jsonl`
+- `data/processed/book3_concepts.jsonl`
+- `data/processed/book3_relations.jsonl`
+- `data/processed/book3_graph.json`
+- `data/processed/book3_graph.graphml`
+- `data/processed/book3_stats.json`
 
 Public reviewed artifacts:
 
@@ -173,8 +188,14 @@ Human-editable annotation files live in:
 - `annotations/book2/relations.candidate.yaml`
 - `annotations/book2/concepts.approved.yaml`
 - `annotations/book2/relations.approved.yaml`
+- `annotations/book3/concepts.candidate.yaml`
+- `annotations/book3/relations.candidate.yaml`
+- `annotations/book3/concepts.approved.yaml`
+- `annotations/book3/relations.approved.yaml`
 
-The public app now uses the reviewed Book II set only.
+The public app uses the reviewed Book II set only.
+Book III annotations and exports are committed for maintainer and downstream dataset work, not yet
+for the live dashboard.
 Candidate files remain for future maintainer work, not as a second public mode.
 
 More detail: [docs/annotation_guide.md](docs/annotation_guide.md)
@@ -206,8 +227,12 @@ With Book II alone, the repo is most useful for focused coursework and close rea
 With Books II, III, IV, VI, and X together, it starts to become a serious companion for
 students, reading groups, self-directed readers, and researchers building structured datasets.
 
-Foundation work for Book III ingestion and segmentation is now underway in the repository,
-but the public reviewed dataset and live dashboard remain Book II-only.
+The repository now has:
+
+- Book III ingestion and deterministic segmentation
+- a reviewed Book III starter graph slice for export and inspection
+
+But the public reviewed dashboard remains Book II-only.
 
 Full note: [docs/roadmap.md](docs/roadmap.md)
 
@@ -230,7 +255,7 @@ Deployment notes and the current hosted target are in [docs/deployment.md](docs/
 - `src/aristotle_graph/viewer/`: viewer loading, filtering, rendering, and dataset bundle helpers
 - `src/aristotle_graph/app/`: Streamlit app logic
 - `streamlit_app.py`: deployment-friendly root entrypoint
-- `annotations/`: candidate and approved Book II annotation files
+- `annotations/`: candidate and approved Book II and Book III annotation files
 - `data/`: interim and processed outputs
 - `docs/`: user and maintainer docs
 

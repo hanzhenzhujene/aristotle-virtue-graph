@@ -12,7 +12,7 @@
   "properties": {
     "passage_id": {
       "type": "string",
-      "pattern": "^ne\\.b2\\.s([1-9])\\.p([1-9][0-9]*)$"
+      "pattern": "^ne\\.b([1-9][0-9]*)\\.s([1-9][0-9]*)\\.p([1-9][0-9]*)$"
     },
     "support_type": {
       "type": "string",
