@@ -16,6 +16,7 @@ from aristotle_graph.viewer.render import (
     attribution_html,
     build_graph_html,
     concept_role_line,
+    concept_role_phrase,
     concept_story_markdown,
     edge_font_options,
     hero_html,
@@ -213,6 +214,16 @@ def test_concept_role_line_is_reader_facing_for_triad_and_principle_nodes() -> N
 
     assert "mean between cowardice and rashness" in courage_role
     assert "guiding Book II claim" in mean_role
+
+
+def test_concept_role_phrase_is_compact_for_header_use() -> None:
+    dataset = load_viewer_dataset()
+
+    courage_role = concept_role_phrase(dataset.concept_index["courage"], dataset)
+    habit_role = concept_role_phrase(dataset.concept_index["habituation"], dataset)
+
+    assert courage_role == "the mean with respect to fear and confidence"
+    assert "process" in habit_role
 
 
 def test_passage_navigation_targets_cover_start_middle_and_end() -> None:

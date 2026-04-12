@@ -114,7 +114,7 @@ def viewer_shell_css() -> str:
 
 .block-container {
     max-width: 1240px;
-    padding-top: 1.05rem;
+    padding-top: 2.85rem;
     padding-right: 1.65rem;
     padding-bottom: 3rem;
     padding-left: 1.65rem;
@@ -126,6 +126,7 @@ def viewer_shell_css() -> str:
     border: 1px solid rgba(185, 157, 123, 0.7);
     border-radius: 30px;
     padding: 1.35rem 1.45rem 1.05rem 1.45rem;
+    margin-top: 0.7rem;
     margin-bottom: 0.9rem;
     box-shadow: var(--avg-shadow-soft);
     overflow: visible;
@@ -241,7 +242,11 @@ def viewer_shell_css() -> str:
 .avg-filter-summary {
     color: var(--avg-muted);
     font-size: 0.9rem;
-    line-height: 1.5;
+    line-height: 1.68;
+}
+
+.avg-helper {
+    margin: 0.26rem 0 0.18rem 0;
 }
 
 .avg-helper strong {
@@ -390,12 +395,44 @@ def viewer_shell_css() -> str:
     box-shadow: var(--avg-shadow-soft);
 }
 
+.avg-context--bare {
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    padding: 0.1rem 0;
+    box-shadow: none;
+}
+
 .avg-context-title {
     color: var(--avg-ink-strong);
     font-family: Georgia, serif;
     font-size: 1.34rem;
     margin-bottom: 0.32rem;
     line-height: 1.12;
+}
+
+.avg-context-headline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.4rem 0.72rem;
+    margin-bottom: 0.14rem;
+}
+
+.avg-context-title--concept {
+    font-size: clamp(1.58rem, 2.15vw, 2rem);
+    font-weight: 800;
+    letter-spacing: 0.045em;
+    line-height: 1.04;
+    text-transform: uppercase;
+    margin-bottom: 0;
+}
+
+.avg-context-meta {
+    color: var(--avg-muted);
+    font-size: 0.93rem;
+    line-height: 1.42;
+    margin: 0;
 }
 
 .avg-context p,
@@ -694,6 +731,7 @@ div[data-testid="stMetric"] {
     }
 
     .block-container {
+        padding-top: 2.15rem;
         padding-right: 1rem;
         padding-left: 1rem;
     }
@@ -1010,6 +1048,31 @@ def concept_role_line(concept: ConceptAnnotation, dataset: ViewerDataset) -> str
         return "A process Book II uses to explain how character is formed."
 
     return concept.description
+
+
+def concept_role_phrase(concept: ConceptAnnotation, dataset: ViewerDataset) -> str:
+    triad = concept_triad_data(concept, dataset)
+    if triad is not None:
+        return f"the mean with respect to {triad['domain']}"
+    if concept.id == "moral-virtue":
+        return "formed by habit and shaped through pleasure and pain"
+    if concept.id == "ethical-mean":
+        return "the fitting middle between deficiency and excess"
+    if concept.id == "state-of-character":
+        return "a stable condition rather than a passing feeling"
+    if concept.id == "virtuous-action":
+        return "action done with knowledge, choice, and stability"
+    if concept.kind == "domain":
+        return "the field in which virtue and vice are judged"
+    if concept.kind == "vice":
+        return "one of the opposed extremes around a virtue"
+    if concept.kind == "process":
+        return "a process by which character is formed"
+    if concept.kind == "passion":
+        return "a feeling Book II distinguishes from stable character"
+    if concept.kind == "faculty":
+        return "a capacity Book II distinguishes from stable character"
+    return concept.description.rstrip(".")
 
 
 def concept_story_markdown(concept: ConceptAnnotation, dataset: ViewerDataset) -> str:

@@ -17,7 +17,7 @@ from aristotle_graph.viewer.render import (
     build_graph_html,
     concept_detail_rows,
     concept_role_line,
-    concept_story_markdown,
+    concept_role_phrase,
     concept_summary_rows,
     evidence_rows,
     hero_html,
@@ -190,21 +190,38 @@ def _section_label(sections: list[int]) -> str:
 def _context_card_html(
     *,
     title: str,
-    body: str,
+    body: str | None,
     kicker: str | None = None,
     detail: str | None = None,
+    title_class: str | None = None,
+    title_meta: str | None = None,
+    title_meta_prefix: str = "",
+    variant: str | None = None,
 ) -> str:
     kicker_html = (
         f"<div class='avg-kicker'>{escape(kicker)}</div>" if kicker is not None else ""
     )
+    body_html = f"<p>{escape(body)}</p>" if body else ""
     detail_html = (
         f"<div class='avg-context-detail'>{escape(detail)}</div>" if detail is not None else ""
     )
+    title_class_suffix = (
+        f" avg-context-title--{escape(title_class)}" if title_class is not None else ""
+    )
+    title_meta_html = (
+        f"<div class='avg-context-meta'>{escape(title_meta_prefix)}{escape(title_meta)}</div>"
+        if title_meta is not None
+        else ""
+    )
+    variant_suffix = f" avg-context--{escape(variant)}" if variant is not None else ""
     return (
-        "<div class='avg-context'>"
+        f"<div class='avg-context{variant_suffix}'>"
         f"{kicker_html}"
-        f"<div class='avg-context-title'>{escape(title)}</div>"
-        f"<p>{escape(body)}</p>"
+        "<div class='avg-context-headline'>"
+        f"<div class='avg-context-title{title_class_suffix}'>{escape(title)}</div>"
+        f"{title_meta_html}"
+        "</div>"
+        f"{body_html}"
         f"{detail_html}"
         "</div>"
     )
@@ -614,9 +631,12 @@ def _render_concept_view(
         st.markdown(
             _context_card_html(
                 title=selected_concept.primary_label,
-                body=concept_role_line(selected_concept, dataset),
+                body=None,
                 kicker=selected_concept.kind.replace("-", " "),
                 detail=selected_concept.description,
+                title_class="concept",
+                title_meta=concept_role_phrase(selected_concept, dataset),
+                title_meta_prefix="= ",
             ),
             unsafe_allow_html=True,
         )
@@ -624,70 +644,60 @@ def _render_concept_view(
         triad_html = triad_strip_html(selected_concept, dataset)
         if triad_html:
             st.markdown(triad_html, unsafe_allow_html=True)
-        map_col, summary_col = st.columns([0.95, 1.05], vertical_alignment="top")
-        with map_col:
+        st.markdown(
+            section_heading_html(
+                title="Local map",
+                body=(
+                    "Use this smaller neighborhood for nearby moves; use the overall map "
+                    "when you want the whole Book II network."
+                ),
+                level=3,
+            ),
+            unsafe_allow_html=True,
+        )
+        show_edge_labels = st.toggle(
+            "Show relation labels on the local map",
+            value=False,
+            key=f"concept-edge-labels-{selected_concept.id}",
+        )
+        ego_nodes, ego_relations = build_ego_graph(
+            dataset,
+            selected_concept.id,
+            filters,
+            hops=graph_hops,
+        )
+        if ego_nodes:
+            clicked_concept_id = render_clickable_graph(
+                graph_html=build_graph_html(
+                    ego_nodes,
+                    ego_relations,
+                    center_concept_id=selected_concept.id,
+                    show_edge_labels=show_edge_labels,
+                    height="280px",
+                ),
+                height="280px",
+                key=f"concept-map-{selected_concept.id}-{graph_hops}",
+            )
+            if queue_graph_click_navigation(
+                st.session_state,
+                clicked_concept_id=clicked_concept_id,
+                pending_concept_key=pending_concept_key,
+                pending_view_key=pending_view_key,
+                dataset=dataset,
+            ):
+                st.rerun()
             st.markdown(
-                section_heading_html(
-                    title="Local map",
-                    body=(
-                        "Use this smaller neighborhood for nearby moves; use the overall map "
-                        "when you want the whole Book II network."
-                    ),
-                    level=3,
+                _small_helper_html(
+                    f"Showing a {graph_hops}-hop neighborhood around "
+                    f"{selected_concept.primary_label}. Every visible node is clickable."
                 ),
                 unsafe_allow_html=True,
             )
-            show_edge_labels = st.toggle(
-                "Show relation labels on the local map",
-                value=False,
-                key=f"concept-edge-labels-{selected_concept.id}",
-            )
-            ego_nodes, ego_relations = build_ego_graph(
-                dataset,
-                selected_concept.id,
-                filters,
-                hops=graph_hops,
-            )
-            if ego_nodes:
-                clicked_concept_id = render_clickable_graph(
-                    graph_html=build_graph_html(
-                        ego_nodes,
-                        ego_relations,
-                        center_concept_id=selected_concept.id,
-                        show_edge_labels=show_edge_labels,
-                        height="280px",
-                    ),
-                    height="280px",
-                    key=f"concept-map-{selected_concept.id}-{graph_hops}",
-                )
-                if queue_graph_click_navigation(
-                    st.session_state,
-                    clicked_concept_id=clicked_concept_id,
-                    pending_concept_key=pending_concept_key,
-                    pending_view_key=pending_view_key,
-                    dataset=dataset,
-                ):
-                    st.rerun()
-                st.markdown(
-                    _small_helper_html(
-                        f"Showing a {graph_hops}-hop neighborhood around "
-                        f"{selected_concept.primary_label}. Every visible node is clickable."
-                    ),
-                    unsafe_allow_html=True,
-                )
-            else:
-                st.markdown(
-                    _empty_state_html(
-                        title="No local map under the current filters",
-                        body="Broaden the filters or move to the overall map for a wider view.",
-                    ),
-                    unsafe_allow_html=True,
-                )
-        with summary_col:
+        else:
             st.markdown(
-                prose_panel_html(
-                    title="How this functions in Book II",
-                    body=concept_story_markdown(selected_concept, dataset),
+                _empty_state_html(
+                    title="No local map under the current filters",
+                    body="Broaden the filters or move to the overall map for a wider view.",
                 ),
                 unsafe_allow_html=True,
             )
@@ -806,12 +816,11 @@ def _render_passage_view(
     nav_mid.markdown(
         _context_card_html(
             title=passage.citation_label,
-            body=f"Section {passage.chapter_or_section} · {passage.passage_id}",
+            body=None,
             kicker="Supporting passage",
-            detail=(
-                "Read the text first, then use the linked cards to move back "
-                "into the concept layer."
-            ),
+            title_meta=f"Section {passage.chapter_or_section} · {passage.passage_id}",
+            detail=None,
+            variant="bare",
         ),
         unsafe_allow_html=True,
     )
@@ -842,11 +851,6 @@ def _render_passage_view(
             reading_panel_html(
                 title=passage.citation_label,
                 meta=f"Book II · Section {passage.chapter_or_section} · {passage.passage_id}",
-                lead=(
-                    "Stay with the wording here first, then use the linked "
-                    "concepts and relations to see what the graph claims are "
-                    "grounded in this passage."
-                ),
                 text=passage.text,
             ),
             unsafe_allow_html=True,
@@ -1082,6 +1086,8 @@ def _render_overall_map_view(
                     body=concept_role_line(selected_context, dataset),
                     kicker=selected_context.kind.replace("-", " "),
                     detail=selected_context.description,
+                    title_class="concept",
+                    title_meta_prefix="= ",
                 ),
                 unsafe_allow_html=True,
             )

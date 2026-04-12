@@ -460,10 +460,26 @@ Observed results:
 - the `Home` page now spaces the author row more cleanly under the hero, keeps the three route
   buttons aligned, uses icon-led capability rows, and labels the export area as
   `Download the dataset`
-- Concept Explorer no longer opens with the extra helper sentence above the page, and its upper
-  content row now places `How this functions in Book II` beside the local map so the evidence
-  narrative and neighborhood view read together while `Supporting passages` sits higher on the
-  right
+- Concept Explorer no longer opens with the extra helper sentence above the page, and the
+  `How this functions in Book II` box has now been removed entirely so the local map occupies the
+  full upper concept-reading area while `Supporting passages` remains higher on the right
+- the app shell now adds a little more top breathing room above the hero card so the
+  `Aristotle Virtue Graph` box no longer sits too close to the Streamlit header chrome
+- concept titles in the main context cards now render larger, heavier, and in uppercase, while
+  Passage Explorer no longer repeats the extra “move back into the concept layer” helper line in
+  the supporting-passage header card
+- the hero card now sits a little lower again, and Concept Explorer now shows the selected
+  concept as one stronger header line with a compact grey role phrase rather than a separate
+  full-sentence block underneath
+- the compact concept header phrase now reads explicitly as a definition line with `= ...`, and
+  the grey evidence notes in `Supporting passages` have looser spacing so they read less cramped
+- Passage Explorer now keeps the supporting-passage section/id metadata on the same header line as
+  the citation title to save vertical space, and the reading panel no longer opens with the extra
+  “Stay with the wording here first...” lead sentence
+- the supporting-passage header in Passage Explorer now uses a bare text treatment instead of the
+  bordered context-card shell, so that header content stays while the contour line disappears
+- the global top spacing above the hero card has been increased again by roughly another
+  half-centimeter so the `Aristotle Virtue Graph` box clears the Streamlit header more reliably
 - the public-facing repo now includes a real viewer preview, a compact overview graphic, a
   viewer guide, and a code license
 - the public-facing repo and live app now share a small Aristotle head PNG, which makes the
