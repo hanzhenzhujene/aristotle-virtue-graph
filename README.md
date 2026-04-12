@@ -1,6 +1,8 @@
 # Aristotle Virtue Graph <img src="docs/assets/aristotle-head-icon.png" alt="Aristotle head icon" width="50" />
 
 > A reviewed, passage-grounded dashboard for exploring *Nicomachean Ethics* Book II. **[Open live dashboard](https://aristotle-virtue-graph.streamlit.app/)**
+>
+> <sub>by Jenny Zhu <a href="https://www.linkedin.com/in/hanzhen-zhu/"><img src="docs/assets/linkedin-icon.svg" alt="LinkedIn" width="14" style="vertical-align:text-bottom; margin-left:4px;" /></a></sub>
 
 This project turns Book II into something you can inspect instead of merely summarize.
 Open a concept like `courage`, click through its neighboring nodes, read the supporting passage,

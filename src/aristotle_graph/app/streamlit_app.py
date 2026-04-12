@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import base64
 import importlib
 from collections import Counter
 from collections.abc import Callable, MutableMapping
@@ -47,6 +48,13 @@ from aristotle_graph.viewer.state import (
 )
 
 HOME_VIEW, CONCEPT_VIEW, PASSAGE_VIEW, OVERALL_MAP_VIEW, STATS_VIEW = VIEW_NAMES
+
+
+def _data_uri_for_asset(path: Path, *, mime: str) -> str | None:
+    if not path.exists():
+        return None
+    encoded = base64.b64encode(path.read_bytes()).decode("ascii")
+    return f"data:{mime};base64,{encoded}"
 
 
 def apply_pending_view_navigation(
@@ -758,7 +766,10 @@ def render() -> None:
         )
         raise SystemExit(msg) from exc
 
-    logo_path = Path(__file__).resolve().parents[3] / "docs" / "assets" / "aristotle-head-icon.png"
+    assets_dir = Path(__file__).resolve().parents[3] / "docs" / "assets"
+    logo_path = assets_dir / "aristotle-head-icon.png"
+    linkedin_icon_path = assets_dir / "linkedin-icon.svg"
+    linkedin_icon_uri = _data_uri_for_asset(linkedin_icon_path, mime="image/svg+xml")
     page_icon = str(logo_path) if logo_path.exists() else "🏛️"
     st.set_page_config(page_title="Aristotle Virtue Graph", page_icon=page_icon, layout="wide")
 
@@ -812,6 +823,24 @@ def render() -> None:
     with header_right:
         st.title("Aristotle Virtue Graph")
         st.caption("Reviewed, passage-grounded explorer for Nicomachean Ethics Book II.")
+        linkedin_img = (
+            f"<img src='{linkedin_icon_uri}' alt='LinkedIn' width='12' "
+            "style='vertical-align:-2px;margin-left:4px;'/>"
+            if linkedin_icon_uri is not None
+            else "LinkedIn"
+        )
+        st.markdown(
+            (
+                "<div style='font-size:0.82rem;color:#5b6470;'>"
+                "by Jenny Zhu "
+                "<a href='https://www.linkedin.com/in/hanzhen-zhu/' target='_blank' "
+                "style='text-decoration:none;'>"
+                f"{linkedin_img}"
+                "</a>"
+                "</div>"
+            ),
+            unsafe_allow_html=True,
+        )
         st.markdown("`Book II only` `45 passages` `54 concepts` `42 relations`")
 
     def on_queue_concept(concept_id: str) -> None:
