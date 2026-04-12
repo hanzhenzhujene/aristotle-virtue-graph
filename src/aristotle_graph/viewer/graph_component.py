@@ -45,30 +45,90 @@ export default function(component) {
 
     frame.style.height = data?.height ?? "560px";
     const nextHash = String(data?.graphHash ?? "");
-    if (frame.dataset.graphHash !== nextHash) {
+    const graphChanged = frame.dataset.graphHash !== nextHash;
+    if (graphChanged) {
         frame.srcdoc = data?.graphHtml ?? "";
         frame.dataset.graphHash = nextHash;
+        frame.dataset.boundGraphHash = "";
     }
 
-    const handleMessage = (event) => {
-        if (event.source !== frame.contentWindow) {
-            return;
-        }
-        const payload = event.data;
-        if (!payload || payload.type !== "avg-node-click") {
-            return;
-        }
-        if (typeof payload.conceptId !== "string" || !payload.conceptId) {
-            return;
-        }
+    const emitClickedConcept = (conceptId) => {
         setTriggerValue("clicked", {
-            conceptId: payload.conceptId,
+            conceptId,
             token: Date.now(),
         });
     };
 
-    window.addEventListener("message", handleMessage);
-    return () => window.removeEventListener("message", handleMessage);
+    const bindNetworkListeners = () => {
+        let frameWindow = null;
+        try {
+            frameWindow = frame.contentWindow;
+        } catch (error) {
+            return false;
+        }
+        const network = frameWindow?.network;
+        if (!network || typeof network.on !== "function") {
+            return false;
+        }
+        if (network.__avgBoundGraphHash === nextHash) {
+            return true;
+        }
+
+        const emitFromParams = (params) => {
+            if (!params || !Array.isArray(params.nodes) || params.nodes.length === 0) {
+                return;
+            }
+            const conceptId = String(params.nodes[0] ?? "");
+            if (!conceptId) {
+                return;
+            }
+            emitClickedConcept(conceptId);
+        };
+
+        network.on("click", emitFromParams);
+        network.on("doubleClick", emitFromParams);
+        network.on("selectNode", emitFromParams);
+        network.on("hoverNode", () => {
+            const container = network.canvas?.body?.container;
+            if (container) {
+                container.style.cursor = "pointer";
+            }
+        });
+        network.on("blurNode", () => {
+            const container = network.canvas?.body?.container;
+            if (container) {
+                container.style.cursor = "default";
+            }
+        });
+        network.__avgBoundGraphHash = nextHash;
+        frame.dataset.boundGraphHash = nextHash;
+        return true;
+    };
+
+    const scheduleBinding = () => {
+        let attempt = 0;
+        const maxAttempts = 12;
+        const tryBind = () => {
+            if (bindNetworkListeners()) {
+                return;
+            }
+            attempt += 1;
+            if (attempt >= maxAttempts) {
+                return;
+            }
+            window.setTimeout(tryBind, 80);
+        };
+        tryBind();
+    };
+
+    frame.onload = () => {
+        frame.dataset.boundGraphHash = "";
+        scheduleBinding();
+    };
+
+    if (!graphChanged && frame.dataset.boundGraphHash !== nextHash) {
+        scheduleBinding();
+    }
 }
 """
 

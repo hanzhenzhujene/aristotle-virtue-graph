@@ -26,43 +26,10 @@ _EDGE_COLORS = {
     "candidate": "#9aa5b1",
 }
 
-_GRAPH_CLICK_BRIDGE = """
-if (typeof network !== "undefined") {
-    const emitConceptNavigation = function(params) {
-        if (!params || !Array.isArray(params.nodes) || params.nodes.length === 0) {
-            return;
-        }
-        window.parent.postMessage(
-            { type: "avg-node-click", conceptId: String(params.nodes[0]) },
-            "*"
-        );
-    };
-    network.on("click", function(params) {
-        emitConceptNavigation(params);
-    });
-    network.on("doubleClick", function(params) {
-        emitConceptNavigation(params);
-    });
-    network.on("selectNode", function(params) {
-        emitConceptNavigation(params);
-    });
-    network.on("hoverNode", function() {
-        if (network.canvas && network.canvas.body && network.canvas.body.container) {
-            network.canvas.body.container.style.cursor = "pointer";
-        }
-    });
-    network.on("blurNode", function() {
-        if (network.canvas && network.canvas.body && network.canvas.body.container) {
-            network.canvas.body.container.style.cursor = "default";
-        }
-    });
-}
-"""
 
-
-def intro_markdown() -> str:
+def intro_markdown(book_label: str = "Book II") -> str:
     return (
-        "This dashboard turns *Nicomachean Ethics* Book II into a reviewed, "
+        f"This dashboard turns *Nicomachean Ethics* {book_label} into a reviewed, "
         "passage-grounded map. Move from a concept to its relations, then open the "
         "exact passage that supports the structure you see."
     )
@@ -86,6 +53,24 @@ def _join_labels(labels: list[str]) -> str:
     return ", ".join(labels[:-1]) + f", and {labels[-1]}"
 
 
+def _join_clauses(clauses: list[str]) -> str:
+    if not clauses:
+        return ""
+    if len(clauses) == 1:
+        return clauses[0]
+    if len(clauses) == 2:
+        return f"{clauses[0]} and {clauses[1]}"
+    return ", ".join(clauses[:-1]) + f", and {clauses[-1]}"
+
+
+def _with_indefinite_article(label: str) -> str:
+    lowered = label.lower()
+    if lowered.startswith(("a ", "an ", "the ")):
+        return label
+    article = "an" if lowered[:1] in {"a", "e", "i", "o", "u"} else "a"
+    return f"{article} {label}"
+
+
 def _target_labels(
     concept_id: str,
     dataset: ViewerDataset,
@@ -99,27 +84,100 @@ def _target_labels(
     return sorted(labels, key=str.lower)
 
 
-def _incoming_roles(concept: ConceptAnnotation, dataset: ViewerDataset) -> list[str]:
-    roles: list[str] = []
-    for relation in dataset.incoming_relations.get(concept.id, ()):
-        source_label = dataset.concept_index[relation.source_id].primary_label
-        if relation.relation_type == "has_excess":
-            roles.append(f"the excess opposed to {source_label}")
-        elif relation.relation_type == "has_deficiency":
-            roles.append(f"the deficiency opposed to {source_label}")
-        elif relation.relation_type == "concerns":
-            roles.append(f"the domain for {source_label}")
-        elif relation.relation_type == "is_a":
-            roles.append(f"a broader category for {source_label}")
-        elif relation.relation_type == "determined_by":
-            roles.append(f"something that helps determine {source_label}")
-    return roles
+def _incoming_labels(
+    concept_id: str,
+    dataset: ViewerDataset,
+    relation_type: str,
+) -> list[str]:
+    return sorted(
+        [
+            dataset.concept_index[relation.source_id].primary_label
+            for relation in dataset.incoming_relations.get(concept_id, ())
+            if relation.relation_type == relation_type
+        ],
+        key=str.lower,
+    )
 
 
-def concept_story_markdown(concept: ConceptAnnotation, dataset: ViewerDataset) -> str:
+def _unique_labels(labels: list[str]) -> list[str]:
+    return sorted(set(labels), key=str.lower)
+
+
+def _role_key(concept: ConceptAnnotation, dataset: ViewerDataset) -> str:
+    outgoing_types = {
+        relation.relation_type for relation in dataset.outgoing_relations.get(concept.id, ())
+    }
+    incoming_types = {
+        relation.relation_type for relation in dataset.incoming_relations.get(concept.id, ())
+    }
+
+    if {"has_deficiency", "has_excess"} & outgoing_types:
+        return "virtue-triad"
+    if {"has_deficiency", "has_excess"} & incoming_types:
+        return "vice"
+    if "concerns" in incoming_types and not outgoing_types:
+        return "domain"
+    if concept.id in {"moral-virtue", "ethical-mean"}:
+        return "principle"
+    if concept.kind in {
+        "principle",
+        "process",
+        "state",
+        "faculty",
+        "passion",
+        "condition",
+        "person",
+    }:
+        return "principle"
+    return "general"
+
+
+def _job_sentence(
+    concept: ConceptAnnotation,
+    *,
+    role_key: str,
+    book_label: str,
+) -> str | None:
+    if concept.id == "moral-virtue":
+        return (
+            f"Its job in {book_label} is to connect habit, pleasure, pain, and stable character "
+            "before Aristotle turns to the particular virtues."
+        )
+    if concept.id == "ethical-mean":
+        return (
+            f"Its job in {book_label} is to show that virtue is not a flat midpoint, but something "
+            "guided by judgment against excess and deficiency."
+        )
+    if concept.id == "habituation":
+        return (
+            f"Its job in {book_label} is to explain how character is acquired through repeated "
+            "practice rather than handed over fully formed."
+        )
+    if role_key == "virtue-triad":
+        return (
+            f"Its job in {book_label} is to make the doctrine of the mean concrete by locating "
+            "virtue within a field and between two opposed failures."
+        )
+    if role_key == "vice":
+        return f"Its job in {book_label} is to mark one of the ways a virtue can miss the mean."
+    if role_key == "domain":
+        return (
+            f"Its job in {book_label} is to show that virtues and vices are always judged within "
+            "some field of feeling or action."
+        )
+    if role_key == "principle":
+        return (
+            f"Its job in {book_label} is to clarify the structure that makes the later virtue "
+            "triads intelligible."
+        )
+    return None
+
+
+def _guided_relation_sentence(
+    concept: ConceptAnnotation,
+    dataset: ViewerDataset,
+) -> str | None:
     label = concept.primary_label
-    deficiency_labels = _target_labels(concept.id, dataset, "has_deficiency")
-    excess_labels = _target_labels(concept.id, dataset, "has_excess")
     concern_labels = _target_labels(concept.id, dataset, "concerns")
     is_a_labels = _target_labels(concept.id, dataset, "is_a")
     formed_by_labels = _target_labels(concept.id, dataset, "formed_by")
@@ -128,46 +186,195 @@ def concept_story_markdown(concept: ConceptAnnotation, dataset: ViewerDataset) -
     contrasted_with_labels = _target_labels(concept.id, dataset, "contrasted_with")
     opposed_to_labels = _target_labels(concept.id, dataset, "opposed_to")
 
-    sentences: list[str] = []
-    if deficiency_labels and excess_labels:
-        triad_sentence = (
-            f"In Book II, {label} appears as a mean between "
-            f"{_join_labels(deficiency_labels)} and {_join_labels(excess_labels)}"
-        )
-        if concern_labels:
-            triad_sentence += f" in the sphere of {_join_labels(concern_labels)}"
-        sentences.append(triad_sentence + ".")
-    elif concern_labels:
-        sentences.append(
-            f"In Book II, {label} is treated in the sphere of "
-            f"{_join_labels(concern_labels)}."
-        )
-
-    if is_a_labels:
-        sentences.append(f"Aristotle classifies {label} as {_join_labels(is_a_labels)}.")
-    if formed_by_labels:
-        sentences.append(f"{label.capitalize()} is formed by {_join_labels(formed_by_labels)}.")
-    if requires_labels:
-        sentences.append(f"{label.capitalize()} requires {_join_labels(requires_labels)}.")
-    if determined_by_labels:
-        sentences.append(
-            f"{label.capitalize()} is determined by {_join_labels(determined_by_labels)}."
-        )
+    clauses: list[str] = []
     if contrasted_with_labels:
-        sentences.append(
-            f"Book II contrasts {label} with {_join_labels(contrasted_with_labels)}."
+        clauses.append(f"contrasts {label} with {_join_labels(contrasted_with_labels)}")
+    if formed_by_labels:
+        clauses.append(f"says {label} is formed by {_join_labels(formed_by_labels)}")
+    if is_a_labels:
+        is_a_phrase = (
+            _with_indefinite_article(is_a_labels[0])
+            if len(is_a_labels) == 1
+            else _join_labels(is_a_labels)
         )
+        clauses.append(f"classifies {label} as {is_a_phrase}")
+    if concern_labels:
+        clauses.append(f"ties {label} to {_join_labels(concern_labels)}")
+    if determined_by_labels:
+        clauses.append(f"says {label} is determined by {_join_labels(determined_by_labels)}")
+    if requires_labels:
+        clauses.append(f"says {label} requires {_join_labels(requires_labels)}")
     if opposed_to_labels:
-        sentences.append(f"{label.capitalize()} is opposed to {_join_labels(opposed_to_labels)}.")
+        clauses.append(f"treats {label} as opposed to {_join_labels(opposed_to_labels)}")
 
-    incoming_roles = _incoming_roles(concept, dataset)
-    if not sentences and incoming_roles:
-        sentences.append(f"In the graph, {label} appears as {_join_labels(incoming_roles)}.")
+    if not clauses:
+        return None
+    return f"{dataset.profile.book_label} {_join_clauses(clauses)}."
 
-    if not sentences:
-        sentences.append(concept.description)
 
+def _virtue_story(concept: ConceptAnnotation, dataset: ViewerDataset) -> str:
+    label = concept.primary_label
+    deficiency_labels = _target_labels(concept.id, dataset, "has_deficiency")
+    excess_labels = _target_labels(concept.id, dataset, "has_excess")
+    concern_labels = _target_labels(concept.id, dataset, "concerns")
+
+    sentences = [
+        (
+            f"In {dataset.profile.book_label}, {label} is the virtue concerned "
+            f"with {_join_labels(concern_labels)}."
+        )
+        if concern_labels
+        else f"In {dataset.profile.book_label}, {label} is treated as a virtue."
+    ]
+    if deficiency_labels or excess_labels:
+        parts: list[str] = []
+        if deficiency_labels:
+            parts.append(f"its deficiency is {_join_labels(deficiency_labels)}")
+        if excess_labels:
+            parts.append(f"its excess is {_join_labels(excess_labels)}")
+        sentences.append(f"Aristotle positions it so that {', and '.join(parts)}.")
+    job_sentence = _job_sentence(
+        concept,
+        role_key="virtue-triad",
+        book_label=dataset.profile.book_label,
+    )
+    if job_sentence is not None:
+        sentences.append(job_sentence)
     return "\n\n".join(sentences)
+
+
+def _vice_story(concept: ConceptAnnotation, dataset: ViewerDataset) -> str:
+    label = concept.primary_label
+    deficiency_sources = _incoming_labels(concept.id, dataset, "has_deficiency")
+    excess_sources = _incoming_labels(concept.id, dataset, "has_excess")
+    source_ids = [
+        relation.source_id
+        for relation in dataset.incoming_relations.get(concept.id, ())
+        if relation.relation_type in {"has_deficiency", "has_excess"}
+    ]
+    domain_labels = _unique_labels(
+        [
+            domain_label
+            for source_id in source_ids
+            for domain_label in _target_labels(source_id, dataset, "concerns")
+        ]
+    )
+
+    if deficiency_sources:
+        first_sentence = (
+            f"In {dataset.profile.book_label}, {label} appears as the deficiency opposed to "
+            f"{_join_labels(deficiency_sources)}."
+        )
+    elif excess_sources:
+        first_sentence = (
+            f"In {dataset.profile.book_label}, {label} appears as the excess opposed to "
+            f"{_join_labels(excess_sources)}."
+        )
+    else:
+        first_sentence = concept.description
+
+    sentences = [first_sentence]
+    if domain_labels:
+        sentences.append(f"It belongs to the same field of {_join_labels(domain_labels)}.")
+    job_sentence = _job_sentence(
+        concept,
+        role_key="vice",
+        book_label=dataset.profile.book_label,
+    )
+    if job_sentence is not None:
+        sentences.append(job_sentence)
+    return "\n\n".join(sentences)
+
+
+def _domain_story(concept: ConceptAnnotation, dataset: ViewerDataset) -> str:
+    label = concept.primary_label
+    source_labels = _incoming_labels(concept.id, dataset, "concerns")
+    if source_labels:
+        lead = (
+            f"In {dataset.profile.book_label}, {label} is the field in which "
+            f"{_join_labels(source_labels)} is assessed."
+        )
+    else:
+        lead = concept.description
+
+    sentences = [lead]
+    job_sentence = _job_sentence(
+        concept,
+        role_key="domain",
+        book_label=dataset.profile.book_label,
+    )
+    if job_sentence is not None:
+        sentences.append(job_sentence)
+    return "\n\n".join(sentences)
+
+
+def concept_story_markdown(concept: ConceptAnnotation, dataset: ViewerDataset) -> str:
+    role_key = _role_key(concept, dataset)
+    if role_key == "virtue-triad":
+        return _virtue_story(concept, dataset)
+    if role_key == "vice":
+        return _vice_story(concept, dataset)
+    if role_key == "domain":
+        return _domain_story(concept, dataset)
+
+    paragraphs = [concept.description]
+    guided_sentence = _guided_relation_sentence(concept, dataset)
+    if guided_sentence is not None and guided_sentence != concept.description:
+        paragraphs.append(guided_sentence)
+    job_sentence = _job_sentence(
+        concept,
+        role_key=role_key,
+        book_label=dataset.profile.book_label,
+    )
+    if job_sentence is not None:
+        paragraphs.append(job_sentence)
+    return "\n\n".join(paragraphs)
+
+
+def relation_headline(
+    relation: RelationAnnotation,
+    dataset: ViewerDataset,
+    *,
+    focal_concept_id: str,
+) -> str:
+    is_outgoing = relation.source_id == focal_concept_id
+    other_concept_id = relation.target_id if is_outgoing else relation.source_id
+    other_label = dataset.concept_index[other_concept_id].primary_label
+
+    if is_outgoing:
+        templates = {
+            "concerns": f"This concept concerns {other_label}",
+            "has_deficiency": f"Its deficiency is {other_label}",
+            "has_excess": f"Its excess is {other_label}",
+            "formed_by": f"It is formed by {other_label}",
+            "is_a": f"It is treated as {other_label}",
+            "requires": f"It requires {other_label}",
+            "determined_by": f"It is determined by {other_label}",
+            "contrasted_with": f"{dataset.profile.book_label} contrasts it with {other_label}",
+            "opposed_to": f"It is opposed to {other_label}",
+            "relative_to": f"It is relative to {other_label}",
+        }
+    else:
+        templates = {
+            "has_deficiency": f"It appears as the deficiency of {other_label}",
+            "has_excess": f"It appears as the excess of {other_label}",
+            "concerns": f"It names the field for {other_label}",
+            "is_a": f"It is a broader category for {other_label}",
+            "determined_by": f"It helps determine {other_label}",
+            "contrasted_with": f"{dataset.profile.book_label} contrasts {other_label} with it",
+            "opposed_to": f"It stands opposed to {other_label}",
+            "requires": f"{other_label} requires it",
+            "formed_by": f"{other_label} is formed by it",
+            "relative_to": f"{other_label} is relative to it",
+        }
+    return templates.get(
+        relation.relation_type,
+        (
+            f"{dataset.concept_index[relation.source_id].primary_label} "
+            f"{relation.relation_type.replace('_', ' ')} "
+            f"{dataset.concept_index[relation.target_id].primary_label}"
+        ),
+    )
 
 
 def relation_rows(
@@ -268,15 +475,6 @@ def kind_legend_html(kinds: list[str]) -> str:
             f"{escape(kind.replace('-', ' ').title())}</span>"
         )
     return "".join(chips)
-
-
-def _inject_graph_click_bridge(html: str) -> str:
-    if "avg-node-click" in html:
-        return html
-    marker = "return network;"
-    if marker not in html:
-        return html
-    return html.replace(marker, f"{_GRAPH_CLICK_BRIDGE}\n\n                  {marker}", 1)
 
 
 def edge_font_options(*, is_overall_map: bool) -> dict[str, Any]:
@@ -457,4 +655,4 @@ def build_graph_html(
         },
     }
     network.set_options(json.dumps(options))
-    return _inject_graph_click_bridge(network.generate_html())
+    return str(network.generate_html())

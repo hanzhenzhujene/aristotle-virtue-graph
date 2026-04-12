@@ -10,7 +10,7 @@ and download the structured dataset that drives the app.
 
 🏛️ **Book II only** · 📜 **45 passages** · 🧠 **54 reviewed concepts** · 🔗 **42 reviewed relations**
 
-![Dashboard hero](docs/assets/viewer-courage-candidate.png)
+![Dashboard hero](docs/assets/viewer-courage-hero.png)
 
 _Hero view: the dashboard centered on `courage`, with concept reading, passage grounding, and graph navigation in one place._
 
@@ -131,7 +131,6 @@ The project stays strict in a few concrete ways:
 - Every concept must cite one or more passages.
 - Every relation must cite one or more passages.
 - `source_labels` preserve Ross wording instead of silently modernizing it.
-- Draft material stays in candidate files and does not power the public app by default.
 - Book II is a hard boundary; the repo does not quietly expand into later books.
 
 ## Data artifacts
@@ -149,31 +148,14 @@ Public reviewed artifacts:
 - `data/processed/book2_graph.graphml`
 - `data/processed/book2_stats.json`
 
-Compatibility copy of the strict export:
-
-- `data/processed/approved/book2_passages.jsonl`
-- `data/processed/approved/book2_concepts.jsonl`
-- `data/processed/approved/book2_relations.jsonl`
-- `data/processed/approved/book2_graph.json`
-- `data/processed/approved/book2_graph.graphml`
-- `data/processed/approved/book2_stats.json`
-
 `book2_graph.json` is the primary rich export.
 `book2_graph.graphml` is a flattened interoperability export.
 
-## Review workflow
+## Maintainer note
 
-Human-editable annotation files live in:
-
-- `annotations/book2/concepts.candidate.yaml`
-- `annotations/book2/relations.candidate.yaml`
-- `annotations/book2/concepts.approved.yaml`
-- `annotations/book2/relations.approved.yaml`
-
-The public app now uses the reviewed Book II set only.
-Candidate files remain for future maintainer work, not as a second public mode.
-
-More detail: [docs/annotation_guide.md](docs/annotation_guide.md)
+The public app runs on the reviewed exports in `data/processed/`.
+If you are working on annotation or strict export maintenance, the workflow lives in
+[docs/annotation_guide.md](docs/annotation_guide.md).
 
 ## Source policy
 
@@ -224,7 +206,7 @@ Deployment notes and the current hosted target are in [docs/deployment.md](docs/
 - `src/aristotle_graph/viewer/`: viewer loading, filtering, rendering, and dataset bundle helpers
 - `src/aristotle_graph/app/`: Streamlit app logic
 - `streamlit_app.py`: deployment-friendly root entrypoint
-- `annotations/`: candidate and approved Book II annotation files
+- `annotations/`: Book II annotation files for maintainer workflow
 - `data/`: interim and processed outputs
 - `docs/`: user and maintainer docs
 

@@ -2,6 +2,7 @@
 
 The local viewer is the fastest way to understand what this repository is for.
 It now opens directly into the reviewed Book II dataset.
+The app reads the public processed exports in `data/processed/`.
 
 ## Start here
 
@@ -25,6 +26,9 @@ make annotations-validate-strict
 make annotations-export
 make app
 ```
+
+If you are maintaining annotations rather than just running the app, use
+[docs/annotation_guide.md](annotation_guide.md).
 
 Once the app opens, start with `courage`.
 

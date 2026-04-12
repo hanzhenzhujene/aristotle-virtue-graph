@@ -17,22 +17,6 @@ VIEW_NAMES = (
     "Stats",
 )
 
-START_HERE_IDS = (
-    "courage",
-    "temperance",
-    "liberality",
-    "truthfulness",
-    "moral-virtue",
-)
-
-HOME_CONCEPT_IDS = (
-    "courage",
-    "moral-virtue",
-    "habituation",
-)
-
-HOME_PASSAGE_ID = "ne.b2.s7.p1"
-
 RELATION_PRIORITY = {
     "is_a": 0,
     "formed_by": 1,
@@ -157,24 +141,30 @@ def default_concept_id(
     if not visible_concepts:
         return None
     for concept in visible_concepts:
-        if concept.id == "courage":
+        if concept.id == dataset.profile.default_concept_id:
             return concept.id
     return visible_concepts[0].id
 
 
 def start_here_concept_ids(dataset: ViewerDataset) -> list[str]:
     return [
-        concept_id for concept_id in START_HERE_IDS if concept_id in dataset.concept_index
+        concept_id
+        for concept_id in dataset.profile.start_here_concept_ids
+        if concept_id in dataset.concept_index
     ]
 
 
 def home_concept_ids(dataset: ViewerDataset) -> list[str]:
-    return [concept_id for concept_id in HOME_CONCEPT_IDS if concept_id in dataset.concept_index]
+    return [
+        concept_id
+        for concept_id in dataset.profile.home_concept_ids
+        if concept_id in dataset.concept_index
+    ]
 
 
 def home_passage_id(dataset: ViewerDataset) -> str | None:
-    if HOME_PASSAGE_ID in dataset.passage_index:
-        return HOME_PASSAGE_ID
+    if dataset.profile.home_passage_id in dataset.passage_index:
+        return dataset.profile.home_passage_id
     if dataset.passages:
         return dataset.passages[0].passage_id
     return None
