@@ -10,6 +10,7 @@ from aristotle_graph.schemas import PassageRecord
 from aristotle_graph.viewer.load import ViewerDataset
 
 VIEW_NAMES = (
+    "Home",
     "Concept Explorer",
     "Passage Explorer",
     "Graph View",
@@ -24,6 +25,27 @@ START_HERE_IDS = (
     "truthfulness",
     "moral-virtue",
 )
+
+HOME_CONCEPT_IDS = (
+    "courage",
+    "moral-virtue",
+    "habituation",
+)
+
+HOME_PASSAGE_ID = "ne.b2.s7.p1"
+
+RELATION_PRIORITY = {
+    "is_a": 0,
+    "formed_by": 1,
+    "requires": 2,
+    "determined_by": 3,
+    "relative_to": 4,
+    "concerns": 5,
+    "has_deficiency": 6,
+    "has_excess": 7,
+    "opposed_to": 8,
+    "contrasted_with": 9,
+}
 
 
 @dataclass(frozen=True)
@@ -131,7 +153,7 @@ def filter_passages(
 
 def default_concept_id(
     dataset: ViewerDataset,
-    visible_concepts: list[ConceptAnnotation],
+    visible_concepts: Sequence[ConceptAnnotation],
 ) -> str | None:
     if not visible_concepts:
         return None
@@ -145,6 +167,18 @@ def start_here_concept_ids(dataset: ViewerDataset) -> list[str]:
     return [
         concept_id for concept_id in START_HERE_IDS if concept_id in dataset.concept_index
     ]
+
+
+def home_concept_ids(dataset: ViewerDataset) -> list[str]:
+    return [concept_id for concept_id in HOME_CONCEPT_IDS if concept_id in dataset.concept_index]
+
+
+def home_passage_id(dataset: ViewerDataset) -> str | None:
+    if HOME_PASSAGE_ID in dataset.passage_index:
+        return HOME_PASSAGE_ID
+    if dataset.passages:
+        return dataset.passages[0].passage_id
+    return None
 
 
 def evidence_passage_ids(evidence_records: Sequence[EvidenceRecord]) -> list[str]:
@@ -275,6 +309,23 @@ def graph_degree_rows(
         )
     )
     return rows
+
+
+def relation_sort_key(
+    relation: RelationAnnotation,
+    dataset: ViewerDataset,
+    *,
+    focal_concept_id: str,
+) -> tuple[int, str, str]:
+    other_concept_id = (
+        relation.target_id if relation.source_id == focal_concept_id else relation.source_id
+    )
+    other_label = dataset.concept_index.get(other_concept_id)
+    return (
+        RELATION_PRIORITY.get(relation.relation_type, 99),
+        other_label.primary_label.lower() if other_label is not None else other_concept_id,
+        relation.id,
+    )
 
 
 def concept_stats(dataset: ViewerDataset) -> dict[str, int]:

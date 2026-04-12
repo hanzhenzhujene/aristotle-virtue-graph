@@ -1,7 +1,7 @@
 {
   "meta": {
     "book": 2,
-    "mode": "candidate",
+    "mode": "strict_approved",
     "concept_count": 54,
     "relation_count": 42,
     "passage_count": 45,
@@ -58,7 +58,7 @@
           "quote_excerpt": null
         }
       ],
-      "review_status": "candidate",
+      "review_status": "approved",
       "notes": null
     },
     {
@@ -492,7 +492,7 @@
           "quote_excerpt": null
         }
       ],
-      "review_status": "candidate",
+      "review_status": "approved",
       "notes": null
     },
     {
@@ -519,7 +519,7 @@
           "quote_excerpt": null
         }
       ],
-      "review_status": "candidate",
+      "review_status": "approved",
       "notes": null
     },
     {
@@ -571,7 +571,7 @@
           "quote_excerpt": null
         }
       ],
-      "review_status": "candidate",
+      "review_status": "approved",
       "notes": null
     },
     {
@@ -651,7 +651,7 @@
           "quote_excerpt": null
         }
       ],
-      "review_status": "candidate",
+      "review_status": "approved",
       "notes": null
     },
     {
@@ -704,7 +704,7 @@
           "quote_excerpt": null
         }
       ],
-      "review_status": "candidate",
+      "review_status": "approved",
       "notes": "The repo id follows a mnemonic modern label, but Ross's wording is preserved in primary_label and source_labels."
     },
     {
@@ -755,7 +755,7 @@
           "quote_excerpt": null
         }
       ],
-      "review_status": "candidate",
+      "review_status": "approved",
       "notes": null
     },
     {
@@ -860,7 +860,7 @@
           "quote_excerpt": null
         }
       ],
-      "review_status": "candidate",
+      "review_status": "approved",
       "notes": null
     },
     {
@@ -1044,7 +1044,7 @@
           "quote_excerpt": null
         }
       ],
-      "review_status": "candidate",
+      "review_status": "approved",
       "notes": null
     },
     {
@@ -1348,7 +1348,7 @@
           "quote_excerpt": null
         }
       ],
-      "review_status": "candidate",
+      "review_status": "approved",
       "notes": null
     },
     {
@@ -1375,7 +1375,7 @@
           "quote_excerpt": null
         }
       ],
-      "review_status": "candidate",
+      "review_status": "approved",
       "notes": null
     },
     {
@@ -1429,7 +1429,7 @@
           "quote_excerpt": null
         }
       ],
-      "review_status": "candidate",
+      "review_status": "approved",
       "notes": null
     },
     {
@@ -1663,7 +1663,7 @@
           "quote_excerpt": null
         }
       ],
-      "review_status": "candidate",
+      "review_status": "approved",
       "notes": null
     },
     {
@@ -1680,7 +1680,7 @@
           "quote_excerpt": null
         }
       ],
-      "review_status": "candidate",
+      "review_status": "approved",
       "notes": null
     },
     {
@@ -1697,7 +1697,7 @@
           "quote_excerpt": null
         }
       ],
-      "review_status": "candidate",
+      "review_status": "approved",
       "notes": null
     },
     {
@@ -1765,7 +1765,7 @@
           "quote_excerpt": null
         }
       ],
-      "review_status": "candidate",
+      "review_status": "approved",
       "notes": null
     },
     {
@@ -1782,7 +1782,7 @@
           "quote_excerpt": null
         }
       ],
-      "review_status": "candidate",
+      "review_status": "approved",
       "notes": null
     },
     {
@@ -1799,7 +1799,7 @@
           "quote_excerpt": null
         }
       ],
-      "review_status": "candidate",
+      "review_status": "approved",
       "notes": null
     },
     {
@@ -1901,7 +1901,7 @@
           "quote_excerpt": null
         }
       ],
-      "review_status": "candidate",
+      "review_status": "approved",
       "notes": null
     },
     {
@@ -1918,7 +1918,7 @@
           "quote_excerpt": null
         }
       ],
-      "review_status": "candidate",
+      "review_status": "approved",
       "notes": null
     },
     {
@@ -1935,7 +1935,7 @@
           "quote_excerpt": null
         }
       ],
-      "review_status": "candidate",
+      "review_status": "approved",
       "notes": null
     },
     {

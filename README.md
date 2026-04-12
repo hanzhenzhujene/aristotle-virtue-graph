@@ -1,44 +1,44 @@
-# Aristotle Virtue Graph     <img src="docs/assets/aristotle-head-icon.png" alt="Aristotle head icon" width="50" />
+# Aristotle Virtue Graph <img src="docs/assets/aristotle-head-icon.png" alt="Aristotle head icon" width="50" />
 
+> A reviewed, passage-grounded dashboard for exploring *Nicomachean Ethics* Book II. **[Open live dashboard](https://aristotle-virtue-graph.streamlit.app/)**
 
-> An evidence-first dashboard for exploring *Nicomachean Ethics* Book II as concepts, relations, and passages. **[Open live dashboard](https://aristotle-virtue-graph.streamlit.app/)**
+This project turns Book II into something you can inspect instead of merely summarize.
+Open a concept like `courage`, click through its neighboring nodes, read the supporting passage,
+and download the structured dataset that drives the app.
 
-This project turns Aristotle's Book II into a graph you can actually inspect.
-Open a concept like `courage`, follow its linked relations, open the supporting passage, and compare the broader candidate layer against the smaller reviewed core.
-
-🏛️ **Book II only** · 📜 **45 passages** · 🌐 **Live dashboard** · ✅ **42 approved concepts / 33 approved relations**
+🏛️ **Book II only** · 📜 **45 passages** · 🧠 **54 reviewed concepts** · 🔗 **42 reviewed relations**
 
 ![Dashboard hero](docs/assets/viewer-courage-candidate.png)
 
-_Hero view: `courage` open in the dashboard, with evidence, relation tables, and the main navigation visible._
+_Hero view: the dashboard centered on `courage`, with concept reading, passage grounding, and graph navigation in one place._
 
 ## Open the dashboard
 
 | Live dashboard | Run locally | Viewer guide |
 | --- | --- | --- |
-| **[Open live dashboard](https://aristotle-virtue-graph.streamlit.app/)** | **Run now:** [`make app`](#run-the-viewer) | [Start with `courage`](docs/viewer_guide.md) |
+| **[Open live dashboard](https://aristotle-virtue-graph.streamlit.app/)** | **Run now:** [`make app`](#run-the-viewer) | [Viewer guide](docs/viewer_guide.md) |
 
-_The live app is available on Streamlit Community Cloud. Local run instructions and deployment details remain in [docs/deployment.md](docs/deployment.md)._
+_The live app is running on Streamlit Community Cloud. Deployment notes stay in [docs/deployment.md](docs/deployment.md)._
 
 ## Run the viewer
 
 ```bash
-python3 -m venv .venv
+python -m venv .venv
 . .venv/bin/activate
 pip install -e ".[viewer]"
 make app
 ```
 
-This opens the dashboard immediately with the committed Book II exports.
+This opens the dashboard immediately against the committed reviewed Book II exports.
 Start with `courage`.
 
 ## Try this first
 
 1. Open the dashboard.
-2. Keep `courage` selected.
-3. Read the outgoing relations.
-4. Open the supporting passage `NE II.7 p1`.
-5. Switch between `candidate` and `approved` mode.
+2. Click `Open courage`.
+3. Read the short summary at the top of Concept Explorer.
+4. Open the supporting passage `NE II.7 ¶1`.
+5. Switch to `Graph View` or `Overall Map` and click a neighboring node.
 
 What you should see:
 
@@ -48,58 +48,50 @@ courage
 |- has_deficiency -> cowardice
 `- concerns       -> fear and confidence
 
-evidence: NE II.7 p1
+evidence: NE II.7 ¶1
 ```
 
-That one path already shows the point of the repo:
+That path shows the point of the repo:
 the graph is not a summary layer floating above the text.
 It stays attached to the passage that supports it.
 
 ## What you can do here
 
-- Browse Book II as a graph instead of a flat outline.
-- Inspect a concept and see its evidence, labels, and linked relations.
-- Open a supporting passage in one click from concept evidence or relation shortcuts.
+- Browse Book II as a reviewed graph instead of a flat outline.
+- Read a concept in plain language before opening the structured metadata.
 - Start from a passage and see which concepts and relations are grounded there.
-- Compare the broader candidate graph with the reviewed approved core.
-- Explore a local 1-hop or 2-hop graph neighborhood around a selected concept.
-- Open an `Overall Map` page that renders the full filtered Book II network with built-in search, filter menus, and hub summaries.
+- Click nodes in both graph views to navigate into Concept Explorer.
+- Download the reviewed Book II dataset for NLP, graph analysis, or close reading work.
 
 ## Rebuild exported data
 
-Use this only if you want to regenerate the processed artifacts from the annotation files.
+Use this only if you want to regenerate the reviewed processed artifacts from the annotation files.
 
 ```bash
-python3 -m venv .venv
+python -m venv .venv
 . .venv/bin/activate
 pip install -e ".[dev,viewer]"
 make annotations-validate
 make annotations-validate-strict
 make annotations-export
-make annotations-export-strict
-make annotations-stats
+make app
 ```
+
+`make annotations-export` now writes the reviewed public dataset to `data/processed/`.
 
 ## Why it is interesting
 
-Book II is often reduced to a few phrases about habit and the mean.
-This repo makes the internal structure more navigable:
+Book II is often reduced to a few slogans about habit and the mean.
+This repo makes the internal structure navigable in a more useful form:
 
-- virtue can be explored as linked claims instead of isolated slogans
-- non-hierarchical relations stay passage-grounded
-- candidate and approved annotations remain visibly distinct
-- textual claims, editorial normalization, and interpretation are kept separate
-
-It is small enough to audit and concrete enough to reuse.
+- virtues and vices appear as linked claims rather than isolated definitions
+- every concept and every non-hierarchical relation stays passage-grounded
+- the graph can be audited back to specific sections and paragraph-level passages
+- the reviewed dataset is small enough to inspect and concrete enough to reuse
 
 ## Current state
 
-| Mode | Concepts | Relations | Passages | What it gives you |
-| --- | ---: | ---: | ---: | --- |
-| Candidate | 54 | 42 | 45 | The broader working map for all of Book II |
-| Approved | 42 | 33 | 45 | A reviewed core centered on the main practical structure |
-
-The current reviewed core already covers:
+The reviewed Book II dataset currently covers:
 
 - the distinction between moral and intellectual virtue
 - habituation
@@ -107,10 +99,13 @@ The current reviewed core already covers:
 - virtue as a state of character rather than passion or faculty
 - the conditions of virtuous action: knowledge, choice, and stability
 - the mean as guided by right reason and the practically wise person
-- six reviewed virtue triads:
+- all nine virtue clusters represented in this MVP:
   courage / rashness / cowardice
   temperance / self-indulgence / insensibility
   liberality / prodigality / meanness
+  magnificence / vulgarity / niggardliness
+  proper pride / empty vanity / undue humility
+  good temper / irascibility / inirascibility
   truthfulness / boastfulness / mock modesty
   wit / buffoonery / boorishness
   friendliness / obsequiousness / quarrelsomeness
@@ -119,11 +114,12 @@ The current reviewed core already covers:
 
 | View | What it is for |
 | --- | --- |
-| Concept Explorer | Read one concept closely: labels, review status, evidence, and linked relations |
-| Passage Explorer | Start from the text and see which concepts and relations cite that passage |
-| Graph View | Inspect a 1-hop or 2-hop neighborhood without rendering the full graph as a hairball |
-| Overall Map | Explore the whole filtered Book II network with kind colors, interactive search/filter controls, and top-connection summaries |
-| Stats | See current counts, relation types, concept kinds, and review-status breakdowns |
+| Home | Understand the job of the app and jump into the strongest first paths |
+| Concept Explorer | Read one concept closely, then move through linked concepts and passages |
+| Passage Explorer | Start from the text and see which concepts and relations are grounded there |
+| Graph View | Inspect a 1-hop or 2-hop neighborhood and click nodes to open them |
+| Overall Map | Explore the whole filtered Book II network with search, filtering, and hub summaries |
+| Stats | See counts by concept kind, relation type, and assertion tier |
 
 More detail: [docs/viewer_guide.md](docs/viewer_guide.md)
 
@@ -134,7 +130,7 @@ The project stays strict in a few concrete ways:
 - Every concept must cite one or more passages.
 - Every relation must cite one or more passages.
 - `source_labels` preserve Ross wording instead of silently modernizing it.
-- `candidate` and `approved` are separate files and separate export modes.
+- Draft material stays in candidate files and does not power the public app by default.
 - Book II is a hard boundary; the repo does not quietly expand into later books.
 
 ## Data artifacts
@@ -143,7 +139,7 @@ Authoritative passage source:
 
 - `data/interim/book2_passages.jsonl`
 
-Processed candidate artifacts:
+Public reviewed artifacts:
 
 - `data/processed/book2_passages.jsonl`
 - `data/processed/book2_concepts.jsonl`
@@ -152,7 +148,7 @@ Processed candidate artifacts:
 - `data/processed/book2_graph.graphml`
 - `data/processed/book2_stats.json`
 
-Processed approved artifacts:
+Compatibility copy of the strict export:
 
 - `data/processed/approved/book2_passages.jsonl`
 - `data/processed/approved/book2_concepts.jsonl`
@@ -173,13 +169,10 @@ Human-editable annotation files live in:
 - `annotations/book2/concepts.approved.yaml`
 - `annotations/book2/relations.approved.yaml`
 
-The working rule is simple:
+The public app now uses the reviewed Book II set only.
+Candidate files remain for future maintainer work, not as a second public mode.
 
-- new or machine-assisted annotations begin as `candidate`
-- only human-reviewed items move to `approved`
-- strict export mode uses only the approved layer
-
-This repository already includes a usable reviewed core, so approved mode is meaningful from the first run.
+More detail: [docs/annotation_guide.md](docs/annotation_guide.md)
 
 ## Source policy
 
@@ -190,6 +183,17 @@ This repository already includes a usable reviewed core, so approved mode is mea
   `data/interim/book2_passages.jsonl`
 
 Full rationale: [docs/source_policy.md](docs/source_policy.md)
+
+## Roadmap
+
+The next meaningful expansion is more Aristotle, not more interface complexity.
+
+- Book III would deepen courage, temperance, and voluntary action.
+- Book IV would add a richer band of practical virtue triads.
+- Book VI would supply practical wisdom as the system's governing hinge.
+- Book X would connect the graph back to happiness and the good life.
+
+Full note: [docs/roadmap.md](docs/roadmap.md)
 
 ## Deployment
 
@@ -207,8 +211,8 @@ Deployment notes and the current hosted target are in [docs/deployment.md](docs/
 - `src/aristotle_graph/ingest/`: source adapters, normalization, segmentation
 - `src/aristotle_graph/annotations/`: schemas, loaders, validation, export
 - `src/aristotle_graph/graph/`: graph payload construction and GraphML export
-- `src/aristotle_graph/viewer/`: viewer loading, filtering, and rendering helpers
-- `src/aristotle_graph/app/`: app logic
+- `src/aristotle_graph/viewer/`: viewer loading, filtering, rendering, and dataset bundle helpers
+- `src/aristotle_graph/app/`: Streamlit app logic
 - `streamlit_app.py`: deployment-friendly root entrypoint
 - `annotations/`: candidate and approved Book II annotation files
 - `data/`: interim and processed outputs
@@ -220,6 +224,7 @@ Useful docs:
 - [docs/deployment.md](docs/deployment.md)
 - [docs/annotation_guide.md](docs/annotation_guide.md)
 - [docs/data_model.md](docs/data_model.md)
+- [docs/roadmap.md](docs/roadmap.md)
 - [docs/source_policy.md](docs/source_policy.md)
 - [docs/execplans/aristotle-virtue-graph.md](docs/execplans/aristotle-virtue-graph.md)
 
@@ -228,7 +233,7 @@ Useful docs:
 - This is Book II only.
 - There is no database.
 - There is no chatbot or RAG layer.
-- The approved subset is intentionally smaller than the candidate layer.
+- The graph is reviewed and passage-grounded, but it is not a full ontology of Aristotle.
 - Bekker references and CTS URNs are not yet populated.
 
 ## License

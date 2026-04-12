@@ -1,10 +1,10 @@
 # Book II Annotations
 
-This directory holds the Milestone 2 annotation layer for *Nicomachean Ethics* Book II.
+This directory holds the human-reviewed annotation source for *Nicomachean Ethics* Book II.
 
 ## Authority
 
-The sole passage authority for this milestone is:
+The sole passage authority for annotation and export is:
 
 - `data/interim/book2_passages.jsonl`
 
@@ -12,41 +12,41 @@ Every concept and every relation must point to one or more passage ids from that
 
 ## Files
 
-- `concepts.candidate.yaml`: machine-assisted or editor-drafted candidates that still require
-  human review
-- `relations.candidate.yaml`: machine-assisted or editor-drafted candidate relations
-- `concepts.approved.yaml`: human-reviewed concepts only
-- `relations.approved.yaml`: human-reviewed relations only
+- `concepts.approved.yaml`: the reviewed Book II concept set
+- `relations.approved.yaml`: the reviewed Book II relation set
+- `concepts.candidate.yaml`: maintainer-facing draft concepts, currently empty
+- `relations.candidate.yaml`: maintainer-facing draft relations, currently empty
 
-Candidates and approved items are intentionally separated. Duplicate ids across files are
-rejected.
+The public app and the committed processed dataset now use the fully reviewed Book II set.
+Candidate files remain in the repository only so future additions can begin as drafts instead of
+being treated as ground truth.
 
-The repository currently includes a reviewed core subset in the approved files. That subset
-covers sections 1, 4, 5, 6, and six section 7 triads:
+## Current reviewed coverage
 
-- courage / rashness / cowardice
-- temperance / self-indulgence / insensibility
-- liberality / prodigality / meanness
-- truthfulness / boastfulness / mock modesty
-- wit / buffoonery / boorishness
-- friendliness / obsequiousness / quarrelsomeness
+The approved files now cover the full Book II MVP:
+
+- structural concepts such as moral virtue, habituation, pleasure and pain, virtuous action,
+  and the mean
+- all nine Book II section-7 virtue clusters used in this repo:
+  courage, temperance, liberality, magnificence, proper pride, good temper, truthfulness,
+  wit, and friendliness
 
 ## Review policy
 
-- All model-generated annotations must start as `review_status: candidate`.
+- All model-generated or editor-drafted additions must start as `review_status: candidate`.
 - Only human-reviewed items belong in the `*.approved.yaml` files.
 - Strict export mode reads only approved items.
-- Approved relations must point only to approved concepts in strict mode.
+- Approved relations must point only to approved concepts.
 
 ## Promotion workflow
 
-1. Inspect a candidate item against the passage ids listed in its `evidence`.
-2. Confirm that the `primary_label`, `source_labels`, `assertion_tier`, and relation direction
-   are appropriate for Book II.
-3. Move the item from the candidate file into the matching approved file.
-4. Change `review_status` from `candidate` to `approved`.
-5. Remove the old candidate copy. The validator rejects duplicate ids.
-6. Run:
+1. Add the draft item to the matching `*.candidate.yaml` file.
+2. Inspect the cited passages in `data/interim/book2_passages.jsonl`.
+3. Confirm the `primary_label`, `source_labels`, `assertion_tier`, and relation direction.
+4. Move the item into the matching `*.approved.yaml` file.
+5. Change `review_status` from `candidate` to `approved`.
+6. Remove the candidate copy. Duplicate ids are rejected.
+7. Run:
    - `python -m aristotle_graph.cli annotations validate`
    - `python -m aristotle_graph.cli annotations validate --strict-approved`
 

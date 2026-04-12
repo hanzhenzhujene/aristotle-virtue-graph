@@ -1,4 +1,4 @@
-streamlit>=1.44,<2
+streamlit>=1.49,<2
 pyvis>=0.3.2,<1
 networkx>=3.3,<4
 pydantic>=2.7,<3

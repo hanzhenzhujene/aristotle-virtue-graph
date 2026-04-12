@@ -1,4 +1,4 @@
-PYTHON ?= python3
+PYTHON ?= python
 
 .PHONY: install sources fetch normalize segment annotations-validate annotations-validate-strict annotations-export annotations-export-strict annotations-stats app test lint typecheck check
 
@@ -24,7 +24,7 @@ annotations-validate-strict:
 	$(PYTHON) -m aristotle_graph.cli annotations validate --strict-approved
 
 annotations-export:
-	$(PYTHON) -m aristotle_graph.cli annotations export-all
+	$(PYTHON) -m aristotle_graph.cli annotations export-all --strict-approved
 
 annotations-export-strict:
 	$(PYTHON) -m aristotle_graph.cli annotations export-all --strict-approved --output-dir data/processed/approved

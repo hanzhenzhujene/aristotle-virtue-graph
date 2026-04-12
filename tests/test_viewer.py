@@ -1,14 +1,21 @@
 from __future__ import annotations
 
-import json
-from pathlib import Path
+from io import BytesIO
 from typing import cast
+from zipfile import ZipFile
 
-from aristotle_graph.app.streamlit_app import apply_pending_view_navigation
-from aristotle_graph.viewer.load import approved_empty_notice, load_viewer_dataset
+from aristotle_graph.app.streamlit_app import (
+    apply_pending_concept_selection,
+    apply_pending_view_navigation,
+    queue_graph_click_navigation,
+)
+from aristotle_graph.viewer.downloads import build_dataset_bundle
+from aristotle_graph.viewer.load import load_viewer_dataset
+from aristotle_graph.viewer.render import build_graph_html, concept_story_markdown
 from aristotle_graph.viewer.state import (
     VIEW_NAMES,
     ViewerFilters,
+    build_ego_graph,
     build_filtered_graph,
     default_concept_id,
     graph_degree_rows,
@@ -17,39 +24,23 @@ from aristotle_graph.viewer.state import (
 )
 
 
-def _write_jsonl(path: Path, rows: list[dict]) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("w", encoding="utf-8") as handle:
-        for row in rows:
-            handle.write(json.dumps(row) + "\n")
-
-
-def test_viewer_loader_succeeds_on_repository_candidate_exports() -> None:
-    dataset = load_viewer_dataset("candidate")
+def test_viewer_loader_succeeds_on_repository_reviewed_exports() -> None:
+    dataset = load_viewer_dataset()
 
     assert len(dataset.concepts) == 54
     assert len(dataset.relations) == 42
     assert len(dataset.passages) == 45
-    assert dataset.empty_notice is None
-
-
-def test_viewer_loader_succeeds_on_repository_approved_exports() -> None:
-    dataset = load_viewer_dataset("approved")
-
-    assert len(dataset.concepts) == 42
-    assert len(dataset.relations) == 33
-    assert len(dataset.passages) == 45
-    assert dataset.empty_notice is None
+    assert dataset.paths.graphml_path.exists()
 
 
 def test_default_concept_prefers_courage() -> None:
-    dataset = load_viewer_dataset("candidate")
+    dataset = load_viewer_dataset()
 
     assert default_concept_id(dataset, dataset.concepts) == "courage"
 
 
 def test_start_here_concepts_include_curated_entry_points() -> None:
-    dataset = load_viewer_dataset("candidate")
+    dataset = load_viewer_dataset()
 
     assert start_here_concept_ids(dataset) == [
         "courage",
@@ -60,8 +51,9 @@ def test_start_here_concepts_include_curated_entry_points() -> None:
     ]
 
 
-def test_view_names_include_overall_map_before_stats() -> None:
+def test_view_names_include_home_and_overall_map_before_stats() -> None:
     assert VIEW_NAMES == (
+        "Home",
         "Concept Explorer",
         "Passage Explorer",
         "Graph View",
@@ -71,7 +63,7 @@ def test_view_names_include_overall_map_before_stats() -> None:
 
 
 def test_passage_options_include_focused_passage_outside_current_filter() -> None:
-    dataset = load_viewer_dataset("candidate")
+    dataset = load_viewer_dataset()
     visible_passages = [dataset.passages[0]]
 
     options = passage_options(
@@ -85,7 +77,7 @@ def test_passage_options_include_focused_passage_outside_current_filter() -> Non
 
 
 def test_build_filtered_graph_returns_consistent_node_edge_subset() -> None:
-    dataset = load_viewer_dataset("candidate")
+    dataset = load_viewer_dataset()
     filters = ViewerFilters(
         concept_kinds=frozenset({"virtue", "vice"}),
         relation_types=frozenset({"has_excess", "has_deficiency"}),
@@ -103,7 +95,7 @@ def test_build_filtered_graph_returns_consistent_node_edge_subset() -> None:
 
 
 def test_graph_degree_rows_sort_by_total_degree() -> None:
-    dataset = load_viewer_dataset("candidate")
+    dataset = load_viewer_dataset()
     nodes, relations = build_filtered_graph(dataset, ViewerFilters())
 
     rows = graph_degree_rows(nodes, relations)
@@ -117,7 +109,7 @@ def test_graph_degree_rows_sort_by_total_degree() -> None:
 
 def test_apply_pending_view_navigation_switches_view_on_next_rerun() -> None:
     session_state: dict[str, object] = {
-        "avg-active-view": "Concept Explorer",
+        "avg-active-view": "Home",
         "avg-pending-view": "Passage Explorer",
     }
 
@@ -140,66 +132,79 @@ def test_apply_pending_view_navigation_recovers_invalid_active_view() -> None:
         pending_view_key="avg-pending-view",
     )
 
-    assert session_state["avg-active-view"] == "Concept Explorer"
+    assert session_state["avg-active-view"] == "Home"
 
 
-def test_viewer_loader_handles_empty_approved_mode(tmp_path: Path) -> None:
-    approved_root = tmp_path / "approved"
-    _write_jsonl(approved_root / "book2_concepts.jsonl", [])
-    _write_jsonl(approved_root / "book2_relations.jsonl", [])
-    _write_jsonl(
-        approved_root / "book2_passages.jsonl",
-        [
-            {
-                "passage_id": "ne.b2.s1.p1",
-                "work_id": "nicomachean-ethics",
-                "book_number": 2,
-                "chapter_or_section": "part-1",
-                "sequence_in_book": 1,
-                "source_id": "wikisource_ross_1908",
-                "source_url": "https://example.test/book-two#Part_1",
-                "citation_label": "NE II.1 ¶1",
-                "text": "Fixture passage text.",
-                "cts_urn": None,
-                "bekker_ref": None,
-                "char_count": 21,
-                "hash": "fixture-hash",
-            }
-        ],
-    )
-    (approved_root / "book2_graph.json").write_text(
-        json.dumps(
-            {
-                "meta": {
-                    "book": 2,
-                    "mode": "strict_approved",
-                    "concept_count": 0,
-                    "relation_count": 0,
-                    "passage_count": 1,
-                },
-                "nodes": [],
-                "edges": [],
-                "passages": [],
-            }
-        ),
-        encoding="utf-8",
-    )
-    (approved_root / "book2_stats.json").write_text(
-        json.dumps(
-            {
-                "book": 2,
-                "mode": "strict_approved",
-                "concept_count": 0,
-                "relation_count": 0,
-                "passage_count": 1,
-            }
-        ),
-        encoding="utf-8",
+def test_apply_pending_concept_selection_updates_selected_concept() -> None:
+    dataset = load_viewer_dataset()
+    session_state: dict[str, object] = {
+        "avg-selected-concept-id": "temperance",
+        "avg-pending-concept-id": "courage",
+    }
+
+    apply_pending_concept_selection(
+        session_state,
+        selected_concept_key="avg-selected-concept-id",
+        pending_concept_key="avg-pending-concept-id",
+        dataset=dataset,
     )
 
-    dataset = load_viewer_dataset("approved", processed_root=tmp_path)
+    assert session_state["avg-selected-concept-id"] == "courage"
+    assert "avg-pending-concept-id" not in session_state
 
-    assert dataset.empty_notice == approved_empty_notice()
-    assert len(dataset.concepts) == 0
-    assert len(dataset.relations) == 0
-    assert len(dataset.passages) == 1
+
+def test_queue_graph_click_navigation_queues_concept_explorer() -> None:
+    dataset = load_viewer_dataset()
+    session_state: dict[str, object] = {}
+
+    changed = queue_graph_click_navigation(
+        session_state,
+        clicked_concept_id="courage",
+        pending_concept_key="avg-pending-concept-id",
+        pending_view_key="avg-pending-view",
+        dataset=dataset,
+    )
+
+    assert changed is True
+    assert session_state["avg-pending-concept-id"] == "courage"
+    assert session_state["avg-pending-view"] == "Concept Explorer"
+
+
+def test_concept_story_markdown_handles_triad_and_principle_nodes() -> None:
+    dataset = load_viewer_dataset()
+
+    courage_story = concept_story_markdown(dataset.concept_index["courage"], dataset)
+    assert "mean between cowardice and rashness" in courage_story
+    assert "fear and confidence" in courage_story
+
+    mean_story = concept_story_markdown(dataset.concept_index["ethical-mean"], dataset)
+    assert "determined by rational principle and the man of practical wisdom" in mean_story
+    assert "contrasts the mean with deficiency and excess" in mean_story
+
+
+def test_build_dataset_bundle_contains_reviewed_exports() -> None:
+    dataset = load_viewer_dataset()
+    bundle = build_dataset_bundle(dataset)
+
+    with ZipFile(BytesIO(bundle.payload)) as archive:
+        names = set(archive.namelist())
+
+    assert bundle.filename.endswith(".zip")
+    assert {
+        "README.txt",
+        "book2_passages.jsonl",
+        "book2_concepts.jsonl",
+        "book2_relations.jsonl",
+        "book2_graph.json",
+        "book2_graph.graphml",
+        "book2_stats.json",
+    } <= names
+
+
+def test_build_graph_html_includes_click_bridge() -> None:
+    dataset = load_viewer_dataset()
+    nodes, relations = build_ego_graph(dataset, "courage", ViewerFilters(), hops=1)
+
+    html = build_graph_html(nodes, relations, center_concept_id="courage")
+
+    assert "avg-node-click" in html

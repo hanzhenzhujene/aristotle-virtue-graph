@@ -2,8 +2,8 @@
   "meta": {
     "book": 2,
     "mode": "strict_approved",
-    "concept_count": 42,
-    "relation_count": 33,
+    "concept_count": 54,
+    "relation_count": 42,
     "passage_count": 45,
     "passage_authority": "data/interim/book2_passages.jsonl"
   },
@@ -27,6 +27,34 @@
           "passage_id": "ne.b2.s7.p4",
           "support_type": "direct",
           "note": "Section 7 places ready wit in the sphere of giving amusement.",
+          "quote_excerpt": null
+        }
+      ],
+      "review_status": "approved",
+      "notes": null
+    },
+    {
+      "id": "anger",
+      "primary_label": "anger",
+      "source_labels": [
+        "anger"
+      ],
+      "aliases": [],
+      "kind": "passion",
+      "description": "Anger is the sphere in which good temper, irascibility, and inirascibility are assessed.",
+      "assertion_tier": "textual",
+      "book": 2,
+      "sections": [
+        1,
+        5,
+        7,
+        9
+      ],
+      "evidence": [
+        {
+          "passage_id": "ne.b2.s7.p3",
+          "support_type": "direct",
+          "note": "Section 7 explicitly names anger as the relevant sphere for good temper.",
           "quote_excerpt": null
         }
       ],
@@ -441,6 +469,60 @@
       "notes": null
     },
     {
+      "id": "good-temper",
+      "primary_label": "good temper",
+      "source_labels": [
+        "good temper",
+        "good-tempered"
+      ],
+      "aliases": [],
+      "kind": "virtue",
+      "description": "Good temper is the mean in relation to anger.",
+      "assertion_tier": "textual",
+      "book": 2,
+      "sections": [
+        1,
+        7
+      ],
+      "evidence": [
+        {
+          "passage_id": "ne.b2.s7.p3",
+          "support_type": "direct",
+          "note": "Section 7 says the mean with regard to anger may be called good temper.",
+          "quote_excerpt": null
+        }
+      ],
+      "review_status": "approved",
+      "notes": null
+    },
+    {
+      "id": "great-expenditure",
+      "primary_label": "large sums",
+      "source_labels": [
+        "large sums"
+      ],
+      "aliases": [
+        "great expenditure"
+      ],
+      "kind": "domain",
+      "description": "The sphere of magnificence concerns large sums or major expenditure.",
+      "assertion_tier": "editorial_normalization",
+      "book": 2,
+      "sections": [
+        7
+      ],
+      "evidence": [
+        {
+          "passage_id": "ne.b2.s7.p2",
+          "support_type": "direct",
+          "note": "Ross says magnificence differs from liberality by dealing with large sums.",
+          "quote_excerpt": null
+        }
+      ],
+      "review_status": "approved",
+      "notes": null
+    },
+    {
       "id": "habituation",
       "primary_label": "habit",
       "source_labels": [
@@ -461,6 +543,31 @@
           "passage_id": "ne.b2.s1.p1",
           "support_type": "direct",
           "note": "Ross says moral virtue comes about from habit and is perfected by habit.",
+          "quote_excerpt": null
+        }
+      ],
+      "review_status": "approved",
+      "notes": null
+    },
+    {
+      "id": "honor-and-dishonor",
+      "primary_label": "honour and dishonour",
+      "source_labels": [
+        "honour and dishonour"
+      ],
+      "aliases": [],
+      "kind": "domain",
+      "description": "Honour and dishonour define the sphere in which proper pride is the mean.",
+      "assertion_tier": "textual",
+      "book": 2,
+      "sections": [
+        7
+      ],
+      "evidence": [
+        {
+          "passage_id": "ne.b2.s7.p2",
+          "support_type": "direct",
+          "note": "Section 7 explicitly names honour and dishonour as the relevant sphere.",
           "quote_excerpt": null
         }
       ],
@@ -521,6 +628,33 @@
       "notes": null
     },
     {
+      "id": "irascibility",
+      "primary_label": "irascibility",
+      "source_labels": [
+        "irascibility",
+        "irascible"
+      ],
+      "aliases": [],
+      "kind": "vice",
+      "description": "Irascibility is the excess opposed to good temper.",
+      "assertion_tier": "textual",
+      "book": 2,
+      "sections": [
+        1,
+        7
+      ],
+      "evidence": [
+        {
+          "passage_id": "ne.b2.s7.p3",
+          "support_type": "direct",
+          "note": "Section 7 names irascibility as the excess in relation to anger.",
+          "quote_excerpt": null
+        }
+      ],
+      "review_status": "approved",
+      "notes": null
+    },
+    {
       "id": "knowledge",
       "primary_label": "knowledge",
       "source_labels": [
@@ -546,6 +680,34 @@
       "notes": null
     },
     {
+      "id": "lack-of-spirit",
+      "primary_label": "inirascibility",
+      "source_labels": [
+        "inirascibility",
+        "inirascible sort of person"
+      ],
+      "aliases": [
+        "lack of spirit"
+      ],
+      "kind": "vice",
+      "description": "Inirascibility is the deficiency opposed to good temper.",
+      "assertion_tier": "editorial_normalization",
+      "book": 2,
+      "sections": [
+        7
+      ],
+      "evidence": [
+        {
+          "passage_id": "ne.b2.s7.p3",
+          "support_type": "direct",
+          "note": "Section 7 names inirascibility as the deficiency in relation to anger.",
+          "quote_excerpt": null
+        }
+      ],
+      "review_status": "approved",
+      "notes": "The repo id follows a mnemonic modern label, but Ross's wording is preserved in primary_label and source_labels."
+    },
+    {
       "id": "liberality",
       "primary_label": "liberality",
       "source_labels": [
@@ -565,6 +727,31 @@
           "passage_id": "ne.b2.s7.p2",
           "support_type": "direct",
           "note": "Section 7 names liberality as the mean with respect to money.",
+          "quote_excerpt": null
+        }
+      ],
+      "review_status": "approved",
+      "notes": null
+    },
+    {
+      "id": "magnificence",
+      "primary_label": "magnificence",
+      "source_labels": [
+        "magnificence"
+      ],
+      "aliases": [],
+      "kind": "virtue",
+      "description": "Magnificence is a mean dealing with large sums or major expenditure.",
+      "assertion_tier": "textual",
+      "book": 2,
+      "sections": [
+        7
+      ],
+      "evidence": [
+        {
+          "passage_id": "ne.b2.s7.p2",
+          "support_type": "direct",
+          "note": "Section 7 introduces magnificence as a mean distinct from liberality.",
           "quote_excerpt": null
         }
       ],
@@ -645,6 +832,31 @@
           "passage_id": "ne.b2.s1.p1",
           "support_type": "direct",
           "note": "The opening argument contrasts virtue with what arises by nature.",
+          "quote_excerpt": null
+        }
+      ],
+      "review_status": "approved",
+      "notes": null
+    },
+    {
+      "id": "niggardliness",
+      "primary_label": "niggardliness",
+      "source_labels": [
+        "niggardliness"
+      ],
+      "aliases": [],
+      "kind": "vice",
+      "description": "Niggardliness is the deficiency opposed to magnificence.",
+      "assertion_tier": "textual",
+      "book": 2,
+      "sections": [
+        7
+      ],
+      "evidence": [
+        {
+          "passage_id": "ne.b2.s7.p2",
+          "support_type": "direct",
+          "note": "Section 7 names niggardliness as the deficiency in the sphere of magnificence.",
           "quote_excerpt": null
         }
       ],
@@ -804,6 +1016,31 @@
           "passage_id": "ne.b2.s7.p2",
           "support_type": "direct",
           "note": "Section 7 names prodigality as the excess in giving and taking money.",
+          "quote_excerpt": null
+        }
+      ],
+      "review_status": "approved",
+      "notes": null
+    },
+    {
+      "id": "proper-pride",
+      "primary_label": "proper pride",
+      "source_labels": [
+        "proper pride"
+      ],
+      "aliases": [],
+      "kind": "virtue",
+      "description": "Proper pride is the mean in the sphere of honour and dishonour.",
+      "assertion_tier": "textual",
+      "book": 2,
+      "sections": [
+        7
+      ],
+      "evidence": [
+        {
+          "passage_id": "ne.b2.s7.p2",
+          "support_type": "direct",
+          "note": "Section 7 identifies proper pride as the mean concerning honour.",
           "quote_excerpt": null
         }
       ],
@@ -1090,6 +1327,58 @@
       "notes": null
     },
     {
+      "id": "undue-humility",
+      "primary_label": "undue humility",
+      "source_labels": [
+        "undue humility"
+      ],
+      "aliases": [],
+      "kind": "vice",
+      "description": "Undue humility is the deficiency opposed to proper pride.",
+      "assertion_tier": "textual",
+      "book": 2,
+      "sections": [
+        7
+      ],
+      "evidence": [
+        {
+          "passage_id": "ne.b2.s7.p2",
+          "support_type": "direct",
+          "note": "Section 7 names undue humility as the deficiency in honour and dishonour.",
+          "quote_excerpt": null
+        }
+      ],
+      "review_status": "approved",
+      "notes": null
+    },
+    {
+      "id": "vanity",
+      "primary_label": "empty vanity",
+      "source_labels": [
+        "empty vanity"
+      ],
+      "aliases": [
+        "vanity"
+      ],
+      "kind": "vice",
+      "description": "Empty vanity is the excess opposed to proper pride.",
+      "assertion_tier": "editorial_normalization",
+      "book": 2,
+      "sections": [
+        7
+      ],
+      "evidence": [
+        {
+          "passage_id": "ne.b2.s7.p2",
+          "support_type": "direct",
+          "note": "Section 7 names empty vanity as the excess in honour and dishonour.",
+          "quote_excerpt": null
+        }
+      ],
+      "review_status": "approved",
+      "notes": null
+    },
+    {
       "id": "virtuous-action",
       "primary_label": "acts in accordance with virtue",
       "source_labels": [
@@ -1111,6 +1400,32 @@
           "passage_id": "ne.b2.s2.p1",
           "support_type": "direct",
           "note": "Section 2 turns the inquiry toward actions and how they ought to be done.",
+          "quote_excerpt": null
+        }
+      ],
+      "review_status": "approved",
+      "notes": null
+    },
+    {
+      "id": "vulgarity",
+      "primary_label": "vulgarity",
+      "source_labels": [
+        "tastelessness and vulgarity",
+        "vulgarity"
+      ],
+      "aliases": [],
+      "kind": "vice",
+      "description": "Vulgarity is the excess opposed to magnificence in the sphere of large expenditure.",
+      "assertion_tier": "textual",
+      "book": 2,
+      "sections": [
+        7
+      ],
+      "evidence": [
+        {
+          "passage_id": "ne.b2.s7.p2",
+          "support_type": "direct",
+          "note": "Section 7 names tastelessness and vulgarity as the excess against magnificence.",
           "quote_excerpt": null
         }
       ],
@@ -1335,6 +1650,57 @@
       "notes": null
     },
     {
+      "id": "good-temper--concerns--anger",
+      "source_id": "good-temper",
+      "relation_type": "concerns",
+      "target_id": "anger",
+      "assertion_tier": "textual",
+      "evidence": [
+        {
+          "passage_id": "ne.b2.s7.p3",
+          "support_type": "direct",
+          "note": "Section 7 says the mean and extremes here are with regard to anger.",
+          "quote_excerpt": null
+        }
+      ],
+      "review_status": "approved",
+      "notes": null
+    },
+    {
+      "id": "good-temper--has-deficiency--lack-of-spirit",
+      "source_id": "good-temper",
+      "relation_type": "has_deficiency",
+      "target_id": "lack-of-spirit",
+      "assertion_tier": "editorial_normalization",
+      "evidence": [
+        {
+          "passage_id": "ne.b2.s7.p3",
+          "support_type": "direct",
+          "note": "Section 7 names inirascibility as the deficiency corresponding to good temper.",
+          "quote_excerpt": null
+        }
+      ],
+      "review_status": "approved",
+      "notes": null
+    },
+    {
+      "id": "good-temper--has-excess--irascibility",
+      "source_id": "good-temper",
+      "relation_type": "has_excess",
+      "target_id": "irascibility",
+      "assertion_tier": "textual",
+      "evidence": [
+        {
+          "passage_id": "ne.b2.s7.p3",
+          "support_type": "direct",
+          "note": "Section 7 names irascibility as the excess corresponding to good temper.",
+          "quote_excerpt": null
+        }
+      ],
+      "review_status": "approved",
+      "notes": null
+    },
+    {
       "id": "liberality--concerns--giving-and-taking-money",
       "source_id": "liberality",
       "relation_type": "concerns",
@@ -1379,6 +1745,57 @@
           "passage_id": "ne.b2.s7.p2",
           "support_type": "direct",
           "note": "Section 7 names prodigality as the excess corresponding to liberality.",
+          "quote_excerpt": null
+        }
+      ],
+      "review_status": "approved",
+      "notes": null
+    },
+    {
+      "id": "magnificence--concerns--great-expenditure",
+      "source_id": "magnificence",
+      "relation_type": "concerns",
+      "target_id": "great-expenditure",
+      "assertion_tier": "editorial_normalization",
+      "evidence": [
+        {
+          "passage_id": "ne.b2.s7.p2",
+          "support_type": "direct",
+          "note": "Ross distinguishes magnificence from liberality by dealing with large sums.",
+          "quote_excerpt": null
+        }
+      ],
+      "review_status": "approved",
+      "notes": null
+    },
+    {
+      "id": "magnificence--has-deficiency--niggardliness",
+      "source_id": "magnificence",
+      "relation_type": "has_deficiency",
+      "target_id": "niggardliness",
+      "assertion_tier": "textual",
+      "evidence": [
+        {
+          "passage_id": "ne.b2.s7.p2",
+          "support_type": "direct",
+          "note": "Section 7 names niggardliness as the deficiency corresponding to magnificence.",
+          "quote_excerpt": null
+        }
+      ],
+      "review_status": "approved",
+      "notes": null
+    },
+    {
+      "id": "magnificence--has-excess--vulgarity",
+      "source_id": "magnificence",
+      "relation_type": "has_excess",
+      "target_id": "vulgarity",
+      "assertion_tier": "textual",
+      "evidence": [
+        {
+          "passage_id": "ne.b2.s7.p2",
+          "support_type": "direct",
+          "note": "Section 7 names vulgarity as the excess corresponding to magnificence.",
           "quote_excerpt": null
         }
       ],
@@ -1464,6 +1881,57 @@
           "passage_id": "ne.b2.s6.p6",
           "support_type": "direct",
           "note": "Section 6 says virtue is a state of character concerned with choice.",
+          "quote_excerpt": null
+        }
+      ],
+      "review_status": "approved",
+      "notes": null
+    },
+    {
+      "id": "proper-pride--concerns--honor-and-dishonor",
+      "source_id": "proper-pride",
+      "relation_type": "concerns",
+      "target_id": "honor-and-dishonor",
+      "assertion_tier": "textual",
+      "evidence": [
+        {
+          "passage_id": "ne.b2.s7.p2",
+          "support_type": "direct",
+          "note": "Section 7 says proper pride is the mean with regard to honour and dishonour.",
+          "quote_excerpt": null
+        }
+      ],
+      "review_status": "approved",
+      "notes": null
+    },
+    {
+      "id": "proper-pride--has-deficiency--undue-humility",
+      "source_id": "proper-pride",
+      "relation_type": "has_deficiency",
+      "target_id": "undue-humility",
+      "assertion_tier": "textual",
+      "evidence": [
+        {
+          "passage_id": "ne.b2.s7.p2",
+          "support_type": "direct",
+          "note": "Section 7 names undue humility as the deficiency corresponding to proper pride.",
+          "quote_excerpt": null
+        }
+      ],
+      "review_status": "approved",
+      "notes": null
+    },
+    {
+      "id": "proper-pride--has-excess--vanity",
+      "source_id": "proper-pride",
+      "relation_type": "has_excess",
+      "target_id": "vanity",
+      "assertion_tier": "editorial_normalization",
+      "evidence": [
+        {
+          "passage_id": "ne.b2.s7.p2",
+          "support_type": "direct",
+          "note": "Section 7 names empty vanity as the excess corresponding to proper pride.",
           "quote_excerpt": null
         }
       ],

@@ -1,48 +1,55 @@
 # Viewer Guide
 
-The local viewer is the fastest way to understand what this repository is doing.
+The local viewer is the fastest way to understand what this repository is for.
+It now opens directly into the reviewed Book II dataset.
 
 ## Start here
 
-If you only want to open the viewer against the committed Book II exports:
+If you only want to open the viewer against the committed exports:
 
 ```bash
-python3 -m venv .venv
+python -m venv .venv
 . .venv/bin/activate
 pip install -e ".[viewer]"
 make app
 ```
 
-If you also want to rebuild the processed exports first:
+If you want to rebuild the reviewed exports first:
 
 ```bash
-python3 -m venv .venv
+python -m venv .venv
 . .venv/bin/activate
 pip install -e ".[dev,viewer]"
+make annotations-validate
+make annotations-validate-strict
 make annotations-export
-make annotations-export-strict
-python -m streamlit run streamlit_app.py
+make app
 ```
 
 Once the app opens, start with `courage`.
 
-The sidebar now includes a small `Start here` set so you can jump straight to a few strong entry
-points without typing.
-
 ## Suggested first walkthrough
 
-1. Stay in `candidate` mode and choose `courage`.
-2. Read the outgoing relations:
-   - `has_excess -> rashness`
-   - `has_deficiency -> cowardice`
-   - `concerns -> fear and confidence`
-3. Use the evidence shortcut to open the linked passage `NE II.7 ¶1`.
-4. Switch to `approved` mode and compare the reviewed subset against the larger candidate map.
+1. Land on `Home`.
+2. Open `courage`.
+3. Read the short narrative summary at the top of Concept Explorer.
+4. Open the linked supporting passage `NE II.7 ¶1`.
+5. Switch to `Graph View` or `Overall Map` and click a nearby node to jump back into its concept page.
 
 This is the quickest way to see how the project works:
-graph claims stay connected to the text.
+the graph is navigable, but every claim stays attached to the passage that supports it.
 
 ## What each view is for
+
+### Home
+
+Use this for the app's job statement and the fastest entry points.
+
+It gives you:
+
+- a short explanation of why the graph exists
+- guided paths into `courage`, `moral virtue`, and a passage-first route
+- a one-click dataset download
 
 ### Concept Explorer
 
@@ -50,12 +57,11 @@ Use this when you want to understand one concept well.
 
 It shows:
 
-- labels and aliases
-- kind and assertion tier
-- review status
-- supporting evidence
-- incoming and outgoing relations
-- one-click shortcuts that open the relevant passage in Passage Explorer
+- a short human-readable description
+- a deterministic summary of how that concept functions in Book II
+- readable relation cards with one-click concept and passage jumps
+- supporting passage previews
+- an optional `Dataset details` section for ids, tiers, and structured tables
 
 ### Passage Explorer
 
@@ -64,14 +70,15 @@ Use this when you want to start from the text.
 It shows:
 
 - the full passage text
-- linked concepts
-- linked relations
+- linked concepts as buttons back into Concept Explorer
+- linked relations grounded in that passage
 
 ### Graph View
 
 Use this when you want a local structural view without rendering the entire graph as a hairball.
 
 The graph view centers on one concept and expands to a 1-hop or 2-hop neighborhood.
+Clicking a node opens that concept.
 
 ### Overall Map
 
@@ -83,7 +90,7 @@ It shows:
 - built-in graph menus for search and kind-based filtering inside the canvas
 - optional edge labels for a denser explanatory view
 - top connected concepts and the current relation mix
-- isolated nodes that still match your current sidebar filters
+- node click-through into Concept Explorer
 
 ### Stats
 
@@ -93,21 +100,13 @@ Use this for a quick sense of scale:
 - relation counts
 - passage counts
 - kind and relation-type breakdowns
-- review-status breakdowns
-
-## Candidate vs approved
-
-- `candidate` mode shows the broader working layer
-- `approved` mode shows only the reviewed subset
-
-The difference matters.
-The project is designed so tentative structure and reviewed structure remain visibly distinct.
+- assertion-tier breakdowns
 
 ## What to look for
 
 The viewer is most useful when you ask concrete questions such as:
 
 - What exactly does Book II connect courage to?
-- Which relations are reviewed and which are still tentative?
 - Where is this claim grounded in the passage sequence?
-- Is this node a direct textual claim or an editorial normalization?
+- How does Aristotle move from moral virtue to habit, pleasure, pain, and the mean?
+- Which concepts become clearer when you start from the passage instead of from the graph?

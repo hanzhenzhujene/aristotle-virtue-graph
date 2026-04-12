@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 from html import escape
-from typing import Any, cast
+from typing import Any
 
 from aristotle_graph.annotations.models import ConceptAnnotation, RelationAnnotation
 from aristotle_graph.viewer.load import ViewerDataset
@@ -26,12 +26,25 @@ _EDGE_COLORS = {
     "candidate": "#9aa5b1",
 }
 
+_GRAPH_CLICK_BRIDGE = """
+if (typeof network !== "undefined") {
+    network.on("click", function(params) {
+        if (params.nodes.length > 0) {
+            window.parent.postMessage(
+                { type: "avg-node-click", conceptId: String(params.nodes[0]) },
+                "*"
+            );
+        }
+    });
+}
+"""
+
 
 def intro_markdown() -> str:
     return (
-        "Every concept and relation shown here is grounded in one or more "
-        "*Nicomachean Ethics* Book II passages. "
-        "Candidate mode shows the broader working layer; approved mode shows the reviewed core."
+        "This dashboard turns *Nicomachean Ethics* Book II into a reviewed, "
+        "passage-grounded map. Move from a concept to its relations, then open the "
+        "exact passage that supports the structure you see."
     )
 
 
@@ -43,23 +56,112 @@ def edge_color(review_status: str) -> str:
     return _EDGE_COLORS.get(review_status, "#9aa5b1")
 
 
+def _join_labels(labels: list[str]) -> str:
+    if not labels:
+        return ""
+    if len(labels) == 1:
+        return labels[0]
+    if len(labels) == 2:
+        return f"{labels[0]} and {labels[1]}"
+    return ", ".join(labels[:-1]) + f", and {labels[-1]}"
+
+
+def _target_labels(
+    concept_id: str,
+    dataset: ViewerDataset,
+    relation_type: str,
+) -> list[str]:
+    labels: list[str] = []
+    for relation in dataset.outgoing_relations.get(concept_id, ()):
+        if relation.relation_type != relation_type:
+            continue
+        labels.append(dataset.concept_index[relation.target_id].primary_label)
+    return sorted(labels, key=str.lower)
+
+
+def _incoming_roles(concept: ConceptAnnotation, dataset: ViewerDataset) -> list[str]:
+    roles: list[str] = []
+    for relation in dataset.incoming_relations.get(concept.id, ()):
+        source_label = dataset.concept_index[relation.source_id].primary_label
+        if relation.relation_type == "has_excess":
+            roles.append(f"the excess opposed to {source_label}")
+        elif relation.relation_type == "has_deficiency":
+            roles.append(f"the deficiency opposed to {source_label}")
+        elif relation.relation_type == "concerns":
+            roles.append(f"the domain for {source_label}")
+        elif relation.relation_type == "is_a":
+            roles.append(f"a broader category for {source_label}")
+        elif relation.relation_type == "determined_by":
+            roles.append(f"something that helps determine {source_label}")
+    return roles
+
+
+def concept_story_markdown(concept: ConceptAnnotation, dataset: ViewerDataset) -> str:
+    label = concept.primary_label
+    deficiency_labels = _target_labels(concept.id, dataset, "has_deficiency")
+    excess_labels = _target_labels(concept.id, dataset, "has_excess")
+    concern_labels = _target_labels(concept.id, dataset, "concerns")
+    is_a_labels = _target_labels(concept.id, dataset, "is_a")
+    formed_by_labels = _target_labels(concept.id, dataset, "formed_by")
+    requires_labels = _target_labels(concept.id, dataset, "requires")
+    determined_by_labels = _target_labels(concept.id, dataset, "determined_by")
+    contrasted_with_labels = _target_labels(concept.id, dataset, "contrasted_with")
+    opposed_to_labels = _target_labels(concept.id, dataset, "opposed_to")
+
+    sentences: list[str] = []
+    if deficiency_labels and excess_labels:
+        triad_sentence = (
+            f"In Book II, {label} appears as a mean between "
+            f"{_join_labels(deficiency_labels)} and {_join_labels(excess_labels)}"
+        )
+        if concern_labels:
+            triad_sentence += f" in the sphere of {_join_labels(concern_labels)}"
+        sentences.append(triad_sentence + ".")
+    elif concern_labels:
+        sentences.append(
+            f"In Book II, {label} is treated in the sphere of "
+            f"{_join_labels(concern_labels)}."
+        )
+
+    if is_a_labels:
+        sentences.append(f"Aristotle classifies {label} as {_join_labels(is_a_labels)}.")
+    if formed_by_labels:
+        sentences.append(f"{label.capitalize()} is formed by {_join_labels(formed_by_labels)}.")
+    if requires_labels:
+        sentences.append(f"{label.capitalize()} requires {_join_labels(requires_labels)}.")
+    if determined_by_labels:
+        sentences.append(
+            f"{label.capitalize()} is determined by {_join_labels(determined_by_labels)}."
+        )
+    if contrasted_with_labels:
+        sentences.append(
+            f"Book II contrasts {label} with {_join_labels(contrasted_with_labels)}."
+        )
+    if opposed_to_labels:
+        sentences.append(f"{label.capitalize()} is opposed to {_join_labels(opposed_to_labels)}.")
+
+    incoming_roles = _incoming_roles(concept, dataset)
+    if not sentences and incoming_roles:
+        sentences.append(f"In the graph, {label} appears as {_join_labels(incoming_roles)}.")
+
+    if not sentences:
+        sentences.append(concept.description)
+
+    return "\n\n".join(sentences)
+
+
 def relation_rows(
     relations: list[RelationAnnotation],
     dataset: ViewerDataset,
 ) -> list[dict[str, Any]]:
-    def concept_label(concept_id: str) -> str:
-        concept = dataset.concept_index.get(concept_id)
-        return concept.primary_label if concept is not None else concept_id
-
     rows: list[dict[str, Any]] = []
     for relation in relations:
         rows.append(
             {
                 "relation_type": relation.relation_type,
-                "source": concept_label(relation.source_id),
-                "target": concept_label(relation.target_id),
+                "source": dataset.concept_index[relation.source_id].primary_label,
+                "target": dataset.concept_index[relation.target_id].primary_label,
                 "assertion_tier": relation.assertion_tier,
-                "review_status": relation.review_status,
                 "evidence_passage_ids": ", ".join(
                     evidence.passage_id for evidence in relation.evidence
                 ),
@@ -74,41 +176,64 @@ def concept_summary_rows(
     return [
         {
             "label": concept.primary_label,
-            "id": concept.id,
             "kind": concept.kind,
             "assertion_tier": concept.assertion_tier,
-            "review_status": concept.review_status,
             "sections": ", ".join(str(section) for section in concept.sections),
         }
         for concept in concepts
     ]
 
 
-def evidence_rows(concept: ConceptAnnotation) -> list[dict[str, str]]:
-    return [
-        {
-            "passage_id": evidence.passage_id,
-            "support_type": evidence.support_type,
-            "note": evidence.note,
-            "quote_excerpt": evidence.quote_excerpt or "",
-        }
-        for evidence in concept.evidence
-    ]
+def evidence_rows(
+    concept: ConceptAnnotation,
+    dataset: ViewerDataset,
+) -> list[dict[str, str]]:
+    rows: list[dict[str, str]] = []
+    for evidence in concept.evidence:
+        passage = dataset.passage_index[evidence.passage_id]
+        rows.append(
+            {
+                "citation": passage.citation_label,
+                "passage_id": evidence.passage_id,
+                "support_type": evidence.support_type,
+                "note": evidence.note,
+                "quote_excerpt": evidence.quote_excerpt or "",
+            }
+        )
+    return rows
 
 
 def passage_relation_rows(
     relations: tuple[RelationAnnotation, ...],
+    dataset: ViewerDataset,
 ) -> list[dict[str, str]]:
     return [
         {
             "relation_type": relation.relation_type,
-            "source_id": relation.source_id,
-            "target_id": relation.target_id,
-            "review_status": relation.review_status,
+            "source": dataset.concept_index[relation.source_id].primary_label,
+            "target": dataset.concept_index[relation.target_id].primary_label,
             "assertion_tier": relation.assertion_tier,
         }
         for relation in relations
     ]
+
+
+def concept_detail_rows(concept: ConceptAnnotation) -> list[dict[str, str]]:
+    return [
+        {"field": "id", "value": concept.id},
+        {"field": "kind", "value": concept.kind},
+        {"field": "assertion tier", "value": concept.assertion_tier},
+        {"field": "sections", "value": ", ".join(str(section) for section in concept.sections)},
+        {"field": "source labels", "value": ", ".join(concept.source_labels)},
+        {"field": "aliases", "value": ", ".join(concept.aliases) if concept.aliases else "None"},
+    ]
+
+
+def passage_preview(text: str, *, limit: int = 220) -> str:
+    normalized = " ".join(text.split())
+    if len(normalized) <= limit:
+        return normalized
+    return normalized[: limit - 1].rstrip() + "…"
 
 
 def kind_legend_html(kinds: list[str]) -> str:
@@ -123,6 +248,15 @@ def kind_legend_html(kinds: list[str]) -> str:
             f"{escape(kind.replace('-', ' ').title())}</span>"
         )
     return "".join(chips)
+
+
+def _inject_graph_click_bridge(html: str) -> str:
+    if "avg-node-click" in html:
+        return html
+    marker = "return network;"
+    if marker not in html:
+        return html
+    return html.replace(marker, f"{_GRAPH_CLICK_BRIDGE}\n\n                  {marker}", 1)
 
 
 def build_graph_html(
@@ -198,7 +332,6 @@ def build_graph_html(
                     f"Label: {concept.primary_label}",
                     f"Kind: {concept.kind}",
                     f"Tier: {concept.assertion_tier}",
-                    f"Review: {concept.review_status}",
                     f"Degree: {degree}",
                     f"Sections: {', '.join(str(section) for section in concept.sections)}",
                     f"Evidence count: {len(concept.evidence)}",
@@ -243,7 +376,6 @@ def build_graph_html(
                 [
                     f"Relation: {relation_label}",
                     f"Tier: {relation.assertion_tier}",
-                    f"Review: {relation.review_status}",
                     "Evidence: "
                     + ", ".join(evidence.passage_id for evidence in relation.evidence),
                 ]
@@ -297,4 +429,4 @@ def build_graph_html(
         },
     }
     network.set_options(json.dumps(options))
-    return cast(str, network.generate_html())
+    return _inject_graph_click_bridge(network.generate_html())

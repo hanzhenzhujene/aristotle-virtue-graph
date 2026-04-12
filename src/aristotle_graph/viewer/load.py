@@ -2,14 +2,12 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Literal
+from typing import Any
 
 from aristotle_graph.annotations.models import ConceptAnnotation, RelationAnnotation
 from aristotle_graph.config import get_settings
 from aristotle_graph.schemas import PassageRecord
 from aristotle_graph.utils.io import read_json, read_jsonl
-
-ReviewMode = Literal["candidate", "approved"]
 
 
 class ViewerDataError(RuntimeError):
@@ -23,12 +21,12 @@ class ViewerPaths:
     relations_path: Path
     passages_path: Path
     graph_path: Path
+    graphml_path: Path
     stats_path: Path
 
 
 @dataclass(frozen=True)
 class ViewerDataset:
-    mode: ReviewMode
     paths: ViewerPaths
     concepts: tuple[ConceptAnnotation, ...]
     relations: tuple[RelationAnnotation, ...]
@@ -41,47 +39,28 @@ class ViewerDataset:
     incoming_relations: dict[str, tuple[RelationAnnotation, ...]]
     concepts_by_passage: dict[str, tuple[ConceptAnnotation, ...]]
     relations_by_passage: dict[str, tuple[RelationAnnotation, ...]]
-    empty_notice: str | None = None
 
 
-def mode_base_dir(mode: ReviewMode, *, processed_root: Path | None = None) -> Path:
-    base_root = processed_root or get_settings().processed_dir
-    return base_root if mode == "candidate" else base_root / "approved"
-
-
-def viewer_paths(mode: ReviewMode, *, processed_root: Path | None = None) -> ViewerPaths:
-    base_dir = mode_base_dir(mode, processed_root=processed_root)
+def viewer_paths(*, processed_root: Path | None = None) -> ViewerPaths:
+    base_dir = processed_root or get_settings().processed_dir
     return ViewerPaths(
         base_dir=base_dir,
         concepts_path=base_dir / "book2_concepts.jsonl",
         relations_path=base_dir / "book2_relations.jsonl",
         passages_path=base_dir / "book2_passages.jsonl",
         graph_path=base_dir / "book2_graph.json",
+        graphml_path=base_dir / "book2_graph.graphml",
         stats_path=base_dir / "book2_stats.json",
     )
 
 
-def approved_empty_notice() -> str:
-    return (
-        "No reviewed subset is available yet in approved mode. Promote reviewed items from "
-        "`annotations/book2/*.candidate.yaml` into the matching `*.approved.yaml` files, then "
-        "run the strict export path. See `annotations/book2/README.md` and "
-        "`docs/annotation_guide.md`."
-    )
-
-
-def _missing_artifact_message(mode: ReviewMode, missing_paths: list[Path]) -> str:
-    command = (
-        "python -m aristotle_graph.cli annotations export-all"
-        if mode == "candidate"
-        else "python -m aristotle_graph.cli annotations export-all --strict-approved "
-        "--output-dir data/processed/approved"
-    )
+def _missing_artifact_message(missing_paths: list[Path]) -> str:
     missing_text = "\n".join(f"- {path}" for path in missing_paths)
     return (
         "Missing processed viewer artifacts:\n"
         f"{missing_text}\n"
-        f"Build them with:\n{command}"
+        "Build the reviewed Book II dataset with:\n"
+        "make annotations-export"
     )
 
 
@@ -127,36 +106,31 @@ def _relations_by_passage(
 
 
 def load_viewer_dataset(
-    mode: ReviewMode = "candidate",
     *,
     processed_root: Path | None = None,
 ) -> ViewerDataset:
-    paths = viewer_paths(mode, processed_root=processed_root)
+    paths = viewer_paths(processed_root=processed_root)
     required_paths = [
         paths.concepts_path,
         paths.relations_path,
         paths.passages_path,
         paths.graph_path,
+        paths.graphml_path,
+        paths.stats_path,
     ]
     missing = [path for path in required_paths if not path.exists()]
     if missing:
-        raise ViewerDataError(_missing_artifact_message(mode, missing))
+        raise ViewerDataError(_missing_artifact_message(missing))
 
     concepts = tuple(
         sorted(
-            (
-                ConceptAnnotation.model_validate(row)
-                for row in read_jsonl(paths.concepts_path)
-            ),
+            (ConceptAnnotation.model_validate(row) for row in read_jsonl(paths.concepts_path)),
             key=lambda concept: concept.primary_label.lower(),
         )
     )
     relations = tuple(
         sorted(
-            (
-                RelationAnnotation.model_validate(row)
-                for row in read_jsonl(paths.relations_path)
-            ),
+            (RelationAnnotation.model_validate(row) for row in read_jsonl(paths.relations_path)),
             key=lambda relation: relation.id,
         )
     )
@@ -168,20 +142,9 @@ def load_viewer_dataset(
     )
 
     graph_payload = read_json(paths.graph_path)
-    stats = read_json(paths.stats_path) if paths.stats_path.exists() else {
-        "book": 2,
-        "mode": mode,
-        "concept_count": len(concepts),
-        "relation_count": len(relations),
-        "passage_count": len(passages),
-    }
-
-    empty_notice = None
-    if mode == "approved" and not concepts and not relations:
-        empty_notice = approved_empty_notice()
+    stats = read_json(paths.stats_path)
 
     return ViewerDataset(
-        mode=mode,
         paths=paths,
         concepts=concepts,
         relations=relations,
@@ -200,5 +163,4 @@ def load_viewer_dataset(
         ),
         concepts_by_passage=_concepts_by_passage(concepts),
         relations_by_passage=_relations_by_passage(relations),
-        empty_notice=empty_notice,
     )

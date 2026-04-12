@@ -168,6 +168,7 @@ Keep identifiers stable and human-readable.
 - [x] Milestone 3 graph exports complete
 - [x] Milestone 4 local viewer complete
 - [x] Milestone 5 polish complete
+- [x] 2026-04-11 approved-first viewer refresh complete
 
 ## Surprises & Discoveries
 
@@ -226,6 +227,14 @@ Keep identifiers stable and human-readable.
   the hosted dashboard configuration rather than in repository code or deployment files.
 - A small public-facing icon helps the repo and live app feel more finished, as long as it stays
   secondary to the evidence-first content and does not crowd the first-run path.
+- Once the remaining section 7 triads were rechecked, the gap between the draft layer and the
+  reviewed layer turned out to be small enough to close completely without changing the schema or
+  export architecture.
+- Streamlit's inline v2 components are a cleaner fit for graph click-through than trying to force
+  bidirectional behavior through `components.html()`, because the component can own an iframe and
+  return a clicked node id directly to Python.
+- The public app feels much clearer when it has one reviewed data surface, a homepage, and
+  dataset download, instead of exposing the repo's candidate-versus-approved workflow directly.
 
 ## Decision Log
 
@@ -291,6 +300,16 @@ Keep identifiers stable and human-readable.
   branch.
 - 2026-04-10: Replace the earlier repo mark with the supplied Aristotle head PNG and reuse that
   same small raster icon in the README and Streamlit header.
+- 2026-04-11: Promote the remaining magnificence, proper-pride, and good-temper triads after
+  rechecking `NE II.7 ¶2-3`, so the reviewed Book II set now covers the full MVP graph.
+- 2026-04-11: Make `data/processed/` the canonical public reviewed export and treat candidate
+  files as maintainer-only workflow material rather than a second public app mode.
+- 2026-04-11: Replace the public review-mode toggle with a single reviewed Book II app surface,
+  add a `Home` page, and move technical metadata behind optional detail sections.
+- 2026-04-11: Add a small Streamlit v2 graph bridge around the existing PyVis HTML so clicking a
+  node in either graph view opens that concept in Concept Explorer.
+- 2026-04-11: Add an in-app reviewed dataset download bundle and document Books III, IV, VI, and
+  X as the next corpus-expansion roadmap rather than extending scope in this batch.
 
 ## Outcomes & Retrospective
 
@@ -341,15 +360,23 @@ Observed results:
 - repeated segmentation runs produced the same SHA-256 for
   `data/interim/book2_passages.jsonl`
 - candidate annotation validation currently exports 54 concepts and 42 relations
-- strict approved mode now validates and exports a reviewed subset of 42 concepts and
-  33 relations
+- strict approved mode now validates and exports the full reviewed Book II set of 54 concepts and
+  42 relations
 - processed passage export now carries all 45 authoritative Book II passages in both candidate
   and approved modes
 - GraphML export loads successfully as a flattened representation of the processed graph
-- the local Streamlit app launches successfully and supports concept, passage, graph, and stats
-  views over candidate and approved processed data
+- the local Streamlit app launches successfully and now centers on a reviewed-only Book II
+  dataset with `Home`, concept, passage, graph, overall-map, and stats views
 - the local Streamlit app now also includes an interactive `Overall Map` page that renders the
   full filtered Book II network with kind colors, built-in graph menus, and hub summaries
+- both graph views now support node click-through into Concept Explorer through a small
+  Streamlit v2 component bridge over the PyVis HTML
+- Concept Explorer now leads with a deterministic plain-language summary and passage previews,
+  while ids, tiers, and tables sit behind optional detail sections
+- Passage Explorer is now easier to enter from `Home`, concept evidence cards, and relation cards,
+  and it supports concept jump-backs from linked passage concepts
+- the public app now includes a one-click reviewed dataset download bundle built from the
+  processed JSONL, JSON, GraphML, and stats exports
 - the README now leads with the actual Book II findings and the practical value of the graph,
   rather than only describing the toolchain
 - the public-facing repo now includes a real viewer preview, a compact overview graphic, a
@@ -368,8 +395,8 @@ Observed results:
   session-state mutation exception
 - the passage-jump buttons now use callback-driven queued navigation, which is more robust across
   local Streamlit and Community Cloud runs
-- the approved core now includes 42 concepts and 33 relations, adding reviewed wit and
-  friendliness triads to the earlier courage, temperance, liberality, and truthfulness coverage
+- the reviewed Book II graph now includes 54 concepts and 42 relations, covering all nine
+  section-7 virtue clusters in this MVP
 - the project now lives in its own public GitHub repository rather than remaining nested inside
   the unrelated parent `MESOTES` repository
 - `pytest`, `ruff check .`, and `mypy src/` all pass
@@ -377,17 +404,14 @@ Observed results:
 Known limitations:
 
 - Bekker references and CTS URNs are not yet populated
-- the approved subset is intentionally small and still needs broader human review and promotion
-  work before the rest of Book II should be treated as reviewed
 - GraphML intentionally flattens nested structures, so `book2_graph.json` remains the richer
   downstream format
 - the live Streamlit URL is now the shorter custom subdomain
   `https://aristotle-virtue-graph.streamlit.app/`
-- the remaining section 7 clusters, especially magnificence, proper pride, and good temper, still
-  need the same careful reviewed promotion work before the approved layer can be treated as
-  broadly representative of all section 7 particulars
+- the current scope is still Book II only, so users who want the full treatment of courage,
+  temperance, practical wisdom, or happiness still need later books
 
 Next recommended step:
 
-- continue promoting the remaining Book II clusters after passage-by-passage review so approved
-  mode covers more than the current core
+- expand next into Books III, IV, VI, and X while preserving the same reviewed,
+  passage-grounded discipline
