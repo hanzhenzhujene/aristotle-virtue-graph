@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from io import BytesIO
+from pathlib import Path
 from typing import cast
 from zipfile import ZipFile
 
@@ -10,7 +11,9 @@ from aristotle_graph.app.streamlit_app import (
     queue_graph_click_navigation,
 )
 from aristotle_graph.viewer.downloads import build_dataset_bundle, build_download_artifacts
+from aristotle_graph.viewer.graph_component import _COMPONENT_JS
 from aristotle_graph.viewer.load import load_viewer_dataset
+from aristotle_graph.viewer.profile import PUBLIC_VIEWER_PROFILE
 from aristotle_graph.viewer.render import (
     build_graph_html,
     concept_story_markdown,
@@ -23,6 +26,8 @@ from aristotle_graph.viewer.state import (
     build_filtered_graph,
     default_concept_id,
     graph_degree_rows,
+    home_concept_ids,
+    home_passage_id,
     passage_options,
     start_here_concept_ids,
 )
@@ -34,7 +39,18 @@ def test_viewer_loader_succeeds_on_repository_reviewed_exports() -> None:
     assert len(dataset.concepts) == 54
     assert len(dataset.relations) == 42
     assert len(dataset.passages) == 45
+    assert dataset.profile == PUBLIC_VIEWER_PROFILE
     assert dataset.paths.graphml_path.exists()
+    assert dataset.paths.concepts_path.name == PUBLIC_VIEWER_PROFILE.concepts_filename
+    assert dataset.paths.relations_path.name == PUBLIC_VIEWER_PROFILE.relations_filename
+    assert dataset.paths.passages_path.name == PUBLIC_VIEWER_PROFILE.passages_filename
+
+
+def test_profile_driven_defaults_resolve_to_book_two_entry_points() -> None:
+    dataset = load_viewer_dataset()
+
+    assert home_concept_ids(dataset) == list(PUBLIC_VIEWER_PROFILE.home_concept_ids)
+    assert home_passage_id(dataset) == PUBLIC_VIEWER_PROFILE.home_passage_id
 
 
 def test_default_concept_prefers_courage() -> None:
@@ -177,12 +193,16 @@ def test_concept_story_markdown_handles_triad_and_principle_nodes() -> None:
     dataset = load_viewer_dataset()
 
     courage_story = concept_story_markdown(dataset.concept_index["courage"], dataset)
-    assert "mean between cowardice and rashness" in courage_story
     assert "fear and confidence" in courage_story
+    assert "deficiency is cowardice" in courage_story
+    assert "excess is rashness" in courage_story
+    assert "doctrine of the mean" in courage_story
 
     mean_story = concept_story_markdown(dataset.concept_index["ethical-mean"], dataset)
-    assert "determined by rational principle and the man of practical wisdom" in mean_story
-    assert "contrasts the mean with deficiency and excess" in mean_story
+    assert "rational principle" in mean_story
+    assert "man of practical wisdom" in mean_story
+    assert "excess and deficiency" in mean_story
+    assert "not a flat midpoint" in mean_story
 
 
 def test_build_dataset_bundle_contains_reviewed_exports() -> None:
@@ -231,16 +251,14 @@ def test_build_download_artifacts_cover_bundle_and_individual_files() -> None:
     assert artifact_index["passages"].size_bytes == dataset.paths.passages_path.stat().st_size
 
 
-def test_build_graph_html_includes_click_bridge() -> None:
+def test_build_graph_html_is_plain_pyvis_output_without_click_bridge_injection() -> None:
     dataset = load_viewer_dataset()
     nodes, relations = build_ego_graph(dataset, "courage", ViewerFilters(), hops=1)
 
     html = build_graph_html(nodes, relations, center_concept_id="courage")
 
-    assert "avg-node-click" in html
-    assert 'network.on("selectNode"' in html
-    assert 'network.on("doubleClick"' in html
-    assert 'style.cursor = "pointer"' in html
+    assert "avg-node-click" not in html
+    assert "__avgBoundGraphHash" not in html
     assert "widthConstraint" in html
 
 
@@ -251,3 +269,26 @@ def test_edge_font_options_use_readable_edge_label_background() -> None:
     assert concept_map_font["background"] == "rgba(255, 250, 241, 0.96)"
     assert concept_map_font["align"] == "horizontal"
     assert overall_map_font["vadjust"] < concept_map_font["vadjust"]
+
+
+def test_component_javascript_owns_graph_click_binding() -> None:
+    assert "frame.contentWindow" in _COMPONENT_JS
+    assert "frame.contentWindow?.network" not in _COMPONENT_JS
+    assert 'network.on("click"' in _COMPONENT_JS
+    assert 'network.on("doubleClick"' in _COMPONENT_JS
+    assert 'network.on("selectNode"' in _COMPONENT_JS
+    assert "__avgBoundGraphHash" in _COMPONENT_JS
+    assert "window.setTimeout" in _COMPONENT_JS
+    assert 'setTriggerValue("clicked"' in _COMPONENT_JS
+
+
+def test_public_docs_keep_reviewed_surface_clean() -> None:
+    repo_root = Path(__file__).resolve().parents[1]
+    readme = (repo_root / "README.md").read_text(encoding="utf-8")
+    viewer_guide = (repo_root / "docs" / "viewer_guide.md").read_text(encoding="utf-8")
+
+    assert "data/processed/approved" not in readme
+    assert "concepts.candidate.yaml" not in readme
+    assert "relations.candidate.yaml" not in readme
+    assert "Draft material stays in candidate files" not in readme
+    assert "candidate / approved" not in viewer_guide

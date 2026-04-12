@@ -8,6 +8,7 @@ from aristotle_graph.annotations.models import ConceptAnnotation, RelationAnnota
 from aristotle_graph.config import get_settings
 from aristotle_graph.schemas import PassageRecord
 from aristotle_graph.utils.io import read_json, read_jsonl
+from aristotle_graph.viewer.profile import PUBLIC_VIEWER_PROFILE, ViewerProfile
 
 
 class ViewerDataError(RuntimeError):
@@ -16,6 +17,7 @@ class ViewerDataError(RuntimeError):
 
 @dataclass(frozen=True)
 class ViewerPaths:
+    profile: ViewerProfile
     base_dir: Path
     concepts_path: Path
     relations_path: Path
@@ -27,6 +29,7 @@ class ViewerPaths:
 
 @dataclass(frozen=True)
 class ViewerDataset:
+    profile: ViewerProfile
     paths: ViewerPaths
     concepts: tuple[ConceptAnnotation, ...]
     relations: tuple[RelationAnnotation, ...]
@@ -41,25 +44,34 @@ class ViewerDataset:
     relations_by_passage: dict[str, tuple[RelationAnnotation, ...]]
 
 
-def viewer_paths(*, processed_root: Path | None = None) -> ViewerPaths:
+def viewer_paths(
+    *,
+    processed_root: Path | None = None,
+    profile: ViewerProfile = PUBLIC_VIEWER_PROFILE,
+) -> ViewerPaths:
     base_dir = processed_root or get_settings().processed_dir
     return ViewerPaths(
+        profile=profile,
         base_dir=base_dir,
-        concepts_path=base_dir / "book2_concepts.jsonl",
-        relations_path=base_dir / "book2_relations.jsonl",
-        passages_path=base_dir / "book2_passages.jsonl",
-        graph_path=base_dir / "book2_graph.json",
-        graphml_path=base_dir / "book2_graph.graphml",
-        stats_path=base_dir / "book2_stats.json",
+        concepts_path=base_dir / profile.concepts_filename,
+        relations_path=base_dir / profile.relations_filename,
+        passages_path=base_dir / profile.passages_filename,
+        graph_path=base_dir / profile.graph_filename,
+        graphml_path=base_dir / profile.graphml_filename,
+        stats_path=base_dir / profile.stats_filename,
     )
 
 
-def _missing_artifact_message(missing_paths: list[Path]) -> str:
+def _missing_artifact_message(
+    missing_paths: list[Path],
+    *,
+    profile: ViewerProfile,
+) -> str:
     missing_text = "\n".join(f"- {path}" for path in missing_paths)
     return (
         "Missing processed viewer artifacts:\n"
         f"{missing_text}\n"
-        "Build the reviewed Book II dataset with:\n"
+        f"Build the reviewed {profile.book_label} dataset with:\n"
         "make annotations-export"
     )
 
@@ -108,8 +120,9 @@ def _relations_by_passage(
 def load_viewer_dataset(
     *,
     processed_root: Path | None = None,
+    profile: ViewerProfile = PUBLIC_VIEWER_PROFILE,
 ) -> ViewerDataset:
-    paths = viewer_paths(processed_root=processed_root)
+    paths = viewer_paths(processed_root=processed_root, profile=profile)
     required_paths = [
         paths.concepts_path,
         paths.relations_path,
@@ -120,7 +133,7 @@ def load_viewer_dataset(
     ]
     missing = [path for path in required_paths if not path.exists()]
     if missing:
-        raise ViewerDataError(_missing_artifact_message(missing))
+        raise ViewerDataError(_missing_artifact_message(missing, profile=profile))
 
     concepts = tuple(
         sorted(
@@ -145,6 +158,7 @@ def load_viewer_dataset(
     stats = read_json(paths.stats_path)
 
     return ViewerDataset(
+        profile=profile,
         paths=paths,
         concepts=concepts,
         relations=relations,

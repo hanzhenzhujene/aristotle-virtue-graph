@@ -169,6 +169,7 @@ Keep identifiers stable and human-readable.
 - [x] Milestone 4 local viewer complete
 - [x] Milestone 5 polish complete
 - [x] 2026-04-11 approved-first viewer refresh complete
+- [x] 2026-04-12 public-branch cleanup and graph hardening complete
 
 ## Surprises & Discoveries
 
@@ -252,6 +253,15 @@ Keep identifiers stable and human-readable.
 - The dataset download UX is clearer when the app opens a chooser first and then offers specific
   artifacts, instead of forcing one immediate bundle download with workflow language like
   `approved dataset`.
+- A reviewed-only public app can still leak maintainer workflow in docs and asset names, so the
+  README and screenshot layer need a separate cleanup pass even after the runtime behavior is
+  simplified.
+- PyVis click-through is more reliable when the Streamlit v2 component binds against the iframe's
+  `contentWindow.network` after load, rather than mutating the generated HTML string and hoping
+  the injected bridge survives rerenders.
+- When multiple local checkouts of the same package exist, a tiny `tests/conftest.py` path pin is
+  enough to keep `pytest` pointed at the clean worktree's `src/` tree instead of an unrelated
+  editable install elsewhere on the machine.
 
 ## Decision Log
 
@@ -340,6 +350,15 @@ Keep identifiers stable and human-readable.
 - 2026-04-12: Remove the exploratory Book III tranche from the repository and restore the public
   scope to a strict Book II-only dashboard, so the public surface stays coherent and fully
   reviewed.
+- 2026-04-12: Treat `data/processed/*` as the sole public dataset surface in README and
+  viewer-facing docs, and push candidate plus compatibility-copy details fully into maintainer
+  documentation.
+- 2026-04-12: Move all graph click binding into the Streamlit v2 component so `build_graph_html()`
+  can return plain PyVis HTML again, with the component attaching idempotent listeners after the
+  iframe loads.
+- 2026-04-12: Introduce a small `ViewerProfile` for the public dataset so filenames, book label,
+  default concept, and curated entry points live in one place instead of being scattered across the
+  loader, state helpers, and app copy.
 
 ## Outcomes & Retrospective
 
@@ -371,7 +390,7 @@ Outputs:
 - `data/processed/approved/book2_graph.json`
 - `data/processed/approved/book2_graph.graphml`
 - `data/processed/approved/book2_stats.json`
-- `docs/assets/viewer-courage-candidate.png`
+- `docs/assets/viewer-courage-hero.png`
 - `docs/assets/book2-overview.svg`
 - `docs/assets/aristotle-head-icon.png`
 - `docs/viewer_guide.md`
@@ -381,7 +400,9 @@ Outputs:
 - `requirements.txt`
 - `.streamlit/config.toml`
 - `src/aristotle_graph/viewer/`
+- `src/aristotle_graph/viewer/profile.py`
 - `src/aristotle_graph/app/streamlit_app.py`
+- `tests/conftest.py`
 
 Observed results:
 
@@ -415,6 +436,21 @@ Observed results:
   viewer guide, and a code license
 - the public-facing repo and live app now share a small Aristotle head PNG, which makes the
   project easier to recognize without replacing the dashboard screenshot as the main entry point
+- the public-facing README and viewer guide now present one reviewed Book II product and no longer
+  foreground candidate files, strict-export compatibility copies, or draft-workflow terminology
+- the public hero screenshot is now referenced through the neutral asset name
+  `docs/assets/viewer-courage-hero.png` instead of a `candidate`-named file
+- the PyVis graph HTML is plain again, while the Streamlit v2 component now binds click,
+  double-click, and node-selection listeners against the iframe-loaded `network` object with a
+  bounded retry loop and idempotent binding guard
+- the viewer now reads its processed filenames, public book label, default concept, and curated
+  home/start-here entry points from a shared `ViewerProfile`
+- Concept Explorer summaries now use deterministic role-aware templates for virtue triads, vice
+  nodes, domains, and principle/process nodes, so the reading layer sounds more guided and less
+  like transformed schema fields
+- `pytest` in this clean public-branch worktree now pins imports to its own `src/` directory, which
+  avoids accidentally collecting modules from the unrelated dirty checkout installed elsewhere on
+  the machine
 - the repository is now deployment-ready for Streamlit Community Cloud with a root app
   entrypoint and explicit deployment instructions
 - the README top section now centers on a single dashboard hero, a non-misleading live-status

@@ -22,6 +22,7 @@ from aristotle_graph.viewer.render import (
     kind_legend_html,
     passage_preview,
     passage_relation_rows,
+    relation_headline,
     relation_rows,
 )
 from aristotle_graph.viewer.state import (
@@ -176,13 +177,15 @@ def _render_relation_cards(
         return
 
     for relation in relations:
-        is_outgoing = relation.source_id == selected_concept.id
-        other_concept_id = relation.target_id if is_outgoing else relation.source_id
-        other_concept = dataset.concept_index[other_concept_id]
-        headline = (
-            f"{_relation_label(relation.relation_type)} {other_concept.primary_label}"
-            if is_outgoing
-            else f"{other_concept.primary_label} {_relation_label(relation.relation_type)}"
+        other_concept_id = (
+            relation.target_id
+            if relation.source_id == selected_concept.id
+            else relation.source_id
+        )
+        headline = relation_headline(
+            relation,
+            dataset,
+            focal_concept_id=selected_concept.id,
         )
         passage_ids = evidence_passage_ids(relation.evidence)
         with st.container(border=True):
@@ -305,8 +308,8 @@ def _render_home_view(
 ) -> None:
     st.subheader("Start here")
     st.write(
-        "Use this dashboard to move between Aristotle's conceptual structure in Book II "
-        "and the exact passages that ground it."
+        "Use this dashboard to move between Aristotle's conceptual structure in "
+        f"{dataset.profile.book_label} and the exact passages that ground it."
     )
 
     entry_left, entry_mid, entry_right = st.columns(3)
@@ -334,7 +337,8 @@ def _render_home_view(
         with entry_mid.container(border=True):
             st.markdown("### Moral virtue")
             st.write(
-                "Start from formation: how Book II distinguishes moral virtue, "
+                "Start from formation: how "
+                f"{dataset.profile.book_label} distinguishes moral virtue, "
                 "connects it to habit, and ties it to pleasure and pain."
             )
             st.button(
@@ -368,7 +372,10 @@ def _render_home_view(
         st.markdown(
             "\n".join(
                 [
-                    "- Trace a virtue, vice, or principle through Book II as a graph.",
+                    (
+                        "- Trace a virtue, vice, or principle through "
+                        f"{dataset.profile.book_label} as a graph."
+                    ),
                     "- Open the exact passage that supports a concept or relation.",
                     "- Use the full map as a navigation surface instead of a static picture.",
                 ]
@@ -377,8 +384,8 @@ def _render_home_view(
     with what_right:
         st.markdown("### Download the dataset")
         st.write(
-            "Grab the structured Book II exports for NLP, graph analysis, or close reading "
-            "outside the app."
+            f"Grab the structured {dataset.profile.book_label} exports for NLP, "
+            "graph analysis, or close reading outside the app."
         )
         _render_download_chooser(
             st,
@@ -402,8 +409,9 @@ def _render_concept_view(
 ) -> None:
     st.subheader("Concept Explorer")
     st.caption(
-        "Start with the readable role a concept plays in Book II; open the data table "
-        "only if you need the scaffolding underneath."
+        "Start with the readable role a concept plays in "
+        f"{dataset.profile.book_label}; open the data table only if you need "
+        "the scaffolding underneath."
     )
     if selected_concept is None:
         st.info("Choose a concept from the sidebar.")
@@ -428,7 +436,7 @@ def _render_concept_view(
     with left_col:
         st.markdown(f"## {selected_concept.primary_label}")
         st.write(selected_concept.description)
-        st.markdown("### How this functions in Book II")
+        st.markdown(f"### How this functions in {dataset.profile.book_label}")
         st.markdown(concept_story_markdown(selected_concept, dataset))
         if selected_concept.notes:
             st.caption(selected_concept.notes)
@@ -497,7 +505,7 @@ def _render_concept_view(
             )
             st.caption(
                 "Use this smaller map for close reading. Use Overall Map when you want the "
-                "full filtered Book II network."
+                f"full filtered {dataset.profile.book_label} network."
             )
     else:
         st.info("No local concept map matches the current filters.")
@@ -571,8 +579,8 @@ def _render_passage_view(
 ) -> None:
     st.subheader("Passage Explorer")
     st.caption(
-        "Read a Book II passage in full, then see which concepts and relations the "
-        "reviewed graph grounds there."
+        f"Read a {dataset.profile.book_label} passage in full, then see which "
+        "concepts and relations the reviewed graph grounds there."
     )
     if not passage_choices or selected_passage_id is None:
         st.info("No passages match the current filters.")
@@ -747,7 +755,9 @@ def _render_overall_map_view(
 
 def _render_stats_view(st: Any, *, dataset: ViewerDataset) -> None:
     st.subheader("Stats")
-    st.caption("The current public dataset is a fully reviewed Book II export.")
+    st.caption(
+        f"The current public dataset is a fully reviewed {dataset.profile.book_label} export."
+    )
     stats_left, stats_right = st.columns(2)
     with stats_left:
         st.markdown("### Counts by concept kind")
@@ -797,7 +807,11 @@ def render() -> None:
     linkedin_icon_path = assets_dir / "linkedin-icon.svg"
     linkedin_icon_uri = _data_uri_for_asset(linkedin_icon_path, mime="image/svg+xml")
     page_icon = str(logo_path) if logo_path.exists() else "🏛️"
-    st.set_page_config(page_title="Aristotle Virtue Graph", page_icon=page_icon, layout="wide")
+    st.set_page_config(
+        page_title="Aristotle Virtue Graph",
+        page_icon=page_icon,
+        layout="wide",
+    )
 
     try:
         dataset = load_viewer_dataset()
@@ -842,8 +856,10 @@ def render() -> None:
     ):
         st.session_state[selected_concept_key] = default_concept
 
-    st.title("Aristotle Virtue Graph")
-    st.caption("Passage-grounded explorer for Nicomachean Ethics Book II.")
+    st.title(dataset.profile.app_title)
+    st.caption(
+        f"Passage-grounded explorer for *Nicomachean Ethics* {dataset.profile.book_label}."
+    )
     linkedin_img = (
         f"<img src='{linkedin_icon_uri}' alt='LinkedIn' width='12' "
         "style='vertical-align:-2px;margin-left:4px;'/>"
@@ -862,7 +878,16 @@ def render() -> None:
         ),
         unsafe_allow_html=True,
     )
-    st.markdown("`Book II only` `45 passages` `54 concepts` `42 relations`")
+    st.markdown(
+        " ".join(
+            [
+                f"`{dataset.profile.book_label} only`",
+                f"`{len(dataset.passages)} passages`",
+                f"`{len(dataset.concepts)} concepts`",
+                f"`{len(dataset.relations)} relations`",
+            ]
+        )
+    )
 
     def on_queue_concept(concept_id: str) -> None:
         queue_concept_navigation(
@@ -891,7 +916,7 @@ def render() -> None:
         st.sidebar.markdown("### Start here")
         for concept_id in start_here_ids:
             concept = dataset.concept_index[concept_id]
-            st.sidebar.button(
+        st.sidebar.button(
                 concept.primary_label,
                 key=f"start-here-{concept_id}",
                 use_container_width=True,
@@ -902,7 +927,7 @@ def render() -> None:
     selected_concept_id = cast(
         str,
         st.sidebar.selectbox(
-            "Selected concept",
+            "Open concept",
             options=[concept.id for concept in dataset.concepts],
             format_func=lambda concept_id: dataset.concept_index[concept_id].primary_label,
             key=selected_concept_key,
@@ -936,7 +961,7 @@ def render() -> None:
             default=assertion_tiers,
         )
         selected_sections = st.multiselect(
-            "Book II sections",
+            f"{dataset.profile.book_label} sections",
             options=list(range(1, 10)),
             default=list(range(1, 10)),
         )
@@ -949,7 +974,7 @@ def render() -> None:
         sections=frozenset(selected_sections),
     )
 
-    st.info(intro_markdown())
+    st.info(intro_markdown(dataset.profile.book_label))
     metric_cols = st.columns(4)
     metric_cols[0].metric("Concepts", dataset.stats.get("concept_count", len(dataset.concepts)))
     metric_cols[1].metric("Relations", dataset.stats.get("relation_count", len(dataset.relations)))
