@@ -5,7 +5,7 @@ The model is layered:
 
 - authoritative passage records
 - annotation records for concepts and relations
-- processed exports for graph building and local viewing
+- processed exports for graph building, app loading, and dataset download
 
 ## Passage authority
 
@@ -15,13 +15,12 @@ The sole passage authority for annotation and export is:
 
 Concepts and relations may only cite passage ids from that file.
 
-Milestone 3 also writes processed passage exports for downstream tools:
+Processed passage files are derived from the authoritative interim export.
+They do not create new passage ids.
+
+The public reviewed export lives at:
 
 - `data/processed/book2_passages.jsonl`
-- `data/processed/approved/book2_passages.jsonl`
-
-Processed passage files are derived from the authoritative interim export. They do not create
-new passage ids.
 
 Each passage row includes:
 
@@ -129,32 +128,26 @@ Every relation endpoint must resolve to an existing concept id.
 
 ## Review status
 
-Annotations are stored in one of two states:
+Annotations are still stored in two states:
 
 - `candidate`
 - `approved`
 
-Candidate mode exports all validated annotations.
-Strict approved mode exports only approved annotations and fails if approved relations point to
-candidate-only concepts.
-
-The local viewer supports both modes:
-
-- `candidate` reads `data/processed/`
-- `approved` reads `data/processed/approved/`
-
-If the approved subset has zero concepts and zero relations, the viewer shows an explicit
-empty-state notice instead of failing.
+But the public app now runs only on the reviewed Book II export.
+Candidate files remain for maintainer workflow when future additions are drafted and checked.
 
 ## Processed graph exports
 
-Milestone 3 writes these downstream artifacts:
+The canonical reviewed artifacts live in `data/processed/`:
 
+- `data/processed/book2_passages.jsonl`
+- `data/processed/book2_concepts.jsonl`
+- `data/processed/book2_relations.jsonl`
 - `data/processed/book2_graph.json`
 - `data/processed/book2_graph.graphml`
 - `data/processed/book2_stats.json`
 
-The primary rich export is `book2_graph.json`.
+`book2_graph.json` is the primary rich export.
 It uses a simple node-link shape:
 
 - `meta`: book number, export mode, and top-level counts
@@ -162,7 +155,7 @@ It uses a simple node-link shape:
 - `edges`: relation rows enriched for graph use
 - `passages`: passage rows for evidence lookup
 
-The local viewer reads the processed JSON artifacts directly.
+The local viewer and the in-app download bundle both read these processed artifacts directly.
 
 ## GraphML flattening
 

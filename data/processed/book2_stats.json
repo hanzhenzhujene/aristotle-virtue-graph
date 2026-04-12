@@ -1,6 +1,6 @@
 {
   "book": 2,
-  "mode": "candidate",
+  "mode": "strict_approved",
   "concept_count": 54,
   "relation_count": 42,
   "passage_count": 45,
@@ -33,11 +33,9 @@
     "textual": 66
   },
   "concept_review_statuses": {
-    "approved": 42,
-    "candidate": 12
+    "approved": 54
   },
   "relation_review_statuses": {
-    "approved": 33,
-    "candidate": 9
+    "approved": 42
   }
 }

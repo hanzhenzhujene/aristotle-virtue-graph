@@ -168,6 +168,7 @@ Keep identifiers stable and human-readable.
 - [x] Milestone 3 graph exports complete
 - [x] Milestone 4 local viewer complete
 - [x] Milestone 5 polish complete
+- [x] 2026-04-11 approved-first viewer refresh complete
 
 ## Surprises & Discoveries
 
@@ -195,6 +196,8 @@ Keep identifiers stable and human-readable.
   fields are flattened into predictable strings first.
 - A concept-centered ego graph is much more readable than trying to render the full Book II
   graph in one local view.
+- The full Book II graph is still readable at this scale if it gets its own page, stronger
+  physics/layout tuning, and supporting summaries instead of competing with the ego graph view.
 - Keeping this project inside the parent `MESOTES` git repository would blur project boundaries,
   so the clean publish path is to give `Aristotle Virtue Graph` its own standalone git history.
 - The repo became much easier to scan once the README led with a real viewer preview, a
@@ -212,10 +215,40 @@ Keep identifiers stable and human-readable.
 - Streamlit `tabs` are awkward for evidence-driven navigation because buttons elsewhere in the
   page cannot reliably move the user into the relevant tab, so a controlled view selector is a
   better fit when concept or relation evidence should open directly into Passage Explorer.
+- Streamlit also forbids mutating the session-state key of an already-instantiated widget in the
+  same run, so button-driven view changes need a pending-navigation key that is applied on the
+  next rerun rather than writing directly into the `st.radio` state.
+- On Streamlit Community Cloud, button-triggered navigation is safer when it uses `on_click`
+  callbacks plus queued state changes rather than mutating session state inside the button branch
+  itself.
 - Extending the reviewed core works best when each added triad is promoted in small, textually
   direct batches rather than trying to approve the rest of section 7 all at once.
 - Streamlit app URLs can be shortened from Community Cloud app settings, but that change lives in
   the hosted dashboard configuration rather than in repository code or deployment files.
+- A small public-facing icon helps the repo and live app feel more finished, as long as it stays
+  secondary to the evidence-first content and does not crowd the first-run path.
+- Once the remaining section 7 triads were rechecked, the gap between the draft layer and the
+  reviewed layer turned out to be small enough to close completely without changing the schema or
+  export architecture.
+- Streamlit's inline v2 components are a cleaner fit for graph click-through than trying to force
+  bidirectional behavior through `components.html()`, because the component can own an iframe and
+  return a clicked node id directly to Python.
+- The public app feels much clearer when it has one reviewed data surface, a homepage, and
+  dataset download, instead of exposing the repo's candidate-versus-approved workflow directly.
+- Book II is enough to prove the evidence-first method, but the clearest long-term product value
+  lies in expanding to the later books that complete courage and temperance, add the richer
+  practical virtue triads, explain practical wisdom, and connect the system back to happiness.
+- The per-concept reading flow becomes more natural when the ego graph is embedded as a small
+  local map inside Concept Explorer, rather than split into a separate top-level page.
+- The compact concept map reads better when relation labels are optional and rendered with a
+  light background plus width constraints instead of always being painted directly onto the edge.
+- Streamlit file downloads are more dependable when each processed artifact is served from
+  explicit bytes with a chooser-based UI, especially for `jsonl` and `graphml` files.
+- A small download chooser works better as a selectbox than as a long radio list once each
+  processed export is available separately, because the menu stays compact and can show file size
+  and filename clearly.
+- The graph interaction feels much more trustworthy when the UI says explicitly that every visible
+  concept node is clickable, rather than leaving users to infer that from hover behavior alone.
 
 ## Decision Log
 
@@ -271,6 +304,36 @@ Keep identifiers stable and human-readable.
   rechecking the direct wording of `NE II.7 ¶4`.
 - 2026-04-10: Document the Streamlit app-settings path for choosing a shorter custom subdomain,
   since shortening the live URL cannot be completed from inside the repo alone.
+- 2026-04-10: Add a dedicated `Overall Map` page rather than overloading the ego-graph page, so
+  the dashboard can support both close neighborhood reading and whole-graph inspection.
+- 2026-04-10: Fix the `Open supporting passage` and related jump buttons by switching the viewer
+  to a pending-navigation pattern, because Streamlit rejects direct same-run writes into the
+  session-state key of the active view radio.
+- 2026-04-10: Follow up on the passage-jump fix by moving the navigation buttons to `on_click`
+  callbacks as well, so Community Cloud does not execute the state write from inside the button
+  branch.
+- 2026-04-10: Replace the earlier repo mark with the supplied Aristotle head PNG and reuse that
+  same small raster icon in the README and Streamlit header.
+- 2026-04-11: Promote the remaining magnificence, proper-pride, and good-temper triads after
+  rechecking `NE II.7 ¶2-3`, so the reviewed Book II set now covers the full MVP graph.
+- 2026-04-11: Make `data/processed/` the canonical public reviewed export and treat candidate
+  files as maintainer-only workflow material rather than a second public app mode.
+- 2026-04-11: Replace the public review-mode toggle with a single reviewed Book II app surface,
+  add a `Home` page, and move technical metadata behind optional detail sections.
+- 2026-04-11: Add a small Streamlit v2 graph bridge around the existing PyVis HTML so clicking a
+  node in either graph view opens that concept in Concept Explorer.
+- 2026-04-11: Add an in-app reviewed dataset download bundle and document Books III, IV, VI, and
+  X as the next corpus-expansion roadmap rather than extending scope in this batch.
+- 2026-04-11: Clarify the post-Book II roadmap around Books III, IV, VI, and X specifically,
+  because those books would turn the project from a strong Book II explorer into a more complete
+  companion for students, reading groups, self-directed readers, and structured-dataset work.
+- 2026-04-11: Merge the ego graph into Concept Explorer and remove the separate `Graph View`, so
+  narrative context, evidence links, and local structure stay on one page during close reading.
+- 2026-04-12: Strengthen the graph click bridge around click, node-selection, and double-click
+  events, and make the map copy explicit that every visible concept node should open its concept
+  page.
+- 2026-04-12: Remove the decorative in-app explorer badge, keep the header plainer, and replace
+  the dataset buttons with a chooser that serves the full bundle or individual files directly.
 
 ## Outcomes & Retrospective
 
@@ -304,6 +367,7 @@ Outputs:
 - `data/processed/approved/book2_stats.json`
 - `docs/assets/viewer-courage-candidate.png`
 - `docs/assets/book2-overview.svg`
+- `docs/assets/aristotle-head-icon.png`
 - `docs/viewer_guide.md`
 - `docs/deployment.md`
 - `LICENSE`
@@ -320,27 +384,45 @@ Observed results:
 - repeated segmentation runs produced the same SHA-256 for
   `data/interim/book2_passages.jsonl`
 - candidate annotation validation currently exports 54 concepts and 42 relations
-- strict approved mode now validates and exports a reviewed subset of 26 concepts and
-  21 relations
+- strict approved mode now validates and exports the full reviewed Book II set of 54 concepts and
+  42 relations
 - processed passage export now carries all 45 authoritative Book II passages in both candidate
   and approved modes
 - GraphML export loads successfully as a flattened representation of the processed graph
-- the local Streamlit app launches successfully and supports concept, passage, graph, and stats
-  views over candidate and approved processed data
+- the local Streamlit app launches successfully and now centers on a reviewed-only Book II
+  dataset with `Home`, concept, passage, overall-map, and stats views
+- the local Streamlit app now also includes an interactive `Overall Map` page that renders the
+  full filtered Book II network with kind colors, built-in graph menus, and hub summaries
+- the overall map and the embedded concept map now support node click-through into Concept
+  Explorer through a small Streamlit v2 component bridge over the PyVis HTML
+- the small ego graph now lives inside Concept Explorer, so the default concept-reading page
+  includes its own local navigation surface without forcing a separate view change
+- Concept Explorer now leads with a deterministic plain-language summary and passage previews,
+  while ids, tiers, and tables sit behind optional detail sections
+- Passage Explorer is now easier to enter from `Home`, concept evidence cards, and relation cards,
+  and it supports concept jump-backs from linked passage concepts
+- the public app now includes a one-click reviewed dataset download bundle built from the
+  processed JSONL, JSON, GraphML, and stats exports
 - the README now leads with the actual Book II findings and the practical value of the graph,
   rather than only describing the toolchain
 - the public-facing repo now includes a real viewer preview, a compact overview graphic, a
   viewer guide, and a code license
+- the public-facing repo and live app now share a small Aristotle head PNG, which makes the
+  project easier to recognize without replacing the dashboard screenshot as the main entry point
 - the repository is now deployment-ready for Streamlit Community Cloud with a root app
   entrypoint and explicit deployment instructions
 - the README top section now centers on a single dashboard hero, a non-misleading live-status
   CTA, and a lighter first-run path that does not force export commands before opening the app
 - the public README now points directly to the live Streamlit dashboard at
-  `https://aristotle-virtue-graph-asqtn6j429dzaxvgfttrmk.streamlit.app/`
+  `https://aristotle-virtue-graph.streamlit.app/`
 - the viewer now includes curated `Start here` shortcuts and one-click passage jumps from
   concept evidence and relation shortcuts into Passage Explorer
-- the approved core now includes 42 concepts and 33 relations, adding reviewed wit and
-  friendliness triads to the earlier courage, temperance, liberality, and truthfulness coverage
+- the one-click passage jumps now work on Streamlit Community Cloud without raising a
+  session-state mutation exception
+- the passage-jump buttons now use callback-driven queued navigation, which is more robust across
+  local Streamlit and Community Cloud runs
+- the reviewed Book II graph now includes 54 concepts and 42 relations, covering all nine
+  section-7 virtue clusters in this MVP
 - the project now lives in its own public GitHub repository rather than remaining nested inside
   the unrelated parent `MESOTES` repository
 - `pytest`, `ruff check .`, and `mypy src/` all pass
@@ -348,17 +430,16 @@ Observed results:
 Known limitations:
 
 - Bekker references and CTS URNs are not yet populated
-- the approved subset is intentionally small and still needs broader human review and promotion
-  work before the rest of Book II should be treated as reviewed
 - GraphML intentionally flattens nested structures, so `book2_graph.json` remains the richer
   downstream format
-- the live Streamlit URL is currently a generated Streamlit hostname rather than a shorter custom
-  subdomain
-- the remaining section 7 clusters, especially magnificence, proper pride, and good temper, still
-  need the same careful reviewed promotion work before the approved layer can be treated as
-  broadly representative of all section 7 particulars
+- the live Streamlit URL is now the shorter custom subdomain
+  `https://aristotle-virtue-graph.streamlit.app/`
+- the current scope is still Book II only, so users who want the full treatment of courage,
+  temperance, practical wisdom, or happiness still need later books
 
 Next recommended step:
 
-- continue promoting the remaining Book II clusters after passage-by-passage review so approved
-  mode covers more than the current core
+- expand next into Books III, IV, VI, and X, in that order, while preserving the same reviewed,
+  passage-grounded discipline; that sequence would complete the Book II treatment of courage and
+  temperance, deepen the practical virtue triads, add practical wisdom as the governing hinge,
+  and connect the graph back to happiness and the good life

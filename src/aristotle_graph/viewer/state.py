@@ -3,15 +3,17 @@ from __future__ import annotations
 from collections import Counter
 from collections.abc import Sequence
 from dataclasses import dataclass
+from typing import cast
 
 from aristotle_graph.annotations.models import ConceptAnnotation, EvidenceRecord, RelationAnnotation
 from aristotle_graph.schemas import PassageRecord
 from aristotle_graph.viewer.load import ViewerDataset
 
 VIEW_NAMES = (
+    "Home",
     "Concept Explorer",
     "Passage Explorer",
-    "Graph View",
+    "Overall Map",
     "Stats",
 )
 
@@ -22,6 +24,27 @@ START_HERE_IDS = (
     "truthfulness",
     "moral-virtue",
 )
+
+HOME_CONCEPT_IDS = (
+    "courage",
+    "moral-virtue",
+    "habituation",
+)
+
+HOME_PASSAGE_ID = "ne.b2.s7.p1"
+
+RELATION_PRIORITY = {
+    "is_a": 0,
+    "formed_by": 1,
+    "requires": 2,
+    "determined_by": 3,
+    "relative_to": 4,
+    "concerns": 5,
+    "has_deficiency": 6,
+    "has_excess": 7,
+    "opposed_to": 8,
+    "contrasted_with": 9,
+}
 
 
 @dataclass(frozen=True)
@@ -129,7 +152,7 @@ def filter_passages(
 
 def default_concept_id(
     dataset: ViewerDataset,
-    visible_concepts: list[ConceptAnnotation],
+    visible_concepts: Sequence[ConceptAnnotation],
 ) -> str | None:
     if not visible_concepts:
         return None
@@ -143,6 +166,18 @@ def start_here_concept_ids(dataset: ViewerDataset) -> list[str]:
     return [
         concept_id for concept_id in START_HERE_IDS if concept_id in dataset.concept_index
     ]
+
+
+def home_concept_ids(dataset: ViewerDataset) -> list[str]:
+    return [concept_id for concept_id in HOME_CONCEPT_IDS if concept_id in dataset.concept_index]
+
+
+def home_passage_id(dataset: ViewerDataset) -> str | None:
+    if HOME_PASSAGE_ID in dataset.passage_index:
+        return HOME_PASSAGE_ID
+    if dataset.passages:
+        return dataset.passages[0].passage_id
+    return None
 
 
 def evidence_passage_ids(evidence_records: Sequence[EvidenceRecord]) -> list[str]:
@@ -213,6 +248,83 @@ def build_ego_graph(
         key=lambda concept: concept.primary_label.lower(),
     )
     return (visible_nodes, visible_relations)
+
+
+def build_filtered_graph(
+    dataset: ViewerDataset,
+    filters: ViewerFilters,
+    *,
+    include_isolates: bool = True,
+) -> tuple[list[ConceptAnnotation], list[RelationAnnotation]]:
+    visible_concepts = filter_concepts(dataset, filters)
+    visible_concept_ids = {concept.id for concept in visible_concepts}
+    visible_relations = [
+        relation
+        for relation in filter_relations(dataset, filters)
+        if relation.source_id in visible_concept_ids and relation.target_id in visible_concept_ids
+    ]
+
+    if include_isolates:
+        return (visible_concepts, visible_relations)
+
+    connected_ids = {
+        concept_id
+        for relation in visible_relations
+        for concept_id in (relation.source_id, relation.target_id)
+    }
+    connected_concepts = [
+        concept for concept in visible_concepts if concept.id in connected_ids
+    ]
+    return (connected_concepts, visible_relations)
+
+
+def graph_degree_rows(
+    concepts: Sequence[ConceptAnnotation],
+    relations: Sequence[RelationAnnotation],
+) -> list[dict[str, object]]:
+    in_degree: Counter[str] = Counter()
+    out_degree: Counter[str] = Counter()
+
+    for relation in relations:
+        out_degree[relation.source_id] += 1
+        in_degree[relation.target_id] += 1
+
+    rows = [
+        {
+            "label": concept.primary_label,
+            "id": concept.id,
+            "kind": concept.kind,
+            "in_degree": in_degree[concept.id],
+            "out_degree": out_degree[concept.id],
+            "total_degree": in_degree[concept.id] + out_degree[concept.id],
+        }
+        for concept in concepts
+    ]
+    rows.sort(
+        key=lambda row: (
+            -cast(int, row["total_degree"]),
+            -cast(int, row["out_degree"]),
+            cast(str, row["label"]).lower(),
+        )
+    )
+    return rows
+
+
+def relation_sort_key(
+    relation: RelationAnnotation,
+    dataset: ViewerDataset,
+    *,
+    focal_concept_id: str,
+) -> tuple[int, str, str]:
+    other_concept_id = (
+        relation.target_id if relation.source_id == focal_concept_id else relation.source_id
+    )
+    other_label = dataset.concept_index.get(other_concept_id)
+    return (
+        RELATION_PRIORITY.get(relation.relation_type, 99),
+        other_label.primary_label.lower() if other_label is not None else other_concept_id,
+        relation.id,
+    )
 
 
 def concept_stats(dataset: ViewerDataset) -> dict[str, int]:

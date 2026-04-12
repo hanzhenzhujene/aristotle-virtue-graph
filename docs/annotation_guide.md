@@ -1,6 +1,8 @@
 # Annotation Guide
 
-Milestone 2 introduces a candidate-versus-approved annotation workflow for Book II.
+The public app now runs on a fully reviewed Book II dataset.
+This guide is therefore maintainer-facing: it explains how new work begins in candidate files
+without leaking draft material into the public dashboard.
 
 ## Non-negotiable rules
 
@@ -19,6 +21,9 @@ Book II annotations live in:
 - `annotations/book2/concepts.approved.yaml`
 - `annotations/book2/relations.approved.yaml`
 
+The approved files now contain the full public Book II set.
+The candidate files are intentionally empty templates at the moment.
+
 ## Labeling guidance
 
 - Preserve Ross wording in `source_labels`.
@@ -36,41 +41,29 @@ Use `assertion_tier` carefully:
 
 Prefer `textual` where possible.
 Use `editorial_normalization` when the id or domain label is cleaner than Ross's surface form.
-Avoid speculative `interpretive` additions in this milestone.
+Avoid speculative `interpretive` additions.
 
 ## Review workflow
 
-1. Validate the candidate files:
+1. Draft new items in the candidate files.
+2. Validate the draft layer:
    - `python -m aristotle_graph.cli annotations validate`
-2. Inspect the cited passages for the item you want to promote.
-3. Move the item into the matching `*.approved.yaml` file.
-4. Change `review_status` from `candidate` to `approved`.
-5. Remove the candidate copy.
-6. Validate strict mode:
+3. Inspect the cited passages for every item you want to promote.
+4. Move the reviewed items into the matching `*.approved.yaml` file.
+5. Change `review_status` from `candidate` to `approved`.
+6. Remove the candidate copy.
+7. Validate strict mode:
    - `python -m aristotle_graph.cli annotations validate --strict-approved`
-7. Export strict processed outputs if needed:
-   - `python -m aristotle_graph.cli annotations export-all --strict-approved --output-dir data/processed/approved`
+8. Rebuild the public reviewed exports:
+   - `make annotations-export`
 
-## Processed outputs and viewer modes
+If you want a separate strict-approved compatibility copy as well:
 
-Candidate export writes processed files to `data/processed/`.
-Strict approved export should usually write to `data/processed/approved/`.
+- `make annotations-export-strict`
 
-The local Streamlit viewer reads those processed artifacts directly:
+## Public versus maintainer data surfaces
 
-- `candidate` mode loads `data/processed/`
-- `approved` mode loads `data/processed/approved/`
-
-The approved pathway is intentionally conservative.
-If no reviewed subset has been promoted yet, approved mode should show an explanatory empty
-state instead of treating candidate material as final.
-
-This repository now includes a small reviewed Book II core, so strict mode and approved-mode
-viewing are usable immediately.
-
-## Export outputs
-
-Candidate export writes:
+The public app reads:
 
 - `data/processed/book2_passages.jsonl`
 - `data/processed/book2_concepts.jsonl`
@@ -79,7 +72,11 @@ Candidate export writes:
 - `data/processed/book2_graph.graphml`
 - `data/processed/book2_stats.json`
 
-Strict approved export writes the same filenames to the chosen output directory.
+Those files are now reviewed-only exports.
+
+Candidate material is for maintainers.
+If a future workflow needs a draft export for internal review, produce it deliberately with the
+CLI rather than surfacing it in the public app by default.
 
 ## Promotion guidance
 

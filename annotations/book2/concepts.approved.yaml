@@ -670,3 +670,194 @@
       support_type: direct
       note: Section 7 places friendliness in the pleasantness exhibited in life in general.
   review_status: approved
+
+- id: magnificence
+  primary_label: magnificence
+  source_labels:
+    - magnificence
+  kind: virtue
+  description: Magnificence is a mean dealing with large sums or major expenditure.
+  assertion_tier: textual
+  book: 2
+  sections: [7]
+  evidence:
+    - passage_id: ne.b2.s7.p2
+      support_type: direct
+      note: Section 7 introduces magnificence as a mean distinct from liberality.
+  review_status: approved
+
+- id: vulgarity
+  primary_label: vulgarity
+  source_labels:
+    - tastelessness and vulgarity
+    - vulgarity
+  kind: vice
+  description: Vulgarity is the excess opposed to magnificence in the sphere of large expenditure.
+  assertion_tier: textual
+  book: 2
+  sections: [7]
+  evidence:
+    - passage_id: ne.b2.s7.p2
+      support_type: direct
+      note: Section 7 names tastelessness and vulgarity as the excess against magnificence.
+  review_status: approved
+
+- id: niggardliness
+  primary_label: niggardliness
+  source_labels:
+    - niggardliness
+  kind: vice
+  description: Niggardliness is the deficiency opposed to magnificence.
+  assertion_tier: textual
+  book: 2
+  sections: [7]
+  evidence:
+    - passage_id: ne.b2.s7.p2
+      support_type: direct
+      note: Section 7 names niggardliness as the deficiency in the sphere of magnificence.
+  review_status: approved
+
+- id: great-expenditure
+  primary_label: large sums
+  source_labels:
+    - large sums
+  aliases:
+    - great expenditure
+  kind: domain
+  description: The sphere of magnificence concerns large sums or major expenditure.
+  assertion_tier: editorial_normalization
+  book: 2
+  sections: [7]
+  evidence:
+    - passage_id: ne.b2.s7.p2
+      support_type: direct
+      note: Ross says magnificence differs from liberality by dealing with large sums.
+  review_status: approved
+
+- id: proper-pride
+  primary_label: proper pride
+  source_labels:
+    - proper pride
+  kind: virtue
+  description: Proper pride is the mean in the sphere of honour and dishonour.
+  assertion_tier: textual
+  book: 2
+  sections: [7]
+  evidence:
+    - passage_id: ne.b2.s7.p2
+      support_type: direct
+      note: Section 7 identifies proper pride as the mean concerning honour.
+  review_status: approved
+
+- id: vanity
+  primary_label: empty vanity
+  source_labels:
+    - empty vanity
+  aliases:
+    - vanity
+  kind: vice
+  description: Empty vanity is the excess opposed to proper pride.
+  assertion_tier: editorial_normalization
+  book: 2
+  sections: [7]
+  evidence:
+    - passage_id: ne.b2.s7.p2
+      support_type: direct
+      note: Section 7 names empty vanity as the excess in honour and dishonour.
+  review_status: approved
+
+- id: undue-humility
+  primary_label: undue humility
+  source_labels:
+    - undue humility
+  kind: vice
+  description: Undue humility is the deficiency opposed to proper pride.
+  assertion_tier: textual
+  book: 2
+  sections: [7]
+  evidence:
+    - passage_id: ne.b2.s7.p2
+      support_type: direct
+      note: Section 7 names undue humility as the deficiency in honour and dishonour.
+  review_status: approved
+
+- id: honor-and-dishonor
+  primary_label: honour and dishonour
+  source_labels:
+    - honour and dishonour
+  kind: domain
+  description: Honour and dishonour define the sphere in which proper pride is the mean.
+  assertion_tier: textual
+  book: 2
+  sections: [7]
+  evidence:
+    - passage_id: ne.b2.s7.p2
+      support_type: direct
+      note: Section 7 explicitly names honour and dishonour as the relevant sphere.
+  review_status: approved
+
+- id: good-temper
+  primary_label: good temper
+  source_labels:
+    - good temper
+    - good-tempered
+  kind: virtue
+  description: Good temper is the mean in relation to anger.
+  assertion_tier: textual
+  book: 2
+  sections: [1, 7]
+  evidence:
+    - passage_id: ne.b2.s7.p3
+      support_type: direct
+      note: Section 7 says the mean with regard to anger may be called good temper.
+  review_status: approved
+
+- id: irascibility
+  primary_label: irascibility
+  source_labels:
+    - irascibility
+    - irascible
+  kind: vice
+  description: Irascibility is the excess opposed to good temper.
+  assertion_tier: textual
+  book: 2
+  sections: [1, 7]
+  evidence:
+    - passage_id: ne.b2.s7.p3
+      support_type: direct
+      note: Section 7 names irascibility as the excess in relation to anger.
+  review_status: approved
+
+- id: lack-of-spirit
+  primary_label: inirascibility
+  source_labels:
+    - inirascibility
+    - inirascible sort of person
+  aliases:
+    - lack of spirit
+  kind: vice
+  description: Inirascibility is the deficiency opposed to good temper.
+  assertion_tier: editorial_normalization
+  book: 2
+  sections: [7]
+  evidence:
+    - passage_id: ne.b2.s7.p3
+      support_type: direct
+      note: Section 7 names inirascibility as the deficiency in relation to anger.
+  review_status: approved
+  notes: The repo id follows a mnemonic modern label, but Ross's wording is preserved in primary_label and source_labels.
+
+- id: anger
+  primary_label: anger
+  source_labels:
+    - anger
+  kind: passion
+  description: Anger is the sphere in which good temper, irascibility, and inirascibility are assessed.
+  assertion_tier: textual
+  book: 2
+  sections: [1, 5, 7, 9]
+  evidence:
+    - passage_id: ne.b2.s7.p3
+      support_type: direct
+      note: Section 7 explicitly names anger as the relevant sphere for good temper.
+  review_status: approved

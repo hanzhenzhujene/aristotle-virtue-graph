@@ -51,6 +51,25 @@
   <data key="d17">["Section 7 places ready wit in the sphere of giving amusement."]</data>
   <data key="d18">["direct"]</data>
 </node>
+<node id="anger">
+  <data key="d2">anger</data>
+  <data key="d3">anger</data>
+  <data key="d4">["anger"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">passion</data>
+  <data key="d7">Anger is the sphere in which good temper, irascibility, and inirascibility are assessed.</data>
+  <data key="d8">textual</data>
+  <data key="d9">2</data>
+  <data key="d10">[1, 5, 7, 9]</data>
+  <data key="d11">[{"note": "Section 7 explicitly names anger as the relevant sphere for good temper.", "passage_id": "ne.b2.s7.p3", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">anger</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b2.s7.p3"]</data>
+  <data key="d17">["Section 7 explicitly names anger as the relevant sphere for good temper."]</data>
+  <data key="d18">["direct"]</data>
+</node>
 <node id="boastfulness">
   <data key="d2">boastfulness</data>
   <data key="d3">boastfulness</data>
@@ -336,6 +355,44 @@
   <data key="d17">["Section 7 explicitly names giving and taking money as liberality's sphere."]</data>
   <data key="d18">["direct"]</data>
 </node>
+<node id="good-temper">
+  <data key="d2">good-temper</data>
+  <data key="d3">good temper</data>
+  <data key="d4">["good temper", "good-tempered"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">virtue</data>
+  <data key="d7">Good temper is the mean in relation to anger.</data>
+  <data key="d8">textual</data>
+  <data key="d9">2</data>
+  <data key="d10">[1, 7]</data>
+  <data key="d11">[{"note": "Section 7 says the mean with regard to anger may be called good temper.", "passage_id": "ne.b2.s7.p3", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">good temper</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b2.s7.p3"]</data>
+  <data key="d17">["Section 7 says the mean with regard to anger may be called good temper."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="great-expenditure">
+  <data key="d2">great-expenditure</data>
+  <data key="d3">large sums</data>
+  <data key="d4">["large sums"]</data>
+  <data key="d5">["great expenditure"]</data>
+  <data key="d6">domain</data>
+  <data key="d7">The sphere of magnificence concerns large sums or major expenditure.</data>
+  <data key="d8">editorial_normalization</data>
+  <data key="d9">2</data>
+  <data key="d10">[7]</data>
+  <data key="d11">[{"note": "Ross says magnificence differs from liberality by dealing with large sums.", "passage_id": "ne.b2.s7.p2", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">large sums</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b2.s7.p2"]</data>
+  <data key="d17">["Ross says magnificence differs from liberality by dealing with large sums."]</data>
+  <data key="d18">["direct"]</data>
+</node>
 <node id="habituation">
   <data key="d2">habituation</data>
   <data key="d3">habit</data>
@@ -353,6 +410,25 @@
   <data key="d15">1</data>
   <data key="d16">["ne.b2.s1.p1"]</data>
   <data key="d17">["Ross says moral virtue comes about from habit and is perfected by habit."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="honor-and-dishonor">
+  <data key="d2">honor-and-dishonor</data>
+  <data key="d3">honour and dishonour</data>
+  <data key="d4">["honour and dishonour"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">domain</data>
+  <data key="d7">Honour and dishonour define the sphere in which proper pride is the mean.</data>
+  <data key="d8">textual</data>
+  <data key="d9">2</data>
+  <data key="d10">[7]</data>
+  <data key="d11">[{"note": "Section 7 explicitly names honour and dishonour as the relevant sphere.", "passage_id": "ne.b2.s7.p2", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">honour and dishonour</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b2.s7.p2"]</data>
+  <data key="d17">["Section 7 explicitly names honour and dishonour as the relevant sphere."]</data>
   <data key="d18">["direct"]</data>
 </node>
 <node id="insensibility">
@@ -393,6 +469,25 @@
   <data key="d17">["Book II explicitly names intellectual virtue beside moral virtue."]</data>
   <data key="d18">["direct"]</data>
 </node>
+<node id="irascibility">
+  <data key="d2">irascibility</data>
+  <data key="d3">irascibility</data>
+  <data key="d4">["irascibility", "irascible"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">vice</data>
+  <data key="d7">Irascibility is the excess opposed to good temper.</data>
+  <data key="d8">textual</data>
+  <data key="d9">2</data>
+  <data key="d10">[1, 7]</data>
+  <data key="d11">[{"note": "Section 7 names irascibility as the excess in relation to anger.", "passage_id": "ne.b2.s7.p3", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">irascibility</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b2.s7.p3"]</data>
+  <data key="d17">["Section 7 names irascibility as the excess in relation to anger."]</data>
+  <data key="d18">["direct"]</data>
+</node>
 <node id="knowledge">
   <data key="d2">knowledge</data>
   <data key="d3">knowledge</data>
@@ -412,6 +507,25 @@
   <data key="d17">["Section 4 says the agent must have knowledge."]</data>
   <data key="d18">["direct"]</data>
 </node>
+<node id="lack-of-spirit">
+  <data key="d2">lack-of-spirit</data>
+  <data key="d3">inirascibility</data>
+  <data key="d4">["inirascibility", "inirascible sort of person"]</data>
+  <data key="d5">["lack of spirit"]</data>
+  <data key="d6">vice</data>
+  <data key="d7">Inirascibility is the deficiency opposed to good temper.</data>
+  <data key="d8">editorial_normalization</data>
+  <data key="d9">2</data>
+  <data key="d10">[7]</data>
+  <data key="d11">[{"note": "Section 7 names inirascibility as the deficiency in relation to anger.", "passage_id": "ne.b2.s7.p3", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13">The repo id follows a mnemonic modern label, but Ross's wording is preserved in primary_label and source_labels.</data>
+  <data key="d14">inirascibility</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b2.s7.p3"]</data>
+  <data key="d17">["Section 7 names inirascibility as the deficiency in relation to anger."]</data>
+  <data key="d18">["direct"]</data>
+</node>
 <node id="liberality">
   <data key="d2">liberality</data>
   <data key="d3">liberality</data>
@@ -429,6 +543,25 @@
   <data key="d15">1</data>
   <data key="d16">["ne.b2.s7.p2"]</data>
   <data key="d17">["Section 7 names liberality as the mean with respect to money."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="magnificence">
+  <data key="d2">magnificence</data>
+  <data key="d3">magnificence</data>
+  <data key="d4">["magnificence"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">virtue</data>
+  <data key="d7">Magnificence is a mean dealing with large sums or major expenditure.</data>
+  <data key="d8">textual</data>
+  <data key="d9">2</data>
+  <data key="d10">[7]</data>
+  <data key="d11">[{"note": "Section 7 introduces magnificence as a mean distinct from liberality.", "passage_id": "ne.b2.s7.p2", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">magnificence</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b2.s7.p2"]</data>
+  <data key="d17">["Section 7 introduces magnificence as a mean distinct from liberality."]</data>
   <data key="d18">["direct"]</data>
 </node>
 <node id="meanness">
@@ -486,6 +619,25 @@
   <data key="d15">1</data>
   <data key="d16">["ne.b2.s1.p1"]</data>
   <data key="d17">["The opening argument contrasts virtue with what arises by nature."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="niggardliness">
+  <data key="d2">niggardliness</data>
+  <data key="d3">niggardliness</data>
+  <data key="d4">["niggardliness"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">vice</data>
+  <data key="d7">Niggardliness is the deficiency opposed to magnificence.</data>
+  <data key="d8">textual</data>
+  <data key="d9">2</data>
+  <data key="d10">[7]</data>
+  <data key="d11">[{"note": "Section 7 names niggardliness as the deficiency in the sphere of magnificence.", "passage_id": "ne.b2.s7.p2", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">niggardliness</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b2.s7.p2"]</data>
+  <data key="d17">["Section 7 names niggardliness as the deficiency in the sphere of magnificence."]</data>
   <data key="d18">["direct"]</data>
 </node>
 <node id="obsequiousness">
@@ -600,6 +752,25 @@
   <data key="d15">1</data>
   <data key="d16">["ne.b2.s7.p2"]</data>
   <data key="d17">["Section 7 names prodigality as the excess in giving and taking money."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="proper-pride">
+  <data key="d2">proper-pride</data>
+  <data key="d3">proper pride</data>
+  <data key="d4">["proper pride"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">virtue</data>
+  <data key="d7">Proper pride is the mean in the sphere of honour and dishonour.</data>
+  <data key="d8">textual</data>
+  <data key="d9">2</data>
+  <data key="d10">[7]</data>
+  <data key="d11">[{"note": "Section 7 identifies proper pride as the mean concerning honour.", "passage_id": "ne.b2.s7.p2", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">proper pride</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b2.s7.p2"]</data>
+  <data key="d17">["Section 7 identifies proper pride as the mean concerning honour."]</data>
   <data key="d18">["direct"]</data>
 </node>
 <node id="quarrelsomeness">
@@ -792,6 +963,44 @@
   <data key="d17">["Section 7 names truthfulness as the mean in the sphere of truth."]</data>
   <data key="d18">["direct"]</data>
 </node>
+<node id="undue-humility">
+  <data key="d2">undue-humility</data>
+  <data key="d3">undue humility</data>
+  <data key="d4">["undue humility"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">vice</data>
+  <data key="d7">Undue humility is the deficiency opposed to proper pride.</data>
+  <data key="d8">textual</data>
+  <data key="d9">2</data>
+  <data key="d10">[7]</data>
+  <data key="d11">[{"note": "Section 7 names undue humility as the deficiency in honour and dishonour.", "passage_id": "ne.b2.s7.p2", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">undue humility</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b2.s7.p2"]</data>
+  <data key="d17">["Section 7 names undue humility as the deficiency in honour and dishonour."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="vanity">
+  <data key="d2">vanity</data>
+  <data key="d3">empty vanity</data>
+  <data key="d4">["empty vanity"]</data>
+  <data key="d5">["vanity"]</data>
+  <data key="d6">vice</data>
+  <data key="d7">Empty vanity is the excess opposed to proper pride.</data>
+  <data key="d8">editorial_normalization</data>
+  <data key="d9">2</data>
+  <data key="d10">[7]</data>
+  <data key="d11">[{"note": "Section 7 names empty vanity as the excess in honour and dishonour.", "passage_id": "ne.b2.s7.p2", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">empty vanity</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b2.s7.p2"]</data>
+  <data key="d17">["Section 7 names empty vanity as the excess in honour and dishonour."]</data>
+  <data key="d18">["direct"]</data>
+</node>
 <node id="virtuous-action">
   <data key="d2">virtuous-action</data>
   <data key="d3">acts in accordance with virtue</data>
@@ -809,6 +1018,25 @@
   <data key="d15">1</data>
   <data key="d16">["ne.b2.s2.p1"]</data>
   <data key="d17">["Section 2 turns the inquiry toward actions and how they ought to be done."]</data>
+  <data key="d18">["direct"]</data>
+</node>
+<node id="vulgarity">
+  <data key="d2">vulgarity</data>
+  <data key="d3">vulgarity</data>
+  <data key="d4">["tastelessness and vulgarity", "vulgarity"]</data>
+  <data key="d5">[]</data>
+  <data key="d6">vice</data>
+  <data key="d7">Vulgarity is the excess opposed to magnificence in the sphere of large expenditure.</data>
+  <data key="d8">textual</data>
+  <data key="d9">2</data>
+  <data key="d10">[7]</data>
+  <data key="d11">[{"note": "Section 7 names tastelessness and vulgarity as the excess against magnificence.", "passage_id": "ne.b2.s7.p2", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d12">approved</data>
+  <data key="d13"></data>
+  <data key="d14">vulgarity</data>
+  <data key="d15">1</data>
+  <data key="d16">["ne.b2.s7.p2"]</data>
+  <data key="d17">["Section 7 names tastelessness and vulgarity as the excess against magnificence."]</data>
   <data key="d18">["direct"]</data>
 </node>
 <node id="wit">
@@ -984,6 +1212,48 @@
   <data key="d29">["Section 7 describes the excessive pleasant type as obsequious or flattering."]</data>
   <data key="d30">["direct"]</data>
 </edge>
+<edge source="good-temper" target="anger" id="good-temper--concerns--anger">
+  <data key="d19">good-temper--concerns--anger</data>
+  <data key="d20">good-temper</data>
+  <data key="d21">concerns</data>
+  <data key="d22">anger</data>
+  <data key="d23">textual</data>
+  <data key="d24">[{"note": "Section 7 says the mean and extremes here are with regard to anger.", "passage_id": "ne.b2.s7.p3", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b2.s7.p3"]</data>
+  <data key="d29">["Section 7 says the mean and extremes here are with regard to anger."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
+<edge source="good-temper" target="lack-of-spirit" id="good-temper--has-deficiency--lack-of-spirit">
+  <data key="d19">good-temper--has-deficiency--lack-of-spirit</data>
+  <data key="d20">good-temper</data>
+  <data key="d21">has_deficiency</data>
+  <data key="d22">lack-of-spirit</data>
+  <data key="d23">editorial_normalization</data>
+  <data key="d24">[{"note": "Section 7 names inirascibility as the deficiency corresponding to good temper.", "passage_id": "ne.b2.s7.p3", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b2.s7.p3"]</data>
+  <data key="d29">["Section 7 names inirascibility as the deficiency corresponding to good temper."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
+<edge source="good-temper" target="irascibility" id="good-temper--has-excess--irascibility">
+  <data key="d19">good-temper--has-excess--irascibility</data>
+  <data key="d20">good-temper</data>
+  <data key="d21">has_excess</data>
+  <data key="d22">irascibility</data>
+  <data key="d23">textual</data>
+  <data key="d24">[{"note": "Section 7 names irascibility as the excess corresponding to good temper.", "passage_id": "ne.b2.s7.p3", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b2.s7.p3"]</data>
+  <data key="d29">["Section 7 names irascibility as the excess corresponding to good temper."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
 <edge source="liberality" target="giving-and-taking-money" id="liberality--concerns--giving-and-taking-money">
   <data key="d19">liberality--concerns--giving-and-taking-money</data>
   <data key="d20">liberality</data>
@@ -1024,6 +1294,48 @@
   <data key="d27">1</data>
   <data key="d28">["ne.b2.s7.p2"]</data>
   <data key="d29">["Section 7 names prodigality as the excess corresponding to liberality."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
+<edge source="magnificence" target="great-expenditure" id="magnificence--concerns--great-expenditure">
+  <data key="d19">magnificence--concerns--great-expenditure</data>
+  <data key="d20">magnificence</data>
+  <data key="d21">concerns</data>
+  <data key="d22">great-expenditure</data>
+  <data key="d23">editorial_normalization</data>
+  <data key="d24">[{"note": "Ross distinguishes magnificence from liberality by dealing with large sums.", "passage_id": "ne.b2.s7.p2", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b2.s7.p2"]</data>
+  <data key="d29">["Ross distinguishes magnificence from liberality by dealing with large sums."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
+<edge source="magnificence" target="niggardliness" id="magnificence--has-deficiency--niggardliness">
+  <data key="d19">magnificence--has-deficiency--niggardliness</data>
+  <data key="d20">magnificence</data>
+  <data key="d21">has_deficiency</data>
+  <data key="d22">niggardliness</data>
+  <data key="d23">textual</data>
+  <data key="d24">[{"note": "Section 7 names niggardliness as the deficiency corresponding to magnificence.", "passage_id": "ne.b2.s7.p2", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b2.s7.p2"]</data>
+  <data key="d29">["Section 7 names niggardliness as the deficiency corresponding to magnificence."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
+<edge source="magnificence" target="vulgarity" id="magnificence--has-excess--vulgarity">
+  <data key="d19">magnificence--has-excess--vulgarity</data>
+  <data key="d20">magnificence</data>
+  <data key="d21">has_excess</data>
+  <data key="d22">vulgarity</data>
+  <data key="d23">textual</data>
+  <data key="d24">[{"note": "Section 7 names vulgarity as the excess corresponding to magnificence.", "passage_id": "ne.b2.s7.p2", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b2.s7.p2"]</data>
+  <data key="d29">["Section 7 names vulgarity as the excess corresponding to magnificence."]</data>
   <data key="d30">["direct"]</data>
 </edge>
 <edge source="moral-virtue" target="pain" id="moral-virtue--concerns--pain">
@@ -1094,6 +1406,48 @@
   <data key="d27">1</data>
   <data key="d28">["ne.b2.s6.p6"]</data>
   <data key="d29">["Section 6 says virtue is a state of character concerned with choice."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
+<edge source="proper-pride" target="honor-and-dishonor" id="proper-pride--concerns--honor-and-dishonor">
+  <data key="d19">proper-pride--concerns--honor-and-dishonor</data>
+  <data key="d20">proper-pride</data>
+  <data key="d21">concerns</data>
+  <data key="d22">honor-and-dishonor</data>
+  <data key="d23">textual</data>
+  <data key="d24">[{"note": "Section 7 says proper pride is the mean with regard to honour and dishonour.", "passage_id": "ne.b2.s7.p2", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b2.s7.p2"]</data>
+  <data key="d29">["Section 7 says proper pride is the mean with regard to honour and dishonour."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
+<edge source="proper-pride" target="undue-humility" id="proper-pride--has-deficiency--undue-humility">
+  <data key="d19">proper-pride--has-deficiency--undue-humility</data>
+  <data key="d20">proper-pride</data>
+  <data key="d21">has_deficiency</data>
+  <data key="d22">undue-humility</data>
+  <data key="d23">textual</data>
+  <data key="d24">[{"note": "Section 7 names undue humility as the deficiency corresponding to proper pride.", "passage_id": "ne.b2.s7.p2", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b2.s7.p2"]</data>
+  <data key="d29">["Section 7 names undue humility as the deficiency corresponding to proper pride."]</data>
+  <data key="d30">["direct"]</data>
+</edge>
+<edge source="proper-pride" target="vanity" id="proper-pride--has-excess--vanity">
+  <data key="d19">proper-pride--has-excess--vanity</data>
+  <data key="d20">proper-pride</data>
+  <data key="d21">has_excess</data>
+  <data key="d22">vanity</data>
+  <data key="d23">editorial_normalization</data>
+  <data key="d24">[{"note": "Section 7 names empty vanity as the excess corresponding to proper pride.", "passage_id": "ne.b2.s7.p2", "quote_excerpt": null, "support_type": "direct"}]</data>
+  <data key="d25">approved</data>
+  <data key="d26"></data>
+  <data key="d27">1</data>
+  <data key="d28">["ne.b2.s7.p2"]</data>
+  <data key="d29">["Section 7 names empty vanity as the excess corresponding to proper pride."]</data>
   <data key="d30">["direct"]</data>
 </edge>
 <edge source="state-of-character" target="faculty" id="state-of-character--contrasted-with--faculty">
