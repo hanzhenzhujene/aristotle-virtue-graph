@@ -480,6 +480,9 @@ Observed results:
   bordered context-card shell, so that header content stays while the contour line disappears
 - the global top spacing above the hero card has been increased again by roughly another
   half-centimeter so the `Aristotle Virtue Graph` box clears the Streamlit header more reliably
+- the README has been rewritten into a cleaner submission-ready public surface that foregrounds
+  the live app, the reviewed Book II deliverables, the first demo path, and the exact exported
+  artifacts before dropping into rebuild and maintainer-oriented details
 - the public-facing repo now includes a real viewer preview, a compact overview graphic, a
   viewer guide, and a code license
 - the public-facing repo and live app now share a small Aristotle head PNG, which makes the
